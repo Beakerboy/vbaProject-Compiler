@@ -7,6 +7,7 @@ def writeFile():
     # second fat block is 80000000
 
 def writeHeader():
+    """Create a 512 byte header sector for a OLE object."""
     DOUBLE_ZERO = "0000000000000000"
     LONG_ZERO = "00000000"
     SHORT_ZERO = "0000"
@@ -70,16 +71,17 @@ def writeHeader():
     header += sectFat
 
 def countFatChainSectors():
+    ""Calculate the number of sectors needed to express the FAT chain.""
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
 
 def getFirstDirectoryChainSector():
-    return "01000000"
+    return 1
 
 def countMiniFatChainSectors():
-    return "0x01 00 00 00"
+    return 1
   
 def getFirstMiniChainSector():
-    return "0x02 00 00 00"
+    return 2
   
 def getFirst109FatSectors()
     #return an array of 109 4-byte numbers 
