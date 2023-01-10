@@ -10,27 +10,65 @@ def writeHeader():
     DOUBLE_ZERO = "0000000000000000"
     LONG_ZERO = "00000000"
     SHORT_ZERO = "0000"
-    
+    header = ""
+
     absig = "D0CF11E0A1B11AE1"
+    header += absig
+
     clsid = DOUBLE_ZERO + DOUBLE_ZERO
+    header += clsid
+
     uMinorVersion = "3E00"
-    uDllVersion = "0300" 
+    header += uMinorVersion
+
+    uDllVersion = "0300"
+    header += uDllVersion
+
     uByteOrder = "FEFF"
+    header += uByteOrder
+
     uSectorShift = "0900"
+    header += uSectorShift
+
     uMiniSectorShift = "0600"
+    header += uMiniSectorShift
+
     usReserved  = SHORT_ZERO
+    header += usReserved
+
     ulReserved1 = LONG_ZERO
+    header += ulReserved1
+
     csectDir = LONG_ZERO
+    header == csectDir
+
     csectFat = countFatChainSectors()
+    header += csectFat
+
     sectDirStart =  getFirstDirectoryChainSector()
+    header += sectDirStart
+
     signature = LONG_ZERO
+    header += signature
+
     ulMiniSectorCutoff = "00100000" 
+    header += ulMiniSectorCutoff
+
     sectMiniFatStart = getFirstMiniChainSector()
+    header += sectMiniFatStart
+
     csectMiniFat =  countMiniFatChainSectors()
+    header += csectMiniFat
+
     sectDifStart = "FEFFFFFF"
+    header += sectDifStart
+
     csectDif = LONG_ZERO
+    header += csectDif
+
     sectFat = getFirst109FatSectors()
-    
+    header += sectFat
+
 def countFatChainSectors():
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
 
