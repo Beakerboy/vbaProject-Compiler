@@ -18,11 +18,19 @@ def main(args):
     vbaProject.write(rootPath)
 
 class VbaProject:
+
+    #data members of class
+    path = "."  #path to the project root
+
+    #class default constructor
+    def __init__(path): 
+          self.path = path
+
     def writeFile():
-    writeHeader()
-    writeFat(0)
+        writeHeader()
+        writeFat(0)
     
-    # second fat block is 80000000
+        # second fat block is 80000000
 
     def header():
         """Create a 512 byte header sector for a OLE object."""
