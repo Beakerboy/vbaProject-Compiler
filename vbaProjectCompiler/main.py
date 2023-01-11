@@ -14,7 +14,7 @@ def writeHeader():
    
     SHORT_ZERO = b'\x00\x00'
     LONG_ZERO = b'\x00\x00\x00\x00'
-    LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
+    LONG_LONG_ZERO = bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00')
 
     absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
     header = bytearray(absig)
