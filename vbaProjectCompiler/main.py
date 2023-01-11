@@ -102,8 +102,8 @@ class VbaProject:
         csectDif = LONG_ZERO
         header += csectDif
 
-        #sectFat = writeFatSectorList()
-        #header += sectFat
+        sectFat = self.writeFatSectorList()
+        header += sectFat
         return header
 
     def addStreamSectorList(self, list):
