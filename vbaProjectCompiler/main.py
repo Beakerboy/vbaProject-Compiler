@@ -24,52 +24,52 @@ def writeHeader():
     header += LONG_LONG_ZERO
 
     uMinorVersion = b"\x3e\x00"
-    header.append(uMinorVersion)
+    header += uMinorVersion
 
     uDllVersion = b"\x03\x00"
-    header.append(uDllVersion)
+    header += uDllVersion
 
     uByteOrder = b"\xfe\xff"
-    header.append(uByteOrder)
+    header += uByteOrder
 
     uSectorShift = b"\x09\x00"
-    header.append(uSectorShift)
+    header += uSectorShift
 
     uMiniSectorShift = b'\x06\x00'
-    header.append(uMiniSectorShift)
+    header += uMiniSectorShift
 
     usReserved  = SHORT_ZERO
-    header.append(usReserved)
+    header += usReserved
 
     ulReserved1 = LONG_ZERO
-    header.append(ulReserved1)
+    header += ulReserved1
 
     csectDir = LONG_ZERO
-    header.append(csectDir)
+    header += csectDir
 
     csectFat = countFatChainSectors()
-    header.append(struct.pack("<I",  csectFat))
+    header += struct.pack("<I",  csectFat)
 
     sectDirStart =  getFirstDirectoryChainSector()
-    header.append(struct.pack("<I", sectDirStart))
+    header += struct.pack("<I", sectDirStart)
 
     signature = LONG_ZERO
-    header.append(signature)
+    header += signature
 
     ulMiniSectorCutoff = b"\x00\x10\x00\x00"
-    header.append(ulMiniSectorCutoff)
+    header += ulMiniSectorCutoff
 
     sectMiniFatStart = getFirstMiniChainSector()
-    header.append(struct.pack("<I", sectMiniFatStart))
+    header += struct.pack("<I", sectMiniFatStart)
 
     csectMiniFat =  countMiniFatChainSectors()
-    header.append(struct.pack("<I", csectMiniFat))
+    header += struct.pack("<I", csectMiniFat)
 
     sectDifStart = "\xfe\xff\xff\xff"
-    header.append(sectDifStart)
+    header += sectDifStart
 
     csectDif = LONG_ZERO
-    header.append(csectDif)
+    header += csectDif
 
     #sectFat = getFirst109FatSectors()
     #header += sectFat
