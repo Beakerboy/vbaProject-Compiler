@@ -186,9 +186,9 @@ class Directory:
 
     size = 0
 
-   def nameSize(self):
-       """The byte length of the name"""
-       return (len(self.name) + 1) * 2
+    def nameSize(self):
+        """The byte length of the name"""
+        return (len(self.name) + 1) * 2
 
     def writeDirectory(self):
         dir = bytearray(self.name, "utf8")
