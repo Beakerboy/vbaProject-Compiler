@@ -33,7 +33,59 @@ class VbaProject:
 
     #class default constructor
     def __init__(self, path): 
-          self.path = path
+        self.path = path
+        root = Directory()
+        root.name = "Root Entry"
+        root.type = 5
+        root.subDirectoryId = 8
+        root.modifiedHigh = 3266847680
+        root.modifiedLow  =   31007795
+        root.sector = 3
+        root.size = 6528
+        directories.append(root)
+
+        vba = Directory()
+        vba.name = "VBA"
+        vba.type = 1
+        vba.subDirectoryId = 5
+        vba.modifiedHigh = 3266847680
+        vba.modifiedLow  =   31007795
+        directories.append(vba)
+
+        thisWorkbook = Directory()
+        thisWorkbook.name = "ThisWorkbook"
+        thisWorkbook.type = 2
+        thisWorkbook.color = 1
+        thisWorkbook.nextDirectoryId = 4
+        thisWorkbook.size = 999
+        directories.append(thisWorkbook)
+
+        sheet1 = Directory()
+        sheet1.name = "Sheet1"
+        sheet1.type = 2
+        sheet1.color = 1
+        sheet1.previousDirectoryId = 6
+        sheet1.sector = 16
+        sheet1.size = 991
+        directories.append(sheet1)
+
+        module1 = Directory()
+        module1.name = "Module1"
+        module1.type = 2
+        module1.color = 1
+        module1.previousDirectoryId = 3
+        module1.nextDirectoryId = 2
+        module1.sector = 2
+        module1.size = 681
+
+        project = Directory()
+        project.name = "VBA Project"
+
+        dir = Directory()
+        dir.name = "dir"
+
+        projectWm = Directory()
+        projectWm.name = "PROJECTwm"
 
     def write(self):
         #open filestream to path.vbaProject.bin
