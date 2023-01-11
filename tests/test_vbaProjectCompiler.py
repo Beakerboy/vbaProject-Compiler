@@ -24,6 +24,8 @@ def test_streamSectors():
     list1 = [7]
     list2 = [4, 5, 6, 8, 16, 9, 10, 11, 12, 13, 14, 15, 17]
     project.addStreamSectorList(list1)
+    assert project.countStreams() == 1
     project.addStreamSectorList(list2)
+    assert project.countStreams() == 2
     result = project.streamSectors
     assert result == [list1, list2]
