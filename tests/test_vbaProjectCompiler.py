@@ -30,3 +30,13 @@ def test_streamSectors():
     result = project.streamSectors
     assert result == [list1, list2]
     assert project.getFatChainLength() == 17
+    assert project.countFatChainSectors() == 1
+
+    result = project.writeFatSectorList()
+    empty = b'\xff\xff\xff\xff'
+    emptyLine = empty * 4
+    padding = emptyLine * 27
+    expected = b'\x00\x00\x00\x00' + padding
+    assert result == expected
+   
+    
