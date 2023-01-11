@@ -22,6 +22,12 @@ class VbaProject:
     #data members of class
     path = "."  #path to the project root
 
+    #Each element is a chain of sector numbers for a particular stream.
+    streamSectors = []
+
+    #A list of sectors that contain FAT chain information.
+    fatSectors = []
+
     #class default constructor
     def __init__(self, path): 
           self.path = path
@@ -96,17 +102,24 @@ class VbaProject:
         csectDif = LONG_ZERO
         header += csectDif
 
-        #sectFat = getFirst109FatSectors()
+        #sectFat = writeFatSectorList()
         #header += sectFat
         return header
+
+    def addStreamSectorList(self, list):
+        """Add a list of sector numbers to the FAT table."""
+        self.streamSectors.append(list)
+
+    def countStreams(self):
+        """Return the number of streams defined in the FAT table."""
+        return len(self.streamSectors)
 
     def writeFat(i):
         return 1
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
-        #return self.getFatChainLength() / 512 + 1 #intdiv, roundup.
-        return 1
+        return self.getFatChainLength() // 511 + 1
 
     def getFirstDirectoryChainSector(self):
         return 1
@@ -120,10 +133,19 @@ class VbaProject:
     def getFirstMiniChainSector(self):
         return 2
   
-    def getFirst109FatSectors(self):
-        #return an array of 109 4-byte numbers 
-        #00000000 followed by FFFFFFFF 108 times
-        return "00000000";
+    def writeFatSectorList(self):
+        """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
+        list = bytearray(b'\x00\x00\x00\x00')
+        if self.countFatChainSectors() > 1:
+            #the second FAT sector is number 128.
+            pass
+        list = list.ljust(436, b'\xff')
+        return list
+
+    def getFatSectors(self):
+        sectorList = [0]
+        # add 
+        return sectorList
 
     def writeFatSector(self, i):
         """return a 512 byte sector"""
@@ -131,11 +153,8 @@ class VbaProject:
         # followed by 511 bytes
 
     def getFatChainLength(self):
-        total = 0
-        #get the length of the fat chain including termination and beginning codes
-        #Total = getDirectoryChainLength() + 1
-        #Total += getMiniFatChainLength() + 1
-        #for stream in streams:
-        #  total += stream.getChainLength() + 1
-        #total += total % 511 #add one double for each sector
+        """Count the number of entries in the complete FAT chain."""
+        total = 1
+        for stream in self.streamSectors:
+            total += len(stream) + 1
         return total
