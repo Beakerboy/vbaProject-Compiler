@@ -106,6 +106,9 @@ class VbaProject:
     def addStreamSectorList(self, list):
         self.streamSectors.append(list)
 
+    def countStreams(self):
+        return len(self.streamSectors)
+
     def writeFat(i):
         return 1
 
