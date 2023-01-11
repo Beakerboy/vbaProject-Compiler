@@ -191,7 +191,7 @@ class Directory:
         return (len(self.name) + 1) * 2
 
     def writeDirectory(self):
-        dir = bytearray(self.name, "utf8")
+        dir = bytearray(self.name, "utf_16")
         dir = dir.ljust(64, b'\x00')
         dir += struct.pack("<h", self.nameSize())
         dir += struct.pack("b", self.type)
