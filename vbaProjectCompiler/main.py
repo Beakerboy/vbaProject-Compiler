@@ -78,7 +78,7 @@ def countFatChainSectors():
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
 
 def getFirstDirectoryChainSector():
-    return 1
+    return struct.pack("<I", 1)
 
 def countMiniFatChainSectors():
     return 1
@@ -102,7 +102,3 @@ def getFatChainLength():
       total += stream.getChainLength() + 1
     Total += total % 511 #add one double for each sector
     return total
-
-def formatLittleEndien(input, bytes):
-    # return a string of the byte representation
-    Given formatLittleEndien(1,4) return "01000000"
