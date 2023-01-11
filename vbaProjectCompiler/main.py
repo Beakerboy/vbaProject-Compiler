@@ -11,7 +11,7 @@ def writeFile():
 
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
-    DOUBLE_ZERO = "0000000000000000"
+    LONG_LONG_ZERO = "0000000000000000"
     LONG_ZERO = "00000000"
     SHORT_ZERO = "0000"
     header = ""
@@ -19,7 +19,7 @@ def writeHeader():
     absig = "D0CF11E0A1B11AE1"
     header += absig
 
-    clsid = DOUBLE_ZERO + DOUBLE_ZERO
+    clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
     header += clsid
 
     uMinorVersion = "3E00"
@@ -74,7 +74,7 @@ def writeHeader():
     header += sectFat
 
 def countFatChainSectors():
-    ""Calculate the number of sectors needed to express the FAT chain.""
+    """Calculate the number of sectors needed to express the FAT chain."""
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
 
 def getFirstDirectoryChainSector():
@@ -86,19 +86,21 @@ def countMiniFatChainSectors():
 def getFirstMiniChainSector():
     return 2
   
-def getFirst109FatSectors()
+def getFirst109FatSectors():
     #return an array of 109 4-byte numbers 
     #00000000 followed by FFFFFFFF 108 times
+    return "00000000";
 
 def writeFatSector(i):
-    #return a 512 byte sector
-    return FE FF FF FF followed by 511 bytes
+    """return a 512 byte sector"""
+    return "FE FF FF FF"
+    # followed by 511 bytes
 
 def getFatChainLength():
     #get the length of the fat chain including termination and beginning codes
     Total = getDirectoryChainLength() + 1
     Total += getMiniFatChainLength() + 1
-    foreach (getStreams as stream)
+    for stream in streams:
       total += stream.getChainLength() + 1
     Total += total % 511 #add one double for each sector
     return total
