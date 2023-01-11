@@ -50,7 +50,7 @@ def writeHeader():
     header += csectFat
 
     sectDirStart =  getFirstDirectoryChainSector()
-    header += sectDirStart
+    header += struct.pack("<I", sectDirStart)
 
     signature = LONG_ZERO
     header += signature
@@ -72,6 +72,7 @@ def writeHeader():
 
     sectFat = getFirst109FatSectors()
     header += sectFat
+    return header
 
 def writeFat(i):
     return 1
@@ -81,7 +82,10 @@ def countFatChainSectors():
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
 
 def getFirstDirectoryChainSector():
-    return struct.pack("<I", 1)
+    return 1
+
+def getDirectoryChainLength():
+    return 1
 
 def countMiniFatChainSectors():
     return 1
