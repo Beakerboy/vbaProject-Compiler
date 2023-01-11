@@ -3,5 +3,5 @@
 import pytest
 from vbaProjectCompiler.main import *
 
-def test_ getFirstDirectoryChainSector():
+def test_getFirstDirectoryChainSector():
     assert getFirstDirectoryChainSector() == 0x01000000;
