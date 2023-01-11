@@ -3,8 +3,14 @@
 import pytest, binascii
 from vbaProjectCompiler.main import *
 
+def test_constructor()
+    expected = "./Fo0"
+    project = VbaProject(expected)
+    result = project.path
+    assert result = expected
+
 def test_getFirstDirectoryChainSector():
-    assert getFirstDirectoryChainSector() == 1;
+    assert project.getFirstDirectoryChainSector() == 1;
 
 def test_header():
     project = VbaProject('.')
