@@ -3,7 +3,7 @@
 import pytest, binascii
 from vbaProjectCompiler.main import *
 
-def test_constructor()
+def test_constructor():
     expected = "./Fo0"
     project = VbaProject(expected)
     result = project.path
