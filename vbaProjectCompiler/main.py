@@ -27,9 +27,11 @@ class VbaProject:
           self.path = path
 
     def writeFile():
-        writeHeader()
-        writeFat(0)
-    
+        #open filestream to path.vbaProject.bin
+        # write self.header()
+        # write self.FatSector(0)
+        # write self.directorySector(0)
+        # write self.miniFatSector(0)
         # second fat block is 80000000
 
     def header():
