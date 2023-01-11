@@ -35,7 +35,7 @@ class VbaProject:
         # second fat block is 80000000
         return 1
 
-    def header():
+    def header(self):
         """Create a 512 byte header sector for a OLE object."""
    
         SHORT_ZERO = b'\x00\x00'
@@ -103,9 +103,9 @@ class VbaProject:
     def writeFat(i):
         return 1
 
-    def countFatChainSectors():
+    def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
-        #return getFatChainLength() / 512 + 1 #intdiv, roundup.
+        #return self.getFatChainLength() / 512 + 1 #intdiv, roundup.
         return 1
 
     def getFirstDirectoryChainSector():
@@ -130,7 +130,7 @@ class VbaProject:
         return "FE FF FF FF"
         # followed by 511 bytes
 
-    def getFatChainLength():
+    def getFatChainLength(self):
         total = 0
         #get the length of the fat chain including termination and beginning codes
         #Total = getDirectoryChainLength() + 1
