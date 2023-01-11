@@ -10,6 +10,7 @@ def test_constructor():
     assert result == expected
 
 def test_getFirstDirectoryChainSector():
+    project = VbaProject('.')
     assert project.getFirstDirectoryChainSector() == 1;
 
 def test_header():
