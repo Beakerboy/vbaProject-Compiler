@@ -25,6 +25,9 @@ class VbaProject:
     #Each element is a chain of sector numbers for a particular stream.
     streamSectors = []
 
+    #A list of sectors that contain FAT chain information.
+    fatSectors = []
+
     #class default constructor
     def __init__(self, path): 
           self.path = path
@@ -99,7 +102,7 @@ class VbaProject:
         csectDif = LONG_ZERO
         header += csectDif
 
-        #sectFat = getFirst109FatSectors()
+        #sectFat = writeFatSectorList()
         #header += sectFat
         return header
 
@@ -131,10 +134,19 @@ class VbaProject:
     def getFirstMiniChainSector(self):
         return 2
   
-    def getFirst109FatSectors(self):
-        #return an array of 109 4-byte numbers 
-        #00000000 followed by FFFFFFFF 108 times
-        return "00000000";
+    def writeFatSectorList(self):
+        """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
+        list = bytearray(b'\x00\x00\x00\x00')
+        if self.countFatChainSectors() > 1:
+            #add more stuff to the list
+            pass
+        list = list.ljust(436, '\xff')
+        return list
+
+    def getFatSectors(self):
+        sectorList = [0]
+        # add 
+        return sectorList
 
     def writeFatSector(self, i):
         """return a 512 byte sector"""
