@@ -84,7 +84,7 @@ def countMiniFatChainSectors():
 def getFirstMiniChainSector():
     return 2
   
-def getFirst109FatSectors()
+def getFirst109FatSectors():
     #return an array of 109 4-byte numbers 
     #00000000 followed by FFFFFFFF 108 times
 
