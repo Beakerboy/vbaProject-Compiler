@@ -7,7 +7,7 @@ def test_constructor():
     expected = "./Fo0"
     project = VbaProject(expected)
     result = project.path
-    assert result = expected
+    assert result == expected
 
 def test_getFirstDirectoryChainSector():
     assert project.getFirstDirectoryChainSector() == 1;
