@@ -22,6 +22,9 @@ class VbaProject:
     #data members of class
     path = "."  #path to the project root
 
+    #Each element is a chain of sector numbers for a particular stream.
+    streamSectors = []
+
     #class default constructor
     def __init__(self, path): 
           self.path = path
@@ -99,6 +102,9 @@ class VbaProject:
         #sectFat = getFirst109FatSectors()
         #header += sectFat
         return header
+
+    def addSreamSectorList(self, list):
+        self.streamSectors += list
 
     def writeFat(i):
         return 1
