@@ -166,5 +166,10 @@ class Directory:
     """An OLE directory object"""
     name = ""
 
+    type = 0
+
+    color = 0
+
+    parent = -1
     def writeDirecrory(self):
       return 1
