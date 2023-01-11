@@ -205,6 +205,7 @@ class VbaProject:
   
     def writeFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
+        #if the list is longer then 109 entries, need to mange the extended MSAT sectors.
         list = bytearray(b'\x00\x00\x00\x00')
         if self.countFatChainSectors() > 1:
             #the second FAT sector is number 128.
