@@ -24,108 +24,107 @@ class VbaProject:
     
     # second fat block is 80000000
 
-def writeHeader():
-    """Create a 512 byte header sector for a OLE object."""
+    def header():
+        """Create a 512 byte header sector for a OLE object."""
    
-    SHORT_ZERO = b'\x00\x00'
-    LONG_ZERO = b'\x00\x00\x00\x00'
-    LONG_LONG_ZERO = bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00')
+        SHORT_ZERO = b'\x00\x00'
+        LONG_ZERO = b'\x00\x00\x00\x00'
+        LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
-    absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
-    header = bytearray(absig)
+        absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
+        header = bytearray(absig)
 
-    #clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
-    header += LONG_LONG_ZERO
-    header += LONG_LONG_ZERO
+        clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
+        header += clsid
 
-    uMinorVersion = b"\x3e\x00"
-    header += uMinorVersion
+        uMinorVersion = b"\x3e\x00"
+        header += uMinorVersion
 
-    uDllVersion = b"\x03\x00"
-    header += uDllVersion
+        uDllVersion = b"\x03\x00"
+        header += uDllVersion
 
-    uByteOrder = b"\xfe\xff"
-    header += uByteOrder
+        uByteOrder = b"\xfe\xff"
+        header += uByteOrder
 
-    uSectorShift = b"\x09\x00"
-    header += uSectorShift
+        uSectorShift = b"\x09\x00"
+        header += uSectorShift
 
-    uMiniSectorShift = b'\x06\x00'
-    header += uMiniSectorShift
+        uMiniSectorShift = b'\x06\x00'
+        header += uMiniSectorShift
 
-    usReserved  = SHORT_ZERO
-    header += usReserved
+        usReserved  = SHORT_ZERO
+        header += usReserved
 
-    ulReserved1 = LONG_ZERO
-    header += ulReserved1
+        ulReserved1 = LONG_ZERO
+        header += ulReserved1
 
-    csectDir = LONG_ZERO
-    header += csectDir
+        csectDir = LONG_ZERO
+        header += csectDir
 
-    csectFat = countFatChainSectors()
-    header += struct.pack("<I",  csectFat)
+        csectFat = countFatChainSectors()
+        header += struct.pack("<I",  csectFat)
 
-    sectDirStart =  getFirstDirectoryChainSector()
-    header += struct.pack("<I", sectDirStart)
+        sectDirStart =  getFirstDirectoryChainSector()
+        header += struct.pack("<I", sectDirStart)
 
-    signature = LONG_ZERO
-    header += signature
+        signature = LONG_ZERO
+        header += signature
 
-    ulMiniSectorCutoff = b"\x00\x10\x00\x00"
-    header += ulMiniSectorCutoff
+        ulMiniSectorCutoff = b"\x00\x10\x00\x00"
+        header += ulMiniSectorCutoff
 
-    sectMiniFatStart = getFirstMiniChainSector()
-    header += struct.pack("<I", sectMiniFatStart)
+        sectMiniFatStart = getFirstMiniChainSector()
+        header += struct.pack("<I", sectMiniFatStart)
 
-    csectMiniFat =  countMiniFatChainSectors()
-    header += struct.pack("<I", csectMiniFat)
+        csectMiniFat =  countMiniFatChainSectors()
+        header += struct.pack("<I", csectMiniFat)
 
-    sectDifStart = b"\xfe\xff\xff\xff"
-    header += sectDifStart
+        sectDifStart = b"\xfe\xff\xff\xff"
+        header += sectDifStart
 
-    csectDif = LONG_ZERO
-    header += csectDif
+        csectDif = LONG_ZERO
+        header += csectDif
 
-    #sectFat = getFirst109FatSectors()
-    #header += sectFat
-    return header
+        #sectFat = getFirst109FatSectors()
+        #header += sectFat
+        return header
 
-def writeFat(i):
-    return 1
+    def writeFat(i):
+        return 1
 
-def countFatChainSectors():
-    """Calculate the number of sectors needed to express the FAT chain."""
-    #return getFatChainLength() / 512 + 1 #intdiv, roundup.
-    return 1
+    def countFatChainSectors():
+        """Calculate the number of sectors needed to express the FAT chain."""
+        #return getFatChainLength() / 512 + 1 #intdiv, roundup.
+        return 1
 
-def getFirstDirectoryChainSector():
-    return 1
+    def getFirstDirectoryChainSector():
+        return 1
 
-def getDirectoryChainLength():
-    return 1
+    def getDirectoryChainLength():
+        return 1
 
-def countMiniFatChainSectors():
-    return 1
+    def countMiniFatChainSectors():
+        return 1
   
-def getFirstMiniChainSector():
-    return 2
+    def getFirstMiniChainSector():
+        return 2
   
-def getFirst109FatSectors():
-    #return an array of 109 4-byte numbers 
-    #00000000 followed by FFFFFFFF 108 times
-    return "00000000";
+    def getFirst109FatSectors():
+        #return an array of 109 4-byte numbers 
+        #00000000 followed by FFFFFFFF 108 times
+        return "00000000";
 
-def writeFatSector(i):
-    """return a 512 byte sector"""
-    return "FE FF FF FF"
-    # followed by 511 bytes
+    def writeFatSector(i):
+        """return a 512 byte sector"""
+        return "FE FF FF FF"
+        # followed by 511 bytes
 
-def getFatChainLength():
-    total = 0
-    #get the length of the fat chain including termination and beginning codes
-    #Total = getDirectoryChainLength() + 1
-    #Total += getMiniFatChainLength() + 1
-    #for stream in streams:
-    #  total += stream.getChainLength() + 1
-    #total += total % 511 #add one double for each sector
-    return total
+    def getFatChainLength():
+        total = 0
+        #get the length of the fat chain including termination and beginning codes
+        #Total = getDirectoryChainLength() + 1
+        #Total += getMiniFatChainLength() + 1
+        #for stream in streams:
+        #  total += stream.getChainLength() + 1
+        #total += total % 511 #add one double for each sector
+        return total
