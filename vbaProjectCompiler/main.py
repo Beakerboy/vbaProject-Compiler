@@ -90,8 +90,9 @@ def getFirst109FatSectors():
     return "00000000";
 
 def writeFatSector(i):
-    #return a 512 byte sector
-    return FE FF FF FF followed by 511 bytes
+    """return a 512 byte sector"""
+    return "FE FF FF FF"
+    # followed by 511 bytes
 
 def getFatChainLength():
     #get the length of the fat chain including termination and beginning codes
