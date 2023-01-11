@@ -104,7 +104,7 @@ class VbaProject:
         return header
 
     def addStreamSectorList(self, list):
-        self.streamSectors += list
+        self.streamSectors.append(list)
 
     def writeFat(i):
         return 1
