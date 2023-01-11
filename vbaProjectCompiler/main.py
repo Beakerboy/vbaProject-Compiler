@@ -1,4 +1,5 @@
 def main(args):
+    return 1
 
 def writeFile():
     writeHeader()
