@@ -137,7 +137,7 @@ class VbaProject:
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
         list = bytearray(b'\x00\x00\x00\x00')
         if self.countFatChainSectors() > 1:
-            #add more stuff to the list
+            #the second FAT sector is number 128.
             pass
         list = list.ljust(436, b'\xff')
         return list
