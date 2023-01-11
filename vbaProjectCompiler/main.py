@@ -1,3 +1,5 @@
+import struct
+
 def main(args):
     return 1
 
