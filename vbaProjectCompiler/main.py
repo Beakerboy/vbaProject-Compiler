@@ -179,7 +179,8 @@ class Directory:
     userFlags = 0
 
     created  = 0
-    modified = 0
+    modifiedHigh = 0
+    modifiedLow = 0
 
     sector = 0
 
@@ -200,8 +201,9 @@ class Directory:
         dir += struct.pack("<I", self.subDirectoryId)
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
         dir += struct.pack("<I", self.userFlags)
-        dir += struct.pack("<I", self.created)
-        dir += struct.pack("<I", self.modified)
+        dir += struct.pack("<q", self.created)
+        dir += struct.pack("<I", self.modifiedHigh)
+        dir += struct.pack("<I", self.modifiedLow)
         dir += struct.pack("<I", self.sector)
         dir += struct.pack("<I", self.size)
         dir += struct.pack("<I", 0)
