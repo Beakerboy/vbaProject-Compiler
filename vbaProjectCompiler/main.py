@@ -142,7 +142,8 @@ class VbaProject:
         # followed by 511 bytes
 
     def getFatChainLength(self):
+        """Count the number of entries in the complete FAT chain."""
         total = 1
         for stream in self.streamSectors:
             total += len(stream) + 1
-        return total / 511 + 1
+        return total
