@@ -48,10 +48,10 @@ def writeHeader():
     header == csectDir
 
     csectFat = countFatChainSectors()
-    header += struct.pack("<I",  csectFat)
+    header += str(struct.pack("<I",  csectFat))
 
     sectDirStart =  getFirstDirectoryChainSector()
-    header += struct.pack("<I", sectDirStart)
+    header += str(struct.pack("<I", sectDirStart))
 
     signature = LONG_ZERO
     header += signature
