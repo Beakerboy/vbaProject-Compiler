@@ -29,3 +29,4 @@ def test_streamSectors():
     assert project.countStreams() == 2
     result = project.streamSectors
     assert result == [list1, list2]
+    assert project.getFatChainLength() == 1
