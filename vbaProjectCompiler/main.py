@@ -87,6 +87,7 @@ def getFirstMiniChainSector():
 def getFirst109FatSectors():
     #return an array of 109 4-byte numbers 
     #00000000 followed by FFFFFFFF 108 times
+    return "00000000";
 
 def writeFatSector(i):
     #return a 512 byte sector
