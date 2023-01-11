@@ -98,7 +98,7 @@ def getFatChainLength():
     #get the length of the fat chain including termination and beginning codes
     Total = getDirectoryChainLength() + 1
     Total += getMiniFatChainLength() + 1
-    foreach (getStreams as stream)
+    for stream in streams:
       total += stream.getChainLength() + 1
     Total += total % 511 #add one double for each sector
     return total
