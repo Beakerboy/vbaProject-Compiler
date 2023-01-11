@@ -72,10 +72,10 @@ class VbaProject:
         csectDir = LONG_ZERO
         header += csectDir
 
-        csectFat = countFatChainSectors()
+        csectFat = self.countFatChainSectors()
         header += struct.pack("<I",  csectFat)
 
-        sectDirStart =  getFirstDirectoryChainSector()
+        sectDirStart =  self.getFirstDirectoryChainSector()
         header += struct.pack("<I", sectDirStart)
 
         signature = LONG_ZERO
@@ -84,10 +84,10 @@ class VbaProject:
         ulMiniSectorCutoff = b"\x00\x10\x00\x00"
         header += ulMiniSectorCutoff
 
-        sectMiniFatStart = getFirstMiniChainSector()
+        sectMiniFatStart = self.getFirstMiniChainSector()
         header += struct.pack("<I", sectMiniFatStart)
 
-        csectMiniFat =  countMiniFatChainSectors()
+        csectMiniFat =  self.countMiniFatChainSectors()
         header += struct.pack("<I", csectMiniFat)
 
         sectDifStart = b"\xfe\xff\xff\xff"
