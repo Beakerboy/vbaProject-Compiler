@@ -21,7 +21,9 @@ def test_header():
 
 def test_streamSectors():
     project = VbaProject('.')
-    list1 = [4, 5, 6, 8, 16, 9, 10, 11, 12, 13, 14, 15, 17]
+    list1 = [7]
+    list2 = [4, 5, 6, 8, 16, 9, 10, 11, 12, 13, 14, 15, 17]
     project.addStreamSectorList(list1)
+    project.addStreamSectorList(list2)
     result = project.streamSectors
-    assert result == [list1]
+    assert result == [list1, list2]
