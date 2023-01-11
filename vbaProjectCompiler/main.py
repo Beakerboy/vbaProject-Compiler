@@ -11,30 +11,31 @@ def writeFile():
 
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
-    LONG_LONG_ZERO = "0000000000000000"
-    LONG_ZERO = "00000000"
-    SHORT_ZERO = "0000"
+   
+    SHORT_ZERO = "\x00\x00"
+    LONG_ZERO = SHORT_ZERO + SHORT_ZERO
+    LONG_LONG_ZERO = LONG_ZERO + LONG_ZERO
     header = ""
 
-    absig = "D0CF11E0A1B11AE1"
+    absig = "\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
     header += absig
 
     clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
     header += clsid
 
-    uMinorVersion = "3E00"
+    uMinorVersion = "\x3e\x00"
     header += uMinorVersion
 
-    uDllVersion = "0300"
+    uDllVersion = "\x03\x00"
     header += uDllVersion
 
-    uByteOrder = "FEFF"
+    uByteOrder = "\xfe\xff"
     header += uByteOrder
 
-    uSectorShift = "0900"
+    uSectorShift = "\x09\x00"
     header += uSectorShift
 
-    uMiniSectorShift = "0600"
+    uMiniSectorShift = "\x06\x00"
     header += uMiniSectorShift
 
     usReserved  = SHORT_ZERO
@@ -55,7 +56,7 @@ def writeHeader():
     signature = LONG_ZERO
     header += signature
 
-    ulMiniSectorCutoff = "00100000" 
+    ulMiniSectorCutoff = "\x00\x10\x00\x00"
     header += ulMiniSectorCutoff
 
     sectMiniFatStart = getFirstMiniChainSector()
@@ -64,7 +65,7 @@ def writeHeader():
     csectMiniFat =  countMiniFatChainSectors()
     header += csectMiniFat
 
-    sectDifStart = "FEFFFFFF"
+    sectDifStart = "\xfe\xff\xff\xff"
     header += sectDifStart
 
     csectDif = LONG_ZERO
