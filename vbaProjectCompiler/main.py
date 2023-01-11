@@ -9,7 +9,7 @@ def writeFile():
 
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
-    DOUBLE_ZERO = "0000000000000000"
+    LONG_LONG_ZERO = "0000000000000000"
     LONG_ZERO = "00000000"
     SHORT_ZERO = "0000"
     header = ""
@@ -17,7 +17,7 @@ def writeHeader():
     absig = "D0CF11E0A1B11AE1"
     header += absig
 
-    clsid = DOUBLE_ZERO + DOUBLE_ZERO
+    clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
     header += clsid
 
     uMinorVersion = "3E00"
