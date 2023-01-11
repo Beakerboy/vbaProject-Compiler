@@ -164,9 +164,11 @@ class VbaProject:
         csectMiniFat =  self.countMiniFatChainSectors()
         header += struct.pack("<I", csectMiniFat)
 
+        #if the MSAT is longer then 109 entries, it continues at this sector
         sectDifStart = b"\xfe\xff\xff\xff"
         header += sectDifStart
 
+        #if MSAT is longer then 109 entries, here is how many additional sectors of data exist
         csectDif = LONG_ZERO
         header += csectDif
 
