@@ -73,6 +73,9 @@ def writeHeader():
     sectFat = getFirst109FatSectors()
     header += sectFat
 
+def writeFat(i):
+    return 1
+
 def countFatChainSectors():
     """Calculate the number of sectors needed to express the FAT chain."""
     return getFatChainLength() / 512 + 1 #intdiv, roundup.
