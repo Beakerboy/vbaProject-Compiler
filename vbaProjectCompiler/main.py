@@ -108,24 +108,24 @@ class VbaProject:
         #return self.getFatChainLength() / 512 + 1 #intdiv, roundup.
         return 1
 
-    def getFirstDirectoryChainSector():
+    def getFirstDirectoryChainSector(self):
         return 1
 
-    def getDirectoryChainLength():
+    def getDirectoryChainLength(self):
         return 1
 
-    def countMiniFatChainSectors():
+    def countMiniFatChainSectors(self):
         return 1
   
-    def getFirstMiniChainSector():
+    def getFirstMiniChainSector(self):
         return 2
   
-    def getFirst109FatSectors():
+    def getFirst109FatSectors(self):
         #return an array of 109 4-byte numbers 
         #00000000 followed by FFFFFFFF 108 times
         return "00000000";
 
-    def writeFatSector(i):
+    def writeFatSector(self, i):
         """return a 512 byte sector"""
         return "FE FF FF FF"
         # followed by 511 bytes
