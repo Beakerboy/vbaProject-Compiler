@@ -42,7 +42,7 @@ class VbaProject:
         root.modifiedLow  =   31007795
         root.sector = 3
         root.size = 6528
-        directories.append(root)
+        self.directories.append(root)
 
         vba = Directory()
         vba.name = "VBA"
@@ -50,7 +50,7 @@ class VbaProject:
         vba.subDirectoryId = 5
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
-        directories.append(vba)
+        self.directories.append(vba)
 
         thisWorkbook = Directory()
         thisWorkbook.name = "ThisWorkbook"
@@ -58,7 +58,7 @@ class VbaProject:
         thisWorkbook.color = 1
         thisWorkbook.nextDirectoryId = 4
         thisWorkbook.size = 999
-        directories.append(thisWorkbook)
+        self.directories.append(thisWorkbook)
 
         sheet1 = Directory()
         sheet1.name = "Sheet1"
@@ -67,7 +67,7 @@ class VbaProject:
         sheet1.previousDirectoryId = 6
         sheet1.sector = 16
         sheet1.size = 991
-        directories.append(sheet1)
+        self.directories.append(sheet1)
 
         module1 = Directory()
         module1.name = "Module1"
