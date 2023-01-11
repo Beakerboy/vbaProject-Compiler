@@ -103,7 +103,7 @@ class VbaProject:
         #header += sectFat
         return header
 
-    def addSreamSectorList(self, list):
+    def addStreamSectorList(self, list):
         self.streamSectors += list
 
     def writeFat(i):
