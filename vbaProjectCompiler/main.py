@@ -23,7 +23,7 @@ class VbaProject:
     path = "."  #path to the project root
 
     #class default constructor
-    def __init__(path): 
+    def __init__(self, path): 
           self.path = path
 
     def writeFile():
