@@ -119,8 +119,7 @@ class VbaProject:
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
-        #return self.getFatChainLength() / 512 + 1 #intdiv, roundup.
-        return 1
+        return self.getFatChainLength() / 511 + 1
 
     def getFirstDirectoryChainSector(self):
         return 1
