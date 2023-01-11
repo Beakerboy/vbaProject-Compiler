@@ -12,7 +12,7 @@ def writeFile():
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
    
-    SHORT_ZERO = "\x00\x00"
+    SHORT_ZERO = '\x00\x00'
     LONG_ZERO = SHORT_ZERO + SHORT_ZERO
     LONG_LONG_ZERO = LONG_ZERO + LONG_ZERO
     header = ""
@@ -35,7 +35,7 @@ def writeHeader():
     uSectorShift = "\x09\x00"
     header += uSectorShift
 
-    uMiniSectorShift = "\x06\x00"
+    uMiniSectorShift = '\x06\x00'
     header += uMiniSectorShift
 
     usReserved  = SHORT_ZERO
