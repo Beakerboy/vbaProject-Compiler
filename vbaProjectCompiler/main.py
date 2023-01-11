@@ -45,7 +45,7 @@ def writeHeader():
     header += ulReserved1
 
     csectDir = LONG_ZERO
-    header == csectDir
+    header += csectDir
 
     csectFat = countFatChainSectors()
     header += str(struct.pack("<I",  csectFat))
