@@ -11,30 +11,31 @@ def writeFile():
 
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
-    LONG_LONG_ZERO = "0000000000000000"
-    LONG_ZERO = "00000000"
-    SHORT_ZERO = "0000"
-    header = ""
+   
+    SHORT_ZERO = b'\x00\x00'
+    LONG_ZERO = b'\x00\x00\x00\x00'
+    LONG_LONG_ZERO = bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00')
 
-    absig = "D0CF11E0A1B11AE1"
-    header += absig
+    absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
+    header = bytearray(absig)
 
-    clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
-    header += clsid
+    #clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
+    header += LONG_LONG_ZERO
+    header += LONG_LONG_ZERO
 
-    uMinorVersion = "3E00"
+    uMinorVersion = b"\x3e\x00"
     header += uMinorVersion
 
-    uDllVersion = "0300"
+    uDllVersion = b"\x03\x00"
     header += uDllVersion
 
-    uByteOrder = "FEFF"
+    uByteOrder = b"\xfe\xff"
     header += uByteOrder
 
-    uSectorShift = "0900"
+    uSectorShift = b"\x09\x00"
     header += uSectorShift
 
-    uMiniSectorShift = "0600"
+    uMiniSectorShift = b'\x06\x00'
     header += uMiniSectorShift
 
     usReserved  = SHORT_ZERO
@@ -44,10 +45,10 @@ def writeHeader():
     header += ulReserved1
 
     csectDir = LONG_ZERO
-    header == csectDir
+    header += csectDir
 
     csectFat = countFatChainSectors()
-    header += csectFat
+    header += struct.pack("<I",  csectFat)
 
     sectDirStart =  getFirstDirectoryChainSector()
     header += struct.pack("<I", sectDirStart)
@@ -55,23 +56,23 @@ def writeHeader():
     signature = LONG_ZERO
     header += signature
 
-    ulMiniSectorCutoff = "00100000" 
+    ulMiniSectorCutoff = b"\x00\x10\x00\x00"
     header += ulMiniSectorCutoff
 
     sectMiniFatStart = getFirstMiniChainSector()
-    header += sectMiniFatStart
+    header += struct.pack("<I", sectMiniFatStart)
 
     csectMiniFat =  countMiniFatChainSectors()
-    header += csectMiniFat
+    header += struct.pack("<I", csectMiniFat)
 
-    sectDifStart = "FEFFFFFF"
+    sectDifStart = b"\xfe\xff\xff\xff"
     header += sectDifStart
 
     csectDif = LONG_ZERO
     header += csectDif
 
-    sectFat = getFirst109FatSectors()
-    header += sectFat
+    #sectFat = getFirst109FatSectors()
+    #header += sectFat
     return header
 
 def writeFat(i):
@@ -79,7 +80,8 @@ def writeFat(i):
 
 def countFatChainSectors():
     """Calculate the number of sectors needed to express the FAT chain."""
-    return getFatChainLength() / 512 + 1 #intdiv, roundup.
+    #return getFatChainLength() / 512 + 1 #intdiv, roundup.
+    return 1
 
 def getFirstDirectoryChainSector():
     return 1
