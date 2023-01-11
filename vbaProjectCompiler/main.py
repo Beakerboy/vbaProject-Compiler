@@ -19,7 +19,7 @@ def writeHeader():
     absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
     header = bytearray(absig)
 
-    clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
+    #clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
     header.append(LONG_LONG_ZERO).append(LONG_LONG_ZERO)
 
     uMinorVersion = b"\x3e\x00"
