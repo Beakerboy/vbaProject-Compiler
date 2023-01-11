@@ -3,5 +3,5 @@
 import pytest
 from vbaProjectCompiler.main import *
 
-def test_formatLittleEndien():
-    assert formatLittleEndien(1, 4) == "01000000";
+def test_ getFirstDirectoryChainSector():
+    assert getFirstDirectoryChainSector() == 0x01000000;
