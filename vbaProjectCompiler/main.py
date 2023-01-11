@@ -28,6 +28,9 @@ class VbaProject:
     #A list of sectors that contain FAT chain information.
     fatSectors = []
 
+    #A list of directories
+    directories = []
+
     #class default constructor
     def __init__(self, path): 
           self.path = path
@@ -158,3 +161,10 @@ class VbaProject:
         for stream in self.streamSectors:
             total += len(stream) + 1
         return total
+
+class Directory:
+    """An OLE directory object"""
+    name = ""
+
+    def writeDirecrory(self):
+      return 1
