@@ -33,6 +33,7 @@ class VbaProject:
         # write self.directorySector(0)
         # write self.miniFatSector(0)
         # second fat block is 80000000
+        return 1
 
     def header():
         """Create a 512 byte header sector for a OLE object."""
