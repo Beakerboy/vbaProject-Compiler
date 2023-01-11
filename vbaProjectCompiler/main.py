@@ -65,7 +65,7 @@ def writeHeader():
     csectMiniFat =  countMiniFatChainSectors()
     header += struct.pack("<I", csectMiniFat)
 
-    sectDifStart = "\xfe\xff\xff\xff"
+    sectDifStart = b"\xfe\xff\xff\xff"
     header += sectDifStart
 
     csectDif = LONG_ZERO
