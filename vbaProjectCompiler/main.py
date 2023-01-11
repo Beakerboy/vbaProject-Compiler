@@ -104,9 +104,11 @@ class VbaProject:
         return header
 
     def addStreamSectorList(self, list):
+        """Add a list of sector numbers to the FAT table."""
         self.streamSectors.append(list)
 
     def countStreams(self):
+        """Return the number of streams defined in the FAT table."""
         return len(self.streamSectors)
 
     def writeFat(i):
@@ -140,11 +142,7 @@ class VbaProject:
         # followed by 511 bytes
 
     def getFatChainLength(self):
-        total = 0
-        #get the length of the fat chain including termination and beginning codes
-        #Total = getDirectoryChainLength() + 1
-        #Total += getMiniFatChainLength() + 1
-        #for stream in streams:
-        #  total += stream.getChainLength() + 1
-        #total += total % 511 #add one double for each sector
-        return total
+        total = 1
+        for stream in self.streamSectors:
+            total += len(stream) + 1
+        return total / 511 + 1
