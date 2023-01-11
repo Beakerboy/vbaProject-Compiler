@@ -12,64 +12,63 @@ def writeFile():
 def writeHeader():
     """Create a 512 byte header sector for a OLE object."""
    
-    SHORT_ZERO = '\x00\x00'
-    LONG_ZERO = SHORT_ZERO + SHORT_ZERO
-    LONG_LONG_ZERO = LONG_ZERO + LONG_ZERO
-    header = ""
+    SHORT_ZERO = b'\x00\x00'
+    LONG_ZERO = b'\x00\x00\x00\x00'
+    LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
-    absig = "\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
-    header += absig
+    absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
+    header += bytearray(absig)
 
     clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
-    header += clsid
+    header.append(LONG_LONG_ZERO).append(LONG_LONG_ZERO)
 
-    uMinorVersion = "\x3e\x00"
-    header += uMinorVersion
+    uMinorVersion = b"\x3e\x00"
+    header.append(uMinorVersion)
 
-    uDllVersion = "\x03\x00"
-    header += uDllVersion
+    uDllVersion = b"\x03\x00"
+    header.append(uDllVersion)
 
-    uByteOrder = "\xfe\xff"
-    header += uByteOrder
+    uByteOrder = b"\xfe\xff"
+    header.append(uByteOrder)
 
-    uSectorShift = "\x09\x00"
-    header += uSectorShift
+    uSectorShift = b"\x09\x00"
+    header.append(uSectorShift)
 
-    uMiniSectorShift = '\x06\x00'
-    header += uMiniSectorShift
+    uMiniSectorShift = b'\x06\x00'
+    header.append(uMiniSectorShift)
 
     usReserved  = SHORT_ZERO
-    header += usReserved
+    header.append(usReserved)
 
     ulReserved1 = LONG_ZERO
-    header += ulReserved1
+    header.append(ulReserved1)
 
     csectDir = LONG_ZERO
-    header += csectDir
+    header.append(csectDir)
 
     csectFat = countFatChainSectors()
-    header += str(struct.pack("<I",  csectFat))
+    header.append(struct.pack("<I",  csectFat))
 
     sectDirStart =  getFirstDirectoryChainSector()
-    header += str(struct.pack("<I", sectDirStart))
+    header.append(struct.pack("<I", sectDirStart))
 
     signature = LONG_ZERO
-    header += signature
+    header.append(signature)
 
-    ulMiniSectorCutoff = "\x00\x10\x00\x00"
-    header += ulMiniSectorCutoff
+    ulMiniSectorCutoff = b"\x00\x10\x00\x00"
+    header.append(ulMiniSectorCutoff)
 
     sectMiniFatStart = getFirstMiniChainSector()
-    header += str(struct.pack("<I", sectMiniFatStart))
+    header.append(struct.pack("<I", sectMiniFatStart))
 
     csectMiniFat =  countMiniFatChainSectors()
-    header += str(struct.pack("<I", csectMiniFat))
+    header.append(struct.pack("<I", csectMiniFat))
 
     sectDifStart = "\xfe\xff\xff\xff"
-    header += sectDifStart
+    header.append(sectDifStart)
 
     csectDif = LONG_ZERO
-    header += csectDif
+    header.append(csectDif)
 
     #sectFat = getFirst109FatSectors()
     #header += sectFat
