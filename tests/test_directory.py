@@ -11,7 +11,8 @@ def test_directory():
 
     dir.type = 5
     dir.subDirectoryId = 8
-    dir.modified = '\xc0\x23\xb8\xc2\x33\x24\xd9\x01'
+    dir.modifiedHigh = 3266847680
+    dir.modifiedLow  =   31007795
     dir.sector = 3
     dir.size = 6528
 
