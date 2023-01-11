@@ -171,8 +171,19 @@ class Directory:
     color = 0
 
     previousDirectoryId = -1
-    nextDirectoryId = -1
-    subDirectoryId = -1
+    nextDirectoryId     = -1
+    subDirectoryId      = -1
+
+    classId = 0
+
+    userFlags = 0
+
+    created  = 0
+    modified = 0
+
+    sector = 0
+
+    size = 0
 
     def writeDirecrory(self):
       return 1
