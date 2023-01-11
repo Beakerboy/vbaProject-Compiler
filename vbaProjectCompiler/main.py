@@ -104,10 +104,11 @@ def writeFatSector(i):
     # followed by 511 bytes
 
 def getFatChainLength():
+    total = 0
     #get the length of the fat chain including termination and beginning codes
-    Total = getDirectoryChainLength() + 1
-    Total += getMiniFatChainLength() + 1
-    for stream in streams:
-      total += stream.getChainLength() + 1
-    Total += total % 511 #add one double for each sector
+    #Total = getDirectoryChainLength() + 1
+    #Total += getMiniFatChainLength() + 1
+    #for stream in streams:
+    #  total += stream.getChainLength() + 1
+    #total += total % 511 #add one double for each sector
     return total
