@@ -170,6 +170,9 @@ class Directory:
 
     color = 0
 
-    parent = -1
+    previousDirectoryId = -1
+    nextDirectoryId = -1
+    subDirectoryId = -1
+
     def writeDirecrory(self):
       return 1
