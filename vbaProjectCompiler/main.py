@@ -174,7 +174,7 @@ class Directory:
     nextDirectoryId     = -1
     subDirectoryId      = -1
 
-    classId = 0
+    classId = ""
 
     userFlags = 0
 
@@ -190,4 +190,20 @@ class Directory:
        return (len(self.name) + 1) * 2
 
     def writeDirectory(self):
-      return 1
+        dir = bytearray(self.name, "utf8")
+        dir = dir.ljust(64, b'\x00')
+        dir += struct.pack("<h", self.nameSize())
+        dir += struct.pack("c", self.type)
+        dir += struct.pack("c", self.color)
+        dir += struct.pack("<I", self.previousDirectoryId)
+        dir += struct.pack("<I", self.nextDirectoryId)
+        dir += struct.pack("<I", self.subDirectoryId)
+        dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
+        dir += struct.pack("<I", self.userFlags)
+        dir += struct.pack("<I", self.created)
+        dir += struct.pack("<I", self.modified)
+        dir += struct.pack("<I", self.sector)
+        dir += struct.pack("<I", self.size)
+        dir += struct.pack("<I", 0)
+        
+        return dir
