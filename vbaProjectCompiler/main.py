@@ -1,9 +1,24 @@
 import struct
 
 def main(args):
-    return 1
+    # vbaProject = new VbaProject()
+    rootPath = args[1]
+    #for each .bas file in rootPath/Modules
+    # compress file
+    # add file to the project
 
-def writeFile():
+    #for each .cls file in rootPath/ClassModules
+    # compress file
+    # add file to the project
+
+    #for each .frm file in rootPath/Forms
+    # compress file
+    # add file to the project
+
+    vbaProject.write(rootPath)
+
+class VbaProject:
+    def writeFile():
     writeHeader()
     writeFat(0)
     
