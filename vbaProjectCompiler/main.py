@@ -1,8 +1,8 @@
 import struct
 
 def main(args):
-    # vbaProject = new VbaProject()
     rootPath = args[1]
+    vbaProject = VbaProject(rootPath)
     #for each .bas file in rootPath/Modules
     # compress file
     # add file to the project
@@ -26,7 +26,7 @@ class VbaProject:
     def __init__(self, path): 
           self.path = path
 
-    def writeFile():
+    def write(self):
         #open filestream to path.vbaProject.bin
         # write self.header()
         # write self.FatSector(0)
