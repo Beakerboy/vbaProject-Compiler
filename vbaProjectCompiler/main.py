@@ -139,7 +139,7 @@ class VbaProject:
         if self.countFatChainSectors() > 1:
             #add more stuff to the list
             pass
-        list = list.ljust(436, '\xff')
+        list = list.ljust(436, b'\xff')
         return list
 
     def getFatSectors(self):
