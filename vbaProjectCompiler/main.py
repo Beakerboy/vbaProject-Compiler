@@ -80,7 +80,8 @@ def writeFat(i):
 
 def countFatChainSectors():
     """Calculate the number of sectors needed to express the FAT chain."""
-    return getFatChainLength() / 512 + 1 #intdiv, roundup.
+    #return getFatChainLength() / 512 + 1 #intdiv, roundup.
+    return 1
 
 def getFirstDirectoryChainSector():
     return 1
