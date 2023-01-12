@@ -21,7 +21,7 @@ class VbaProject:
 
     uMinorVersion    = 62
     uDllVersion      = 3
-    uByteOrder       = -1
+    uByteOrder       = -2
     uSectorShift     = 9
     uMiniSectorShift = 6
 
