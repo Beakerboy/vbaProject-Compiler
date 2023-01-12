@@ -19,6 +19,12 @@ def main(args):
 
 class VbaProject:
 
+    uMinorVersion    = 62
+    uDllVersion      = 3
+    uByteOrder       = -1
+    uSectorShift     = 9
+    uMiniSectorShift = 6
+
     #data members of class
     path = "."  #path to the project root
 
@@ -122,20 +128,11 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        uMinorVersion = b"\x3e\x00"
-        header += uMinorVersion
-
-        uDllVersion = b"\x03\x00"
-        header += uDllVersion
-
-        uByteOrder = b"\xfe\xff"
-        header += uByteOrder
-
-        uSectorShift = b"\x09\x00"
-        header += uSectorShift
-
-        uMiniSectorShift = b'\x06\x00'
-        header += uMiniSectorShift
+        header += struct.pack("<h", self.uMinorVersion)
+        header += struct.pack("<h", self.uDllVersion)
+        header += struct.pack("<h", self.uByteOrder)
+        header += struct.pack("<h", self.uSectorShift)
+        header += struct.pack("<h", self.uMiniSectorShift)
 
         usReserved  = SHORT_ZERO
         header += usReserved
