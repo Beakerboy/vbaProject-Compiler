@@ -44,7 +44,7 @@ def test_streamSectors():
     assert result == expected
    
 def test_fileHandling():
-    file = open("../tests/blank/vbaProject.bin", "rb")
+    file = open("./tests/blank/vbaProject.bin", "rb")
     file.seek(2048)
     ThisWorkbookData = file.read(999)
     file.close()
