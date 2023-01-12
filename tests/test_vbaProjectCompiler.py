@@ -56,4 +56,4 @@ def test_fileHandling():
     #thisWorkbook.addData(ThisWorkbookData)
     #vbaProject.addFile(thisWorkbook)
     import sys
-    sys.stderr.write(dir(ThisWorkbookData))
+    sys.stderr.write(ThisWorkbookData.decode('utf-8'))
