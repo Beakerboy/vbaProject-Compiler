@@ -21,7 +21,7 @@ class VbaProject:
 
     uMinorVersion    = 62
     uDllVersion      = 3
-    uByteOrder       = -2
+    uByteOrder       = "<"
     uSectorShift     = 9
     uMiniSectorShift = 6
 
@@ -130,7 +130,7 @@ class VbaProject:
 
         header += struct.pack("<h", self.uMinorVersion)
         header += struct.pack("<h", self.uDllVersion)
-        header += struct.pack("<h", self.uByteOrder)
+        header += struct.pack(self.uByteOrder + "h", -2)
         header += struct.pack("<h", self.uSectorShift)
         header += struct.pack("<h", self.uMiniSectorShift)
 
