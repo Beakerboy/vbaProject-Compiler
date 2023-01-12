@@ -1,6 +1,6 @@
 # test_vbaProjectCompiler.py
 
-import pytest, binascii
+import pytest, binascii, sys
 from vbaProjectCompiler.main import *
 
 def test_constructor():
@@ -55,4 +55,5 @@ def test_fileHandling():
     thisWorkbook.nextDirectoryId = 4
     #thisWorkbook.addData(ThisWorkbookData)
     #vbaProject.addFile(thisWorkbook)
-    print(dir(ThisWorkbookData))
+    import sys
+    sys.stderr.write(dir(ThisWorkbookData))
