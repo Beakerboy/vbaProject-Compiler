@@ -53,7 +53,7 @@ class VbaProject:
         vba = Directory()
         vba.name = "VBA"
         vba.type = 1
-        vba.subDirectoryId = 5
+        vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
         self.directories.append(vba)
@@ -62,7 +62,7 @@ class VbaProject:
         thisWorkbook.name = "ThisWorkbook"
         thisWorkbook.type = 2
         thisWorkbook.color = 1
-        thisWorkbook.nextDirectoryId = 4
+        thisWorkbook.nextDirectoryId = 5
         thisWorkbook.size = 999
         self.directories.append(thisWorkbook)
 
