@@ -85,12 +85,12 @@ class VbaProject:
         module1.size = 681
         self.directories.append(module1)
 
-        project = Directory()
-        project.name = "_VBA_Project"
-        project.type = 2
-        project.sector = 43
-        project.size = 2544
-        self.directories.append(project)
+        vba_project = Directory()
+        vba_project.name = "_VBA_Project"
+        vba_project.type = 2
+        vba_project.sector = 43
+        vba_project.size = 2544
+        self.directories.append(vba_project)
 
         dir = Directory()
         dir.name = "dir"
@@ -105,6 +105,15 @@ class VbaProject:
         projectWm.sector = 92
         projectWm.size = 86
         self.directories.append(projectWm)
+
+        project = Directory()
+        project.name = "PROJECT"
+        project.type = 2
+        project.color = 1
+        project.previousDirectoryId = 1
+        project.nextDirectoryId = 7
+        project.sector = 94
+        project.size = 466
 
     def write(self):
         #open filestream to path.vbaProject.bin
