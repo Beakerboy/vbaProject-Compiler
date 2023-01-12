@@ -24,7 +24,7 @@ class VbaProject:
     uByteOrder         = "<"
     uSectorShift       = 9
     uMiniSectorShift   = 6
-    ulMiniSectorCutoff = 16
+    ulMiniSectorCutoff = 4096
 
     #data members of class
     path = "."  #path to the project root
