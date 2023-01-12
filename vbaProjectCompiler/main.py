@@ -189,13 +189,16 @@ class VbaProject:
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
-        return self.getFatChainLength() // 511 + 1
+        return (self.getFatChainLength() - 1) // 511 + 1
 
     def getFirstDirectoryChainSector(self):
         return 1
 
-    def getDirectoryChainLength(self):
-        return 1
+    def countDirectoryListSectors(self):
+        """The number of sectors needed to express the directory list"""
+        # what if the sectors are not 512 bytes?
+        directorySectors = (len(self.Directories) - 1) // 4
+        return directorySectors
 
     def countMiniFatChainSectors(self):
         return 1
@@ -225,9 +228,8 @@ class VbaProject:
 
     def getFatChainLength(self):
         """Count the number of entries in the complete FAT chain."""
-        total = 1
-        for stream in self.streamSectors:
-            total += len(stream) + 1
+        total = countDirectoryListSectors() + countMinFatSectors() + countStreamSectors()
+        
         return total
 
 class Directory:
