@@ -19,11 +19,12 @@ def main(args):
 
 class VbaProject:
 
-    uMinorVersion    = 62
-    uDllVersion      = 3
-    uByteOrder       = "<"
-    uSectorShift     = 9
-    uMiniSectorShift = 6
+    uMinorVersion      = 62
+    uDllVersion        = 3
+    uByteOrder         = "<"
+    uSectorShift       = 9
+    uMiniSectorShift   = 6
+    ulMiniSectorCutoff = 16
 
     #data members of class
     path = "."  #path to the project root
@@ -137,11 +138,11 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        header += struct.pack("<h", self.uMinorVersion)
-        header += struct.pack("<h", self.uDllVersion)
+        header += struct.pack(self.uByteOrder + "h", self.uMinorVersion)
+        header += struct.pack(self.uByteOrder + "h", self.uDllVersion)
         header += struct.pack(self.uByteOrder + "h", -2)
-        header += struct.pack("<h", self.uSectorShift)
-        header += struct.pack("<h", self.uMiniSectorShift)
+        header += struct.pack(self.uByteOrder + "h", self.uSectorShift)
+        header += struct.pack(self.uByteOrder + "h", self.uMiniSectorShift)
 
         usReserved  = SHORT_ZERO
         header += usReserved
@@ -153,22 +154,20 @@ class VbaProject:
         header += csectDir
 
         csectFat = self.countFatChainSectors()
-        header += struct.pack("<I",  csectFat)
+        header += struct.pack(self.uByteOrder + "I",  csectFat)
 
         sectDirStart =  self.getFirstDirectoryChainSector()
-        header += struct.pack("<I", sectDirStart)
+        header += struct.pack(self.uByteOrder + "I", sectDirStart)
 
         signature = LONG_ZERO
         header += signature
-
-        ulMiniSectorCutoff = b"\x00\x10\x00\x00"
-        header += ulMiniSectorCutoff
+        header += struct.pack(self.uByteOrder + "I", ulMiniSectorCutoff)
 
         sectMiniFatStart = self.getFirstMiniChainSector()
-        header += struct.pack("<I", sectMiniFatStart)
+        header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
 
         csectMiniFat =  self.countMiniFatChainSectors()
-        header += struct.pack("<I", csectMiniFat)
+        header += struct.pack(self.uByteOrder + "I", csectMiniFat)
 
         #if the MSAT is longer then 109 entries, it continues at this sector
         sectDifStart = b"\xfe\xff\xff\xff"
