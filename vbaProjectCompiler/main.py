@@ -161,7 +161,7 @@ class VbaProject:
 
         signature = LONG_ZERO
         header += signature
-        header += struct.pack(self.uByteOrder + "I", ulMiniSectorCutoff)
+        header += struct.pack(self.uByteOrder + "I", self.ulMiniSectorCutoff)
 
         sectMiniFatStart = self.getFirstMiniChainSector()
         header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
