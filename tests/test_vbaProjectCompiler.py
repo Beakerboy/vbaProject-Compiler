@@ -55,4 +55,4 @@ def test_fileHandling():
     thisWorkbook.nextDirectoryId = 4
     #thisWorkbook.addData(ThisWorkbookData)
     #vbaProject.addFile(thisWorkbook)
-    print(vars(ThisWorkbookData))
+    print(dir(ThisWorkbookData))
