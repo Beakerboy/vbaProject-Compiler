@@ -28,7 +28,7 @@ class Directory:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def fileSize(self)
+    def fileSize(self):
         if filePath == "":
             return 0
         file_size = os.stat(self.filePath)
