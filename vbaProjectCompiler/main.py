@@ -227,7 +227,7 @@ class VbaProject:
 
     def getFatChainLength(self):
         """Count the number of entries in the complete FAT chain."""
-        total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** uSectorShift)
+        total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** self.uSectorShift)
         return total
 
     def addFile(self, dir):
