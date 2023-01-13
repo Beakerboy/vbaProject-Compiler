@@ -32,9 +32,6 @@ class VbaProject:
     firstMiniChainSector     = 2
     ulMiniSectorCutoff       = 4096
 
-    #A list of sectors that contain FAT chain information.
-    fatSectors = []
-
     #A list of directories
     directories = []
 
@@ -181,7 +178,7 @@ class VbaProject:
         csectDif = LONG_ZERO
         header += csectDif
 
-        sectFat = self.writeFatSectorList()
+        sectFat = self.writeHeaderFatSectorList()
         header += sectFat
         return header
 
@@ -201,13 +198,13 @@ class VbaProject:
     def countMiniFatChainSectors(self):
         return 1
   
-    def writeFatSectorList(self):
+    def writeHeaderFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
         #if the list is longer then 109 entries, need to mange the extended MSAT sectors.
-        list = bytearray(b'\x00\x00\x00\x00')
-        if self.countFatChainSectors() > 1:
-            #the second FAT sector is number 128.
-            pass
+        output = b''
+        list = self.getFatSectors()
+        for sector in list[0:109]:
+            output += struct.pack(self.uByteOrder + "I", sector)
         list = list.ljust(436, b'\xff')
         return list
 
