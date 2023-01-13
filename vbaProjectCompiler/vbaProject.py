@@ -43,62 +43,7 @@ class VbaProject:
         vba.modifiedLow  =   31007795
         self.directories.append(vba)
 
-        thisWorkbook = Directory()
-        thisWorkbook.name = "ThisWorkbook"
-        thisWorkbook.type = 2
-        thisWorkbook.color = 1
-        thisWorkbook.nextDirectoryId = 5
-        thisWorkbook.size = 999
-        self.directories.append(thisWorkbook)
-
-        sheet1 = Directory()
-        sheet1.name = "Sheet1"
-        sheet1.type = 2
-        sheet1.color = 1
-        sheet1.previousDirectoryId = 6
-        sheet1.sector = 16
-        sheet1.size = 991
-        self.directories.append(sheet1)
-
-        module1 = Directory()
-        module1.name = "Module1"
-        module1.type = 2
-        module1.color = 1
-        module1.previousDirectoryId = 3
-        module1.nextDirectoryId = 2
-        module1.sector = 2
-        module1.size = 681
-        self.directories.append(module1)
-
-        vba_project = Directory()
-        vba_project.name = "_VBA_Project"
-        vba_project.type = 2
-        vba_project.sector = 43
-        vba_project.size = 2544
-        self.directories.append(vba_project)
-
-        dir = Directory()
-        dir.name = "dir"
-        dir.type = 2
-        dir.sector = 83
-        dir.size = 562
-        self.directories.append(dir)
-
-        projectWm = Directory()
-        projectWm.name = "PROJECTwm"
-        projectWm.type = 2
-        projectWm.sector = 92
-        projectWm.size = 86
-        self.directories.append(projectWm)
-
-        project = Directory()
-        project.name = "PROJECT"
-        project.type = 2
-        project.color = 1
-        project.previousDirectoryId = 1
-        project.nextDirectoryId = 7
-        project.sector = 94
-        project.size = 466
+        
 
     #Getters and Setters
     def getFirstDirectoryListSector(self):
@@ -235,3 +180,64 @@ class VbaProject:
                 #Append the chain terminator
                 chain.append(-2)
         return chain
+
+    def finalize(self):
+        #add these if they are missing.
+        thisWorkbook = Directory()
+        thisWorkbook.name = "ThisWorkbook"
+        thisWorkbook.type = 2
+        thisWorkbook.color = 1
+        thisWorkbook.nextDirectoryId = 5
+        thisWorkbook.size = 999
+        self.directories.append(thisWorkbook)
+
+        sheet1 = Directory()
+        sheet1.name = "Sheet1"
+        sheet1.type = 2
+        sheet1.color = 1
+        sheet1.previousDirectoryId = 6
+        sheet1.sector = 16
+        sheet1.size = 991
+        self.directories.append(sheet1)
+
+        module1 = Directory()
+        module1.name = "Module1"
+        module1.type = 2
+        module1.color = 1
+        module1.previousDirectoryId = 3
+        module1.nextDirectoryId = 2
+        module1.sector = 2
+        module1.size = 681
+        self.directories.append(module1)
+
+        #these all need to be added
+        vba_project = Directory()
+        vba_project.name = "_VBA_Project"
+        vba_project.type = 2
+        vba_project.sector = 43
+        vba_project.size = 2544
+        self.directories.append(vba_project)
+
+        dir = Directory()
+        dir.name = "dir"
+        dir.type = 2
+        dir.sector = 83
+        dir.size = 562
+        self.directories.append(dir)
+
+        #This one is not always required.
+        projectWm = Directory()
+        projectWm.name = "PROJECTwm"
+        projectWm.type = 2
+        projectWm.sector = 92
+        projectWm.size = 86
+        self.directories.append(projectWm)
+
+        project = Directory()
+        project.name = "PROJECT"
+        project.type = 2
+        project.color = 1
+        project.previousDirectoryId = 1
+        project.nextDirectoryId = 7
+        project.sector = 94
+        project.size = 466
