@@ -246,7 +246,7 @@ class VbaProject:
         minifatSectors = 0
         for file in self.directories:
             if file.size > 0:
-                (miniFatSectors = file.size - 1) / (2 ** self.uMiniSectorShift)
+                (minifatSectors = file.size - 1) / (2 ** self.uMiniSectorShift)
                 for i in range(minifatSectors):
                     chain.append(len(chain) + 1)
                 chain.append(-2)
