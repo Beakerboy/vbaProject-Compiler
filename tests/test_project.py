@@ -12,7 +12,7 @@ def test_blank():
     project.addAttribute("DPB", "BCBEA7A2591C5A1C5A1C")
     project.addAttribute("GC", "37352C2BDCDD56DE56DEA9")
 
-    project.hostExtender = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
+    project.hostExtenderInfo = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
 
     project.addWorkspace("ThisWorkbook", 0, 0, 0, 0, 'C')
     project.addWorkspace("Sheet1", 0, 0, 0, 0, 'C')
