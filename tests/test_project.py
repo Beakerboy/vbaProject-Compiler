@@ -18,9 +18,10 @@ def test_blank():
     project.addWorkspace("Sheet1", 0, 0, 0, 0, 'C')
     project.addWorkspace("Module1", 26, 26, 1349, 522, 'Z')
     
-    #expected = Path("tests/blank/PROJECT").read_text()
-    file = open("tests/blank/PROJECT", "rb")
-    expected = file.read()
+    #expected = Path("tests/blank/vbaProject.bin").read_text()
+    file = open("tests/blank/vbaProject.bin", "rb")
+    file.seek(int('0x2500'))
+    expected = file.read(int('0x152'))
 
     result = project.toBytearray()
     assert expected == result
