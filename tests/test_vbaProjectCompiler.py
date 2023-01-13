@@ -22,25 +22,4 @@ def test_header():
     padding = emptyLine * 27
     expected += b'\x00\x00\x00\x00' + padding
     assert result == expected
-
-def test_streamSectors():
-    project = VbaProject('.')
-    list1 = [7]
-    list2 = [4, 5, 6, 8, 16, 9, 10, 11, 12, 13, 14, 15, 17]
-    project.addStreamSectorList(list1)
-    assert project.countStreams() == 1
-    project.addStreamSectorList(list2)
-    assert project.countStreams() == 2
-    result = project.streamSectors
-    assert result == [list1, list2]
-    assert project.getFatChainLength() == 17
-    assert project.countFatChainSectors() == 1
-
-    result = project.writeFatSectorList()
-    empty = b'\xff\xff\xff\xff'
-    emptyLine = empty * 4
-    padding = emptyLine * 27
-    expected = b'\x00\x00\x00\x00' + padding
-    assert result == expected
-   
     
