@@ -2,6 +2,7 @@
 
 import pytest
 from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.directory import Directory
 
 def test_defaults():
     project = VbaProject()
