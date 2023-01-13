@@ -31,9 +31,6 @@ class VbaProject:
     #data members of class
     path = "."  #path to the project root
 
-    #Each element is a chain of sector numbers for a particular stream.
-    streamSectors = []
-
     #A list of sectors that contain FAT chain information.
     fatSectors = []
 
@@ -183,14 +180,6 @@ class VbaProject:
         header += sectFat
         return header
 
-    def addStreamSectorList(self, list):
-        """Add a list of sector numbers to the FAT table."""
-        self.streamSectors.append(list)
-
-    def countStreams(self):
-        """Return the number of streams defined in the FAT table."""
-        return len(self.streamSectors)
-
     def writeFat(i):
         return 1
 
@@ -201,8 +190,11 @@ class VbaProject:
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
-    def getDirectoryChainLength(self):
-        return 1
+    def countDirectoryListSectors(self):
+        """The number of sectors needed to express the directory list"""
+        # what if the sectors are not 512 bytes?
+        directorySectors = (len(self.Directories) - 1) // 4
+        return directorySectors
 
     def countMiniFatChainSectors(self):
         return 1
