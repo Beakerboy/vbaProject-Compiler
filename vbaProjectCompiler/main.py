@@ -1,4 +1,4 @@
-import struct
+import struct, os
 from vbaProjectCompiler.directory import Directory
 def main(args):
     rootPath = args[1]
@@ -34,6 +34,9 @@ class VbaProject:
 
     #A list of directories
     directories = []
+
+    #the FAT chain
+    fatChain = []
 
     #class default constructor
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
@@ -166,7 +169,7 @@ class VbaProject:
         sectMiniFatStart = self.getFirstMiniChainSector()
         header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
 
-        csectMiniFat =  self.countMiniFatChainSectors()
+        csectMiniFat =  self.countMinifatFatChainSectors()
         header += struct.pack(self.uByteOrder + "I", csectMiniFat)
 
         #if the MSAT is longer then 109 entries, it continues at this sector
@@ -194,7 +197,7 @@ class VbaProject:
         directorySectors = (len(self.Directories) - 1) // 4
         return directorySectors
 
-    def countMiniFatChainSectors(self):
+    def countMinifatFatChainSectors(self):
         return 1
   
     def writeHeaderFatSectorList(self):
@@ -226,3 +229,25 @@ class VbaProject:
         for stream in self.streamSectors:
             total += len(stream) + 1
         return total
+
+    def addFile(self, dir):
+        #If a new directory list sector is needed, reserve it in the FAT chain
+        #If a new minifat sector is needed, reserve it in the fat chain
+        #calulate the start sector
+        #update the size of the root sector
+        #self.directories[0].size = {count the number of minifat chain entries} * {minifat sector size}
+        
+        self.directories.append(dir)
+    
+    def writeMinifatChain():
+        """Use the info in the directory list to create the minifat chain"""
+        #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
+        chain = []
+        minifatSectors = 0
+        for file in directories:
+            if file.size > 0:
+                (miniFatSectors = file.size - 1) / (2 ** selfuMiniSectorShift)
+        for i in range(minifatSectors):
+            chain.append(len(chain) + 1)
+        chain.append(-2)
+        return chain
