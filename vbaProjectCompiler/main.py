@@ -239,7 +239,7 @@ class VbaProject:
         
         self.directories.append(dir)
     
-    def writeMinifatChain():
+    def getMinifatChain():
         """Use the info in the directory list to create the minifat chain"""
         #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
         chain = []
