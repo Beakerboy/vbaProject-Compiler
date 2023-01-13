@@ -210,8 +210,8 @@ class VbaProject:
         list = self.getFatSectors()
         for sector in list[0:109]:
             output += struct.pack(self.uByteOrder + "I", sector)
-        list = list.ljust(436, b'\xff')
-        return list
+        output = output.ljust(436, b'\xff')
+        return output
 
     def getFatSectors(self):
         """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
