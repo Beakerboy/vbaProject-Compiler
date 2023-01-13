@@ -19,6 +19,7 @@ def main(args):
 
 class VbaProject:
 
+    #data members of class
     uMinorVersion            = 62
     uDllVersion              = 3
     uByteOrder               = "<"
@@ -28,7 +29,7 @@ class VbaProject:
     firstMiniChainSector     = 2
     ulMiniSectorCutoff       = 4096
 
-    #data members of class
+    
     path = "."  #path to the project root
 
     #A list of sectors that contain FAT chain information.
@@ -39,6 +40,7 @@ class VbaProject:
 
     #class default constructor
     def __init__(self, path): 
+        fatSectors = [0]
         self.path = path
         root = Directory()
         root.name = "Root Entry"
@@ -115,6 +117,17 @@ class VbaProject:
         project.sector = 94
         project.size = 466
 
+    #Getters and Setters
+    def getFirstDirectoryListSector(self):
+        return self.firstDirectoryListSector
+
+    def setFirstDirectoryListSector(self, i):
+        #need to ensure sector is not already reserved
+        self.firstDirectoryListSector = i
+
+    def getFirstMiniChainSector(self):
+        return self.firstMiniChainSector
+
     def write(self):
         #open filestream to path.vbaProject.bin
         # write self.header()
@@ -187,13 +200,6 @@ class VbaProject:
         """Calculate the number of sectors needed to express the FAT chain."""
         return self.getFatChainLength() // 511 + 1
 
-    def getFirstDirectoryListSector(self):
-        return self.firstDirectoryListSector
-
-    def setFirstDirectoryListSector(self, i):
-        #ensure sector is not already reserved
-        self.firstDirectoryListSector = i
-
     def countDirectoryListSectors(self):
         """The number of sectors needed to express the directory list"""
         # what if the sectors are not 512 bytes?
@@ -202,9 +208,6 @@ class VbaProject:
 
     def countMiniFatChainSectors(self):
         return 1
-  
-    def getFirstMiniChainSector(self):
-        return self.firstMiniChainSector
   
     def writeFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
