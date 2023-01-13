@@ -158,7 +158,7 @@ class VbaProject:
         csectFat = self.countFatChainSectors()
         header += struct.pack(self.uByteOrder + "I",  csectFat)
 
-        sectDirStart =  self.getFirstDirectoryChainSector()
+        sectDirStart =  self.firstDirectoryListSector
         header += struct.pack(self.uByteOrder + "I", sectDirStart)
 
         signature = LONG_ZERO
