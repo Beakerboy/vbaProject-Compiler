@@ -22,7 +22,7 @@ class Project:
         eol = b'\x0D\0A'
         result = b'"VBAProject"' + eol
         for key in self.attributes:
-            result += bytearray(key) + b'="' + bytearray(self.attributes[key]) + eol
+            result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + eol
         result += eol + eol
         result += b'[HostExtender Info]' + eol
         result += bytearray(self.hostExtenderInfo)
@@ -30,7 +30,7 @@ class Project:
         result += b'[Workspace]' + eol
         for key in self.workspaces:
             separator = ", "
-            result += bytearray(key) + b'=' + bytearray(separator.join(map(str, self.workspaces[key])))
+            result += bytearray(key, 'ascii') + b'=' + bytearray(separator.join(map(str, self.workspaces[key])), 'ascii')
             result += eol
         #remove last '\r\n'
         return result[:-1]
