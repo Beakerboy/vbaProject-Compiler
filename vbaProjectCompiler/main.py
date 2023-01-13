@@ -191,7 +191,7 @@ class VbaProject:
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
-        return self.getFatChainLength() // 511 + 1
+        return (len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1
 
     def countDirectoryListSectors(self):
         """The number of sectors needed to express the directory list"""
@@ -215,9 +215,9 @@ class VbaProject:
     def getFatSectors(self):
         """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
         sectorList = []
-        numberOfSectors = (len(self.fatChain) - 1) // 511 + 1
+        numberOfSectors = self.countFatChainSectors()
         for i in range(numberOfSectors):
-            sectorList.append(i * 128)
+            sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
 
     def writeFatSector(self, i):
@@ -227,7 +227,7 @@ class VbaProject:
 
     def getFatChainLength(self):
         """Count the number of entries in the complete FAT chain."""
-        total = ((len(self.fatChain) - 1) // 511 + 1) * 512
+        total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** uSectorShift)
         return total
 
     def addFile(self, dir):
