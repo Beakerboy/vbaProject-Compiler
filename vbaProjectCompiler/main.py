@@ -239,15 +239,15 @@ class VbaProject:
         
         self.directories.append(dir)
     
-    def getMinifatChain():
+    def getMinifatChain(self):
         """Use the info in the directory list to create the minifat chain"""
         #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
         chain = []
         minifatSectors = 0
-        for file in directories:
+        for file in self.directories:
             if file.size > 0:
-                (miniFatSectors = file.size - 1) / (2 ** selfuMiniSectorShift)
-        for i in range(minifatSectors):
-            chain.append(len(chain) + 1)
-        chain.append(-2)
+                (miniFatSectors = file.size - 1) / (2 ** self.uMiniSectorShift)
+                for i in range(minifatSectors):
+                    chain.append(len(chain) + 1)
+                chain.append(-2)
         return chain
