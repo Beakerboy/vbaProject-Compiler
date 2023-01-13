@@ -18,6 +18,6 @@ def test_blank():
     project.addWorkspace("Sheet1", 0, 0, 0, 0, 'C')
     project.addWorkspace("Module1", 26, 26, 1349, 522, 'Z')
     
-    expected = Path("tests/blank/PROJECT").readtext()
+    expected = Path("tests/blank/PROJECT").read_text()
     result = project.toString()
     assert expected == result
