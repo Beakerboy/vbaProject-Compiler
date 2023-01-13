@@ -22,11 +22,17 @@ class Directory:
 
     sector = 0
 
-    size = 0
+    filePath = ""
 
     def nameSize(self):
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
+
+    def fileSize(self)
+        if filePath == "":
+            return 0
+        file_size = os.stat(self.filePath)
+        return file_size.st_size
 
     def writeDirectory(self):
         dir = bytearray(self.name, "utf_16_le")
@@ -43,7 +49,7 @@ class Directory:
         dir += struct.pack("<I", self.modifiedHigh)
         dir += struct.pack("<I", self.modifiedLow)
         dir += struct.pack("<I", self.sector)
-        dir += struct.pack("<I", self.size)
+        dir += struct.pack("<I", self.fileSize())
         dir += struct.pack("<I", 0)
         
         return dir
