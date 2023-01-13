@@ -15,7 +15,7 @@ class Project:
         # Use \x0D0A line endings...however python encodes that.
         string = '"VBAProject"\r\n'
         for att in self.attributes:
-            string += att.name + '="' + att.value . '"\r\n'
+            string += att.name + '="' + att.value + '"\r\n'
         string += '"\r\n\r\n'
         string += '[HostExtender Info]\r\n'
         string += self.hostExtenderInfo
