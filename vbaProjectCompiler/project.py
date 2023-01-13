@@ -17,19 +17,20 @@ class Project:
     def addWorkspace(self, name, val1, val2, val3, val4, val5):
         self.workspaces[name] = [val1, val2, val3, val4, val5]
 
-    def toString(self):
+    def toBytearray(self):
         # Use \x0D0A line endings...however python encodes that.
-        string = '"VBAProject"\r\n'
+        eol = b'\x0D\0A'
+        result = b'"VBAProject" + eol
         for key in self.attributes:
-            string += key + '="' + self.attributes[key] + '"\r\n'
-        string += '\r\n\r\n'
-        string += '[HostExtender Info]\r\n'
-        string += self.hostExtenderInfo
-        string += '"\r\n\r\n'
-        string += '[Workspace]\r\n'
+            string += bytearray(key) + b'="' + bytearray(self.attributes[key]) + eol
+        string += eol + eol
+        string += b'[HostExtender Info]' + eol
+        string += bytearray(self.hostExtenderInfo)
+        string += eol + eol
+        string += b'[Workspace]' + eol
         for key in self.workspaces:
             separator = ", "
-            string += key + '=' + separator.join(map(str, self.workspaces[key]))
-            string += "\r\n"
+            string += bytearray(key) + b'=' + bytearray(separator.join(map(str, self.workspaces[key])))
+            string += eol
         #remove last '\r\n'
         return string
