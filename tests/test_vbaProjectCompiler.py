@@ -11,9 +11,9 @@ def test_constructor():
 
 def test_getFirstDirectoryListSector():
     project = VbaProject('.')
-    assert project.getFirstDirectoryChainSector() == 1
+    assert project.getFirstDirectoryListSector() == 1
     project.setFirstDirectoryListSector(2)
-    assert project.getFirstDirectoryChainSector() == 2
+    assert project.getFirstDirectoryListSector() == 2
 
 def test_header():
     project = VbaProject('.')
