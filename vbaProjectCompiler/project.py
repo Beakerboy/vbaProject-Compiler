@@ -13,6 +13,7 @@ class Project:
 
     def addAttribute(self, name, value):
         self.attributes.append({name: value})
+
     def toString(self):
         # Use \x0D0A line endings...however python encodes that.
         string = '"VBAProject"\r\n'
