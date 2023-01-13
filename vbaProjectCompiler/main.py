@@ -1,5 +1,7 @@
 import struct
 
+from Directory import Directory
+
 def main(args):
     rootPath = args[1]
     vbaProject = VbaProject(rootPath)
