@@ -1,6 +1,6 @@
 import struct
 
-from Directory import Directory
+from directory import Directory
 
 def main(args):
     rootPath = args[1]
