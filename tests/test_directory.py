@@ -1,7 +1,7 @@
 # test_vbaProjectCompiler.py
 
 import pytest
-from vbaProjectCompiler.main import *
+from vbaProjectCompiler import *
 
 def test_directory():
 
