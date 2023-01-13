@@ -195,6 +195,7 @@ class VbaProject:
 
     def countDirectoryListSectors(self):
         """The number of sectors needed to express the directory list"""
+        #Each directory record is 128 bytes
         directoriesPerSector = (2 ** self.uSectorShift) // 128
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
         return directorySectors
