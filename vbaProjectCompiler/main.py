@@ -2,7 +2,7 @@ import struct
 from vbaProjectCompiler.directory import Directory
 def main(args):
     rootPath = args[1]
-    vbaProject = VbaProject(rootPath)
+    vbaProject = VbaProject()
     #for each .bas file in rootPath/Modules
     # compress file
     # add file to the project
@@ -15,7 +15,10 @@ def main(args):
     # compress file
     # add file to the project
 
-    vbaProject.write(rootPath)
+    #Create the file
+    with open(rootpath + '/vbaProject.bin', 'w+') as file:
+        file.write(vbaProject.header())
+        #iterate along the FAT chain to write the bin
 
 class VbaProject:
 
@@ -29,9 +32,6 @@ class VbaProject:
     firstMiniChainSector     = 2
     ulMiniSectorCutoff       = 4096
 
-    
-    path = "."  #path to the project root
-
     #A list of sectors that contain FAT chain information.
     fatSectors = []
 
@@ -40,7 +40,7 @@ class VbaProject:
 
     #class default constructor
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
-    def __init__(self, path = '.'): 
+    def __init__(self): 
         fatSectors = [0]
         self.path = path
         root = Directory()
@@ -129,15 +129,6 @@ class VbaProject:
     def getFirstMiniChainSector(self):
         return self.firstMiniChainSector
 
-    def write(self):
-        #open filestream to path.vbaProject.bin
-        # write self.header()
-        # write self.FatSector(0)
-        # write self.directorySector(0)
-        # write self.miniFatSector(0)
-        # second fat block is 80000000
-        return 1
-
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
    
@@ -221,8 +212,11 @@ class VbaProject:
         return list
 
     def getFatSectors(self):
-        sectorList = [0]
-        # add 
+        """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
+        sectorList = []
+        numberOfSectors = (len(self.fatChain) - 1) / 511
+        for i in range(numberOfSectors):
+            sectorList.append(i * 128)
         return sectorList
 
     def writeFatSector(self, i):
