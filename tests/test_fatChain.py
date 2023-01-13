@@ -3,7 +3,7 @@
 import pytest
 from vbaProjectCompiler.main import * 
 
-def test_defaults('.'):
+def test_defaults():
     project = VbaProject()
     #Test that only one fat chain sector is needed when no data is present
     assert project.countFatChainSectors == 1
@@ -16,7 +16,7 @@ def test_defaults('.'):
     
 def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
-    project = VbaProject('.')
+    project = VbaProject()
     blankFile = Directory()
     project.AddFile(blankFile)
     project.AddFile(blankFile)
