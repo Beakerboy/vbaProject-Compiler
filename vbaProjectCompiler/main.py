@@ -194,7 +194,7 @@ class VbaProject:
     def countDirectoryListSectors(self):
         """The number of sectors needed to express the directory list"""
         # what if the sectors are not 512 bytes?
-        directorySectors = (len(self.Directories) - 1) // 4
+        directorySectors = (len(self.directories) - 1) // 4
         return directorySectors
 
     def countMinifatFatChainSectors(self):
