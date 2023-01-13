@@ -1,3 +1,6 @@
+import struct, os
+from vbaProjectCompiler.directory import Directory
+
 class VbaProject:
 
     #data members of class
