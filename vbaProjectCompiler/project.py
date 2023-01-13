@@ -11,7 +11,7 @@ class Project:
     # A list of the files and their workspace values
     workspaces = []
     
-    toString(self):
+    def toString(self):
         # Use \x0D0A line endings...however python encodes that.
         string = '"VBAProject"\r\n'
         for att in self.attributes:
