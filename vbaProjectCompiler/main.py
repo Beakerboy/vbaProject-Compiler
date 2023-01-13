@@ -215,7 +215,7 @@ class VbaProject:
     def getFatSectors(self):
         """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
         sectorList = []
-        numberOfSectors = (len(self.fatChain) - 1) / 511
+        numberOfSectors = (len(self.fatChain) - 1) // 511 + 1
         for i in range(numberOfSectors):
             sectorList.append(i * 128)
         return sectorList
@@ -247,7 +247,7 @@ class VbaProject:
         additionalMinifatSectors = 0
         for file in self.directories:
             if file.size > 0:
-                additionalMinifatSectors = (file.size - 1) / (2 ** self.uMiniSectorShift)
+                additionalMinifatSectors = (file.size - 1) // (2 ** self.uMiniSectorShift)
                 for i in range(additionalMinifatSectors):
                     chain.append(len(chain) + 1)
                 #Append the chain terminator
