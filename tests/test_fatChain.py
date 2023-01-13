@@ -9,7 +9,7 @@ def test_defaults():
     assert project.countFatChainSectors() == 1
 
     #Test that by default, the Fat chain will reside in sector zero
-    assert project.fatChainSectorList() == [0]
+    assert project.getFatSectors() == [0]
 
     #Test that when no data is present, all streams are terminated after the first sector
     assert project.fatChain == [-2, -2, -2]
