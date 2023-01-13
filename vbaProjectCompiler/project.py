@@ -9,22 +9,25 @@ class Project:
     hostExtenderInfo = ""
     
     # A list of the files and their workspace values
-    workspaces = []
+    workspaces = {}
 
     def addAttribute(self, name, value):
         self.attributes[name] = value
+
+    def addWorkspace(self, name, val1, val2, val3, val4, val5):
+        self.workspaces[name] = [val1, val2, val3, val4, val5]
 
     def toString(self):
         # Use \x0D0A line endings...however python encodes that.
         string = '"VBAProject"\r\n'
         for key in self.attributes:
             string += key + '="' + self.attributes[key] + '"\r\n'
-        string += '"\r\n\r\n'
+        string += '\r\n\r\n'
         string += '[HostExtender Info]\r\n'
         string += self.hostExtenderInfo
         string += '"\r\n\r\n'
         string += '[Workspace]\r\n'
-        for space in self.workspaces:
+        for key in self.workspaces:
             separator = ", "
-            string += space.name + '=' + separator.join(space.values)
+            string += key + '=' + separator.join(self.workspaces[key])
         return string
