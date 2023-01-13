@@ -30,4 +30,6 @@ class Project:
         for key in self.workspaces:
             separator = ", "
             string += key + '=' + separator.join(map(str, self.workspaces[key]))
+            string += "\r\n"
+        #remove last '\r\n'
         return string
