@@ -24,18 +24,3 @@ def test_header():
     padding = emptyLine * 27
     expected += b'\x00\x00\x00\x00' + padding
     assert result == expected
-   
-def test_fileHandling():
-    file = open("./tests/blank/vbaProject.bin", "rb")
-    file.seek(2048)
-    ThisWorkbookData = file.read(999)
-    file.close()
-    thisWorkbook = Directory()
-    thisWorkbook.name = "ThisWorkbook"
-    thisWorkbook.type = 2
-    thisWorkbook.color = 1
-    thisWorkbook.nextDirectoryId = 4
-    #thisWorkbook.addData(ThisWorkbookData)
-    #vbaProject.addFile(thisWorkbook)
-    import sys
-    sys.stderr.write(ThisWorkbookData.decode('charmap'))
