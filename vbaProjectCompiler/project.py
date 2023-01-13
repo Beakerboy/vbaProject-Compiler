@@ -22,5 +22,6 @@ class Project:
         string += '"\r\n\r\n'
         string += '[Workspace]\r\n'
         for space in self.workspaces:
-            string += space.name + '=' + join(space.values, ', ')
+            separator = ", "
+            string += space.name + '=' + separator.join(space.values)
         return string
