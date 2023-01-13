@@ -20,4 +20,4 @@ def test_blank():
     
     expected = Path("tests/blank/PROJECT").readtext()
     result = project.toString()
-    assert expected == results
+    assert expected == result
