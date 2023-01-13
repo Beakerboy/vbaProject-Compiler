@@ -14,9 +14,9 @@ def test_blank():
 
     project.hostExtender = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
 
-    project.addWorkspace("ThisWorkbook", 0, 0, 0, 0, C)
-    project.addWorkspace("Sheet1", 0, 0, 0, 0, C)
-    project.addWorkspace("Module1", 26, 26, 1349, 522, Z)
+    project.addWorkspace("ThisWorkbook", 0, 0, 0, 0, 'C')
+    project.addWorkspace("Sheet1", 0, 0, 0, 0, 'C')
+    project.addWorkspace("Module1", 26, 26, 1349, 522, 'Z')
     
     expected = Path("tests/blank/PROJECT").readtext()
     result = project.toString()
