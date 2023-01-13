@@ -40,8 +40,10 @@ class VbaProject:
 
     #class default constructor
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
-    def __init__(self): 
-        fatSectors = [0]
+    def __init__(self):
+        #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
+        fatChain = [-2, -2]
+
         root = Directory()
         root.name = "Root Entry"
         root.type = 5
@@ -226,8 +228,7 @@ class VbaProject:
     def getFatChainLength(self):
         """Count the number of entries in the complete FAT chain."""
         total = 1
-        for stream in self.streamSectors:
-            total += len(stream) + 1
+        total += len(len) + 1
         return total
 
     def addFile(self, dir):
