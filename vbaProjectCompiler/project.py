@@ -33,4 +33,4 @@ class Project:
             result += bytearray(key, 'ascii') + b'=' + bytearray(separator.join(map(str, self.workspaces[key])), 'ascii')
             result += eol
         #remove last '\r\n'
-        return result[:-1]
+        return result
