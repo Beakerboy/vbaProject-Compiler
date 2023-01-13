@@ -16,7 +16,7 @@ def main(args):
     # add file to the project
 
     #Create the file
-    with open(rootpath + '/vbaProject.bin', 'w+') as file:
+    with open(rootPath + '/vbaProject.bin', 'w+') as file:
         file.write(vbaProject.header())
         #iterate along the FAT chain to write the bin
 
