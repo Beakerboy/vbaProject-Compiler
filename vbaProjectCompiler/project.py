@@ -4,13 +4,15 @@ class Project:
     
     #A list of attributes and values
     attributes = []
+    
+    #The HostExtenderInfo string
     hostExtenderInfo = ""
     
     # A list of the files and their workspace values
     workspaces = []
     
     toString(self):
-      #\x0D0A line endings
+        # Use \x0D0A line endings...however python encodes that.
         string = "\"VBAProject"\r\n"
         for att in attributes:
             string += att.name + '="' + att.value . '"\r\n'
