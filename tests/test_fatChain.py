@@ -6,7 +6,7 @@ from vbaProjectCompiler.main import *
 def test_defaults():
     project = VbaProject()
     #Test that only one fat chain sector is needed when no data is present
-    assert project.countFatChainSectors == 1
+    assert project.countFatChainSectors() == 1
 
     #Test that by default, the Fat chain will reside in sector zero
     assert project.fatChainSectorList() == [0]
