@@ -19,12 +19,14 @@ def main(args):
 
 class VbaProject:
 
-    uMinorVersion      = 62
-    uDllVersion        = 3
-    uByteOrder         = "<"
-    uSectorShift       = 9
-    uMiniSectorShift   = 6
-    ulMiniSectorCutoff = 4096
+    uMinorVersion            = 62
+    uDllVersion              = 3
+    uByteOrder               = "<"
+    uSectorShift             = 9
+    uMiniSectorShift         = 6
+    firstDirectoryListSector = 1
+    firstMiniChainSector     = 2
+    ulMiniSectorCutoff       = 4096
 
     #data members of class
     path = "."  #path to the project root
@@ -196,8 +198,8 @@ class VbaProject:
         """Calculate the number of sectors needed to express the FAT chain."""
         return self.getFatChainLength() // 511 + 1
 
-    def getFirstDirectoryChainSector(self):
-        return 1
+    def getFirstDirectoryListSector(self):
+        return self.firstDirectoryListSector
 
     def getDirectoryChainLength(self):
         return 1
@@ -206,7 +208,7 @@ class VbaProject:
         return 1
   
     def getFirstMiniChainSector(self):
-        return 2
+        return self.firstMiniChainSector
   
     def writeFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
