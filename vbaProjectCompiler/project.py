@@ -29,5 +29,5 @@ class Project:
         string += '[Workspace]\r\n'
         for key in self.workspaces:
             separator = ", "
-            string += key + '=' + separator.join(self.workspaces[key])
+            string += key + '=' + separator.join(map(str, self.workspaces[key]))
         return string
