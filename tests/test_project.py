@@ -22,5 +22,5 @@ def test_blank():
     file = open("tests/blank/PROJECT", "rb")
     expected = file.read()
 
-    result = bytearray(project.toString(), "ascii")
+    result = project.toBytearray()
     assert expected == result
