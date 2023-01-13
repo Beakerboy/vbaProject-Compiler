@@ -39,7 +39,8 @@ class VbaProject:
     directories = []
 
     #class default constructor
-    def __init__(self, path): 
+    # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
+    def __init__(self, path = '.'): 
         fatSectors = [0]
         self.path = path
         root = Directory()
