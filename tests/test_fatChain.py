@@ -1,7 +1,8 @@
 # test_fatChain.py
 
 import pytest
-from vbaProjectCompiler.main import *
+from vbaProjectCompiler.main import * 
+from directory import Directory
 
 def test_defaults():
     project = VbaProject()
