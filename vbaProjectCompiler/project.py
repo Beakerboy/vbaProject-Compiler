@@ -12,7 +12,7 @@ class Project:
     workspaces = []
 
     def addAttribute(self, name, value):
-        self.attributes[name].append(value)
+        self.attributes[name] = value
 
     def toString(self):
         # Use \x0D0A line endings...however python encodes that.
