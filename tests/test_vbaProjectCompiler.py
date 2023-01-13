@@ -1,7 +1,7 @@
-# test_vbaProjectCompiler.py
+# test_vbaProject.py
 
 import pytest, binascii, sys
-from vbaProjectCompiler.main import *
+from vbaProjectCompiler.vbaProject import VbaProject
 
 def test_getFirstDirectoryListSector():
     project = VbaProject()
