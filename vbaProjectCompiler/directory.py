@@ -29,7 +29,7 @@ class Directory:
         return (len(self.name) + 1) * 2
 
     def fileSize(self):
-        if filePath == "":
+        if self.filePath == "":
             return 0
         file_size = os.stat(self.filePath)
         return file_size.st_size
