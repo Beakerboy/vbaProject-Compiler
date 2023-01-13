@@ -162,6 +162,7 @@ class VbaProject:
         #If a new minifat sector is needed, reserve it in the fat chain
         #calulate the start sector
         #update the size of the root sector
+        #add data to PROJECT data structure
         #self.directories[0].size = {count the number of minifat chain entries} * {minifat sector size}
         
         self.directories.append(dir)
