@@ -1,6 +1,6 @@
 # test_vbaProjectCompiler.py
 
-import pytest, binascii
+import pytest, binascii, sys
 from vbaProjectCompiler.main import *
 
 def test_constructor():
@@ -9,9 +9,11 @@ def test_constructor():
     result = project.path
     assert result == expected
 
-def test_getFirstDirectoryChainSector():
+def test_getFirstDirectoryListSector():
     project = VbaProject('.')
-    assert project.getFirstDirectoryChainSector() == 1;
+    assert project.getFirstDirectoryListSector() == 1
+    project.setFirstDirectoryListSector(2)
+    assert project.getFirstDirectoryListSector() == 2
 
 def test_header():
     project = VbaProject('.')
@@ -22,4 +24,3 @@ def test_header():
     padding = emptyLine * 27
     expected += b'\x00\x00\x00\x00' + padding
     assert result == expected
-    

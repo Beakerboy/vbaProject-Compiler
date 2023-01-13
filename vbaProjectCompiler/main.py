@@ -19,11 +19,17 @@ def main(args):
 
 class VbaProject:
 
+    uMinorVersion            = 62
+    uDllVersion              = 3
+    uByteOrder               = "<"
+    uSectorShift             = 9
+    uMiniSectorShift         = 6
+    firstDirectoryListSector = 1
+    firstMiniChainSector     = 2
+    ulMiniSectorCutoff       = 4096
+
     #data members of class
     path = "."  #path to the project root
-
-    #Each element is a chain of sector numbers for a particular stream.
-    streamSectors = []
 
     #A list of sectors that contain FAT chain information.
     fatSectors = []
@@ -47,7 +53,7 @@ class VbaProject:
         vba = Directory()
         vba.name = "VBA"
         vba.type = 1
-        vba.subDirectoryId = 5
+        vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
         self.directories.append(vba)
@@ -56,7 +62,7 @@ class VbaProject:
         thisWorkbook.name = "ThisWorkbook"
         thisWorkbook.type = 2
         thisWorkbook.color = 1
-        thisWorkbook.nextDirectoryId = 4
+        thisWorkbook.nextDirectoryId = 5
         thisWorkbook.size = 999
         self.directories.append(thisWorkbook)
 
@@ -79,12 +85,12 @@ class VbaProject:
         module1.size = 681
         self.directories.append(module1)
 
-        project = Directory()
-        project.name = "_VBA_Project"
-        project.type = 2
-        project.sector = 43
-        project.size = 2544
-        self.directories.append(project)
+        vba_project = Directory()
+        vba_project.name = "_VBA_Project"
+        vba_project.type = 2
+        vba_project.sector = 43
+        vba_project.size = 2544
+        self.directories.append(vba_project)
 
         dir = Directory()
         dir.name = "dir"
@@ -99,6 +105,15 @@ class VbaProject:
         projectWm.sector = 92
         projectWm.size = 86
         self.directories.append(projectWm)
+
+        project = Directory()
+        project.name = "PROJECT"
+        project.type = 2
+        project.color = 1
+        project.previousDirectoryId = 1
+        project.nextDirectoryId = 7
+        project.sector = 94
+        project.size = 466
 
     def write(self):
         #open filestream to path.vbaProject.bin
@@ -122,20 +137,11 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        uMinorVersion = b"\x3e\x00"
-        header += uMinorVersion
-
-        uDllVersion = b"\x03\x00"
-        header += uDllVersion
-
-        uByteOrder = b"\xfe\xff"
-        header += uByteOrder
-
-        uSectorShift = b"\x09\x00"
-        header += uSectorShift
-
-        uMiniSectorShift = b'\x06\x00'
-        header += uMiniSectorShift
+        header += struct.pack(self.uByteOrder + "h", self.uMinorVersion)
+        header += struct.pack(self.uByteOrder + "h", self.uDllVersion)
+        header += struct.pack(self.uByteOrder + "h", -2)
+        header += struct.pack(self.uByteOrder + "h", self.uSectorShift)
+        header += struct.pack(self.uByteOrder + "h", self.uMiniSectorShift)
 
         usReserved  = SHORT_ZERO
         header += usReserved
@@ -147,22 +153,20 @@ class VbaProject:
         header += csectDir
 
         csectFat = self.countFatChainSectors()
-        header += struct.pack("<I",  csectFat)
+        header += struct.pack(self.uByteOrder + "I",  csectFat)
 
-        sectDirStart =  self.getFirstDirectoryChainSector()
-        header += struct.pack("<I", sectDirStart)
+        sectDirStart =  self.firstDirectoryListSector
+        header += struct.pack(self.uByteOrder + "I", sectDirStart)
 
         signature = LONG_ZERO
         header += signature
-
-        ulMiniSectorCutoff = b"\x00\x10\x00\x00"
-        header += ulMiniSectorCutoff
+        header += struct.pack(self.uByteOrder + "I", self.ulMiniSectorCutoff)
 
         sectMiniFatStart = self.getFirstMiniChainSector()
-        header += struct.pack("<I", sectMiniFatStart)
+        header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
 
         csectMiniFat =  self.countMiniFatChainSectors()
-        header += struct.pack("<I", csectMiniFat)
+        header += struct.pack(self.uByteOrder + "I", csectMiniFat)
 
         #if the MSAT is longer then 109 entries, it continues at this sector
         sectDifStart = b"\xfe\xff\xff\xff"
@@ -176,14 +180,6 @@ class VbaProject:
         header += sectFat
         return header
 
-    def addStreamSectorList(self, list):
-        """Add a list of sector numbers to the FAT table."""
-        self.streamSectors.append(list)
-
-    def countStreams(self):
-        """Return the number of streams defined in the FAT table."""
-        return len(self.streamSectors)
-
     def writeFat(i):
         return 1
 
@@ -191,17 +187,24 @@ class VbaProject:
         """Calculate the number of sectors needed to express the FAT chain."""
         return self.getFatChainLength() // 511 + 1
 
-    def getFirstDirectoryChainSector(self):
-        return 1
+    def getFirstDirectoryListSector(self):
+        return self.firstDirectoryListSector
 
-    def getDirectoryChainLength(self):
-        return 1
+    def setFirstDirectoryListSector(self, i):
+        #ensure sector is not already reserved
+        self.firstDirectoryListSector = i
+
+    def countDirectoryListSectors(self):
+        """The number of sectors needed to express the directory list"""
+        # what if the sectors are not 512 bytes?
+        directorySectors = (len(self.Directories) - 1) // 4
+        return directorySectors
 
     def countMiniFatChainSectors(self):
         return 1
   
     def getFirstMiniChainSector(self):
-        return 2
+        return self.firstMiniChainSector
   
     def writeFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
