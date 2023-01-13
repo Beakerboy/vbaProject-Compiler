@@ -42,7 +42,7 @@ class VbaProject:
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
     def __init__(self):
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
-        fatChain = [-2, -2]
+        self.fatChain = [-2, -2]
 
         root = Directory()
         root.name = "Root Entry"
