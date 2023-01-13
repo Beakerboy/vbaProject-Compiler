@@ -13,7 +13,7 @@ class Project:
     
     toString(self):
         # Use \x0D0A line endings...however python encodes that.
-        string = "\"VBAProject"\r\n"
+        string = '"VBAProject"\r\n'
         for att in attributes:
             string += att.name + '="' + att.value . '"\r\n'
         string += '"\r\n\r\n'
