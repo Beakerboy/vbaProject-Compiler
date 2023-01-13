@@ -23,7 +23,7 @@ class Project:
         result = b'"VBAProject"' + eol
         for key in self.attributes:
             result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + b'"' + eol
-        result += eol + eol
+        result += eol
         result += b'[HostExtender Info]' + eol
         result += bytearray(self.hostExtenderInfo, 'ascii')
         result += eol + eol
