@@ -20,7 +20,7 @@ class Project:
     def toBytearray(self):
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\0A'
-        result = b'"VBAProject" + eol
+        result = b'"VBAProject"' + eol
         for key in self.attributes:
             result += bytearray(key) + b'="' + bytearray(self.attributes[key]) + eol
         result += eol + eol
