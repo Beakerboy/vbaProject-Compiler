@@ -190,6 +190,10 @@ class VbaProject:
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
+    def setFirstDirectoryListSector(self, i):
+        #ensure sector is not already reserved
+        self.firstDirectoryListSector = i
+
     def countDirectoryListSectors(self):
         """The number of sectors needed to express the directory list"""
         # what if the sectors are not 512 bytes?
