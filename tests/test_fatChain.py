@@ -21,10 +21,6 @@ def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
     project = VbaProject()
     assert project.countDirectoryListSectors() == 1
-    blankFile = Directory()
-    project.addFile(blankFile)
-    project.addFile(blankFile)
-    project.addFile(blankFile)
-    project.addFile(blankFile)
-    #assert project.countDirectoryListSectors() == 2
+    project.finalize()
+    assert project.countDirectoryListSectors() == 3
     #assert project.fatChain == [4, -2, -2, -2]
