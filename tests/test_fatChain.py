@@ -12,7 +12,9 @@ def test_defaults():
     assert project.getFatSectors() == [0]
 
     #Test that when no data is present, all streams are terminated after the first sector
-    assert project.fatChain == [-2, -2, -2]
+    #current library does not include any directory streams, so no data stream is present.
+    #If This test starts to fail with [-2, -2, -2] change the test.
+    assert project.fatChain == [-2, -2]
     
 def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
