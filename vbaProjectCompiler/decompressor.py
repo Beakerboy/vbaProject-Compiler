@@ -7,9 +7,6 @@ class Decompressor:
     #the size in bytes of the chunk after compression
     compressedChunkSize      = 0
 
-    #the chunk signature must be 3
-    compressedChunkSignature = 3
-
     #The chunk after compression
     compressedData           = b''
 
@@ -23,7 +20,7 @@ class Decompressor:
 
     def setCompression(self, compress):
         """Set if we want to compress the source or include it raw"""
-        self.compressed = compress
+        self.compressed = 1 if compress else 0
 
     def setCompressedHeader(self, compressedHeader):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
