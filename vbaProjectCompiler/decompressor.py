@@ -1,7 +1,7 @@
 class Decompressor:
     #class attributes
     #is the data compressed?
-    compressed               = True
+    compressed               = 1
 
     #the size in bytes of the chunk after compression
     compressedChunkSize      = 0
@@ -29,12 +29,12 @@ class Decompressor:
         length = len(compressedHeader)
         if length != 2:
             raise Exception("The header must be two bytes. Given " + str(length) + ".")
-
+        intHeader = int.from_bytes(compressedHeader, "big")
         #data is compressed if the least significat bit is 0b1
-        self.compressed = int.from_bytes(compressedHeader, "big") % 2 == 1
+        self.compressed = (intHeader & 0x8000) >> 15
 
         #the 12 most significant bits is three less than the chunk size
-        self.compressedChunkSize = int.from_bytes(compressedHeader, "big") >> 4 + 3
+        self.compressedChunkSize = (intHeader & 0x0FFF) + 3
         if not(self.compressed) and self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
         self.compressedChunkSignature = (int.from_bytes(compressedHeader, "big") & 14) >> 1
