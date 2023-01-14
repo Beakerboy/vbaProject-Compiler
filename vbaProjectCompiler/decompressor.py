@@ -37,8 +37,8 @@ class Decompressor:
         if self.compressedChunkSignature != 3:
             raise Exception("Chunk signature must be three.")
 
-    def getCompressedChunkSize():
+    def getCompressedChunkSize(self):
         return self.compressedChunkSize
 
-    def getCompressedChunk():
+    def getCompressedChunk(self):
         return compressedSignature + compressedData
