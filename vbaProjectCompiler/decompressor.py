@@ -21,7 +21,7 @@ class Decompressor:
         self.compressed = int(twoBytes) % 2 == 1
         #the 12 most significant bits is three less than the chunk size
         self.compressedChunkSize = compressedHeader >> 4 + 3
-        if !self.compressed && self.compressedChunkSize != 4096:
+        if !self.compressed and self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
         self.compressedChunkSignature = twoBytes & 13 >> 1
         if self.compressedChunkSignature != 3:
