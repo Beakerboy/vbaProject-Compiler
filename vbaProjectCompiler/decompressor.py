@@ -51,3 +51,13 @@ class Decompressor:
     def compress(self, input):
         if len(input) > 4096:
             raise Exception("Input cannot be longer than 4096 bytes.")
+        if self.compress:
+            return self.compressStandard(input)
+        return self.compressRaw(input)
+
+
+    def compressRaw(self, input):
+        pass
+
+    def compressStandard(self, input):
+        pass
