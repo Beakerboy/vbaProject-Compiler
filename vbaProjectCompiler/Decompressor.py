@@ -10,8 +10,8 @@ class Decompressor:
     def setCompressedData():
         pass
 
-    def getCompressedData():
-        pass
+    def getCompressedData(self):
+        return self.compressedData
 
     def setCompressedHeader(self, twoBytes):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
