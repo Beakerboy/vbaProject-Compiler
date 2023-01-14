@@ -27,7 +27,7 @@ class Decompressor:
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
         length = len(compressedHeader)
         if length != 2:
-            raise Exception("The header must be two bytes. Given " + length + ".")
+            raise Exception("The header must be two bytes. Given " + str(length) + ".")
         #data is compressed if the least significat bit is 0b1
         self.compressed = int(compressedHeader) % 2 == 1
         #the 12 most significant bits is three less than the chunk size
