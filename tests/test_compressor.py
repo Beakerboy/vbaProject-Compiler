@@ -6,4 +6,4 @@ def test_Compressor():
     comp.setCompressedHeader(b'0x1603')
     expected = 355
     result = comp.getChunkSize
-    assert expected = result
+    assert expected == result
