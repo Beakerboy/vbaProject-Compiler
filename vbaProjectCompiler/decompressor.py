@@ -37,9 +37,9 @@ class Decompressor:
         self.compressedChunkSize = int.from_bytes(compressedHeader, "big") >> 4 + 3
         if not(self.compressed) and self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
-        self.compressedChunkSignature = (int.from_bytes(compressedHeader, "big") & 13) >> 1
+        self.compressedChunkSignature = (int.from_bytes(compressedHeader, "big") & 14) >> 1
         if self.compressedChunkSignature != 3:
-            raise Exception("Chunk signature must be three.")
+            raise Exception("Chunk signature must be three. Value is " + str(self.compressedChunkSignature) + ".")
 
     def getCompressedChunkSize(self):
         return self.compressedChunkSize
