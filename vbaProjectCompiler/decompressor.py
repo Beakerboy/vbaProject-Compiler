@@ -13,7 +13,7 @@ class Decompressor:
     def getCompressedData(self):
         return self.compressedData
 
-    def setCompression(self, compress)
+    def setCompression(self, compress):
         """Set if we want to compress the source or include it raw"""
         self.compressed = compress
 
