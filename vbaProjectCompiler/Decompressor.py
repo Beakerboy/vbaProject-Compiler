@@ -3,9 +3,9 @@ class Decompressor:
     compressed               = true
     compressedChunkSize      = 0
     compressedChunkSignature = 0
+    compressedData           = b''
 
-    def init():
-        pass
+    uncompressedData         = ""
 
     def setCompressedData():
         pass
@@ -32,4 +32,4 @@ class Decompressor:
         return compressedHeader >> 4 + 3
 
     def getCompressedChunk():
-        return 
+        return compressedSignature + compressedData
