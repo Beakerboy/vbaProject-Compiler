@@ -15,14 +15,14 @@ class Decompressor:
 
     def setCompressedHeader(self, twoBytes):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
-        if len(twoBytes) !== 2:
+        if len(twoBytes) != 2:
             raise Exception("The header must be two bytes")
         self.compressed = int(twoBytes) % 2 == 1
         self.compressedChunkSize = compressedHeader >> 4 + 3
-        if !self.compressed && self.compressedChunkSize !== 4096:
+        if !self.compressed && self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
         self.compressedChunkSignature = twoBytes & 13 >> 1
-        if self.compressedChunkSignature !== 3:
+        if self.compressedChunkSignature != 3:
             raise Exception("Chunk signature must be three.)
 
     def calculateChunkSize():
