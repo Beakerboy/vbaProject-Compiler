@@ -13,6 +13,10 @@ class Decompressor:
     def getCompressedData(self):
         return self.compressedData
 
+    def setCompression(self, compress)
+        """Set if we want to compress the source or include it raw"""
+        self.compressed = compress
+
     def setCompressedHeader(self, twoBytes):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
         if len(twoBytes) != 2:
