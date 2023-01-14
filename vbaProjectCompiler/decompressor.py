@@ -31,7 +31,7 @@ class Decompressor:
             raise Exception("The header must be two bytes. Given " + str(length) + ".")
 
         #data is compressed if the least significat bit is 0b1
-        self.compressed = int.from_bytes(compressedHeader) % 2 == 1
+        self.compressed = int.from_bytes(compressedHeader, "big") % 2 == 1
 
         #the 12 most significant bits is three less than the chunk size
         self.compressedChunkSize = compressedHeader >> 4 + 3
