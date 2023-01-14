@@ -29,7 +29,7 @@ class Decompressor:
         length = len(compressedHeader)
         if length != 2:
             raise Exception("The header must be two bytes. Given " + str(length) + ".")
-        intHeader = int.from_bytes(compressedHeader, "big")
+        intHeader = int.from_bytes(compressedHeader, "little")
         #data is compressed if the least significat bit is 0b1
         self.compressed = (intHeader & 0x8000) >> 15
 
