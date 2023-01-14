@@ -1,6 +1,6 @@
 class Decompressor:
     #class attributes
-    compressed               = true
+    compressed               = True
     compressedChunkSize      = 0
     compressedChunkSignature = 0
     compressedData           = b''
