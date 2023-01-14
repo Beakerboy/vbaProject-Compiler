@@ -13,7 +13,7 @@ class Decompressor:
     def getCompressedData():
         pass
 
-    def set CompressedHeader(self, twoBytes):
+    def setCompressedHeader(self, twoBytes):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
         if len(twoBytes) !== 2:
             raise Exception("The header must be two bytes")
