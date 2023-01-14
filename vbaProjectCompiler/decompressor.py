@@ -16,8 +16,8 @@ class Decompressor:
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
-        if len(data) != self.compressedChunkSize:
-            raise Exception("Expecting " + str(self.compressedChunkSize) + " bytes, but given " + str(len(data)) + ".")
+        if len(data) != self.compressedChunkSize - 2:
+            raise Exception("Expecting " + str(self.compressedChunkSize - 2) + " bytes, but given " + str(len(data)) + ".")
         self.compressedData = data
 
     def getCompressedData(self):
