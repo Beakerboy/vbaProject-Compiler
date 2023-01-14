@@ -47,3 +47,7 @@ class Decompressor:
         intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
         compressedChunkHeader = struct.pack("<H", intHeader)
         return compressedChunkHeader + self.compressedData
+
+    def compress(input):
+        if len(input) > 4096:
+            raise Exception("Input cannot be longer than 4096 bytes.")
