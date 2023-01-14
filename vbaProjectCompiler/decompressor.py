@@ -27,7 +27,7 @@ class Decompressor:
         self.compressedChunkSize = compressedHeader >> 4 + 3
         if not(self.compressed) and self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
-        self.compressedChunkSignature = twoBytes & 13 >> 1
+        self.compressedChunkSignature = compressedHeader & 13 >> 1
         if self.compressedChunkSignature != 3:
             raise Exception("Chunk signature must be three.")
 
