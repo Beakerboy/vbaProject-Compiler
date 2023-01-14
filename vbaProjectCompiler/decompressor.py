@@ -8,7 +8,7 @@ class Decompressor:
     #the chunk signature must be 3
     compressedChunkSignature = 3
 
-    The chunk after compression
+    #The chunk after compression
     compressedData           = b''
 
     uncompressedData         = ""
