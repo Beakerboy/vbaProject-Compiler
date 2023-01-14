@@ -1,8 +1,14 @@
 class Decompressor:
     #class attributes
     compressed               = True
+
+    #the size in bytes of the chunk after compression
     compressedChunkSize      = 0
-    compressedChunkSignature = 0
+
+    #the chunk signature must be 3
+    compressedChunkSignature = 3
+
+    The chunk after compression
     compressedData           = b''
 
     uncompressedData         = ""
@@ -31,11 +37,8 @@ class Decompressor:
         if self.compressedChunkSignature != 3:
             raise Exception("Chunk signature must be three.")
 
-    def calculateChunkSize():
-        """Given the first 2 bytes of a compressed chunk, return the chunk size in bytes"""
-        if int(compressedHeader) % 2 == 1:
-            return 4095
-        return compressedHeader >> 4 + 3
+    def getChunkSize():
+        return self.compressedChunkSize
 
     def getCompressedChunk():
         return compressedSignature + compressedData
