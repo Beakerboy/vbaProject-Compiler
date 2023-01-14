@@ -41,4 +41,6 @@ class Decompressor:
         return self.compressedChunkSize
 
     def getCompressedChunk(self):
-        return compressedSignature + compressedData
+        compressedChunkFlag = 1 if self.compressed else 0
+        compressedHeader = self.compressedChunkSize << 4 & 6 & compressedChunkFlag
+        return compressedHeader + self.compressedData
