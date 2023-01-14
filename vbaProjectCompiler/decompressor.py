@@ -20,9 +20,6 @@ class Decompressor:
             raise Exception("Expecting " + str(self.compressedChunkSize - 2) + " bytes, but given " + str(len(data)) + ".")
         self.compressedData = data
 
-    def getCompressedData(self):
-        return self.compressedData
-
     def setCompression(self, compress):
         """Set if we want to compress the source or include it raw"""
         self.compressed = compress
