@@ -1,3 +1,4 @@
+import struct
 class Decompressor:
     #class attributes
     #is the data compressed?
@@ -46,5 +47,6 @@ class Decompressor:
 
     def getCompressedChunk(self):
         compressedChunkFlag = 1 if self.compressed else 0
-        compressedHeader = self.compressedChunkSize << 4 & 6 & compressedChunkFlag
-        return compressedHeader + self.compressedData
+        intHeader = (self.compressed << 15) & 0x7fff | (self.compressedChunkSize - 3)
+        compressedChunkHeader = struct.pack("<h", intHeader)
+        return compressedChunkHeader + self.compressedData
