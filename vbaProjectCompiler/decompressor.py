@@ -17,12 +17,12 @@ class Decompressor:
         """Set if we want to compress the source or include it raw"""
         self.compressed = compress
 
-    def setCompressedHeader(self, twoBytes):
+    def setCompressedHeader(self, compressedHeader):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
-        if len(twoBytes) != 2:
+        if len(compressedHeader) != 2:
             raise Exception("The header must be two bytes")
         #data is compressed if the least significat bit is 0b1
-        self.compressed = int(twoBytes) % 2 == 1
+        self.compressed = int(compressedHeader) % 2 == 1
         #the 12 most significant bits is three less than the chunk size
         self.compressedChunkSize = compressedHeader >> 4 + 3
         if not(self.compressed) and self.compressedChunkSize != 4096:
