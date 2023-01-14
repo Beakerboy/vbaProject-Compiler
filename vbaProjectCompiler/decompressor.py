@@ -25,7 +25,7 @@ class Decompressor:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
         self.compressedChunkSignature = twoBytes & 13 >> 1
         if self.compressedChunkSignature != 3:
-            raise Exception("Chunk signature must be three.)
+            raise Exception("Chunk signature must be three.")
 
     def calculateChunkSize():
         """Given the first 2 bytes of a compressed chunk, return the chunk size in bytes"""
