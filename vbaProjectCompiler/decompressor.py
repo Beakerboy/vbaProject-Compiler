@@ -1,5 +1,6 @@
 class Decompressor:
     #class attributes
+    #is the data compressed?
     compressed               = True
 
     #the size in bytes of the chunk after compression
