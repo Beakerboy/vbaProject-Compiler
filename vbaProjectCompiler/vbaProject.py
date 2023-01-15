@@ -98,7 +98,7 @@ class VbaProject:
         The Fat sector lost in the header can only list the position of 109 sectors.
         If more sectors are needed, the DIF sector lists these sector numbers.
         """
-        if self.getFatSectors() <= 109:
+        if len(self.getFatSectors()) <= 109:
             return -2
         #research how Dif works
         return 0
