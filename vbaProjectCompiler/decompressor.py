@@ -67,7 +67,7 @@ class Decompressor:
 
     def compressRaw(self, input):
         self.compressedChunkSize = 4098
-        self.compressedData = input.ljust(4096, '\0)
+        self.compressedData = input.ljust(4096, '\0')
 
     def compressStandard(self, input):
         pass
