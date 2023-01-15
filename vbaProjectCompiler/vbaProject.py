@@ -69,7 +69,7 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        header += struct.pack(self.uByteOrder + "hhhhhhiiIIII", self.uMinorVersion,
+        header += struct.pack(self.uByteOrder + "hhhhhhiiIIIII", self.uMinorVersion,
             self.uDllVersion,
             -2,   #BOM
             self.uSectorShift,
@@ -80,15 +80,11 @@ class VbaProject:
             self.countFatChainSectors(),
             self.firstDirectoryListSector,
             0,    #signature
-            self.ulMiniSectorCutoff
+            self.ulMiniSectorCutoff,
+            self.getFirstMiniChainSector(),
+            self.countMinifatFatChainSectors()
         )
         
-        sectMiniFatStart = self.getFirstMiniChainSector()
-        header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
-
-        csectMiniFat =  self.countMinifatFatChainSectors()
-        header += struct.pack(self.uByteOrder + "I", csectMiniFat)
-
         #if the MSAT is longer then 109 entries, it continues at this sector
         sectDifStart = b"\xfe\xff\xff\xff"
         header += sectDifStart
