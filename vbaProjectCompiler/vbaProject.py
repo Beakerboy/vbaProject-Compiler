@@ -66,7 +66,7 @@ class VbaProject:
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
         header = bytearray(absig)
 
-        format = self.uByteOrder + "16shhhhhhiiIIIII"
+        format = self.uByteOrder + "16shhhhhhiiIIIIII"
         header += struct.pack(
             format,
             LONG_LONG_ZERO + LONG_LONG_ZERO
