@@ -19,6 +19,9 @@ class VbaProject:
     #the FAT chain
     fatChain = []
 
+    #The list of pointers to the address of the next file piece
+    miniFatChain = []
+
     #class default constructor
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
     def __init__(self):
