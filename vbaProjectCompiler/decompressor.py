@@ -49,7 +49,7 @@ class Decompressor:
 
     def getCompressedChunk(self):
         
-        return compressedChunkHeader + self.compressedData
+        return self.getCompressedChunkHeader() + self.compressedData
 
     def compress(self, input):
         if len(input) > 4096:
