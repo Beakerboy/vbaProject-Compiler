@@ -69,20 +69,15 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        header += struct.pack(self.uByteOrder + "hh", self.uMinorVersion,
-            self.uDllVersion)
-        header += struct.pack(self.uByteOrder + "h", -2)
-        header += struct.pack(self.uByteOrder + "h", self.uSectorShift)
-        header += struct.pack(self.uByteOrder + "h", self.uMiniSectorShift)
-
-        usReserved  = SHORT_ZERO
-        header += usReserved
-
-        ulReserved1 = LONG_ZERO
-        header += ulReserved1
-
-        csectDir = LONG_ZERO
-        header += csectDir
+        header += struct.pack(self.uByteOrder + "hhhhhhii", self.uMinorVersion,
+            self.uDllVersion,
+            -2,
+            self.uSectorShift,
+            self.uMiniSectorShift,
+            0,
+            0,
+            0
+        )
 
         csectFat = self.countFatChainSectors()
         header += struct.pack(self.uByteOrder + "I",  csectFat)
