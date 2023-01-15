@@ -66,7 +66,7 @@ class Decompressor:
     def compressRaw(self, input):
         self.compressedChunkSize = 4098
 
-        return compressedChunkHeader + self.compressedData
+        return self.getCompressedChunkHeader() + self.compressedData
 
     def compressStandard(self, input):
         pass
