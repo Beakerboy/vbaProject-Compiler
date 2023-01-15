@@ -71,12 +71,12 @@ class VbaProject:
 
         header += struct.pack(self.uByteOrder + "hhhhhhii", self.uMinorVersion,
             self.uDllVersion,
-            -2,
+            -2,   #BOM
             self.uSectorShift,
             self.uMiniSectorShift,
-            0,
-            0,
-            0
+            0,    #usReserved
+            0,    #ulReserved1
+            0     #csectDir
         )
 
         csectFat = self.countFatChainSectors()
