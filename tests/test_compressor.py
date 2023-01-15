@@ -43,3 +43,4 @@ def test_compressRaw():
     result = comp.compress(input);
     lowerA = bytearray(b'\61')
     expected = lowerA + '\0' * 4095
+    assert expected = result
