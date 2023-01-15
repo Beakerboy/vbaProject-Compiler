@@ -42,6 +42,6 @@ def test_compressRaw():
     input = "a"
     result = comp.compress(input);
     header = bytearray(b'\xFF\x3F')
-    start = header + b'\61'
+    start = header + b'\x61'
     expected = start.ljust(4095, b'\x00')
     assert expected == result
