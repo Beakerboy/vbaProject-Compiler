@@ -59,16 +59,14 @@ class VbaProject:
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
    
-        SHORT_ZERO = b'\x00\x00'
-        LONG_ZERO = b'\x00\x00\x00\x00'
         LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
-        header = bytearray(absig)
 
-        format = self.uByteOrder + "16shhhhhhiiIIIIII"
-        header += struct.pack(
+        format = self.uByteOrder + "8s16shhhhhhiiIIIIIIiI"
+        header = struct.pack(
             format,
+            absig,
             LONG_LONG_ZERO + LONG_LONG_ZERO,  #clsid
             self.uMinorVersion,
             self.uDllVersion,
@@ -83,16 +81,10 @@ class VbaProject:
             0,    #signature
             self.ulMiniSectorCutoff,
             self.getFirstMiniChainSector(),
-            self.countMinifatFatChainSectors()
+            self.countMinifatFatChainSectors(),
+            self.getDifStartSector(),
+            self.countDifSectors()
         )
-        
-        #if the MSAT is longer then 109 entries, it continues at this sector
-        sectDifStart = b"\xfe\xff\xff\xff"
-        header += sectDifStart
-
-        #if MSAT is longer then 109 entries, here is how many additional sectors of data exist
-        csectDif = LONG_ZERO
-        header += csectDif
 
         sectFat = self.writeHeaderFatSectorList()
         header += sectFat
@@ -100,6 +92,25 @@ class VbaProject:
 
     def writeFat(i):
         return 1
+
+    def getDifStartSector(self):
+        """
+        The Fat sector lost in the header can only list the position of 109 sectors.
+        If more sectors are needed, the DIF sector lists these sector numbers.
+        """
+        if self.getFatSectors() <= 109:
+            return -2
+        #research how Dif works
+        return 0
+
+    def countDifSectors(self):
+        """
+        How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
+        What is sectors are not 512 bytes?
+        """
+        if self.getFatSectors() <= 109:
+            return 0
+        return (self.getFatSectors() - 109 - 1) // 512 + 1
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
