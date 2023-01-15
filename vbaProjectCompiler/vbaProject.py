@@ -69,8 +69,8 @@ class VbaProject:
         clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
         header += clsid
 
-        header += struct.pack(self.uByteOrder + "h", self.uMinorVersion)
-        header += struct.pack(self.uByteOrder + "h", self.uDllVersion)
+        header += struct.pack(self.uByteOrder + "hh", self.uMinorVersion,
+            self.uDllVersion)
         header += struct.pack(self.uByteOrder + "h", -2)
         header += struct.pack(self.uByteOrder + "h", self.uSectorShift)
         header += struct.pack(self.uByteOrder + "h", self.uMiniSectorShift)
