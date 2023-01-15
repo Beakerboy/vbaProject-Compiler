@@ -44,4 +44,4 @@ def test_compressRaw():
     header = bytearray(b'\xFF\x3F')
     lowerA = b'\61'
     expected = header + lowerA + '\0' * 4095
-    assert expected = result
+    assert expected == result
