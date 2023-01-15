@@ -55,8 +55,10 @@ class Decompressor:
         if len(input) > 4096:
             raise Exception("Input cannot be longer than 4096 bytes.")
         if self.compress:
-            return self.compressStandard(input)
-        return self.compressRaw(input)
+            self.compressStandard(input)
+        else:
+            self.compressRaw(input)
+        return self.getCompressedChunkHeader() + self.compressedData
 
     def getCompressedChunkHeader(self):
         compressedChunkFlag = 1 if self.compressed else 0
@@ -65,8 +67,7 @@ class Decompressor:
 
     def compressRaw(self, input):
         self.compressedChunkSize = 4098
-
-        return self.getCompressedChunkHeader() + self.compressedData
+        self.compressedData = input
 
     def compressStandard(self, input):
         pass
