@@ -59,54 +59,32 @@ class VbaProject:
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
    
-        SHORT_ZERO = b'\x00\x00'
-        LONG_ZERO = b'\x00\x00\x00\x00'
         LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
-        header = bytearray(absig)
 
-        clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
-        header += clsid
-
-        header += struct.pack(self.uByteOrder + "h", self.uMinorVersion)
-        header += struct.pack(self.uByteOrder + "h", self.uDllVersion)
-        header += struct.pack(self.uByteOrder + "h", -2)
-        header += struct.pack(self.uByteOrder + "h", self.uSectorShift)
-        header += struct.pack(self.uByteOrder + "h", self.uMiniSectorShift)
-
-        usReserved  = SHORT_ZERO
-        header += usReserved
-
-        ulReserved1 = LONG_ZERO
-        header += ulReserved1
-
-        csectDir = LONG_ZERO
-        header += csectDir
-
-        csectFat = self.countFatChainSectors()
-        header += struct.pack(self.uByteOrder + "I",  csectFat)
-
-        sectDirStart =  self.firstDirectoryListSector
-        header += struct.pack(self.uByteOrder + "I", sectDirStart)
-
-        signature = LONG_ZERO
-        header += signature
-        header += struct.pack(self.uByteOrder + "I", self.ulMiniSectorCutoff)
-
-        sectMiniFatStart = self.getFirstMiniChainSector()
-        header += struct.pack(self.uByteOrder + "I", sectMiniFatStart)
-
-        csectMiniFat =  self.countMinifatFatChainSectors()
-        header += struct.pack(self.uByteOrder + "I", csectMiniFat)
-
-        #if the MSAT is longer then 109 entries, it continues at this sector
-        sectDifStart = b"\xfe\xff\xff\xff"
-        header += sectDifStart
-
-        #if MSAT is longer then 109 entries, here is how many additional sectors of data exist
-        csectDif = LONG_ZERO
-        header += csectDif
+        format = self.uByteOrder + "8s16shhhhhhiiIIIIIIiI"
+        header = struct.pack(
+            format,
+            absig,
+            LONG_LONG_ZERO + LONG_LONG_ZERO,  #clsid
+            self.uMinorVersion,
+            self.uDllVersion,
+            -2,   #BOM
+            self.uSectorShift,
+            self.uMiniSectorShift,
+            0,    #usReserved
+            0,    #ulReserved1
+            0,    #csectDir
+            self.countFatChainSectors(),
+            self.firstDirectoryListSector,
+            0,    #signature
+            self.ulMiniSectorCutoff,
+            self.getFirstMiniChainSector(),
+            self.countMinifatFatChainSectors(),
+            self.getDifStartSector(),
+            self.countDifSectors()
+        )
 
         sectFat = self.writeHeaderFatSectorList()
         header += sectFat
@@ -114,6 +92,26 @@ class VbaProject:
 
     def writeFat(i):
         return 1
+
+    def getDifStartSector(self):
+        """
+        The Fat sector lost in the header can only list the position of 109 sectors.
+        If more sectors are needed, the DIF sector lists these sector numbers.
+        """
+        if len(self.getFatSectors()) <= 109:
+            return -2
+        #research how Dif works
+        return 0
+
+    def countDifSectors(self):
+        """
+        How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
+        What is sectors are not 512 bytes?
+        """
+        number = len(self.getFatSectors())
+        if number <= 109:
+            return 0
+        return (number - 109 - 1) // 512 + 1
 
     def countFatChainSectors(self):
         """Calculate the number of sectors needed to express the FAT chain."""
