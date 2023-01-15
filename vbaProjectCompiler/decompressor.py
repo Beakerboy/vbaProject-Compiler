@@ -1,6 +1,8 @@
 import struct
 class Decompressor:
     #class attributes
+
+    endien                   = ''
     #is the data compressed?
     compressed               = 1
 
@@ -11,6 +13,9 @@ class Decompressor:
     compressedData           = b''
 
     uncompressedData         = ""
+
+    dev __init__(self, endien = 'little'):
+        self.endien = endien
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
@@ -43,9 +48,7 @@ class Decompressor:
         return self.compressedChunkSize
 
     def getCompressedChunk(self):
-        compressedChunkFlag = 1 if self.compressed else 0
-        intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
-        compressedChunkHeader = struct.pack("<H", intHeader)
+        
         return compressedChunkHeader + self.compressedData
 
     def compress(self, input):
@@ -55,9 +58,15 @@ class Decompressor:
             return self.compressStandard(input)
         return self.compressRaw(input)
 
+    dev getCompressedChunkHeader(self):
+        compressedChunkFlag = 1 if self.compressed else 0
+        intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
+        return struct.pack("<H", intHeader)
 
     def compressRaw(self, input):
-        pass
+        self.compressedChunkSize = 4098
+
+        return compressedChunkHeader + self.compressedData
 
     def compressStandard(self, input):
         pass
