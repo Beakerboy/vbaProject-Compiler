@@ -66,10 +66,11 @@ class VbaProject:
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
         header = bytearray(absig)
 
-        clsid = LONG_LONG_ZERO + LONG_LONG_ZERO
-        header += clsid
-
-        header += struct.pack(self.uByteOrder + "hhhhhhiiIIIII", self.uMinorVersion,
+        format = self.uByteOrder + "16shhhhhhiiIIIII"
+        header += struct.pack(
+            format,
+            LONG_LONG_ZERO + LONG_LONG_ZERO
+            self.uMinorVersion,
             self.uDllVersion,
             -2,   #BOM
             self.uSectorShift,
