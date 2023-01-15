@@ -14,7 +14,7 @@ class Decompressor:
 
     uncompressedData         = ""
 
-    dev __init__(self, endien = 'little'):
+    def __init__(self, endien = 'little'):
         self.endien = endien
 
     def setCompressedData(self, data):
