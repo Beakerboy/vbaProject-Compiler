@@ -130,7 +130,7 @@ class VbaProject:
 
     def countMinifatFatChainSectors(self):
         addressesPerSector = 2** (self.uSectorShift - 2)
-        return (len(self.minifatChain) - 1) // addressesPerSector + 1
+        return min((len(self.minifatChain) - 1) // addressesPerSector + 1, 1)
   
     def writeHeaderFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
