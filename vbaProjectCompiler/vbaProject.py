@@ -69,7 +69,7 @@ class VbaProject:
         format = self.uByteOrder + "16shhhhhhiiIIIIII"
         header += struct.pack(
             format,
-            LONG_LONG_ZERO + LONG_LONG_ZERO
+            LONG_LONG_ZERO + LONG_LONG_ZERO,  #clsid
             self.uMinorVersion,
             self.uDllVersion,
             -2,   #BOM
