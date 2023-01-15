@@ -90,9 +90,6 @@ class VbaProject:
         header += sectFat
         return header
 
-    def writeFat(i):
-        return 1
-
     def getDifStartSector(self):
         """
         The Fat sector lost in the header can only list the position of 109 sectors.
@@ -114,18 +111,23 @@ class VbaProject:
         return (number - 109 - 1) // 512 + 1
 
     def countFatChainSectors(self):
-        """Calculate the number of sectors needed to express the FAT chain."""
+        """
+        Calculate the number of sectors needed to express the FAT chain.
+        """
         return (len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1
 
     def countDirectoryListSectors(self):
-        """The number of sectors needed to express the directory list"""
+        """
+        The number of sectors needed to express the directory list
+        """
         #Each directory record is 128 bytes
         directoriesPerSector = (2 ** self.uSectorShift) // 128
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
         return directorySectors
 
     def countMinifatFatChainSectors(self):
-        return 1
+        addressesPerSector = 2** (self.uSectorShift - 2)
+        return (len(self.minifatChain) - 1) // addressesPerSector + 1
   
     def writeHeaderFatSectorList(self):
         """Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF"""
