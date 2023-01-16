@@ -20,8 +20,10 @@ class VbaProject:
     fatChain = []
     minifatChain = []
 
+    #The list of pointers to the address of the next file piece
+    minifatChain = []
+
     #class default constructor
-    # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
     def __init__(self):
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
@@ -42,9 +44,7 @@ class VbaProject:
         vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
-        self.directories.append(vba)
-
-        
+        self.directories.append(vba) 
 
     #Getters and Setters
     def getFirstDirectoryListSector(self):
@@ -91,9 +91,6 @@ class VbaProject:
         header += sectFat
         return header
 
-    def writeFat(i):
-        return 1
-
     def getDifStartSector(self):
         """
         The Fat sector lost in the header can only list the position of 109 sectors.
@@ -109,17 +106,21 @@ class VbaProject:
         How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
         What is sectors are not 512 bytes?
         """
-        number = len(self.getFatSectors())
-        if number <= 109:
+        count = self.countFatChainSectors()
+        if count <= 109:
             return 0
-        return (number - 109 - 1) // 512 + 1
+        return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
     def countFatChainSectors(self):
-        """Calculate the number of sectors needed to express the FAT chain."""
+        """
+        Calculate the number of sectors needed to express the FAT chain.
+        """
         return (len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1
 
     def countDirectoryListSectors(self):
-        """The number of sectors needed to express the directory list"""
+        """
+        The number of sectors needed to express the directory list
+        """
         #Each directory record is 128 bytes
         directoriesPerSector = (2 ** self.uSectorShift) // 128
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
