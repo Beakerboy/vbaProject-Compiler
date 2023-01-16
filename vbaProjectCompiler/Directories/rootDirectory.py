@@ -10,6 +10,6 @@ class RootDirectory(Directory):
         minifatSectorSize = 64
         size = 0
         for dir in directories:
-            size += minifatSectorsUsed()
+            size += dir.minifatSectorsUsed()
         return size * minifatSectorSize
        
