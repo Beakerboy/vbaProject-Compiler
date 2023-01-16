@@ -10,5 +10,5 @@ class StorageDirectory(Directory):
     def minifatSectorsUsed(self):
         size = 0
         for dir in directories:
-            size += minifatSectorsUsed()
+            size += dir.minifatSectorsUsed()
         return size
