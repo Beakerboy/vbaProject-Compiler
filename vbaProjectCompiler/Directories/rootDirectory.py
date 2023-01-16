@@ -6,6 +6,10 @@ class RootDirectory(Directory):
     directories = []
 
     def fileSize(self):
-        #iterate through the directories list
-        #if the item is a stream, ask for its size and round
-        #up to fill the minifat block.
+        #Nesd to use the value from the header
+        minifatSectorSize = 64
+        size = 0
+        for dir in directories:
+            size += minifatSectorsUsed()
+        return size * minifatSectorSize
+       
