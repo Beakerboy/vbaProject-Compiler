@@ -1,4 +1,4 @@
-import struct, os
+import struct
 
 class Directory:
     """An OLE directory object"""
