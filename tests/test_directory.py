@@ -44,3 +44,4 @@ def test_StreamDirectory():
     assert dir.type == 2
     dir.filePath = "tests/blank/PROJECT"
     assert dir.minifatSectorsUsed() == 6
+    assert dir.fileSize() == 323
