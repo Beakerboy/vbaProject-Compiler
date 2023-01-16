@@ -12,4 +12,4 @@ class StreamDirectory(Directory):
         return file_size.st_size
 
     def minifatSectorsUsed(self):
-        Return (self.fileSize - 1) // 64 + 1
+        return (self.fileSize - 1) // 64 + 1
