@@ -1,5 +1,5 @@
 import struct, os
-from vbaProjectCompiler.directory import Directory
+from vbaProjectCompiler.Directories.directory import Directory
 
 class VbaProject:
 
