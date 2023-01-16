@@ -30,14 +30,19 @@ class Directory:
         pass
 
     def writeDirectory(self):
+        format = "<hbbiii"
         dir = bytearray(self.name, "utf_16_le")
         dir = dir.ljust(64, b'\x00')
-        dir += struct.pack("<h", self.nameSize())
-        dir += struct.pack("b", self.type)
-        dir += struct.pack("b", self.color)
-        dir += struct.pack("<i", self.previousDirectoryId)
-        dir += struct.pack("<i", self.nextDirectoryId)
-        dir += struct.pack("<i", self.subDirectoryId)
+        
+        dir += struct.pack(
+            format,
+            self.nameSize(),
+            self.type,
+            self.color,
+            self.previousDirectoryId,
+            self.nextDirectoryId,
+            self.subDirectoryId
+        )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
         dir += struct.pack("<I", self.userFlags)
         dir += struct.pack("<q", self.created)
