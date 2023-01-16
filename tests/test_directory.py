@@ -2,14 +2,16 @@
 
 import pytest
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
+from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
+from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 def test_directory():
 
-    dir = Directory()
+    dir = RootDirectory()
     dir.name = "Root Entry"
     assert dir.nameSize() == 22
 
-    dir.type = 5
     dir.subDirectoryId = 8
     dir.modifiedHigh = 3266847680
     dir.modifiedLow  =   31007795
@@ -19,3 +21,14 @@ def test_directory():
     result = dir.writeDirectory()
     assert result == expected
     
+def test_RootDirectory():
+    dir = RootDirectory()
+    assert dir.type == 5
+
+def test_StorageDirectory():
+    dir = StorageDirectory()
+    assert dir.type == 1
+
+def test_StreamDirectory():
+    dir = StreamDirectory()
+    assert dir.type == 2
