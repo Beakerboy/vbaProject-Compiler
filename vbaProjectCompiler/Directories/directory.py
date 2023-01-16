@@ -22,8 +22,6 @@ class Directory:
 
     sector = 0
 
-    filePath = ""
-
     def nameSize(self):
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
