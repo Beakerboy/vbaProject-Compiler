@@ -109,10 +109,10 @@ class VbaProject:
         How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
         What is sectors are not 512 bytes?
         """
-        number = len(self.getFatSectors())
-        if number <= 109:
+        count = self.countFatChainSectors()
+        if count <= 109:
             return 0
-        return (number - 109 - 1) // 512 + 1
+        return (count - 109 - 1) // (2 ** (uSectorShift - 2)) + 1
 
     def countFatChainSectors(self):
         """
