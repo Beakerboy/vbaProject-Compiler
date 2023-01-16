@@ -24,7 +24,6 @@ class VbaProject:
     minifatChain = []
 
     #class default constructor
-    # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
     def __init__(self):
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
@@ -45,9 +44,7 @@ class VbaProject:
         vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
-        self.directories.append(vba)
-
-        
+        self.directories.append(vba) 
 
     #Getters and Setters
     def getFirstDirectoryListSector(self):
