@@ -27,10 +27,7 @@ class Directory:
         return (len(self.name) + 1) * 2
 
     def fileSize(self):
-        if self.filePath == "":
-            return 0
-        file_size = os.stat(self.filePath)
-        return file_size.st_size
+        pass
 
     def writeDirectory(self):
         dir = bytearray(self.name, "utf_16_le")
