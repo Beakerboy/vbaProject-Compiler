@@ -1,9 +1,14 @@
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 class RootDirectory(Directory):
     type = 5
 
     directories = []
+
+    def __init(self):
+        vba_project = StorageDirectory()
+        self.directories.append(vba_project)
 
     def fileSize(self):
         #Nesd to use the value from the header
@@ -12,4 +17,7 @@ class RootDirectory(Directory):
         for dir in self.directories:
             size += dir.minifatSectorsUsed()
         return size * minifatSectorSize
+
+    def addFile(self, stream):
+        self.directories[0].addFile(stream)
        
