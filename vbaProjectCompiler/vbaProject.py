@@ -18,6 +18,7 @@ class VbaProject:
 
     #the FAT chain
     fatChain = []
+    minifatChain = []
 
     #class default constructor
     # this class probably does not need to be aware of its path. It can just output chunks to a sysio handler.
