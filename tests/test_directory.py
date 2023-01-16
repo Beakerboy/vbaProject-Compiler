@@ -34,7 +34,7 @@ def test_StorageDirectory():
     assert dir.type == 1
     assert dir.minifatSectorsUsed() == 0
 
-dev test_addFile():
+def test_addFile():
     dir = StorageDirectory()
     stream = StreamDirectory()
     stream.filePath = "tests/blank/PROJECT"
