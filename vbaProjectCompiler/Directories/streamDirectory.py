@@ -1,4 +1,4 @@
 from vbaProjectCompiler.Directories.directory import Directory
 
-class RootDirectory(Directory):
+class StreamDirectory(Directory):
     type = 2
