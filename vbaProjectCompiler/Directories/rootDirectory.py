@@ -9,7 +9,7 @@ class RootDirectory(Directory):
         #Nesd to use the value from the header
         minifatSectorSize = 64
         size = 0
-        for dir in directories:
+        for dir in self.directories:
             size += dir.minifatSectorsUsed()
         return size * minifatSectorSize
        
