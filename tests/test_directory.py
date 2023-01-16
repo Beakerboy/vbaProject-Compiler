@@ -28,7 +28,9 @@ def test_RootDirectory():
 def test_StorageDirectory():
     dir = StorageDirectory()
     assert dir.type == 1
+    assert dir.minifatSectorsUsed() == 0
 
 def test_StreamDirectory():
     dir = StreamDirectory()
     assert dir.type == 2
+    assert dir.minifatSectorsUsed() == 1
