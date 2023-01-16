@@ -24,6 +24,10 @@ def test_directory():
 def test_RootDirectory():
     dir = RootDirectory()
     assert dir.type == 5
+    stream = StreamDirectory()
+    stream.filePath = "tests/blank/PROJECT"
+    dir.addFile(stream)
+    assert dir.fileSize() == 384
 
 def test_StorageDirectory():
     dir = StorageDirectory()
