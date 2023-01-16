@@ -8,8 +8,6 @@ class StorageDirectory(Directory):
         return 0
 
     def minifatSectorsUsed(self):
-        #Nesd to use the value from the header
-        minifatSectorSize = 64
         size = 0
         for dir in directories:
             size += minifatSectorsUsed()
