@@ -32,6 +32,7 @@ def test_RootDirectory():
 def test_StorageDirectory():
     dir = StorageDirectory()
     assert dir.type == 1
+    assert len(dir.directories) == 0
     assert dir.minifatSectorsUsed() == 0
 
 def test_addFile():
