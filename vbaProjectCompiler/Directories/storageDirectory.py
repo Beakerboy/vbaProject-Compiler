@@ -12,3 +12,6 @@ class StorageDirectory(Directory):
         for dir in self.directories:
             size += dir.minifatSectorsUsed()
         return size
+
+    def addFile(self, stream):
+        self.directories.append(stream)
