@@ -18,6 +18,7 @@ class VbaProject:
 
     #the FAT chain
     fatChain = []
+    minifatChain = []
 
     #The list of pointers to the address of the next file piece
     minifatChain = []
@@ -129,7 +130,7 @@ class VbaProject:
         return directorySectors
 
     def countMinifatFatChainSectors(self):
-        addressesPerSector = 2** (self.uSectorShift - 2)
+        addressesPerSector = 2 ** (self.uSectorShift - 2)
         return max((len(self.minifatChain) - 1) // addressesPerSector + 1, 1)
   
     def writeHeaderFatSectorList(self):
