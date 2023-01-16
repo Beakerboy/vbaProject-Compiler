@@ -112,7 +112,7 @@ class VbaProject:
         count = self.countFatChainSectors()
         if count <= 109:
             return 0
-        return (count - 109 - 1) // (2 ** (uSectorShift - 2)) + 1
+        return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
     def countFatChainSectors(self):
         """
