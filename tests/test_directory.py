@@ -24,6 +24,10 @@ def test_directory():
 def test_RootDirectory():
     dir = RootDirectory()
     assert dir.type == 5
+    stream = StreamDirectory()
+    stream.filePath = "tests/blank/PROJECT"
+    dir.addFile(stream)
+    assert dir.fileSize() == 384
 
 def test_StorageDirectory():
     dir = StorageDirectory()
@@ -33,6 +37,7 @@ def test_StorageDirectory():
     stream.filePath = "tests/blank/PROJECT"
     dir.addFile(stream)
     assert dir.minifatSectorsUsed() == 6
+    assert dir.fileSize() == 0
 
 def test_StreamDirectory():
     dir = StreamDirectory()
