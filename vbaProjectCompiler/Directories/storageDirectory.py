@@ -2,7 +2,10 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 class StorageDirectory(Directory):
     type = 1
-    directories = []
+
+    def __init__(self):
+        self.directories = []
+        super(StorageDirectory, self).__init__()
 
     def fileSize(self):
         return 0

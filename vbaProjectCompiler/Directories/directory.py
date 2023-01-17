@@ -2,25 +2,25 @@ import struct
 
 class Directory:
     """An OLE directory object"""
-    name = ""
+    
+    def __init__(self):
+        self.name = ""
 
-    type = 0
+        self.color = 0
 
-    color = 0
+        self.previousDirectoryId = -1
+        self.nextDirectoryId     = -1
+        self.subDirectoryId      = -1
 
-    previousDirectoryId = -1
-    nextDirectoryId     = -1
-    subDirectoryId      = -1
+        self.classId = ""
 
-    classId = ""
+        self.userFlags = 0
 
-    userFlags = 0
+        self.created  = 0
+        self.modifiedHigh = 0
+        self.modifiedLow = 0
 
-    created  = 0
-    modifiedHigh = 0
-    modifiedLow = 0
-
-    sector = 0
+        self.sector = 0
 
     def nameSize(self):
         """The byte length of the name"""
@@ -43,12 +43,14 @@ class Directory:
             self.subDirectoryId
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
-        dir += struct.pack("<I", self.userFlags)
-        dir += struct.pack("<q", self.created)
-        dir += struct.pack("<I", self.modifiedHigh)
-        dir += struct.pack("<I", self.modifiedLow)
-        dir += struct.pack("<I", self.sector)
-        dir += struct.pack("<I", self.fileSize())
-        dir += struct.pack("<I", 0)
-        
+        dir += struct.pack(
+            "<IqIIIII",
+            self.userFlags,
+            self.created,
+            self.modifiedHigh,
+            self.modifiedLow,
+            self.sector,
+            self.fileSize(),
+            0
+        )        
         return dir
