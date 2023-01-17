@@ -4,24 +4,24 @@ class Directory:
     """An OLE directory object"""
     
     def __init__(self):
-        name = ""
-        type = 0
+        self.name = ""
+        self.type = 0
 
-        color = 0
+        self.color = 0
 
-        previousDirectoryId = -1
-        nextDirectoryId     = -1
-        subDirectoryId      = -1
+        self.previousDirectoryId = -1
+        self.nextDirectoryId     = -1
+        self.subDirectoryId      = -1
 
-        classId = ""
+        self.classId = ""
 
-        userFlags = 0
+        self.userFlags = 0
 
-        created  = 0
-        modifiedHigh = 0
-        modifiedLow = 0
+        self.created  = 0
+        self.modifiedHigh = 0
+        self.modifiedLow = 0
 
-        sector = 0
+        self.sector = 0
 
     def nameSize(self):
         """The byte length of the name"""
