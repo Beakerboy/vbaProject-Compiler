@@ -3,30 +3,27 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 class VbaProject:
 
-    #data members of class
-    uMinorVersion            = 62
-    uDllVersion              = 3
-    uByteOrder               = "<"
-    uSectorShift             = 9
-    uMiniSectorShift         = 6
-    firstDirectoryListSector = 1
-    firstMiniChainSector     = 2
-    ulMiniSectorCutoff       = 4096
-
-    #A list of directories
-    directories = []
-
-    #the FAT chain
-    fatChain = []
-    minifatChain = []
-
-    #The list of pointers to the address of the next file piece
-    minifatChain = []
-
     #class default constructor
     def __init__(self):
+        #the FAT chain
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
+
+        #data members of class
+        self.uMinorVersion            = 62
+        self.uDllVersion              = 3
+        self.uByteOrder               = "<"
+        self.uSectorShift             = 9
+        self.uMiniSectorShift         = 6
+        self.firstDirectoryListSector = 1
+        self.firstMiniChainSector     = 2
+        self.ulMiniSectorCutoff       = 4096
+
+        #A list of directories
+        self.directories = []
+
+        #The list of pointers to the address of the next file piece
+        self.minifatChain = []
 
         root = Directory()
         root.name = "Root Entry"
