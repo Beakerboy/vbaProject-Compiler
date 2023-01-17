@@ -3,7 +3,9 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 class StreamDirectory(Directory):
     type = 2
-    filePath = ""
+    
+    dev __init__(self):
+        filePath = ""
 
     def fileSize(self):
         """
