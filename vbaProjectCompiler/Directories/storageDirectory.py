@@ -4,7 +4,7 @@ class StorageDirectory(Directory):
     type = 1
 
     def __init__(self):
-        directories = []
+        self.directories = []
         super(StorageDirectory, self).__init__()
 
     def fileSize(self):
