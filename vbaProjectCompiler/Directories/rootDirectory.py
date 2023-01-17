@@ -4,12 +4,12 @@ from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 class RootDirectory(Directory):
     type = 5
 
-    directories = []
-
     def __init__(self):
+        directories = []
         vba_project = StorageDirectory()
-        self.directories.append(vba_project)
         super(RootDirectory, self).__init__()
+        self.directories.append(vba_project)
+       
 
     def fileSize(self):
         #Nesd to use the value from the header
