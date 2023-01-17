@@ -6,6 +6,7 @@ class RootDirectory(Directory):
 
     def __init__(self):
         self.directories = []
+        self.name = "Root Entry"
         vba_project = StorageDirectory()
         super(RootDirectory, self).__init__()
         self.directories.append(vba_project)
