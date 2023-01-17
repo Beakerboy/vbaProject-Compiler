@@ -6,7 +6,7 @@ class StreamDirectory(Directory):
     
     def __init__(self):
         super(StreamDirectory, self).__init__()
-        filePath = ""
+        self.filePath = ""
      
 
     def fileSize(self):
