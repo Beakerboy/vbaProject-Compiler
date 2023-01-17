@@ -5,7 +5,6 @@ class Directory:
     
     def __init__(self):
         self.name = ""
-        self.type = 0
 
         self.color = 0
 
