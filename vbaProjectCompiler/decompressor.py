@@ -63,7 +63,7 @@ class Decompressor:
     def getCompressedChunkHeader(self):
         compressedChunkFlag = 1 if self.compressed else 0
         intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
-        return struct.pack("<H", intHeader)
+        return struct.pack("<h", intHeader)
 
     def compressRaw(self, input):
         self.compressedChunkSize = 4098
