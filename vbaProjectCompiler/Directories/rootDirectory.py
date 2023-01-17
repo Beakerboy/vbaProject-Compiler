@@ -9,6 +9,7 @@ class RootDirectory(Directory):
     def __init__(self):
         vba_project = StorageDirectory()
         self.directories.append(vba_project)
+        super(RootDirectory, self).__init__()
 
     def fileSize(self):
         #Nesd to use the value from the header
