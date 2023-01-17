@@ -48,7 +48,7 @@ class Directory:
             "<IqIIIII",
             self.userFlags,
             self.created,
-            self.modifiedHigh
+            self.modifiedHigh,
             self.modifiedLow,
             self.sector,
             self.fileSize(),
