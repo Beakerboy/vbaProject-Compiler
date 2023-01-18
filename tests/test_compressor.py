@@ -82,6 +82,7 @@ def test_decompressUnableToCompress():
     comp = Decompressor()
     header = bytearray(compressed[:2])
     del compressed[:2]
+    assert compressed == bytearray(b'\x00\x61\x62\x63\x64\x65\x66\x67\x68')
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
     expected = "abcdefgh"
