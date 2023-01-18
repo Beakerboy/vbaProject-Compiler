@@ -101,6 +101,7 @@ class Decompressor:
         """
         calculate the log2 of the integer, rounded up to the nearest integer
         """
+        orig_int = int
         if int == 0:
             raise Exception("zero not allowed")
         i = 0
@@ -108,6 +109,6 @@ class Decompressor:
         while int != 0:
             i += 1
             int = int >> 1
-        if 2**i < int:
+        if 2**i < orig_int:
             i += 1
         return i
