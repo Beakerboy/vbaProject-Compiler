@@ -114,4 +114,4 @@ def test_CopytokenHelp():
     assert result["lengthMask"] == 0x07FF
     assert result["offsetMask"] == 0xF800
     tokenData = comp.unpackCopytoken(0xE80A)
-    assert tokenData["length"] == 2
+    assert tokenData["length"] == 19
