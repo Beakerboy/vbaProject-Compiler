@@ -105,3 +105,8 @@ def test_decompressUnableToCompressOneToken():
     result = comp.decompress(compressed)
     expected = "abcdefghijklmnopqrstuv."
     assert expected == result
+
+def test_CopytokenHelp()
+    comp = Decompressor()
+    comp.uncompressedData = 'Attribute VB_Name = "Sheet1"\x0D\x0A'
+    result = comp.copytokenHelp()
