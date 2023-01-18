@@ -62,3 +62,11 @@ def test_decompression():
     assert len(chunk) == 168
     expected = 'Attribute VB_Name = "Sheet1"\x0D\X0A'
     
+def test_cielLog2():
+    comp = Decompressor()
+    assert comp.ceilLog2(1) == 0
+    assert comp.ceilLog2(2) == 1
+    assert comp.ceilLog2(3) == 2
+    assert comp.ceilLog2(4) == 2
+    assert comp.ceilLog2(9) == 4
+    assert comp.ceilLog2(50) == 6
