@@ -76,13 +76,12 @@ def test_ceilLog2Zero():
     with pytest.raises(Exception) as e_info:
         comp.ceilLog2(0)
 
-def test_decompressUnableToCompress():
+def test_decompressUnableToCompressOneToken():
     #compressed = bytearray(b'\x19\xB0\x00\x61\x62\x63\x64\x65\x66\x67\x68\x00\x69\x6A\x6B\x6C\x6D\x6E\x6F\x70\x00\x71\x72\x73\x74\x75\x76\x2E')
     compressed = bytearray(b'\x08\xB0\x00\x61\x62\x63\x64\x65\x66\x67\x68')
     comp = Decompressor()
     header = bytearray(compressed[:2])
     del compressed[:2]
-    assert compressed == bytearray(b'\x00\x61\x62\x63\x64\x65\x66\x67\x68')
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
     expected = "abcdefgh"
@@ -97,3 +96,12 @@ def test_zeroTokens():
     with pytest.raises(Exception) as e_info:
         result = comp.decompress(compressed)
     
+def test_decompressUnableToCompressOneToken():
+    compressed = bytearray(b'\x19\xB0\x00\x61\x62\x63\x64\x65\x66\x67\x68\x00\x69\x6A\x6B\x6C\x6D\x6E\x6F\x70\x00\x71\x72\x73\x74\x75\x76\x2E')
+    comp = Decompressor()
+    header = bytearray(compressed[:2])
+    del compressed[:2]
+    comp.setCompressedHeader(header)
+    result = comp.decompress(compressed)
+    expected = "abcdefghijklmnopqrstuv."
+    assert expected == result
