@@ -98,12 +98,29 @@ class Decompressor:
         Calculate a lengthMask, offsetMask, and bitCount
         """
         difference = len(self.uncompressedData)
+        bitCount = self.ceilLog2(difference)
+        lengthMask = 0xFFFF >> bitCount
+        offsetMask = ~lengthMask
+        maxLength = 0xFFFF << bitCount + 3
+        return {
+            "lengthMask": lengthMask,
+            "offsetMask": offsetMask,
+            "bitCount": bitCount
+        }
 
     def unpackCopytoken(self, copyToken):
         """
         calculate an offset and length from a copytoken
         """
-        pass
+        help = self.copytokenHelp()
+        length = copyToken & help.lengthMask + 3
+        temp1 = copyToken & help.offsetMask
+        temp2 = 16 - help.bitCount
+        offset = temp1 >> temp2 + 1
+        return {
+            "length": length,
+            "offset": offset
+        }
 
     def ceilLog2(self, int):
         """
