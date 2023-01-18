@@ -98,7 +98,7 @@ class Decompressor:
         Calculate a lengthMask, offsetMask, and bitCount
         """
         difference = len(self.uncompressedData)
-        bitCount = self.ceilLog2(difference)
+        bitCount = max(self.ceilLog2(difference), 4)
         lengthMask = 0xFFFF >> bitCount
         offsetMask = ~lengthMask
         maxLength = 0xFFFF << bitCount + 3
