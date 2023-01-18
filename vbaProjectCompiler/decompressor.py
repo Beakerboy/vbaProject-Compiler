@@ -81,7 +81,7 @@ class Decompressor:
         for i in range(8):
             flag = flagToken >> i & 1
             if flag == 0:
-                uncompressedData += data.pop()
+                self.uncompressedData += data.pop()
             else:
                 copyToken = struct.unpack("<H", data[:2])
 
@@ -89,10 +89,23 @@ class Decompressor:
         """
         Calculate a lengthMask, offsetMask, and bitCount
         """
-        pass
+        difference = len(self.uncompressedData)
 
     def unpackCopytoken(self, copyToken):
         """
         calculate an offset and length from a copytoken
         """
         pass
+
+    def ceilLog2(int):
+        """
+        calculate the log2 of the integer, rounded up to the nearest integer
+        """
+        if int == 0:
+            raise Exception("zero not allowed")
+        i = 0
+        while int >> 1 != 0:
+            i++
+        if 2**i < int:
+            i++
+        return i
