@@ -92,9 +92,9 @@ class Decompressor:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
                   copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])
                   del data[:2]
-                  start = len(self.uncompressedData) - copyToken["offset"]
-                  end = start + copyToken["length"]
-                  self.uncompressedData += self.uncompressedData[start:end]
+                  
+                  for i in range(copyToken["length"]):
+                      self.uncompressedData += self.uncompressedData[-1 * copyToken["offset"]]
         return self.uncompressedData
 
     def copytokenHelp(self):
@@ -129,21 +129,5 @@ class Decompressor:
     def ceilLog2(self, int):
         i = 4
         while 2 ** i < int:
-            i += 1
-        return i
-
-    def ceilLog2_old(self, int):
-        """
-        calculate the log2 of the integer, rounded up to the nearest integer
-        """
-        orig_int = int
-        if int == 0:
-            raise Exception("zero not allowed")
-        i = 0
-        int = int >> 1
-        while int != 0:
-            i += 1
-            int = int >> 1
-        if 2**i < orig_int:
             i += 1
         return i
