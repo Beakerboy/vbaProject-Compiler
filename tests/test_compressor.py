@@ -82,7 +82,6 @@ def test_decompressUnableToCompress():
     header = bytearray(compressed[:2])
     del compressed[:2]
     comp.setCompressedHeader(header)
-    compressed.del
     result = comp.decompress(compressed)
     expected = "abcdefghijklmnopqrstuv."
     assert expected == result
