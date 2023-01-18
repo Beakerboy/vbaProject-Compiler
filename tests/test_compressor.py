@@ -128,6 +128,7 @@ def test_Copytoken1():
     assert tokenData["offset"] == 8
 
     comp.uncompressedData = '#aaabcdefaaaaghij'
+    result = comp.copytokenHelp()
     assert result["bitCount"] == 5
     assert result["lengthMask"] == 0x07FF
     assert result["offsetMask"] == 0xF800
@@ -136,6 +137,7 @@ def test_Copytoken1():
     assert tokenData["offset"] == 8
 
     comp.uncompressedData = '#aaabcdefaaaaghijaaaaakl'
+    result = comp.copytokenHelp()
     tokenData = comp.unpackCopytoken(0x3000)
     assert tokenData["length"] == 3
     assert tokenData["offset"] == 5
