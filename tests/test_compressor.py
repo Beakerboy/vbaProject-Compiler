@@ -70,3 +70,8 @@ def test_cielLog2():
     assert comp.ceilLog2(4) == 2
     assert comp.ceilLog2(9) == 4
     assert comp.ceilLog2(50) == 6
+
+def test_ceilLog2Zero():
+    comp = Decompressor()
+    with pytest.raises(Exception) as e_info:
+        comp.ceilLog2(0)
