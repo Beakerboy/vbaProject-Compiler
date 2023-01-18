@@ -132,7 +132,7 @@ def test_Copytoken1():
     assert result["bitCount"] == 5
     assert result["lengthMask"] == 0x07FF
     assert result["offsetMask"] == 0xF800
-    tokenData = comp.unpackCopytoken(0x3801)
+    tokenData = comp.unpackCopytoken(0x0838)
     assert tokenData["length"] == 4
     assert tokenData["offset"] == 8
 
