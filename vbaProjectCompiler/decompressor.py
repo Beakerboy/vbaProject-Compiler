@@ -100,7 +100,7 @@ class Decompressor:
         difference = len(self.uncompressedData)
         bitCount = max(self.ceilLog2(difference), 4)
         lengthMask = 0xFFFF >> bitCount
-        offsetMask = ~lengthMask
+        offsetMask = ~lengthMask & 0xFFFF
         maxLength = 0xFFFF << bitCount + 3
         return {
             "lengthMask": lengthMask,
