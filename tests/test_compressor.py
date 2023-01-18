@@ -112,3 +112,4 @@ def test_CopytokenHelp():
     result = comp.copytokenHelp()
     assert result["bitCount"] == 5
     assert result["lengthMask"] == 0x07FF
+    assert result["offsetMask"] == 0xF800
