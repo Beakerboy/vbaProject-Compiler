@@ -115,3 +115,4 @@ def test_CopytokenHelp():
     assert result["offsetMask"] == 0xF800
     tokenData = comp.unpackCopytoken(0xE80A)
     assert tokenData["length"] == 13
+    assert tokenData["offset"] == 30
