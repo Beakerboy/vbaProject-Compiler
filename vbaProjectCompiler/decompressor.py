@@ -110,13 +110,13 @@ class Decompressor:
 
     def unpackCopytoken(self, copyToken):
         """
-        calculate an offset and length from a copytoken
+        calculate an offset and length from a 16 bit copytoken
         """
         help = self.copytokenHelp()
-        length = copyToken & help.lengthMask + 3
-        temp1 = copyToken & help.offsetMask
-        temp2 = 16 - help.bitCount
-        offset = temp1 >> temp2 + 1
+        length = (copyToken & help["lengthMask"]) + 3
+        temp1 = copyToken & help["offsetMask"]
+        temp2 = 16 - help["bitCount"]
+        offset = (temp1 >> temp2) + 1
         return {
             "length": length,
             "offset": offset
