@@ -87,3 +87,13 @@ def test_decompressUnableToCompress():
     result = comp.decompress(compressed)
     expected = "abcdefgh"
     assert expected == result
+
+def test_zeroTokens():
+    compressed = bytearray(b'\x00\xB0\x00')
+    comp = Decompressor()
+    header = bytearray(compressed[:2])
+    del compressed[:2]
+    comp.setCompressedHeader(header)
+    with pytest.raises(Exception) as e_info:
+        result = comp.decompress(compressed)
+    
