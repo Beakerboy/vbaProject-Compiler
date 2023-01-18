@@ -73,3 +73,26 @@ class Decompressor:
 
     def compressStandard(self, input):
         pass
+
+    def decompress(self, data):
+        flagToken = data.pop()
+        #flag is one byte
+        #data is 8 bytes
+        for i in range(8):
+            flag = flagToken >> i & 1
+            if flag == 0:
+                uncompressedData += data.pop()
+            else:
+                copyToken = struct.unpack("<H", data[:2])
+
+    def copytokenHelp(self):
+        """
+        Calculate a lengthMask, offsetMask, and bitCount
+        """
+        pass
+
+    def unpackCopytoken(self, copyToken):
+        """
+        calculate an offset and length from a copytoken
+        """
+        pass
