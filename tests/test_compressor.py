@@ -148,10 +148,15 @@ def test_Copytoken1():
     assert tokenData["length"] == 5
     assert tokenData["offset"] == 15
 
-    #comp.uncompressedData = '
-    #result = comp.copytokenHelp()
-    #tokenData = comp.unpackCopytoken(0x1004)
+    comp.uncompressedData = '#aaabcdefaaaaghijaaaaaklaaamnopqaaaaa'
+    result = comp.copytokenHelp()
+    tokenData = comp.unpackCopytoken(0x1004)
+    assert tokenData["length"] == 5
+    assert tokenData["offset"] == 5
 
+    tokenData = comp.unpackCopytoken(0x3C00)
+    assert tokenData["length"] == 3
+    assert tokenData["offset"] == 21
 
 
 
