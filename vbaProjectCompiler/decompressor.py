@@ -82,7 +82,8 @@ class Decompressor:
               raise Exception("There must be at least one token in each TokenSequence.")
 
           for i in range(8):
-              flag = flagToken >> i & 1
+              flag = flagToken & 1
+              flagToken = flagToken >> 1
               if flag == 0:
                   self.uncompressedData += chr(data.pop())
               else:
