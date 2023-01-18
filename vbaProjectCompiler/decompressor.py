@@ -102,7 +102,7 @@ class Decompressor:
         Calculate a lengthMask, offsetMask, and bitCount
         """
         difference = len(self.uncompressedData)
-        bitCount = max(self.ceilLog2(difference), 4)
+        bitCount = self.ceilLog2(difference)
         lengthMask = 0xFFFF >> bitCount
         offsetMask = ~lengthMask & 0xFFFF
         maxLength = 0xFFFF << bitCount + 3
@@ -127,6 +127,12 @@ class Decompressor:
         }
 
     def ceilLog2(self, int):
+        i = 4
+        while 2 ** i < int:
+            i += 1
+        return i
+
+    def ceilLog2_old(self, int):
         """
         calculate the log2 of the integer, rounded up to the nearest integer
         """
