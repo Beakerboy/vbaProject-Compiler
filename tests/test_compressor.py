@@ -61,7 +61,7 @@ def test_decompression():
     del chunk[:2]
     assert comp.compressedChunkSize == 171
     result = comp.decompress(chunk)
-    expected = 'Attribute VB_Name = "Sheet1"\x0D\x0AAttribute VB_Bas'
+    expected = 'Attribute VB_Name = "Sheet1"\x0D\x0AAttribute VB_Base = "0{000A20820-'
     assert result == expected
     
 def test_cielLog2():
