@@ -80,13 +80,15 @@ class Decompressor:
           flagToken = data.pop()
           if len(data) == 0:
               raise Exception("There must be at least one token in each TokenSequence.")
-
+          flagMask = 1
           for i in range(8):
-              flag = flagToken & 1
-              flagToken = flagToken >> 1
+              flag = flagToken & flagMask
+              flagMask = flagMask << 1
               if flag == 0:
                   self.uncompressedData += chr(data.pop())
               else:
+                  if len(data) < 2:
+                      raise Exception("Copy Token does not exist. FlagToken was " + str(FlagToken) + ".")
                   copyToken = struct.unpack("<H", data[:2])
 
     def copytokenHelp(self):
