@@ -88,7 +88,7 @@ class Decompressor:
                   self.uncompressedData += chr(data.pop())
               else:
                   if len(data) < 2:
-                      raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + ".")
+                      raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
                   copyToken = struct.unpack("<H", data[:2])
 
     def copytokenHelp(self):
