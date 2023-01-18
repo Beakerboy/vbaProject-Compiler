@@ -75,15 +75,18 @@ class Decompressor:
         pass
 
     def decompress(self, data):
-        flagToken = data.pop()
-        #flag is one byte
-        #data is 8 bytes
-        for i in range(8):
-            flag = flagToken >> i & 1
-            if flag == 0:
-                self.uncompressedData += data.pop()
-            else:
-                copyToken = struct.unpack("<H", data[:2])
+        while len(data) > 0:
+          #flag is one byte
+          flagToken = data.pop()
+          if len(data) == 0:
+              raise Exception("There must be at least one token in each TokenSequence.")
+
+          for i in range(8):
+              flag = flagToken >> i & 1
+              if flag == 0:
+                  self.uncompressedData += data.pop()
+              else:
+                  copyToken = struct.unpack("<H", data[:2])
 
     def copytokenHelp(self):
         """
