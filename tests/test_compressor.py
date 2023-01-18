@@ -73,6 +73,7 @@ def test_cielLog2():
     assert comp.ceilLog2(3) == 2
     assert comp.ceilLog2(4) == 2
     assert comp.ceilLog2(9) == 4
+    assert comp.ceilLog2(17) == 5
     assert comp.ceilLog2(50) == 6
 
 def test_ceilLog2Zero():
