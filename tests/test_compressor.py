@@ -119,3 +119,32 @@ def test_CopytokenHelp():
     tokenData = comp.unpackCopytoken(0xE80A)
     assert tokenData["length"] == 13
     assert tokenData["offset"] == 30
+
+def test_Copytoken1():
+    comp = Decompressor()
+    comp.uncompressedData = '#aaabcdef'
+    result = comp.copytokenHelp()
+    assert result["bitCount"] == 4
+    assert result["lengthMask"] == 0x0FFF
+    assert result["offsetMask"] == 0xF000
+    tokenData = comp.unpackCopytoken(0x7000)
+    assert tokenData["length"] == 3
+    assert tokenData["offset"] == 8
+
+    comp.uncompressedData = '#aaabcdefaaaaghij'
+    assert result["bitCount"] == 5
+    assert result["lengthMask"] == 0x07FF
+    assert result["offsetMask"] == 0xF800
+    tokenData = comp.unpackCopytoken(0x3801)
+    assert tokenData["length"] == 4
+    assert tokenData["offset"] == 8
+
+    comp.uncompressedData = '#aaabcdefaaaaghijaaaaakl'
+    tokenData = comp.unpackCopytoken(0x3000)
+    assert tokenData["length"] == 3
+    assert tokenData["offset"] == 5
+
+
+
+
+   
