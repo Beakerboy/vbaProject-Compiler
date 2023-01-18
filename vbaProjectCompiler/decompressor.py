@@ -77,7 +77,7 @@ class Decompressor:
     def decompress(self, data):
         while len(data) > 0:
           #flag is one byte
-          flagToken = data.pop()
+          flagToken = data.pop(0)
           if len(data) == 0:
               raise Exception("There must be at least one token in each TokenSequence.")
           flagMask = 1
@@ -85,7 +85,7 @@ class Decompressor:
               flag = flagToken & flagMask
               flagMask = flagMask << 1
               if flag == 0:
-                  self.uncompressedData += chr(data.pop())
+                  self.uncompressedData += chr(data.pop(0))
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
