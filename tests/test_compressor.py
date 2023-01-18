@@ -110,4 +110,4 @@ def test_CopytokenHelp():
     comp = Decompressor()
     comp.uncompressedData = 'Attribute VB_Name = "Sheet1"\x0D\x0A'
     result = comp.copytokenHelp()
-    assert result.bitCount == 5
+    assert result["bitCount"] == 5
