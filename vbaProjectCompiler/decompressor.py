@@ -84,7 +84,7 @@ class Decompressor:
           for i in range(8):
               flag = flagToken >> i & 1
               if flag == 0:
-                  self.uncompressedData += str(chr(data.pop()), "ascii")
+                  self.uncompressedData += chr(data.pop())
               else:
                   copyToken = struct.unpack("<H", data[:2])
 
