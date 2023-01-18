@@ -60,7 +60,7 @@ def test_decompression():
     comp.setCompressedHeader(chunk[:2])
     assert comp.compressedChunkSize == 168
     assert len(chunk) == 168
-    expected = 'Attribute VB_Name = "Sheet1"\x0D\x0AAttribute VB_Bas"
+    expected = 'Attribute VB_Name = "Sheet1"\x0D\x0AAttribute VB_Bas'
     
 def test_cielLog2():
     comp = Decompressor()
