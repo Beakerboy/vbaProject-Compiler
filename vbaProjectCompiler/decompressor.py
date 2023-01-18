@@ -97,7 +97,7 @@ class Decompressor:
         """
         pass
 
-    def ceilLog2(int):
+    def ceilLog2(self, int):
         """
         calculate the log2 of the integer, rounded up to the nearest integer
         """
