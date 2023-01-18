@@ -105,7 +105,7 @@ class Decompressor:
             raise Exception("zero not allowed")
         i = 0
         while int >> 1 != 0:
-            i++
+            i += 1
         if 2**i < int:
-            i++
+            i += 1
         return i
