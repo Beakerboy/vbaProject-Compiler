@@ -116,7 +116,7 @@ class Decompressor:
         length = (copyToken & help["lengthMask"]) + 3
         temp1 = copyToken & help["offsetMask"]
         temp2 = 16 - help["bitCount"]
-        offset = temp1 >> temp2 + 1
+        offset = (temp1 >> temp2) + 1
         return {
             "length": length,
             "offset": offset
