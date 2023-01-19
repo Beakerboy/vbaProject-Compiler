@@ -2,20 +2,18 @@ import struct
 class Decompressor:
     #class attributes
 
-    endien                   = ''
-    #is the data compressed?
-    compressed               = 1
-
-    #the size in bytes of the chunk after compression
-    compressedChunkSize      = 0
-
-    #The chunk after compression
-    compressedData           = b''
-
-    uncompressedData         = b''
-
     def __init__(self, endien = 'little'):
         self.endien = endien
+        self.uncompressedData = b''
+
+        #The chunk after compression
+        self.compressedData = b''
+
+        #the size in bytes of the chunk after compression
+        self.compressedChunkSize = 0
+
+        #is the data compressed?
+        self.compressed = 1
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
