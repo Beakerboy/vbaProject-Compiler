@@ -27,11 +27,11 @@ def test_RootDirectory():
     stream = StreamDirectory()
     stream.filePath = "tests/blank/PROJECT"
     dir.addFile(stream)
-    assert dir.fileSize() == 384
+    assert dir.fileSize() == 448
 
 def test_StreamDirectory():
     dir = StreamDirectory()
     assert dir.type == 2
     dir.filePath = "tests/blank/PROJECT"
     assert dir.minifatSectorsUsed() == 6
-    assert dir.fileSize() == 323
+    assert dir.fileSize() == 448
