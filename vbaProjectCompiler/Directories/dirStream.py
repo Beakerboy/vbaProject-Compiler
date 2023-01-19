@@ -42,7 +42,7 @@ class SimpleRecord():
     def pack(self):
         format = "<HI"
         if isinstance(self.value, str):
-            format += self.size + "s"
+            format += str(self.size) + "s"
         elif self.size == 2:
             format += "H"
         elif self.size == 4:
