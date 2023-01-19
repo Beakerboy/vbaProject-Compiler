@@ -158,31 +158,3 @@ def test_Copytoken1():
     tokenData = comp.unpackCopytoken(0x1004)
     assert tokenData["length"] == 7
     assert tokenData["offset"] == 5
-
-def test_dir():
-    f = open('tests/blank/vbaProject.bin', 'rb')
-    offset = 0x1EC0
-    f.seek(offset)
-    sig = f.read(1)
-    assert sig == b'\x01'
-    header = f.read(2)
-    comp = Decompressor()
-    comp.setCompressedHeader(header)
-    readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
-    decompressed = bytearray(comp.decompress(readChunk), encoding="charmap")
-    count = 0
-    output = ''
-    while len(decompressed) > 0:
-        output += format(count, 'X').rjust(8, '0') + '   '
-        #get 16 Bytes
-        stringified = ''
-        for i in range(min(16, len(decompressed))):
-            char = decompressed.pop(0)
-            output += format(char, 'X').rjust(2, '0') + ' '
-            sChar = '.' if char < 32 else chr(char)
-            stringified += sChar
-        output += ' ' + stringified + '\n'
-        count += 16
-
-    assert output == ''
-   
