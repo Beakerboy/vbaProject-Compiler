@@ -75,6 +75,8 @@ class SimpleRecord():
             self.stringValue = self.value
             self.value = bytes(self.value, encoding = "ascii")
             format += str(self.size) + "s"
+        elif isinstance(self.value, bytes):
+            format += str(self.size) + "s"
         elif self.size == 2:
             format += "H"
         elif self.size == 4:
