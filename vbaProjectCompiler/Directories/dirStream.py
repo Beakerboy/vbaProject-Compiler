@@ -43,7 +43,7 @@ class SimpleRecord():
         format = "<HI"
         if isinstance(self.value, str):
             self.stringValue = self.value
-            self.value = bytes(self.value)
+            self.value = bytes(self.value, encoding = "ascii")
             format += str(self.size) + "s"
         elif self.size == 2:
             format += "H"
