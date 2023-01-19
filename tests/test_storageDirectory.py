@@ -14,5 +14,5 @@ def test_addFile():
     stream = StreamDirectory()
     stream.filePath = "tests/blank/PROJECT"
     dir2.addFile(stream)
-    assert dir2.minifatSectorsUsed() == 6
+    assert dir2.minifatSectorsUsed() == 7
     assert dir2.fileSize() == 0
