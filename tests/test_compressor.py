@@ -60,7 +60,7 @@ def test_decompression():
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x0F33
     f.seek(offset)
-    sig = read(1)
+    sig = f.read(1)
     assert sig == b'\x10'
     header = f.read(2)
     comp = Decompressor()
