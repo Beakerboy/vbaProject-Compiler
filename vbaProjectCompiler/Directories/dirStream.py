@@ -7,7 +7,7 @@ class DirStream(StreamDirectory):
 
     def __init__(self):
         syskind = SimpleRecord(1, 4, 3) #0=16bit, 1=32bit, 2=mac, 3=64bit
-        compatVersion = SimpleRecord(74, 4, 3}
+        compatVersion = SimpleRecord(74, 4, 3)
         lcid = SimpleRecord(2, 4, 0x0409)
         lcidInvoke = SimpleRecord(12, 4, 0x0409)
         codePage = SimpleRecord(3, 2, 0x04E4)
