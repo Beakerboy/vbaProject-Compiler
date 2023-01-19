@@ -6,13 +6,12 @@ class DirStream(StreamDirectory):
     """
 
     def __init__(self):
-        
-        syskind = {"id": 1, "size": 4, "value": 3] #0=16bit, 1=32bit, 2=mac, 3=64bit
-        compatVersion = [74, 4, 3]
-        lcid = [2, 4, 0x0409]
-        lcidInvoke = [12, 4, 0x0409]
-        codePage = [3, 2, 0x04E4]
-        projectName = [4, 10, "VBAProject"]
+        syskind = SimpleRecord(1, 4, 3) #0=16bit, 1=32bit, 2=mac, 3=64bit
+        compatVersion = SimpleRecord(74, 4, 3}
+        lcid = SimpleRecord(2, 4, 0x0409)
+        lcidInvoke = SimpleRecord(12, 4, 0x0409)
+        codePage = SimpleRecord(3, 2, 0x04E4)
+        projectName = SimpleRecord(4, 10, "VBAProject")
         self.information = [
             syskind,
             compatVersion,
@@ -27,13 +26,24 @@ class DirStream(StreamDirectory):
     def toBytes(self):
         output = b''
         for record in self.information
-            format = "<HI"
-            if isinstance(record["value"], str):
-                format += record["size"] + "s"
-            elif record["size"] == 2:
-                format += "H"
-            el if record["size"] == 4:
-                format += "I"
-            output += struct.pack(format, record["id"], record["size"])
-            if size == 2:
+            output += record.pack()
         return output
+
+class SimpleRecord():
+    def __init__(self, id, size, value):
+        self.id = id
+        self.size = size
+        self.value = value
+
+   def toDict(self):
+        return {"id": self.id, "size": self.size, "value": self.value}
+
+    def pack(self):
+        format = "<HI"
+        if isinstance(self.value, str):
+            format += self.size + "s"
+        elif record["size"] == 2:
+            format += "H"
+        elif record["size"] == 4:
+            format += "I"
+        return struct.pack(format, self.id, self.size, self.value)
