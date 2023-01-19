@@ -179,7 +179,7 @@ def test_dir():
         for i in range(min(16, len(decompressed))):
             char = decompressed.pop(0)
             output += format(char, 'X') + ' '
-            stringified += str(char, encoding="charmap")
+            stringified += chr(char)
         output += ' ' + stringified + '\n'
         count += 16
 
