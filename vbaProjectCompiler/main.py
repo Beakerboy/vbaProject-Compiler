@@ -32,7 +32,8 @@ def hexDumpString(data):
         for i in range(min(16, len(decompressed))):
             char = decompressed.pop(0)
             output += format(char, 'X').rjust(2, '0') + ' '
-            stringified += chr(char)
+            sChar = '.' if char < 32 else chr(char)
+            stringified += sChar
         output += ' ' + stringified + '\n'
         count += 16
     return output
