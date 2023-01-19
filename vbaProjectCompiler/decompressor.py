@@ -2,33 +2,18 @@ import struct
 class Decompressor:
     #class attributes
 
-    endien                   = ''
-    #is the data compressed?
-    compressed               = 1
-
     #the size in bytes of the chunk after compression
     compressedChunkSize      = 0
-
-    #The chunk after compression
-    compressedData           = b''
 
     uncompressedData         = ""
 
     def __init__(self, endien = 'little'):
         self.endien = endien
 
-    def setCompressedData(self, data):
-        """set the Compressed data attribute"""
-        if len(data) != self.compressedChunkSize - 2:
-            raise Exception("Expecting " + str(self.compressedChunkSize - 2) + " bytes, but given " + str(len(data)) + ".")
-        self.compressedData = data
-
-    def setCompression(self, compress):
-        """Set if we want to compress the source or include it raw"""
-        self.compressed = 1 if compress else 0
-
     def setCompressedHeader(self, compressedHeader):
-        """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
+        """
+        The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed
+        """
         length = len(compressedHeader)
         if length != 2:
             raise Exception("The header must be two bytes. Given " + str(length) + ".")
@@ -47,20 +32,29 @@ class Decompressor:
     def getCompressedChunkSize(self):
         return self.compressedChunkSize
 
-    def getCompressedChunk(self):
-        
+    def getCompressedChunk(self):    
         return self.getCompressedChunkHeader() + self.compressedData
 
-    def compress(self, input):
+    def compress(self, input, raw = False):
+        """
+        Compress data with the VBA compression algorithm
+
+        :param input: bytes of uncompressed data
+        :param raw: if true, return the raw data with a header
+        :return: bytes
+        """
         if len(input) > 4096:
             raise Exception("Input cannot be longer than 4096 bytes.")
-        if self.compress:
-            self.compressStandard(input)
-        else:
+        if raw:
             self.compressRaw(input)
+        else:
+            self.compressStandard(input)
         return self.getCompressedChunkHeader() + self.compressedData
 
     def getCompressedChunkHeader(self):
+        """
+        The header of the compressed data tells the compression algrothim used and the data size
+        """
         compressedChunkFlag = 1 if self.compressed else 0
         intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
         if intHeader > (2*0x7fff) or 0 > intHeader:
@@ -72,7 +66,22 @@ class Decompressor:
         self.compressedData = input.ljust(4096, '\0')
 
     def compressStandard(self, input):
-        pass
+        self.compressedData = b'\01'
+        tokenFlags = 0x00
+
+    def matching(self):
+        """
+        Find offset and length of a matching substring for compression
+        """
+        candidate = 0
+        bestLength = 0
+
+
+        length = 0
+        offset = 0
+
+        results = {"length": length, "offset": offset}
+        return results
 
     def decompress(self, data):
         while len(data) > 0:
