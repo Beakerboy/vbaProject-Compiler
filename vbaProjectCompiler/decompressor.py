@@ -90,7 +90,11 @@ class Decompressor:
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
-                  copyToken = struct.unpack("<H", data[:2])
+                  copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])
+                  del data[:2]
+                  
+                  for i in range(copyToken["length"]):
+                      self.uncompressedData += self.uncompressedData[-1 * copyToken["offset"]]
         return self.uncompressedData
 
     def copytokenHelp(self):
@@ -98,7 +102,7 @@ class Decompressor:
         Calculate a lengthMask, offsetMask, and bitCount
         """
         difference = len(self.uncompressedData)
-        bitCount = max(self.ceilLog2(difference), 4)
+        bitCount = self.ceilLog2(difference)
         lengthMask = 0xFFFF >> bitCount
         offsetMask = ~lengthMask & 0xFFFF
         maxLength = 0xFFFF << bitCount + 3
@@ -123,17 +127,7 @@ class Decompressor:
         }
 
     def ceilLog2(self, int):
-        """
-        calculate the log2 of the integer, rounded up to the nearest integer
-        """
-        orig_int = int
-        if int == 0:
-            raise Exception("zero not allowed")
-        i = 0
-        int = int >> 1
-        while int != 0:
-            i += 1
-            int = int >> 1
-        if 2**i < orig_int:
+        i = 4
+        while 2 ** i < int:
             i += 1
         return i
