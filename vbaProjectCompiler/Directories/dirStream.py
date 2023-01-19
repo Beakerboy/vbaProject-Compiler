@@ -43,12 +43,19 @@ class DirStream(StreamDirectory):
             constants1,
             constants2
         ]
-        self.references  = []
+        refName1 = SimpleRecord(16,6,"stdole")
+        refName2 = SimpleRecord(0x003E, 12, "stdole".encode("utf-16"))
+        self.references  = [
+            refName1,
+            refName2
+        ]
         self.modules = []
 
     def toBytes(self):
         output = b''
         for record in self.information:
+            output += record.pack()
+        for record in self.references:
             output += record.pack()
         return output
 
