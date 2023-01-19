@@ -67,6 +67,6 @@ class SimpleRecord():
 class ArrayRecord():
     def __init__(self, id, sizes, values, separator):
         self.id = id
-        self.sizes = size
-        self.values = value
+        self.sizes = sizes
+        self.values = values
         self.separator = separator
