@@ -246,3 +246,14 @@ class VbaProject:
 
     def writeFile(self, filePath):
         file = open(filePath, "wb+")
+        file.write(self.header)
+        firstFatSector = self.getFatSectors()[0]
+        if firstFatSector > 0:
+            raise Exception('Not Implemented')
+        file.write(self.writeFatSector(0))
+        #write blank directory sector
+        #write blank minifat sector.
+        #flatten the Directory tree
+        #get a sector's worth of streams
+        #    write the directory sector
+        #    write 
