@@ -13,10 +13,12 @@ class DirStream(StreamDirectory):
         lcidInvoke = SimpleRecord(20, 4, 0x0409)
         codePage = SimpleRecord(3, 2, 0x04E4)
         projectName = SimpleRecord(4, 10, "VBAProject")
-        #docString = ArrayRecord(5, [0,0], ["", ""], 0x0040)
-        docString1 = SimpleRecord(5, 0, "")
-        docString2 = SimpleRecord(0x0040, 0, "")
-        #helpFile = ArrayRecord(6, [0,0], ["", ""], 0x003D)
+        
+        docString1 = SimpleRecord(5, 0, "")       #multibute string
+        docString2 = SimpleRecord(0x0040, 0, "")  #UTF-16
+
+        helpfile1 = SimpleRecord(6, 0, "")
+        helpfile2 = SimpleRecord(0x003D, 0, "")
         helpContext = SimpleRecord(7, 4, 0)
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
@@ -30,7 +32,12 @@ class DirStream(StreamDirectory):
             codePage,
             projectName,
             docString1,
-            docString2
+            docString2,
+            helpfile1,
+            helpfile2,
+            helpContext,
+            libFlags,
+            version
         ]
         self.references  = []
         self.modules = []
