@@ -89,7 +89,7 @@ class Decompressor:
               flagMask = flagMask << 1
               if flag == 0:
                   if len(data) > 0:
-                      self.uncompressedData += data.pop(0)
+                      self.uncompressedData += bytes(data.pop(0))
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
