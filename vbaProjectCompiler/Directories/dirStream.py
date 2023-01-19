@@ -79,6 +79,8 @@ class SimpleRecord():
             format += "H"
         elif self.size == 4:
             format += "I"
+        else:
+            raise Exception("Received data of type " + type(self.value))
         output = struct.pack(format, self.id, self.size, self.value)
         #clean up stringValue
         return output
