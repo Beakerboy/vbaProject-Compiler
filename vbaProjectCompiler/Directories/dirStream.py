@@ -63,10 +63,3 @@ class SimpleRecord():
         output = struct.pack(format, self.id, self.size, self.value)
         #clean up stringValue
         return output
-
-class ArrayRecord():
-    def __init__(self, id, sizes, values, separator):
-        self.id = id
-        self.sizes = sizes
-        self.values = values
-        self.separator = separator
