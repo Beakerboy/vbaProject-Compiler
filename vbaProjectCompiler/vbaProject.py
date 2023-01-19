@@ -243,3 +243,6 @@ class VbaProject:
         project.nextDirectoryId = 7
         project.sector = 94
         project.size = 466
+
+    def writeFile(filePath):
+        file = open(filePath, "wb+")
