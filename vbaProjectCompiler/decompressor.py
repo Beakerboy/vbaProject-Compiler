@@ -12,7 +12,7 @@ class Decompressor:
     #The chunk after compression
     compressedData           = b''
 
-    uncompressedData         = ""
+    uncompressedData         = b''
 
     def __init__(self, endien = 'little'):
         self.endien = endien
@@ -74,7 +74,10 @@ class Decompressor:
     def compressStandard(self, input):
         pass
 
-    def decompress(self, data):
+    def decompressAndDump(self, data):
+        self.decompress(data, False)
+
+    def decompress(self, data, stringify = True):
         while len(data) > 0:
           #flag is one byte
           flagToken = data.pop(0)
@@ -86,7 +89,7 @@ class Decompressor:
               flagMask = flagMask << 1
               if flag == 0:
                   if len(data) > 0:
-                      self.uncompressedData += chr(data.pop(0))
+                      self.uncompressedData += byte(data.pop(0))
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
@@ -95,6 +98,8 @@ class Decompressor:
                   
                   for i in range(copyToken["length"]):
                       self.uncompressedData += self.uncompressedData[-1 * copyToken["offset"]]
+        if stringify:
+            self.uncompressedData = str(self.uncompressedData, "charmap")
         return self.uncompressedData
 
     def copytokenHelp(self):
