@@ -42,9 +42,13 @@ class SimpleRecord():
     def pack(self):
         format = "<HI"
         if isinstance(self.value, str):
+            self.stringValue = self.value
+            self.value = bytes(self.value)
             format += str(self.size) + "s"
         elif self.size == 2:
             format += "H"
         elif self.size == 4:
             format += "I"
-        return struct.pack(format, self.id, self.size, self.value)
+        output = struct.pack(format, self.id, self.size, self.value)
+        #clean up stringValue
+        return output
