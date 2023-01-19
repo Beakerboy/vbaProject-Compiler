@@ -25,7 +25,7 @@ class DirStream(StreamDirectory):
 
     def toBytes(self):
         output = b''
-        for record in self.information
+        for record in self.information:
             output += record.pack()
         return output
 
