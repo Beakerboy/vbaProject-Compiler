@@ -58,7 +58,7 @@ def test_ChunkSizeMismatch():
 
 def test_decompression():
     f = open('tests/blank/vbaProject.bin', 'rb')
-    offset = 0x0F32
+    offset = 0x0F33
     f.seek(offset)
     sig = read(1)
     assert sig = b'\x10'
