@@ -244,5 +244,5 @@ class VbaProject:
         project.sector = 94
         project.size = 466
 
-    def writeFile(filePath):
+    def writeFile(self, filePath):
         file = open(filePath, "wb+")
