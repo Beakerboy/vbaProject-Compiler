@@ -169,7 +169,7 @@ def test_dir():
     comp = Decompressor()
     comp.setCompressedHeader(header)
     readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
-    decompressed = bytearray(comp.decompress(readChunk))
+    decompressed = bytearray(comp.decompress(readChunk), encoding="charmap")
     count = 0
     output = ''
     while len(decompressed) > 0:
