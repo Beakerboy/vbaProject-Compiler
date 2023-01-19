@@ -181,4 +181,7 @@ def test_dir():
             output += format(char, 'X') + ' '
             stringified += string(char, "charmap")
         output += ' ' + stringified + '\n'
-        assert output == ''
+        count += 16
+
+    assert output == ''
+   
