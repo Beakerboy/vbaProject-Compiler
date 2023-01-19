@@ -35,7 +35,7 @@ class SimpleRecord():
         self.size = size
         self.value = value
 
-   def toDict(self):
+    def toDict(self):
         return {"id": self.id, "size": self.size, "value": self.value}
 
     def pack(self):
