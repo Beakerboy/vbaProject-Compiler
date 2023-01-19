@@ -61,7 +61,7 @@ def test_decompression():
     offset = 0x0F33
     f.seek(offset)
     sig = f.read(1)
-    assert sig == b'\x10'
+    assert sig == b'\x01'
     header = f.read(2)
     comp = Decompressor()
     comp.setCompressedHeader(header)
