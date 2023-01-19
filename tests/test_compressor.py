@@ -173,7 +173,7 @@ def test_dir():
     count = 0
     output = ''
     while len(decompressed) > 0:
-        output += format(count, 'X') + '   '
+        output += format(count, 'X').rjust(8, '0') + '   '
         #get 16 Bytes
         stringified = ''
         for i in range(min(16, len(decompressed))):
