@@ -45,7 +45,7 @@ class DirStream(StreamDirectory):
         ]
         refString = "stdole"
         refName1 = SimpleRecord(0x0016, 6, refString) #should be encoded using CodePage
-        refName2 = SimpleRecord(0x003E, 12, refString.encode("utf-16"))
+        refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
         self.references  = [
             refName1,
             refName2
