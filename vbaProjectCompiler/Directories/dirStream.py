@@ -42,8 +42,8 @@ class SimpleRecord():
         format = "<HI"
         if isinstance(self.value, str):
             format += self.size + "s"
-        elif record["size"] == 2:
+        elif self.size == 2:
             format += "H"
-        elif record["size"] == 4:
+        elif self.size == 4:
             format += "I"
         return struct.pack(format, self.id, self.size, self.value)
