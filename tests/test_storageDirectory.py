@@ -3,7 +3,6 @@ from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 def test_StorageDirectory():
-    #why is this not cleaned up? Need to used dir1 for some reason
     dir1 = StorageDirectory()
     assert dir1.type == 1
     assert len(dir1.directories) == 0
