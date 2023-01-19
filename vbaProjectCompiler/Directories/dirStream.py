@@ -13,13 +13,24 @@ class DirStream(StreamDirectory):
         lcidInvoke = SimpleRecord(20, 4, 0x0409)
         codePage = SimpleRecord(3, 2, 0x04E4)
         projectName = SimpleRecord(4, 10, "VBAProject")
+        #docString = ArrayRecord(5, [0,0], ["", ""], 0x0040)
+        docString1 = SimpleRecord(5, 0, "")
+        docString2 = SimpleRecord(0x0040, 0, "")
+        #helpFile = ArrayRecord(6, [0,0], ["", ""], 0x003D)
+        helpContext = SimpleRecord(7, 4, 0)
+        libFlags = SimpleRecord(8, 4, 0)
+        version = SimpleRecord(9, 4, 0x65BE0257)
+        minorVersion = 17
+        #constants = ArrayRecord(12,[0, 0],["", ""], 0x003C)
         self.information = [
             syskind,
             compatVersion,
             lcid,
             lcidInvoke,
             codePage,
-            projectName
+            projectName,
+            docString1,
+            docString2
         ]
         self.references  = []
         self.modules = []
@@ -52,3 +63,10 @@ class SimpleRecord():
         output = struct.pack(format, self.id, self.size, self.value)
         #clean up stringValue
         return output
+
+class ArrayRecord():
+    def __init__(self, id, sizes, values, separator):
+        self.id = id
+        self.sizes = size
+        self.values = value
+        self.separator = separator
