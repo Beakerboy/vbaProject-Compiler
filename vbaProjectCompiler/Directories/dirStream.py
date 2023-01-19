@@ -22,8 +22,9 @@ class DirStream(StreamDirectory):
         helpContext = SimpleRecord(7, 4, 0)
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
-        minorVersion = 17
-        #constants = ArrayRecord(12,[0, 0],["", ""], 0x003C)
+        minorVersion = SimpleValue(2, 17)
+        constants1 = SimpleRecord(12, 0, "")
+        constants2 = SimpleRecord(0x003C, 0, "")
         self.information = [
             syskind,
             compatVersion,
@@ -37,7 +38,10 @@ class DirStream(StreamDirectory):
             helpfile2,
             helpContext,
             libFlags,
-            version
+            version,
+            minorVersion,
+            constants1,
+            constants2
         ]
         self.references  = []
         self.modules = []
@@ -69,4 +73,18 @@ class SimpleRecord():
             format += "I"
         output = struct.pack(format, self.id, self.size, self.value)
         #clean up stringValue
+        return output
+
+Class SimpleValue():
+    def __init__(self, size, value):
+        self.size = size
+        self.value = value
+
+    def pack(self):
+        format = "<"
+        if self.size == 2:
+            format += "H"
+        elif self.size == 4:
+            format += "I"
+        output = struct.pack(format, self.value)
         return output
