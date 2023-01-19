@@ -179,7 +179,7 @@ def test_dir():
         for i in range(min(16, len(decompressed))):
             char = decompressed.pop(0)
             output += format(char, 'X').rjust(2, '0') + ' '
-            sChar = '.' if chr(char) == '' else chr(char)
+            sChar = '.' if char == 0 else chr(char)
             stringified += sChar
         output += ' ' + stringified + '\n'
         count += 16
