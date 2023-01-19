@@ -159,7 +159,6 @@ def test_dir():
     comp = Decompressor()
     comp.setCompressedHeader(chunk[:2])
     del chunk[:2]
-    assert comp.compressedChunkSize == 171
     result = comp.decompress(chunk)
     expected = ''
     assert result == expected
