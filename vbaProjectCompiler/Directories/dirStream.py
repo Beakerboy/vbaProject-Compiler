@@ -15,18 +15,13 @@ class DirStream(StreamDirectory):
         lcidInvoke = SimpleRecord(20, 4, 0x0409)
         codePageRecord = SimpleRecord(3, 2, self.codePage)
         projectName = SimpleRecord(4, 10, "VBAProject")
-        
-        docString1 = SimpleRecord(5, 0, "")       #multibute string
-        docString2 = SimpleRecord(0x0040, 0, "")  #UTF-16
-
-        helpfile1 = SimpleRecord(6, 0, "")
-        helpfile2 = SimpleRecord(0x003D, 0, "")
+        docString = DoubleEncodedSimple(codePageName, [5, 0x0040], "")
+        helpfile = DoubleEncodedSimple(codePageName, [6, 0x003D], "")
         helpContext = SimpleRecord(7, 4, 0)
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
         minorVersion = SimpleValue(2, 17)
-        constants1 = SimpleRecord(12, 0, "")
-        constants2 = SimpleRecord(0x003C, 0, "")
+        constants1 = SimpleRecord(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
             compatVersion,
@@ -34,16 +29,13 @@ class DirStream(StreamDirectory):
             lcidInvoke,
             codePageRecord,
             projectName,
-            docString1,
-            docString2,
-            helpfile1,
-            helpfile2,
+            docString,
+            helpfile,
             helpContext,
             libFlags,
             version,
             minorVersion,
-            constants1,
-            constants2
+            constants
         ]
         libidRef = LibidReference(
             "windows",
@@ -170,6 +162,9 @@ class ReferenceRecord():
         return self.RefName.pack() + refRegistered.pack()
 
 class DoubleEncodedSimple():
+    """
+    Encode text data in two successive records with different ids and lengths
+    """
     def __init__(self, codePageName, ids, text):
         self.codePageName = codePageName
         encoded = text.encode(codePageName)
@@ -179,7 +174,6 @@ class DoubleEncodedSimple():
 
     def pack(self):
         return self.modName1.pack() + self.modName2.pack()
-
 
 class ModuleRecord():
     def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly=False, private=False):
