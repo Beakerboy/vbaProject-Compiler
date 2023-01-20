@@ -14,7 +14,7 @@ class Decompressor:
 
     def __init__(self, endien = 'little'):
         self.endien = endien
-        self.uncompressedData = b''
+        self.uncompressedData = bytearray(b'')
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
