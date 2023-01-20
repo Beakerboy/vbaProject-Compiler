@@ -137,7 +137,7 @@ class LibidReference():
         self.libidPath = libidPath
         self.libidRegName = libidRegName
 
-    toString():
+    def toString(self):
         return "*\\" +
             self.LibidReferenceKind +
             self.libidGuid + "#" +
