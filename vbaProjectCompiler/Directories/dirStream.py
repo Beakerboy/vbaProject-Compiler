@@ -136,6 +136,7 @@ class LibidReference():
         self.LibidReferenceKind = "G" if pathType == "windows" else "H"
         self.libidGuid = libidGuid
         self.version = version
+        self.libidLcid = libidLcid
         self.libidPath = libidPath
         self.libidRegName = libidRegName
 
@@ -144,6 +145,7 @@ class LibidReference():
             self.LibidReferenceKind + \
             self.libidGuid + "#" + \
             self.version + "#" + \
+            self.libidLcid + "#" + \
             self.libidPath + "#" + \
             self.libidRegName
      
