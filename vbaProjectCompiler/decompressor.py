@@ -101,9 +101,9 @@ class Decompressor:
                   
                   for i in range(copyToken["length"]):
                       offset = copyToken["offset"]
-                      len = len(self.uncompressedData)
-                      if len < offset:
-                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(len))
+                      length = len(self.uncompressedData)
+                      if length < offset:
+                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length))
                       self.uncompressedData += bytes(self.uncompressedData[-1 * offset])
         return self.uncompressedData
 
