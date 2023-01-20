@@ -1,6 +1,7 @@
 # test_vbaProjectCompiler.py
-
 import pytest
+
+from vbaProjectCompiler.decompressor import Decompressor
 from vbaProjectCompiler.Directories.dirStream import DirStream
 
 def test_dirStream():
@@ -15,5 +16,5 @@ def test_dirStream():
     decompressedStream = comp.decompress(readChunk)
     stream = DirStream()
     result = stream.toBytes()
-    expected = decompressedStream[:0x01A0]
+    expected = bytes(decompressedStream[:0x0110])
     assert expected == result

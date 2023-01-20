@@ -10,12 +10,11 @@ class Decompressor:
     compressedChunkSize      = 0
 
     #The chunk after compression
-    compressedData           = b''
-
-    uncompressedData         = ""
+    compressedData           = bytearray(b'')
 
     def __init__(self, endien = 'little'):
         self.endien = endien
+        self.uncompressedData = bytearray(b'')
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
@@ -75,6 +74,14 @@ class Decompressor:
         pass
 
     def decompress(self, data):
+        orig_data = data
+        """
+        Decompress a bytearray
+
+        :param data bytes: bytes of compressed data
+        :return: bytes
+        :rtype: bytes
+        """
         while len(data) > 0:
           #flag is one byte
           flagToken = data.pop(0)
@@ -86,7 +93,7 @@ class Decompressor:
               flagMask = flagMask << 1
               if flag == 0:
                   if len(data) > 0:
-                      self.uncompressedData += chr(data.pop(0))
+                      self.uncompressedData.append(data.pop(0))
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
@@ -94,7 +101,11 @@ class Decompressor:
                   del data[:2]
                   
                   for i in range(copyToken["length"]):
-                      self.uncompressedData += self.uncompressedData[-1 * copyToken["offset"]]
+                      offset = copyToken["offset"]
+                      length = len(self.uncompressedData)
+                      if length < offset:
+                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length) + "\nOriginal data is: " + str(orig_data, "charmap") + "\nUncompressed as: " + str(self.uncompressedData, "charmap"))
+                      self.uncompressedData.append(self.uncompressedData[-1 * offset])
         return self.uncompressedData
 
     def copytokenHelp(self):

@@ -36,7 +36,7 @@ def test_normalCompression():
     del compressed[:2]
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
-    assert expected == result
+    assert bytearray(expected, "ascii") == result
 
 def test_compressRaw():
     comp = Decompressor()
@@ -69,7 +69,7 @@ def test_decompression():
     readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
     result = comp.decompress(readChunk)
     expected = 'Attribute VB_Name = "Sheet1"\x0D\x0AAttribute VB_Base = "0{00020820-0000-0000-C000-000000000046}"\x0D\x0AAttribute VB_GlobalNameSpace = False\x0D\x0AAttribute VB_Creatable = False\x0D\x0AAttribute VB_PredeclaredId = True\x0D\x0AAttribute VB_Exposed = True\x0D\x0AAttribute VB_TemplateDerived = False\x0D\x0AAttribute VB_Customizable = True\x0D\x0A'
-    assert result == expected
+    assert result == bytearray(expected, "ascii")
     
 def test_cielLog2():
     comp = Decompressor()
@@ -88,7 +88,7 @@ def test_decompressUnableToCompressOneToken():
     del compressed[:2]
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
-    expected = "abcdefgh"
+    expected = bytearray("abcdefgh", "ascii")
     assert expected == result
 
 def test_zeroTokens():
@@ -100,14 +100,14 @@ def test_zeroTokens():
     with pytest.raises(Exception) as e_info:
         result = comp.decompress(compressed)
     
-def test_decompressUnableToCompressOneToken():
+def test_decompressUnableToCompressOneToken1():
     compressed = bytearray(b'\x19\xB0\x00\x61\x62\x63\x64\x65\x66\x67\x68\x00\x69\x6A\x6B\x6C\x6D\x6E\x6F\x70\x00\x71\x72\x73\x74\x75\x76\x2E')
     comp = Decompressor()
     header = bytearray(compressed[:2])
     del compressed[:2]
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
-    expected = "abcdefghijklmnopqrstuv."
+    expected = bytearray("abcdefghijklmnopqrstuv.", "ascii")
     assert expected == result
 
 def test_CopytokenHelp():
