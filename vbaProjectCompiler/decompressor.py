@@ -74,6 +74,7 @@ class Decompressor:
         pass
 
     def decompress(self, data):
+        orig_data = data
         """
         Decompress a bytearray
 
@@ -103,7 +104,7 @@ class Decompressor:
                       offset = copyToken["offset"]
                       length = len(self.uncompressedData)
                       if length < offset:
-                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length))
+                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length) + "\nOriginal data is: " + orig_data)
                       self.uncompressedData += bytes(self.uncompressedData[-1 * offset])
         return self.uncompressedData
 
