@@ -7,11 +7,13 @@ class DirStream(StreamDirectory):
     """
 
     def __init__(self):
+        self.codePage = 0x04E4
+        codePageName = "cp" + str(self.codePage)
         syskind = SimpleRecord(1, 4, 3) #0=16bit, 1=32bit, 2=mac, 3=64bit
         compatVersion = SimpleRecord(74, 4, 3)
         lcid = SimpleRecord(2, 4, 0x0409)
         lcidInvoke = SimpleRecord(20, 4, 0x0409)
-        codePage = SimpleRecord(3, 2, 0x04E4)
+        codePageRecord = SimpleRecord(3, 2, self.codePage)
         projectName = SimpleRecord(4, 10, "VBAProject")
         
         docString1 = SimpleRecord(5, 0, "")       #multibute string
@@ -30,7 +32,7 @@ class DirStream(StreamDirectory):
             compatVersion,
             lcid,
             lcidInvoke,
-            codePage,
+            codePageRecord,
             projectName,
             docString1,
             docString2,
@@ -44,7 +46,8 @@ class DirStream(StreamDirectory):
             constants2
         ]
         refString = "stdole"
-        refName1 = SimpleRecord(0x0016, 6, refString) #should be encoded using CodePage
+       
+        refName1 = SimpleRecord(0x0016, 6, refString.encode(codePageName)) #should be encoded using CodePage
         refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
         refRegistered = PackedRecord(struct.pack("<III94s",0x000D, 0x0068, 0x005E, "*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation"))
        
