@@ -45,10 +45,6 @@ class DirStream(StreamDirectory):
             constants1,
             constants2
         ]
-        refString = "stdole"
-       
-        refName1 = SimpleRecord(0x0016, 6, refString.encode(codePageName))
-        refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
         libidRef = LibidReference(
             "windows",
             "{00020430-0000-0000-C000-000000000046}",
@@ -57,16 +53,23 @@ class DirStream(StreamDirectory):
             "C:\\Windows\\System32\\stdole2.tlb",
             "OLE Automation"
         )
-        strlen = len(libidRef.toString())
-        format = "<HII" + str(strlen) + "sIH"
-        refRegistered = PackedRecord(struct.pack(format, 0x000D, 0x0068, 0x005E, libidRef.toString().encode(codePageName), 0, 0))
-       
+        oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
+        libidRef2 = LibidReference(
+            "windows",
+            "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+            "2.0",
+            "0",
+            "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
+            "Microsoft Office 16.0 Object Library"
+        )
+        officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
         self.references  = [
-            refName1,
-            refName2,
-            refRegistered
+            oleReference,
+            officeReference
         ]
         self.modules = []
+
+
 
     def toBytes(self):
         output = b''
@@ -148,6 +151,19 @@ class LibidReference():
             self.libidLcid + "#" + \
             self.libidPath + "#" + \
             self.libidRegName
-     
 
-            
+class ReferenceRecord():
+    def __init__(self, codePageName, name, libidRef):
+        self.codePageName = codePageName
+        encoded = name.encode(codePageName)
+        self.RefName1 = SimpleRecord(0x0016, len(encoded), encoded)
+        encoded = name.encode("utf_16_le")
+        self.RefName2 = SimpleRecord(0x003E, len(encoded), encoded)
+        self.libidRef = libidRef
+
+    def pack(self):
+        strlen = len(self.libidRef.toString())
+        format = "<HII" + str(strlen) + "sIH"
+        refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, self.libidRef.toString().encode(self.codePageName), 0, 0))
+       
+        return self.RefName1.pack() + self.RefName2.pack() + refRegistered.pack()
