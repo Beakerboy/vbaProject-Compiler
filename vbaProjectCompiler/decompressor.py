@@ -76,6 +76,10 @@ class Decompressor:
     def decompress(self, data):
         """
         Decompress a bytearray
+
+        :param data bytes: bytes of compressed data
+        :return: bytes
+        :rtype: bytes
         """
         while len(data) > 0:
           #flag is one byte
