@@ -157,7 +157,7 @@ class ReferenceRecord():
         self.codePageName = codePageName
         encoded = name.encode(codePageName)
         self.RefName1 = SimpleRecord(0x0016, len(encoded), encoded)
-        encoded = name.encode(utf_16_le)
+        encoded = name.encode("utf_16_le")
         self.RefName2 = SimpleRecord(0x003E, len(encoded), encoded)
         self.libidRef = libidRef
 
@@ -166,4 +166,4 @@ class ReferenceRecord():
         format = "<HII" + str(strlen) + "sIH"
         refRegistered = PackedRecord(struct.pack(format, 0x000D, 0x0068, 0x005E, self.libidRef.toString().encode(self.codePageName), 0, 0))
        
-        return self.RefName1,pack() + self.RefName2.pack + refRegistered.pack()
+        return self.RefName1,pack() + self.RefName2.pack() + refRegistered.pack()
