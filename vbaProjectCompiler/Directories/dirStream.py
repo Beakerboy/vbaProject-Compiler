@@ -141,7 +141,7 @@ class LibidReference():
         return "*\\" +
             self.LibidReferenceKind +
             self.libidGuid + "#" +
-            self.version +
+            self.version + "#" +
             self.libidPath + "#" +
             self.libidRegName
      
