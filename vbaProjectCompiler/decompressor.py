@@ -74,6 +74,9 @@ class Decompressor:
         pass
 
     def decompress(self, data):
+        """
+        Decompress a bytearray
+        """
         while len(data) > 0:
           #flag is one byte
           flagToken = data.pop(0)
