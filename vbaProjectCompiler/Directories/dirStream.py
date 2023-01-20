@@ -21,7 +21,7 @@ class DirStream(StreamDirectory):
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
         minorVersion = SimpleValue(2, 17)
-        constants1 = SimpleRecord(codePageName, [12, 0x003C], "")
+        constants = SimpleRecord(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
             compatVersion,
