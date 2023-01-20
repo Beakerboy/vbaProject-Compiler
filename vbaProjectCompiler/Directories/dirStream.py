@@ -70,7 +70,7 @@ class DirStream(StreamDirectory):
         cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
         count = 3
         modulesHeader = SimpleRecord(0x000F, 2, count)
-        thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333)
+        thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0xB81C, 0x0022)
         self.modules = []
 
 
@@ -172,23 +172,33 @@ class ReferenceRecord():
        
         return self.RefName1.pack() + self.RefName2.pack() + refRegistered.pack()
 
-class ModuleRecord():
-    def __init__(self, codePageName, name, streamName, docString, offset):
+class DoubleEncodedSimple():
+    def __init__(self, codePageName, ids, text):
         self.codePageName = codePageName
-        encoded = name.encode(codePageName)
-        self.modName1 = SimpleRecord(0x0019, len(encoded), encoded)
-        encoded = name.encode("utf_16_le")
-        self.modName2 = SimpleRecord(0x003E, len(encoded), encoded)
-        
-        encoded = streamName.encode(codePageName)
-        self.streamName1 = SimpleRecord(0x001A, len(encoded), encoded)
-        encoded = streamName.encode("utf_16_le")
-        self.streamName2 = SimpleRecord(0x0032, len(encoded), encoded)
+        encoded = text.encode(codePageName)
+        self.modName1 = SimpleRecord(ids[0], len(encoded), encoded)
+        encoded = text.encode("utf_16_le")
+        self.modName2 = SimpleRecord(ids[1], len(encoded), encoded)
 
-        encoded = docString.encode(codePageName)
-        self.docString1 = SimpleRecord(0x001C, len(encoded), encoded)
-        encoded = docString.encode("utf_16_le")
-        self.docString2 = SimpleRecord(0x0048, len(encoded), encoded)
-        self.offsetRec = SimpleRecord(0x0031, 4, offset)
+    def pack(self):
+        return self.modName1.pack() + self.modName2.pack()
+
+
+class ModuleRecord():
+    def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly, private):
+        self.codePageName = codePageName
+        self.modName      = DoubleEncodedSimple(codePageName, [0x0019, 0x003E], name)
+        self.streamName   = DoubleEncodedSimple(codePageName, [0x001A, 0x0032], streamName)
+        self.docString    = DoubleEncodedSimple(codePageName, [0x001C, 0x0048], docString)
+        self.offsetRec    = SimpleRecord(0x0031, 4, offset)
+        self.helpContext  = SimpleRecord(0x001E, 4, helpContext)
+        self.cookie       = SimpleRecord(0x002C, 2, helpContext)
+        self.type         = PackedRecord(struct.pack("<HHI", type, 0, 0))
+        #self.readonly = SimpleRecord(0x001E, 4, helpContext)
+        #self.private = SimpleRecord(0x001E, 4, helpContext)
+       
     def pack():
-        pass
+        output = self.codePageName.pack() + self.modName.pack() + self.streamName.pack() + self.docString.pack() + self.offsetRec.pack() + self.helpContext.pack() + self.cookie.pack() + self.type.pack()
+        footer = struct.pack("<HI", 0x002B, 0)
+        output += footer
+        return output
