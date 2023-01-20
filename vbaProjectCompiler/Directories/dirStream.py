@@ -67,6 +67,10 @@ class DirStream(StreamDirectory):
             oleReference,
             officeReference
         ]
+        cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
+        count = 3
+        modulesHeader = SimpleRecord(0x000F, 2, count)
+        thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333)
         self.modules = []
 
 
@@ -167,3 +171,24 @@ class ReferenceRecord():
         refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, self.libidRef.toString().encode(self.codePageName), 0, 0))
        
         return self.RefName1.pack() + self.RefName2.pack() + refRegistered.pack()
+
+class ModuleRecord():
+    def __init__(self, codePageName, name, streamName, docString, offset):
+        self.codePageName = codePageName
+        encoded = name.encode(codePageName)
+        self.modName1 = SimpleRecord(0x0019, len(encoded), encoded)
+        encoded = name.encode("utf_16_le")
+        self.modName2 = SimpleRecord(0x003E, len(encoded), encoded)
+        
+        encoded = streamName.encode(codePageName)
+        self.streamName1 = SimpleRecord(0x001A, len(encoded), encoded)
+        encoded = streamName.encode("utf_16_le")
+        self.streamName2 = SimpleRecord(0x0032, len(encoded), encoded)
+
+        encoded = docString.encode(codePageName)
+        self.docString1 = SimpleRecord(0x001C, len(encoded), encoded)
+        encoded = docString.encode("utf_16_le")
+        self.docString2 = SimpleRecord(0x0048, len(encoded), encoded)
+        self.offsetRec = SimpleRecord(0x0031, 4, offset)
+    def pack():
+        pass
