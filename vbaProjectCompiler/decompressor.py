@@ -104,7 +104,7 @@ class Decompressor:
                       offset = copyToken["offset"]
                       length = len(self.uncompressedData)
                       if length < offset:
-                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length) + "\nOriginal data is: " + orig_data)
+                          raise Exception("copyToken offset: " + str(offset) + " while string length is " + str(length) + "\nOriginal data is: " + str(orig_data, "charmap"))
                       self.uncompressedData += bytes(self.uncompressedData[-1 * offset])
         return self.uncompressedData
 
