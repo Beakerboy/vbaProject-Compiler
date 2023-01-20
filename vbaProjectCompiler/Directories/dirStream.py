@@ -138,11 +138,11 @@ class LibidReference():
         self.libidRegName = libidRegName
 
     def toString(self):
-        return "*\\" +
-            self.LibidReferenceKind +
-            self.libidGuid + "#" +
-            self.version + "#" +
-            self.libidPath + "#" +
+        return "*\\" + \
+            self.LibidReferenceKind + \
+            self.libidGuid + "#" + \
+            self.version + "#" + \
+            self.libidPath + "#" + \
             self.libidRegName
      
 
