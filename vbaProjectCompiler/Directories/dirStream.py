@@ -46,6 +46,8 @@ class DirStream(StreamDirectory):
         refString = "stdole"
         refName1 = SimpleRecord(0x0016, 6, refString) #should be encoded using CodePage
         refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
+        #refRegistered = SimpleRecord(0x000D, 0x0068, 0x005E, "*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation")
+       
         self.references  = [
             refName1,
             refName2
@@ -61,6 +63,10 @@ class DirStream(StreamDirectory):
         return output
 
 class SimpleRecord():
+    """
+    Many Records in this class have the same format, a two bye ID, a four byte size and an int value formatted to the defined si
+    """
+
     def __init__(self, id, size, value):
         self.id = id
         self.size = size
