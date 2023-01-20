@@ -131,7 +131,7 @@ class PackedRecord():
 
 class LibidReference():
     def __init__(pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
-        self.LibidReferenceKind = "G" if pathType = "windows" else "H"
+        self.LibidReferenceKind = "G" if pathType == "windows" else "H"
         self.libidGuid = libidGuid
         self.version = version
         self.libidPath = libidPath
