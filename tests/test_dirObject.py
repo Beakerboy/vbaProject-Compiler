@@ -4,7 +4,16 @@ import pytest
 from vbaProjectCompiler.Directories.dirStream import DirStream
 
 def test_dirStream():
+    f = open('tests/blank/vbaProject.bin', 'rb')
+    offset = 0x1EC0
+    f.seek(offset)
+    sig = f.read(1)
+    header = f.read(2)
+    comp = Decompressor()
+    comp.setCompressedHeader(header)
+    readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
+    decompressedStream = comp.decompress(readChunk)
     stream = DirStream()
     result = stream.toBytes()
-    expected = b'\x01\x00\x04\x00\x00\x00\x03\x00\x00\x00\x4A\x00\x04\x00\x00\x00\x03\x00\x00\x00\x02\x00\x04\x00\x00\x00\x09\x04\x00\x00\x14\x00\x04\x00\x00\x00\x09\x04\x00\x00\x03\x00\x02\x00\x00\x00\xE4\x04\x04\x00\x0A\x00\x00\x00\x56\x42\x41\x50\x72\x6F\x6A\x65\x63\x74'
+    expected = decompressedStream[:0x01A0]
     assert expected == result
