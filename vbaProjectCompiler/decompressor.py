@@ -10,12 +10,11 @@ class Decompressor:
     compressedChunkSize      = 0
 
     #The chunk after compression
-    compressedData           = b''
-
-    uncompressedData         = ""
+    compressedData           = bytearray(b'')
 
     def __init__(self, endien = 'little'):
         self.endien = endien
+        self.uncompressedData = b''
 
     def setCompressedData(self, data):
         """set the Compressed data attribute"""
@@ -86,7 +85,7 @@ class Decompressor:
               flagMask = flagMask << 1
               if flag == 0:
                   if len(data) > 0:
-                      self.uncompressedData += chr(data.pop(0))
+                      self.uncompressedData += data.pop(0)
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
