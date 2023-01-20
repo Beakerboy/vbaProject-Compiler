@@ -185,7 +185,7 @@ class DoubleEncodedSimple():
 
 
 class ModuleRecord():
-    def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly, private):
+    def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly=False, private=False):
         self.codePageName = codePageName
         self.modName      = DoubleEncodedSimple(codePageName, [0x0019, 0x003E], name)
         self.streamName   = DoubleEncodedSimple(codePageName, [0x001A, 0x0032], streamName)
