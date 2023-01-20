@@ -166,4 +166,4 @@ class ReferenceRecord():
         format = "<HII" + str(strlen) + "sIH"
         refRegistered = PackedRecord(struct.pack(format, 0x000D, 0x0068, 0x005E, self.libidRef.toString().encode(self.codePageName), 0, 0))
        
-        return self.RefName1,pack() + self.RefName2.pack() + refRegistered.pack()
+        return self.RefName1.pack() + self.RefName2.pack() + refRegistered.pack()
