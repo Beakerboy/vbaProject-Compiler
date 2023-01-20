@@ -88,7 +88,7 @@ def test_decompressUnableToCompressOneToken():
     del compressed[:2]
     comp.setCompressedHeader(header)
     result = comp.decompress(compressed)
-    expected = "abcdefgh"
+    expected = bytearray("abcdefgh", "ascii")
     assert expected == result
 
 def test_zeroTokens():
