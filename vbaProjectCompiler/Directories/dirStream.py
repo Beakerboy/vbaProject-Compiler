@@ -49,8 +49,6 @@ class DirStream(StreamDirectory):
        
         refName1 = SimpleRecord(0x0016, 6, refString.encode(codePageName))
         refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
-        LibidReferenceKind = "G" if pathType = "windows" else "H"
-        LibidGuid = "{00020430-0000-0000-C000-000000000046}"
         libidRef = LibidReference(
             "windows",
             "{00020430-0000-0000-C000-000000000046}",
