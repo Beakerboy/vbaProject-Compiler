@@ -57,7 +57,9 @@ class DirStream(StreamDirectory):
             "C:\\Windows\\System32\\stdole2.tlb",
             "OLE Automation"
         )
-        refRegistered = PackedRecord(struct.pack("<III94sIH",0x000D, 0x0068, 0x005E, libidRef.toString().encode(codePageName), 0, 0))
+        strlen = len(libidRef.toString())
+        format = "<III" + str(strlen) + "sIH"
+        refRegistered = PackedRecord(struct.pack(format, 0x000D, 0x0068, 0x005E, libidRef.toString().encode(codePageName), 0, 0))
        
         self.references  = [
             refName1,
