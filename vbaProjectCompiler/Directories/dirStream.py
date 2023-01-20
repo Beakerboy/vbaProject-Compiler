@@ -54,7 +54,8 @@ class DirStream(StreamDirectory):
        
         self.references  = [
             refName1,
-            refName2
+            refName2,
+            refRegistered
         ]
         self.modules = []
 
