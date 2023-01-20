@@ -16,5 +16,5 @@ def test_dirStream():
     decompressedStream = comp.decompress(readChunk)
     stream = DirStream()
     result = stream.toBytes()
-    expected = decompressedStream[:0x0109]
+    expected = decompressedStream[:0x0110]
     assert expected == result
