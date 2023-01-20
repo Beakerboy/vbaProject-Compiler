@@ -46,7 +46,7 @@ class DirStream(StreamDirectory):
         refString = "stdole"
         refName1 = SimpleRecord(0x0016, 6, refString) #should be encoded using CodePage
         refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
-        #refRegistered = SimpleRecord(0x000D, 0x0068, 0x005E, "*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation")
+        refRegistered = PackedRecord(struct.pack("<III94s",0x000D, 0x0068, 0x005E, "*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\System32\stdole2.tlb#OLE Automation"))
        
         self.references  = [
             refName1,
@@ -106,3 +106,13 @@ class SimpleValue():
             format += "I"
         output = struct.pack(format, self.value)
         return output
+
+class PackedRecord():
+    """
+    A Record that is already packed
+    """
+    def __init__(self, value):
+        self.value = value
+
+    def pack(self):
+        return self.value
