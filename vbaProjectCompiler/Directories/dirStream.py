@@ -54,10 +54,22 @@ class DirStream(StreamDirectory):
             "OLE Automation"
         )
         oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
+        libidRef2 = LibidReference(
+            "windows",
+            "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+            "2.0",
+            "0",
+            "C:\\Program Files\\CommonFiles\\MicrosoftShared\\OFFICE16\\MSO.DLL",
+            "Microsoft Office 16.0 Object Library"
+        )
+        officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
         self.references  = [
-            oleReference
+            oleReference,
+            officeReference
         ]
         self.modules = []
+
+
 
     def toBytes(self):
         output = b''
