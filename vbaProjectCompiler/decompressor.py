@@ -100,7 +100,7 @@ class Decompressor:
                   del data[:2]
                   
                   for i in range(copyToken["length"]):
-                      self.uncompressedData += self.uncompressedData[-1 * copyToken["offset"]]
+                      self.uncompressedData += bytes(self.uncompressedData[-1 * copyToken["offset"]])
         return self.uncompressedData
 
     def copytokenHelp(self):
