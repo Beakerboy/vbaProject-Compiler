@@ -47,7 +47,7 @@ class DirStream(StreamDirectory):
         ]
         refString = "stdole"
        
-        refName1 = SimpleRecord(0x0016, 6, refString.encode(codePageName)) #should be encoded using CodePage
+        refName1 = SimpleRecord(0x0016, 6, refString.encode(codePageName))
         refName2 = SimpleRecord(0x003E, 12, refString.encode("utf_16_le"))
         text = "*\\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\\Windows\\System32\\stdole2.tlb#OLE Automation"
         refRegistered = PackedRecord(struct.pack("<III94s",0x000D, 0x0068, 0x005E, text.encode(codePageName)))
