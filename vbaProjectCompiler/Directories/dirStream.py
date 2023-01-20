@@ -58,7 +58,7 @@ class DirStream(StreamDirectory):
             "OLE Automation"
         )
         strlen = len(libidRef.toString())
-        format = "<III" + str(strlen) + "sIH"
+        format = "<HII" + str(strlen) + "sIH"
         refRegistered = PackedRecord(struct.pack(format, 0x000D, 0x0068, 0x005E, libidRef.toString().encode(codePageName), 0, 0))
        
         self.references  = [
