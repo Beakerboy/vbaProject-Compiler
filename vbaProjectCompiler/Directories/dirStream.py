@@ -128,11 +128,12 @@ class PackedRecord():
     """
     A Record that is already packed
     """
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, format, *value):
+        self.value  = value
+        self.format = format
 
     def pack(self):
-        return self.value
+        return struct.pack("<" + self.format, *value)
 
 class DoubleEncodedSimple():
     """
@@ -157,7 +158,7 @@ class ModuleRecord():
         self.offsetRec    = SimpleRecord(0x0031, 4, offset)
         self.helpContext  = SimpleRecord(0x001E, 4, helpContext)
         self.cookie       = SimpleRecord(0x002C, 2, cookie)
-        self.type         = PackedRecord(struct.pack("<HI", type, 0))
+        self.type         = PackedRecord("HI", type, 0))
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
        
