@@ -1,5 +1,6 @@
 import struct
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
+from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
 class DirStream(StreamDirectory):
     """
@@ -132,37 +133,6 @@ class PackedRecord():
 
     def pack(self):
         return self.value
-
-class LibidReference():
-    def __init__(self, pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
-        self.LibidReferenceKind = "G" if pathType == "windows" else "H"
-        self.libidGuid = libidGuid
-        self.version = version
-        self.libidLcid = libidLcid
-        self.libidPath = libidPath
-        self.libidRegName = libidRegName
-
-    def toString(self):
-        return "*\\" + \
-            self.LibidReferenceKind + \
-            self.libidGuid + "#" + \
-            self.version + "#" + \
-            self.libidLcid + "#" + \
-            self.libidPath + "#" + \
-            self.libidRegName
-
-class ReferenceRecord():
-    def __init__(self, codePageName, name, libidRef):
-        self.codePageName = codePageName
-        self.RefName = DoubleEncodedSimple(codePageName, [0x0016, 0x003E], name)
-        self.libidRef = libidRef
-
-    def pack(self):
-        strlen = len(self.libidRef.toString())
-        format = "<HII" + str(strlen) + "sIH"
-        refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, self.libidRef.toString().encode(self.codePageName), 0, 0))
-       
-        return self.RefName.pack() + refRegistered.pack()
 
 class DoubleEncodedSimple():
     """
