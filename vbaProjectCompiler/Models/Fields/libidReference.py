@@ -1,6 +1,6 @@
 class LibidReference():
     def __init__(self, pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
-        self.LibidReferenceKind = "G" if pathType == "windows" else "H"
+        self.libidReferenceKind = "G" if pathType == "windows" else "H"
         self.libidGuid = libidGuid
         self.version = version
         self.libidLcid = libidLcid
@@ -9,7 +9,7 @@ class LibidReference():
 
     def toString(self):
         return "*\\" + \
-            self.LibidReferenceKind + \
+            self.libidReferenceKind + \
             self.libidGuid + "#" + \
             self.version + "#" + \
             self.libidLcid + "#" + \
