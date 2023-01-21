@@ -59,18 +59,22 @@ class DirStream(StreamDirectory):
             oleReference,
             officeReference
         ]
-        cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
-        count = 3
-        modulesHeader = SimpleRecord(0x000F, 2, count)
+        
         thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0xB81C, 0x0022)
-        self.modules = []
-
-
+        sheet1 = ModuleRecord(codePageName, "Sheet1", "Sheet1", "", 0x0333, 0, 0x9B9A, 0x0022)
+        module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0xB241, 0x0021)
+        self.modules = [thisWorkbook, sheet1, module1]
 
     def toBytes(self):
         output = b''
         for record in self.information:
             output += record.pack()
+        for record in self.references:
+            output += record.pack()
+        
+        modulesHeader = SimpleRecord(0x000F, 2, len(self.modules))
+        cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
+        output += modulesHeader.pack() + cookie.pack()
         for record in self.references:
             output += record.pack()
         return output
