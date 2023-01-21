@@ -21,7 +21,7 @@ class DirStream(StreamDirectory):
         helpContext = SimpleRecord(7, 4, 0)
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
-        minorVersion = SimpleValue(2, 17)
+        minorVersion = PackedRecord("H", 17)
         constants = DoubleEncodedSimple(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
