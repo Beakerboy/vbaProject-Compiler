@@ -75,7 +75,7 @@ class DirStream(StreamDirectory):
         modulesHeader = SimpleRecord(0x000F, 2, len(self.modules))
         cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
         output += modulesHeader.pack() + cookie.pack()
-        for record in self.references:
+        for record in self.modules:
             output += record.pack()
         output += struct.pack("<HI", 16, 0)
         return output
