@@ -7,7 +7,7 @@ class LibidReference():
         self.libidPath = libidPath
         self.libidRegName = libidRegName
 
-    def toString(self):
+    def __str__(self):
         return "*\\" + \
             self.libidReferenceKind + \
             self.libidGuid + "#" + \
