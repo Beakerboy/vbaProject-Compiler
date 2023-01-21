@@ -187,7 +187,7 @@ class ModuleRecord():
         self.offsetRec    = SimpleRecord(0x0031, 4, offset)
         self.helpContext  = SimpleRecord(0x001E, 4, helpContext)
         self.cookie       = SimpleRecord(0x002C, 2, cookie)
-        self.type         = PackedRecord(struct.pack("<HHI", type, 0, 0))
+        self.type         = PackedRecord(struct.pack("<HI", type, 0))
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
        
