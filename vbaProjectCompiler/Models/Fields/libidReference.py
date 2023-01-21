@@ -21,5 +21,5 @@ class LibidReference():
             len(self.libidGuid) + \
             len(self.version) + \
             len(self.libidLcid) + \
-            len(self.libidPath + \
+            len(self.libidPath) + \
             len(self.libidRegName) + 6
