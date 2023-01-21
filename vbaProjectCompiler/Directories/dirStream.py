@@ -4,6 +4,8 @@ from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
+from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
+from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 
 class DirStream(StreamDirectory):
     """
