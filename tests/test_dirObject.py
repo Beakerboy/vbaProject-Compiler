@@ -15,6 +15,5 @@ def test_dirStream():
     readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
     decompressedStream = comp.decompress(readChunk)
     stream = DirStream()
-    result = stream.toBytes()
     expected = bytes(decompressedStream)
-    assert expected == result
+    assert stream.toBytes() == expected
