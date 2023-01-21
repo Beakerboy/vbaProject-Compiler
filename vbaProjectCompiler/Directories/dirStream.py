@@ -186,7 +186,7 @@ class ModuleRecord():
         self.docString    = DoubleEncodedSimple(codePageName, [0x001C, 0x0048], docString)
         self.offsetRec    = SimpleRecord(0x0031, 4, offset)
         self.helpContext  = SimpleRecord(0x001E, 4, helpContext)
-        self.cookie       = SimpleRecord(0x002C, 2, helpContext)
+        self.cookie       = SimpleRecord(0x002C, 2, cookie)
         self.type         = PackedRecord(struct.pack("<HHI", type, 0, 0))
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
