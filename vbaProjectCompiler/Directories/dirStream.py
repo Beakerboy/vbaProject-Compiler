@@ -1,5 +1,6 @@
 import struct
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
+from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
 class DirStream(StreamDirectory):
     """
@@ -15,18 +16,13 @@ class DirStream(StreamDirectory):
         lcidInvoke = SimpleRecord(20, 4, 0x0409)
         codePageRecord = SimpleRecord(3, 2, self.codePage)
         projectName = SimpleRecord(4, 10, "VBAProject")
-        
-        docString1 = SimpleRecord(5, 0, "")       #multibute string
-        docString2 = SimpleRecord(0x0040, 0, "")  #UTF-16
-
-        helpfile1 = SimpleRecord(6, 0, "")
-        helpfile2 = SimpleRecord(0x003D, 0, "")
+        docString = DoubleEncodedSimple(codePageName, [5, 0x0040], "")
+        helpfile = DoubleEncodedSimple(codePageName, [6, 0x003D], "")
         helpContext = SimpleRecord(7, 4, 0)
         libFlags = SimpleRecord(8, 4, 0)
         version = SimpleRecord(9, 4, 0x65BE0257)
         minorVersion = SimpleValue(2, 17)
-        constants1 = SimpleRecord(12, 0, "")
-        constants2 = SimpleRecord(0x003C, 0, "")
+        constants = DoubleEncodedSimple(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
             compatVersion,
@@ -34,16 +30,13 @@ class DirStream(StreamDirectory):
             lcidInvoke,
             codePageRecord,
             projectName,
-            docString1,
-            docString2,
-            helpfile1,
-            helpfile2,
+            docString,
+            helpfile,
             helpContext,
             libFlags,
             version,
             minorVersion,
-            constants1,
-            constants2
+            constants
         ]
         libidRef = LibidReference(
             "windows",
@@ -67,9 +60,11 @@ class DirStream(StreamDirectory):
             oleReference,
             officeReference
         ]
-        self.modules = []
-
-
+        
+        thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0xB81C, 0x0022)
+        sheet1 = ModuleRecord(codePageName, "Sheet1", "Sheet1", "", 0x0333, 0, 0x9B9A, 0x0022)
+        module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0xB241, 0x0021)
+        self.modules = [thisWorkbook, sheet1, module1]
 
     def toBytes(self):
         output = b''
@@ -77,6 +72,13 @@ class DirStream(StreamDirectory):
             output += record.pack()
         for record in self.references:
             output += record.pack()
+        
+        modulesHeader = SimpleRecord(0x000F, 2, len(self.modules))
+        cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
+        output += modulesHeader.pack() + cookie.pack()
+        for record in self.modules:
+            output += record.pack()
+        output += struct.pack("<HI", 16, 0)
         return output
 
 class SimpleRecord():
@@ -106,9 +108,7 @@ class SimpleRecord():
             format += "I"
         else:
             raise Exception("Received data of type " + type(self.value).__name__)
-        output = struct.pack(format, self.id, self.size, self.value)
-        #clean up stringValue
-        return output
+        return struct.pack(format, self.id, self.size, self.value)
 
 class SimpleValue():
     def __init__(self, size, value):
@@ -134,36 +134,48 @@ class PackedRecord():
     def pack(self):
         return self.value
 
-class LibidReference():
-    def __init__(self, pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
-        self.LibidReferenceKind = "G" if pathType == "windows" else "H"
-        self.libidGuid = libidGuid
-        self.version = version
-        self.libidLcid = libidLcid
-        self.libidPath = libidPath
-        self.libidRegName = libidRegName
-
-    def toString(self):
-        return "*\\" + \
-            self.LibidReferenceKind + \
-            self.libidGuid + "#" + \
-            self.version + "#" + \
-            self.libidLcid + "#" + \
-            self.libidPath + "#" + \
-            self.libidRegName
-
-class ReferenceRecord():
-    def __init__(self, codePageName, name, libidRef):
+class DoubleEncodedSimple():
+    """
+    Encode text data in two successive records with different ids and lengths
+    """
+    def __init__(self, codePageName, ids, text):
         self.codePageName = codePageName
-        encoded = name.encode(codePageName)
-        self.RefName1 = SimpleRecord(0x0016, len(encoded), encoded)
-        encoded = name.encode("utf_16_le")
-        self.RefName2 = SimpleRecord(0x003E, len(encoded), encoded)
-        self.libidRef = libidRef
+        encoded = text.encode(codePageName)
+        self.modName1 = SimpleRecord(ids[0], len(encoded), encoded)
+        encoded = text.encode("utf_16_le")
+        self.modName2 = SimpleRecord(ids[1], len(encoded), encoded)
 
     def pack(self):
-        strlen = len(self.libidRef.toString())
-        format = "<HII" + str(strlen) + "sIH"
-        refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, self.libidRef.toString().encode(self.codePageName), 0, 0))
+        return self.modName1.pack() + self.modName2.pack()
+
+class ModuleRecord():
+    def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly=False, private=False):
+        self.codePageName = codePageName
+        self.modName      = DoubleEncodedSimple(codePageName, [0x0019, 0x0047], name)
+        self.streamName   = DoubleEncodedSimple(codePageName, [0x001A, 0x0032], streamName)
+        self.docString    = DoubleEncodedSimple(codePageName, [0x001C, 0x0048], docString)
+        self.offsetRec    = SimpleRecord(0x0031, 4, offset)
+        self.helpContext  = SimpleRecord(0x001E, 4, helpContext)
+        self.cookie       = SimpleRecord(0x002C, 2, cookie)
+        self.type         = PackedRecord(struct.pack("<HI", type, 0))
+        #self.readonly = SimpleRecord(0x001E, 4, helpContext)
+        #self.private = SimpleRecord(0x001E, 4, helpContext)
        
-        return self.RefName1.pack() + self.RefName2.pack() + refRegistered.pack()
+    def pack(self):
+        output = self.modName.pack() + self.streamName.pack() + self.docString.pack() + self.offsetRec.pack() + self.helpContext.pack() + self.cookie.pack() + self.type.pack()
+        footer = struct.pack("<HI", 0x002B, 0)
+        output += footer
+        return output
+
+class ReferenceRecord():
+     def __init__(self, codePageName, name, libidRef):
+         self.codePageName = codePageName
+         self.RefName = DoubleEncodedSimple(codePageName, [0x0016, 0x003E], name)
+         self.libidRef = libidRef
+
+     def pack(self):
+         strlen = len(self.libidRef)
+         format = "<HII" + str(strlen) + "sIH"
+         refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, str(self.libidRef).encode(self.codePageName), 0, 0))
+
+         return self.RefName.pack() + refRegistered.pack()
