@@ -1,6 +1,7 @@
 import struct
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 
 class DirStream(StreamDirectory):
     """
