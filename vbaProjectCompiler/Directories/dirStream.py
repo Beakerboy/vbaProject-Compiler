@@ -2,6 +2,7 @@ import struct
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
 
 class DirStream(StreamDirectory):
     """
@@ -17,13 +18,13 @@ class DirStream(StreamDirectory):
         lcidInvoke = IdSizeField(20, 4, 0x0409)
         codePageRecord = IdSizeField(3, 2, self.codePage)
         projectName = IdSizeField(4, 10, "VBAProject")
-        docString = DoubleEncodedSimple(codePageName, [5, 0x0040], "")
-        helpfile = DoubleEncodedSimple(codePageName, [6, 0x003D], "")
+        docString = DoubleEncodedString(codePageName, [5, 0x0040], "")
+        helpfile = DoubleEncodedString(codePageName, [6, 0x003D], "")
         helpContext = IdSizeField(7, 4, 0)
         libFlags = IdSizeField(8, 4, 0)
         version = IdSizeField(9, 4, 0x65BE0257)
         minorVersion = PackedRecord("H", 17)
-        constants = DoubleEncodedSimple(codePageName, [12, 0x003C], "")
+        constants = DoubleEncodedString(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
             compatVersion,
@@ -74,8 +75,8 @@ class DirStream(StreamDirectory):
         for record in self.references:
             output += record.pack()
         
-        modulesHeader = SimpleRecord(0x000F, 2, len(self.modules))
-        cookie = SimpleRecord(19, 2, 0x08F3) #should be 0xFFFF
+        modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
+        cookie = IdSizeField(19, 2, 0x08F3) #should be 0xFFFF
         output += modulesHeader.pack() + cookie.pack()
         for record in self.modules:
             output += record.pack()
