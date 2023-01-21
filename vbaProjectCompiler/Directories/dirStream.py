@@ -107,12 +107,7 @@ class SimpleRecord():
             format += "I"
         else:
             raise Exception("Received data of type " + type(self.value).__name__)
-        output = ''
-        try:
-            output = struct.pack(format, self.id, self.size, self.value)
-        except:
-            raise Exception('format is' + format)
-        return output
+        return struct.pack(format, self.id, self.size, self.value)
 
 class SimpleValue():
     def __init__(self, size, value):
