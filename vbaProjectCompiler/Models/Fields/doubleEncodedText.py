@@ -1,6 +1,6 @@
-class DoubleEncodedSimple():
+class DoubleEncodedText():
     """
-    Encode text data in two successive records with different ids and lengths
+    Encode text data twice with different ids and lengths
     """
     def __init__(self, codePageName, ids, text):
         self.codePageName = codePageName
