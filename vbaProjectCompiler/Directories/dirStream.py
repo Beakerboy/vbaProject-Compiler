@@ -77,6 +77,7 @@ class DirStream(StreamDirectory):
         output += modulesHeader.pack() + cookie.pack()
         for record in self.references:
             output += record.pack()
+        output += struct.pack("<HI", 16, 0)
         return output
 
 class SimpleRecord():
