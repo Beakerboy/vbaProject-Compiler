@@ -192,7 +192,7 @@ class ModuleRecord():
         #self.private = SimpleRecord(0x001E, 4, helpContext)
        
     def pack(self):
-        output = self.codePageName.pack() + self.modName.pack() + self.streamName.pack() + self.docString.pack() + self.offsetRec.pack() + self.helpContext.pack() + self.cookie.pack() + self.type.pack()
+        output = self.modName.pack() + self.streamName.pack() + self.docString.pack() + self.offsetRec.pack() + self.helpContext.pack() + self.cookie.pack() + self.type.pack()
         footer = struct.pack("<HI", 0x002B, 0)
         output += footer
         return output
