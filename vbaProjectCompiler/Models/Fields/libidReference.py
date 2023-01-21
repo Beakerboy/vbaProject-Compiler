@@ -15,3 +15,11 @@ class LibidReference():
             self.libidLcid + "#" + \
             self.libidPath + "#" + \
             self.libidRegName
+
+    def __len__(self):
+        return len(self.libidReferenceKind) + \
+            len(self.libidGuid) + \
+            len(self.version) + \
+            len(self.libidLcid) + \
+            len(self.libidPath + \
+            len(self.libidRegName) + 6
