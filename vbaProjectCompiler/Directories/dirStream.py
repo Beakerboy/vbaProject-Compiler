@@ -3,6 +3,7 @@ from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
+from vbaProjectCompiler.Models.Fields.packedData import PackedData
 
 class DirStream(StreamDirectory):
     """
@@ -23,7 +24,7 @@ class DirStream(StreamDirectory):
         helpContext = IdSizeField(7, 4, 0)
         libFlags = IdSizeField(8, 4, 0)
         version = IdSizeField(9, 4, 0x65BE0257)
-        minorVersion = PackedRecord("H", 17)
+        minorVersion = PackedData("H", 17)
         constants = DoubleEncodedString(codePageName, [12, 0x003C], "")
         self.information = [
             syskind,
