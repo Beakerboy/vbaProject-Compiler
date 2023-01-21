@@ -111,7 +111,7 @@ class SimpleRecord():
         try:
             output = struct.pack(format, self.id, self.size, self.value)
         except:
-            print('format is' + format)
+            raise Exception('format is' + format)
         return output
 
 class SimpleValue():
