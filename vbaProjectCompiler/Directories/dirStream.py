@@ -174,7 +174,7 @@ class ReferenceRecord():
          self.libidRef = libidRef
 
      def pack(self):
-         strlen = len(self.libidRef.toString())
+         strlen = len(self.libidRef)
          format = "<HII" + str(strlen) + "sIH"
          refRegistered = PackedRecord(struct.pack(format, 0x000D, strlen + 10, strlen, str(self.libidRef).encode(self.codePageName), 0, 0))
 
