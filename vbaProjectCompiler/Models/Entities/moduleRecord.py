@@ -16,6 +16,6 @@ class ModuleRecord():
        
     def pack(self):
         output = self.modName.pack() + self.streamName.pack() + self.docString.pack() + self.offsetRec.pack() + self.helpContext.pack() + self.cookie.pack() + self.type.pack()
-        footer = struct.pack("<HI", 0x002B, 0)
+        footer = PackedData("HI", 0x002B, 0)
         output += footer
         return output
