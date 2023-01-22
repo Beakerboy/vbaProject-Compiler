@@ -42,5 +42,13 @@ def test_dirStream():
     officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
     project.addReference(oleReference)
     project.addReference(officeReference)
+
+    thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0xB81C, 0x0022)
+    sheet1 = ModuleRecord(codePageName, "Sheet1", "Sheet1", "", 0x0333, 0, 0x9B9A, 0x0022)
+    module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0xB241, 0x0021)
+
+    project.addModule(thisWorkbook)
+    project.addModule(sheet1)
+    project.addModule(module1)
     expected = bytes(decompressedStream)
     assert stream.toBytes() == expected
