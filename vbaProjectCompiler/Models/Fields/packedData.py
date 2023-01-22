@@ -8,4 +8,4 @@ class PackedData():
         self.format = format
 
     def pack(self):
-        return struct.pack("<" + self.format, *self.values
+        return struct.pack("<" + self.format, *self.values)
