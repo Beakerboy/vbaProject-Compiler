@@ -1,5 +1,9 @@
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
+from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
+from vbaProjectCompiler.Models.Fields.packedData import PackedData
+from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+
 class ReferenceRecord():
      def __init__(self, codePageName, name, libidRef):
          self.codePageName = codePageName
