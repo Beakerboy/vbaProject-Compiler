@@ -1,7 +1,7 @@
 # test_project.py
 
 import pytest
-from vbaProjectCompiler.project import Project
+from vbaProjectCompiler.Views.project import Project
 from pathlib import Path
 
 def test_blank():
