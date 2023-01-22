@@ -1,3 +1,4 @@
+import struct
 class IdSizeField():
     """
     Many Records have the same format, a two bye ID, a four byte size and an int value formatted to the defined si
