@@ -28,6 +28,7 @@ class VbaProject:
         #A list of directories
         self.directories = []
         self.references  = []
+        self.modules     = []
 
         root = Directory()
         root.name = "Root Entry"
@@ -247,3 +248,6 @@ class VbaProject:
 
     def addReference(self, ref):
         self.references.append(ref)
+
+    def addModule(self, ref):
+        self.modules.append(ref)
