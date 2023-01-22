@@ -51,7 +51,7 @@ class DirStream(StreamDirectory):
         self.modules = [thisWorkbook, sheet1, module1]
 
     def toBytes(self):
-        self.references = self.project.referenecs
+        self.references = self.project.references
         output = b''
         for record in self.information:
             output += record.pack()
