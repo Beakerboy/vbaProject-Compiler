@@ -11,7 +11,8 @@ class DirStream(StreamDirectory):
     The dir stream is compressed on write
     """
 
-    def __init__(self):
+    def __init__(self, project):
+        self.project = project
         self.codePage = 0x04E4
         codePageName = "cp" + str(self.codePage)
         syskind = IdSizeField(1, 4, 3) #0=16bit, 1=32bit, 2=mac, 3=64bit
@@ -50,6 +51,7 @@ class DirStream(StreamDirectory):
         self.modules = [thisWorkbook, sheet1, module1]
 
     def toBytes(self):
+        self.references = self.project.referenecs
         output = b''
         for record in self.information:
             output += record.pack()
