@@ -1,6 +1,7 @@
 # test_vbaProjectCompiler.py
 import pytest
 
+from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.decompressor import Decompressor
 from vbaProjectCompiler.Directories.dirStream import DirStream
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
@@ -8,6 +9,7 @@ from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 
 
 def test_dirStream():
+    project = VbaProject()
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x1EC0
     f.seek(offset)
@@ -17,7 +19,7 @@ def test_dirStream():
     comp.setCompressedHeader(header)
     readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
     decompressedStream = comp.decompress(readChunk)
-    stream = DirStream()
+    stream = DirStream(project)
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
     libidRef = LibidReference(
@@ -38,7 +40,7 @@ def test_dirStream():
         "Microsoft Office 16.0 Object Library"
     )
     officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
-    stream.addReference(oleReference)
-    stream.addReference(officeReference)
+    project.addReference(oleReference)
+    project.addReference(officeReference)
     expected = bytes(decompressedStream)
     assert stream.toBytes() == expected
