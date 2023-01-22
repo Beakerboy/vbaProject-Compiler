@@ -1,3 +1,6 @@
+
+from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+
 class DoubleEncodedText():
     """
     Encode text data twice with different ids and lengths
