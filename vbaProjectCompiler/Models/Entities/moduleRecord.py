@@ -5,7 +5,8 @@ from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 class ModuleRecord():
     def __init__(self, codePageName, name, streamName, docString, offset, helpContext, cookie, type, readonly=False, private=False):
         self.codePageName = codePageName
-        self.modName      = DoubleEncodedString(codePageName, [0x001A, 0x0032], streamName)
+        self.modName      = DoubleEncodedString(codePageName, [0x0019, 0x0047], name)
+        self.streamName   = DoubleEncodedString(codePageName, [0x001A, 0x0032], streamName)
         self.docString    = DoubleEncodedString(codePageName, [0x001C, 0x0048], docString)
         self.offsetRec    = IdSizeField(0x0031, 4, offset)
         self.helpContext  = IdSizeField(0x001E, 4, helpContext)
