@@ -44,7 +44,8 @@ class VbaProject:
         vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
-        self.directories.append(vba) 
+        self.directories.append(vba)
+        self.references = []
 
     #Getters and Setters
     def getFirstDirectoryListSector(self):
@@ -243,3 +244,6 @@ class VbaProject:
         project.nextDirectoryId = 7
         project.sector = 94
         project.size = 466
+
+    def addReference(self, ref):
+        self.references.append(ref)
