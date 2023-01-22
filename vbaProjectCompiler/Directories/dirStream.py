@@ -44,14 +44,11 @@ class DirStream(StreamDirectory):
             constants
         ]
         self.references  = []
-        
-        thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0xB81C, 0x0022)
-        sheet1 = ModuleRecord(codePageName, "Sheet1", "Sheet1", "", 0x0333, 0, 0x9B9A, 0x0022)
-        module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0xB241, 0x0021)
-        self.modules = [thisWorkbook, sheet1, module1]
+        self.modules = []
 
     def toBytes(self):
         self.references = self.project.references
+        self.modules = self.project.modules
         output = b''
         for record in self.information:
             output += record.pack()
