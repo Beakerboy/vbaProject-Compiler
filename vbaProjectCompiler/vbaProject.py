@@ -27,6 +27,7 @@ class VbaProject:
 
         #A list of directories
         self.directories = []
+        self.references  = []
 
         root = Directory()
         root.name = "Root Entry"
@@ -45,8 +46,7 @@ class VbaProject:
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
         self.directories.append(vba)
-        self.references = []
-
+        
     #Getters and Setters
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
