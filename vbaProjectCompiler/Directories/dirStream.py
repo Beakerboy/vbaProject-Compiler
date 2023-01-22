@@ -49,9 +49,6 @@ class DirStream(StreamDirectory):
         module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0xB241, 0x0021)
         self.modules = [thisWorkbook, sheet1, module1]
 
-    def addReference(self, ref):
-        self.references.append(ref)
-
     def toBytes(self):
         output = b''
         for record in self.information:
