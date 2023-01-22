@@ -1,5 +1,5 @@
 class Project:
-    """The Project data structure for the vbaProject"""
+    """The Project data view for the vbaProject"""
     # Class Attributes
     
     #A list of attributes and values
