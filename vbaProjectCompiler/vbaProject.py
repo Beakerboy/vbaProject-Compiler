@@ -13,9 +13,6 @@ class VbaProject:
     firstMiniChainSector     = 2
     ulMiniSectorCutoff       = 4096
 
-    #A list of directories
-    directories = []
-
     #the FAT chain
     fatChain = []
     minifatChain = []
@@ -27,6 +24,10 @@ class VbaProject:
     def __init__(self):
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
+
+        #A list of directories
+        self.directories = []
+        self.references  = []
 
         root = Directory()
         root.name = "Root Entry"
@@ -44,8 +45,8 @@ class VbaProject:
         vba.subDirectoryId = 4
         vba.modifiedHigh = 3266847680
         vba.modifiedLow  =   31007795
-        self.directories.append(vba) 
-
+        self.directories.append(vba)
+        
     #Getters and Setters
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
@@ -243,3 +244,6 @@ class VbaProject:
         project.nextDirectoryId = 7
         project.sector = 94
         project.size = 466
+
+    def addReference(self, ref):
+        self.references.append(ref)

@@ -1,7 +1,7 @@
 # test_project.py
 
 import pytest
-from vbaProjectCompiler.project import Project
+from vbaProjectCompiler.Views.project import Project
 from pathlib import Path
 
 def test_blank():
@@ -20,8 +20,8 @@ def test_blank():
     
     #expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
-    file.seek(int('0x2400', 0))
-    expected = file.read(int('0x152', 0))
+    file.seek(0x2400)
+    expected = file.read(0x0152)
 
     result = project.toBytearray()
     assert expected == result

@@ -22,5 +22,5 @@ def test_longerDirectoryList():
     project = VbaProject()
     assert project.countDirectoryListSectors() == 1
     project.finalize()
-    assert project.countDirectoryListSectors() == 3
+    assert project.countDirectoryListSectors() == 2
     #assert project.fatChain == [4, -2, -2, -2]
