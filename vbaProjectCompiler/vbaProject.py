@@ -13,9 +13,6 @@ class VbaProject:
     firstMiniChainSector     = 2
     ulMiniSectorCutoff       = 4096
 
-    #A list of directories
-    directories = []
-
     #the FAT chain
     fatChain = []
     minifatChain = []
@@ -27,6 +24,9 @@ class VbaProject:
     def __init__(self):
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
+
+        #A list of directories
+        self.directories = []
 
         root = Directory()
         root.name = "Root Entry"
