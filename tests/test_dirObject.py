@@ -18,8 +18,8 @@ def test_dirStream():
     readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
     decompressedStream = comp.decompress(readChunk)
     stream = DirStream()
-    self.codePage = 0x04E4
-    codePageName = "cp" + str(self.codePage)
+    codePage = 0x04E4
+    codePageName = "cp" + str(codePage)
     libidRef = LibidReference(
         "windows",
         "{00020430-0000-0000-C000-000000000046}",
