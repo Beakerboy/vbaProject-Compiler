@@ -16,11 +16,13 @@ class ModuleRecord():
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
         self.cache = b''
+        self.workspace = [0, 0, 0, 0, 'C']
+    
 
     def addPerformanceCache(self, cache):
         self.cache = cache
 
-    def addWorkspace(self, name, val1, val2, val3, val4, val5):
+    def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace  = [val1, val2, val3, val4, val5]
 
     def pack(self, codePageName, endien):
