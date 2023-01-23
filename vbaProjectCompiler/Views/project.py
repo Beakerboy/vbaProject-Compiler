@@ -20,7 +20,7 @@ class Project:
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
 
-        id = bytearray(self.project.id, codePageName)
+        id = bytearray(self.project.getProjectId(), codePageName)
         result = b'ID=' + id + eol
         modules = self.project.modules
         result += b'Name="VBAProject"' + eol
