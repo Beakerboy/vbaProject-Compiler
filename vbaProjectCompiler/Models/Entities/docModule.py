@@ -7,5 +7,5 @@ class DocModule:
         self.docTlibVer = 0
         super(DocModule, self).__init__(name)
 
-    toProjectModuleString(self):
+    def toProjectModuleString(self):
         return "Document=" + self.modName.value + "/&H" + struct.pack("<I", self.docTlibVer)
