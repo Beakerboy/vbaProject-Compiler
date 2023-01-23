@@ -15,6 +15,7 @@ class ModuleRecord():
         self.type         = PackedData("HI", type, 0)  #must be 0x0021 (procedural module) or 0x0022 (document, class or designer module)
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
+        self.cache = b''
 
     def addPerformanceCache(self, cache):
         self.cache = cache
