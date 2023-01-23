@@ -51,6 +51,7 @@ def test_dirStream():
     thisWorkbook.addPerformanceCache(cache)
     sheet1 = ModuleRecord("Sheet1", "", 0, 0x0022)
     sheet1.cookie.value = 0x9B9A
+    sheet1.addPerformanceCache(cache)
     module1 = ModuleRecord("Module1", "", 0x0283, 0, 0x0021)
     module1.cookie.value = 0xB241
 
