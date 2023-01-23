@@ -23,6 +23,8 @@ class Project:
         id = bytearray(self.project.getProjectId(), codePageName)
         result = b'ID=' + id + eol
         modules = self.project.modules
+        for module in modules:
+            result += module.toProjectString() + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + b'"' + eol
