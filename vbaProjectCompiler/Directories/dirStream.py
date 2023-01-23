@@ -45,8 +45,9 @@ class DirStream(StreamDirectory):
         ]
         self.references  = []
         self.modules = []
-
+       
     def toBytes(self):
+        self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
         self.references = self.project.references
         self.modules = self.project.modules
         output = b''
@@ -56,8 +57,8 @@ class DirStream(StreamDirectory):
             output += record.pack()
         
         modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
-        cookie = IdSizeField(19, 2, 0x08F3) #should be 0xFFFF
-        output += modulesHeader.pack() + cookie.pack()
+
+        output += modulesHeader.pack() + self.projectCookie.pack()
         for record in self.modules:
             output += record.pack()
         output += struct.pack("<HI", 16, 0)

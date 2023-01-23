@@ -30,6 +30,7 @@ class VbaProject:
         self.references  = []
         self.modules     = []
 
+        self.projectCookie = 0xFFFF
         root = Directory()
         root.name = "Root Entry"
         root.type = 5
@@ -251,3 +252,6 @@ class VbaProject:
 
     def addModule(self, ref):
         self.modules.append(ref)
+
+    def setProjectCookie(self, value):
+        self.projectCookie = value
