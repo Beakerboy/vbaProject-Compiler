@@ -16,8 +16,8 @@ class Project:
         self.attributes[name] = value
 
     def toBytearray(self):
-        modules = project.modules
-        codePageName = project.getCodePageName()
+        modules = self.project.modules
+        codePageName = self.project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
         result = b'"VBAProject"' + eol
