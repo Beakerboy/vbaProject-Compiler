@@ -7,5 +7,5 @@ class StdModule:
         self.docTlibVer = 0
         super(StdModule, self).__init__(name)
 
-    toProjectModuleString(self):
+    def toProjectModuleString(self):
         return "Module=" + self.modName.value
