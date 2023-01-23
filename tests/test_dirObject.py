@@ -43,6 +43,7 @@ def test_dirStream():
     officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
     project.addReference(oleReference)
     project.addReference(officeReference)
+    project.setProjectCookie(0x08F3)
 
     thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0x0022)
     thisWorkbook.cookie.value = 0xB81C
