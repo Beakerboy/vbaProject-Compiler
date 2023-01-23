@@ -22,9 +22,9 @@ def test_blank():
     module1 = ModuleRecord("Module1", 0x0021)
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
-    project.addModule(thisWorkbook)
-    project.addModule(sheet1)
-    project.addModule(module1)
+    vbaProject.addModule(thisWorkbook)
+    vbaProject.addModule(sheet1)
+    vbaProject.addModule(module1)
 
     #expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
