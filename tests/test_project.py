@@ -3,11 +3,13 @@
 import pytest
 from pathlib import Path
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
+from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
     vbaProject = VbaProject()
+    vbaProject.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project = Project(vbaProject)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
@@ -17,9 +19,9 @@ def test_blank():
 
     project.hostExtenderInfo = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
 
-    thisWorkbook = ModuleRecord("ThisWorkbook", 0x0022)
-    sheet1 = ModuleRecord("Sheet1", 0x0022)
-    module1 = ModuleRecord("Module1", 0x0021)
+    thisWorkbook = DocModule("ThisWorkbook")
+    sheet1 = DocModule("Sheet1")
+    module1 = StdModule("Module1")
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
     vbaProject.addModule(thisWorkbook)
@@ -28,8 +30,10 @@ def test_blank():
 
     #expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
+    file.seek(0x2180)
+    expected = file.read(0x0080)
     file.seek(0x2400)
-    expected = file.read(0x0152)
+    expected += file.read(0x0152)
 
     result = project.toBytearray()
-    assert expected == result
+    assert project.toBytearray() == expected

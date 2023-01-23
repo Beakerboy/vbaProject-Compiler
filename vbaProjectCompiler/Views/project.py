@@ -16,16 +16,21 @@ class Project:
         self.attributes[name] = value
 
     def toBytearray(self):
-        modules = self.project.modules
         codePageName = self.project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-        result = b'"VBAProject"' + eol
+
+        id = bytearray(self.project.getProjectId(), codePageName)
+        result = b'ID="' + id + b'"' + eol
+        modules = self.project.modules
+        for module in modules:
+            result += bytearray(module.toProjectModuleString(), codePageName) + eol
+        result += b'Name="VBAProject"' + eol
         for key in self.attributes:
-            result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + b'"' + eol
+            result += bytearray(key, codePageName) + b'="' + bytearray(self.attributes[key], codePageName) + b'"' + eol
         result += eol
         result += b'[Host Extender Info]' + eol
-        result += bytearray(self.hostExtenderInfo, 'ascii')
+        result += bytearray(self.hostExtenderInfo, codePageName)
         result += eol + eol
         result += b'[Workspace]' + eol
         for module in modules:
