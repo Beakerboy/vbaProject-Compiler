@@ -9,4 +9,3 @@ class StdModule:
 
     toProjectModuleString(self):
         return "Module=" + self.modName.value
-Give feedback
