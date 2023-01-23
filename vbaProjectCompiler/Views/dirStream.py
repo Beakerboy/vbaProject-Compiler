@@ -55,14 +55,14 @@ class DirStream(StreamDirectory):
         self.modules = self.project.modules
         output = b''
         for record in self.information:
-            output += record.pack(endien, codePageName)
+            output += record.pack(codePageName, endien)
         for record in self.references:
-            output += record.pack(endien, codePageName)
+            output += record.pack(codePageName, endien)
         
         modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
 
-        output += modulesHeader.pack(endien, codePageName) + self.projectCookie.pack(endien, codePageName)
+        output += modulesHeader.pack(codePageName, endien) + self.projectCookie.pack(codePageName, endien)
         for record in self.modules:
-            output += record.pack(endien, codePageName)
+            output += record.pack(codePageName, endien)
         output += struct.pack(packSymbol + "HI", 16, 0)
         return output
