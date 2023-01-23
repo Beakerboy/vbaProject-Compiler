@@ -25,6 +25,7 @@ class VbaProject:
 
         self.endien = 'little'
         self._codePageName = 'cp1252'
+        self._projectId = '{}'
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
 
