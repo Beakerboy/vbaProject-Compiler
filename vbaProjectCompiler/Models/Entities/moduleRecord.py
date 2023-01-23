@@ -12,7 +12,7 @@ class ModuleRecord():
         self.docString    = DoubleEncodedString([0x001C, 0x0048], "")
         self.helpContext  = IdSizeField(0x001E, 4, 0)
         self.cookie       = IdSizeField(0x002C, 2, 0xFFFF)
-        self.type         = PackedData("HI", type, 0x0021)  #must be 0x0021 (procedural module) or 0x0022 (document, class or designer module)
+        self.type         = PackedData("HI", type, 0)  #must be 0x0021 (procedural module) or 0x0022 (document, class or designer module)
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
 
