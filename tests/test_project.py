@@ -8,6 +8,7 @@ from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
     vbaProject = VbaProject()
+    vbaProject.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project = Project(vbaProject)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
