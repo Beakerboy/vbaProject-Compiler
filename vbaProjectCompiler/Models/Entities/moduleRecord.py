@@ -33,3 +33,6 @@ class ModuleRecord():
         footer = PackedData("HI", 0x002B, 0)
         output += footer.pack(codePageName, endien)
         return output
+
+    def toProjectModuleString(self):
+        return self.type + "=" + self.modName.value
