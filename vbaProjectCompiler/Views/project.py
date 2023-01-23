@@ -21,7 +21,7 @@ class Project:
         eol = b'\x0D\x0A'
 
         id = bytearray(self.project.getProjectId(), codePageName)
-        result = b'ID="' + id + '"' + eol
+        result = b'ID="' + id + b'"' + eol
         modules = self.project.modules
         for module in modules:
             result += bytearray(module.toProjectModuleString(), codePageName) + eol
