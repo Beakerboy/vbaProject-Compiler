@@ -75,8 +75,8 @@ class VbaProject:
     def getVisibilityState(self):
         return self._visibilityState
 
-    def setPassword(self, pass):
-        self._password = pass
+    def setPassword(self, value):
+        self._password = value
 
     def getPassword(self):
         return self._password
