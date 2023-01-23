@@ -1,3 +1,4 @@
+import struct
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
 class DocModule(ModuleRecord):
