@@ -46,8 +46,9 @@ class DirStream(StreamDirectory):
         self.references  = []
         self.modules = []
        
-    def toBytea(self):
+    def toBytes(self):
         endien = self.project.endien
+        codePageName = self.project.getCodePageName()
         packSymbol = '<' if endien == 'little' else '>'
         self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
         self.references = self.project.references
