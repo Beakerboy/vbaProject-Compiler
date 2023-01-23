@@ -7,12 +7,12 @@ class DoubleEncodedString():
     """
     def __init__(self, ids, text):
         self.ids = ids
-        self.text = text
+        self.value = text
 
     def pack(self, codePageName, endien):
-        encoded = self.text.encode(codePageName)
+        encoded = self.value.encode(codePageName)
         self.modName1 = IdSizeField(self.ids[0], len(encoded), encoded)
         format = "utf_16_le" if endien == 'little' else "utf_16_be"
-        encoded = self.text.encode(format)
+        encoded = self.value.encode(format)
         self.modName2 = IdSizeField(self.ids[1], len(encoded), encoded)
         return self.modName1.pack(codePageName, endien) + self.modName2.pack(codePageName, endien)

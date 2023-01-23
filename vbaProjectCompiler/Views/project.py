@@ -1,23 +1,23 @@
 class Project:
-    """The Project data view for the vbaProject"""
-    # Class Attributes
+    """
+    The Project data view for the vbaProject
+    """
+    def __init__(self, project):
+        self.project = project
+        # Attributes
     
-    #A list of attributes and values
-    attributes = {}
+        #A list of attributes and values
+        self.attributes = {}
     
-    #The HostExtenderInfo string
-    hostExtenderInfo = ""
-    
-    # A list of the files and their workspace values
-    workspaces = {}
+        #The HostExtenderInfo string
+        self.hostExtenderInfo = ""
 
     def addAttribute(self, name, value):
         self.attributes[name] = value
 
-    def addWorkspace(self, name, val1, val2, val3, val4, val5):
-        self.workspaces[name] = [val1, val2, val3, val4, val5]
-
     def toBytearray(self):
+        modules = self.project.modules
+        codePageName = self.project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
         result = b'"VBAProject"' + eol
@@ -28,9 +28,8 @@ class Project:
         result += bytearray(self.hostExtenderInfo, 'ascii')
         result += eol + eol
         result += b'[Workspace]' + eol
-        for key in self.workspaces:
+        for module in modules:
             separator = ", "
-            result += bytearray(key, 'ascii') + b'=' + bytearray(separator.join(map(str, self.workspaces[key])), 'ascii')
+            result += bytearray(module.modName.value, codePageName) + b'=' + bytearray(separator.join(map(str, module.workspace)), codePageName)
             result += eol
-        #remove last '\r\n'
         return result

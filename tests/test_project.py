@@ -1,11 +1,14 @@
 # test_project.py
 
 import pytest
-from vbaProjectCompiler.Views.project import Project
 from pathlib import Path
+from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
+from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
-    project = Project()
+    vbaProject = VbaProject()
+    project = Project(vbaProject)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
     project.addAttribute("CMG", "41435A5A5E5A5E5A5E5A5E")
@@ -14,10 +17,15 @@ def test_blank():
 
     project.hostExtenderInfo = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
 
-    project.addWorkspace("ThisWorkbook", 0, 0, 0, 0, 'C')
-    project.addWorkspace("Sheet1", 0, 0, 0, 0, 'C')
-    project.addWorkspace("Module1", 26, 26, 1349, 522, 'Z')
-    
+    thisWorkbook = ModuleRecord("ThisWorkbook", 0x0022)
+    sheet1 = ModuleRecord("Sheet1", 0x0022)
+    module1 = ModuleRecord("Module1", 0x0021)
+    module1.addWorkspace(26, 26, 1349, 522, 'Z')
+
+    vbaProject.addModule(thisWorkbook)
+    vbaProject.addModule(sheet1)
+    vbaProject.addModule(module1)
+
     #expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
     file.seek(0x2400)
