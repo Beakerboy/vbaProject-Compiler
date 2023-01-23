@@ -47,7 +47,7 @@ class DirStream(StreamDirectory):
         self.modules = []
        
     def toBytea(self):
-        endien = project.endien
+        endien = self.project.endien
         packSymbol = '<' if endien == 'little' else '>'
         self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
         self.references = self.project.references
