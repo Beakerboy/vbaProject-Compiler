@@ -4,6 +4,7 @@ import pytest
 from pathlib import Path
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
@@ -20,7 +21,7 @@ def test_blank():
 
     thisWorkbook = DocModule("ThisWorkbook")
     sheet1 = DocModule("Sheet1")
-    module1 = ModuleRecord("Module1", 0x0021)
+    module1 = StdModule("Module1")
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
     vbaProject.addModule(thisWorkbook)
