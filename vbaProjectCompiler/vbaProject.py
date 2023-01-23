@@ -55,7 +55,7 @@ class VbaProject:
         
     #Getters and Setters
     def setProjectId(self, id):
-        self._projectID = id
+        self._projectId = id
 
     def getProjectId(self):
         return self._projectId
