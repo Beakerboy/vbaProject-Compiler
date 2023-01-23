@@ -22,6 +22,9 @@ class VbaProject:
 
     #class default constructor
     def __init__(self):
+
+        self.endien = 'little'
+        self._codePageName = 'cp1252'
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
 
