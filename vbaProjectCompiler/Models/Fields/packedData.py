@@ -7,5 +7,6 @@ class PackedData():
         self.values  = values
         self.format = format
 
-    def pack(self):
-        return struct.pack("<" + self.format, *self.values)
+    def pack(self, codePageName, endien):
+        endienSymbol = '<' if endien == 'little' else '>'
+        return struct.pack(endienSymbol + self.format, *self.values)
