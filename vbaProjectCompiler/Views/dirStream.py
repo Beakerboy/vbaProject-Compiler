@@ -21,13 +21,13 @@ class DirStream(StreamDirectory):
         lcidInvoke = IdSizeField(20, 4, 0x0409)
         codePageRecord = IdSizeField(3, 2, self.codePage)
         projectName = IdSizeField(4, 10, "VBAProject")
-        docString = DoubleEncodedString(codePageName, [5, 0x0040], "")
-        helpfile = DoubleEncodedString(codePageName, [6, 0x003D], "")
+        docString = DoubleEncodedString([5, 0x0040], "")
+        helpfile = DoubleEncodedString([6, 0x003D], "")
         helpContext = IdSizeField(7, 4, 0)
         libFlags = IdSizeField(8, 4, 0)
         version = IdSizeField(9, 4, 0x65BE0257)
         minorVersion = PackedData("H", 17)
-        constants = DoubleEncodedString(codePageName, [12, 0x003C], "")
+        constants = DoubleEncodedString([12, 0x003C], "")
         self.information = [
             syskind,
             compatVersion,
@@ -46,20 +46,22 @@ class DirStream(StreamDirectory):
         self.references  = []
         self.modules = []
        
-    def toBytes(self):
+    def toBytea(self):
+        endien = project.endien
+        packSymbol = '<' if endien == 'little' else '>'
         self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
         self.references = self.project.references
         self.modules = self.project.modules
         output = b''
         for record in self.information:
-            output += record.pack()
+            output += record.pack(endien, codePageName)
         for record in self.references:
-            output += record.pack()
+            output += record.pack(endien, codePageName)
         
         modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
 
-        output += modulesHeader.pack() + self.projectCookie.pack()
+        output += modulesHeader.pack(endien, codePageName) + self.projectCookie.pack(endien, codePageName)
         for record in self.modules:
-            output += record.pack()
-        output += struct.pack("<HI", 16, 0)
+            output += record.pack(endien, codePageName)
+        output += struct.pack(packSymbol + "HI", 16, 0)
         return output
