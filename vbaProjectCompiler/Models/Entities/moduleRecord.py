@@ -27,7 +27,7 @@ class ModuleRecord():
 
     def pack(self, codePageName, endien):
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
-        typeId = PackedData("HI", type, typeId) 
+        typeId = PackedData("HI", typeIdValue, 0) 
         self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
         output = self.modName.pack(codePageName, endien) + self.streamName.pack(codePageName, endien) + self.docString.pack(codePageName, endien) + self.offsetRec.pack(codePageName, endien) + self.helpContext.pack(codePageName, endien) + self.cookie.pack(codePageName, endien) + typeId.pack(codePageName, endien)
         footer = PackedData("HI", 0x002B, 0)
