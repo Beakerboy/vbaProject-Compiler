@@ -9,4 +9,4 @@ class DocModule(ModuleRecord):
         self.type = "Document"
 
     def toProjectModuleString(self):
-        return "Document=" + self.modName.value + "/&H" + str(struct.pack("<I", self.docTlibVer))
+        return "Document=" + self.modName.value + "/&H" + struct.pack(">I", self.docTlibVer).hex()
