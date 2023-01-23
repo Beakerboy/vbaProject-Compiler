@@ -9,11 +9,9 @@ class IdSizeField():
         self.size = size
         self.value = value
 
-    def toDict(self):
-        return {"id": self.id, "size": self.size, "value": self.value}
-
-    def pack(self):
-        format = "<HI"
+    def pack(self, codePageName, endien):
+        endienSymbol = '<' if endien == 'little' else '>'
+        format = endienSymbol + "HI"
         if isinstance(self.value, str):
             self.stringValue = self.value
             self.value = bytes(self.value, encoding = "ascii")

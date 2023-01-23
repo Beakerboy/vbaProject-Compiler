@@ -5,12 +5,14 @@ class DoubleEncodedString():
     """
     Encode text data twice with different ids and lengths
     """
-    def __init__(self, codePageName, ids, text):
-        self.codePageName = codePageName
-        encoded = text.encode(codePageName)
-        self.modName1 = IdSizeField(ids[0], len(encoded), encoded)
-        encoded = text.encode("utf_16_le")
-        self.modName2 = IdSizeField(ids[1], len(encoded), encoded)
+    def __init__(self, ids, text):
+        self.ids = ids
+        self.text = text
 
-    def pack(self):
-        return self.modName1.pack() + self.modName2.pack()
+    def pack(self, codePageName, endien):
+        encoded = self.text.encode(codePageName)
+        self.modName1 = IdSizeField(self.ids[0], len(encoded), encoded)
+        format = "utf_16_le" if endien == 'little' else "utf_16_be"
+        encoded = self.text.encode(format)
+        self.modName2 = IdSizeField(self.ids[1], len(encoded), encoded)
+        return self.modName1.pack(codePageName, endien) + self.modName2.pack(codePageName, endien)
