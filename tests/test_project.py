@@ -1,8 +1,9 @@
 # test_project.py
 
 import pytest
-from vbaProjectCompiler.Views.project import Project
 from pathlib import Path
+from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
     vbaProject = VbaProject()
