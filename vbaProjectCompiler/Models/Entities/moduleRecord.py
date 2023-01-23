@@ -4,12 +4,15 @@ from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 
 class ModuleRecord():
     def __init__(self, name, type, readonly=False, private=False):
+        """
+        Initialize the module record
+        """
         self.modName      = DoubleEncodedString([0x0019, 0x0047], name)
         self.streamName   = DoubleEncodedString([0x001A, 0x0032], name)
         self.docString    = DoubleEncodedString([0x001C, 0x0048], "")
         self.helpContext  = IdSizeField(0x001E, 4, 0)
         self.cookie       = IdSizeField(0x002C, 2, 0xFFFF)
-        self.type         = PackedData("HI", type, 0)
+        self.type         = PackedData("HI", type, 0x0021)  #must be 0x0021 (procedural module) or 0x0022 (document, class or designer module)
         #self.readonly = SimpleRecord(0x001E, 4, helpContext)
         #self.private = SimpleRecord(0x001E, 4, helpContext)
 
