@@ -3,6 +3,7 @@
 import pytest
 from pathlib import Path
 from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 from vbaProjectCompiler.Views.project import Project
 
 def test_blank():
