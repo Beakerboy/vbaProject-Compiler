@@ -45,9 +45,9 @@ class DirStream(StreamDirectory):
         ]
         self.references  = []
         self.modules = []
-        self.projectCookie = IdSizeField(19, 2, 0xFFFF) #should be 0xFFFF
-
+       
     def toBytes(self):
+        self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
         self.references = self.project.references
         self.modules = self.project.modules
         output = b''
