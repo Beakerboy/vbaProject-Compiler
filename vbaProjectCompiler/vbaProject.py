@@ -54,6 +54,12 @@ class VbaProject:
         self.directories.append(vba)
         
     #Getters and Setters
+    def setProjectId(self, id):
+        self._projectID = id
+
+    def getProjectId(self):
+        return self._projectId
+
     def getCodePageName(self):
         return self._codePageName
 
