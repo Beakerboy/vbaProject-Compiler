@@ -24,13 +24,13 @@ class Project:
         result = b'ID=' + id + eol
         modules = self.project.modules
         for module in modules:
-            result += module.toProjectModuleString() + eol
+            result += bytearray(module.toProjectModuleString(), codePageName) + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
-            result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + b'"' + eol
+            result += bytearray(key, codePageName) + b'="' + bytearray(self.attributes[key], codePageName) + b'"' + eol
         result += eol
         result += b'[Host Extender Info]' + eol
-        result += bytearray(self.hostExtenderInfo, 'ascii')
+        result += bytearray(self.hostExtenderInfo, codePageName)
         result += eol + eol
         result += b'[Workspace]' + eol
         for module in modules:
