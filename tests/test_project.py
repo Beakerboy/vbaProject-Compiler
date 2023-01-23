@@ -28,8 +28,10 @@ def test_blank():
 
     #expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
-    file.seek(0x2400)
-    expected = file.read(0x0152)
+    file.seek(0x2180)
+    expected = file.read(0x0080)
+    file.seek(0x0200)
+    expected += file.read(0x0152)
 
     result = project.toBytearray()
     assert expected == result
