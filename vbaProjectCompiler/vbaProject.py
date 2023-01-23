@@ -50,6 +50,9 @@ class VbaProject:
         self.directories.append(vba)
         
     #Getters and Setters
+    def getCodePageName(self):
+        return self._codePageName
+
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
