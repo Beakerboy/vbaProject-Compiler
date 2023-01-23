@@ -26,6 +26,9 @@ class VbaProject:
         self.endien = 'little'
         self._codePageName = 'cp1252'
         self._projectId = '{}'
+        self._protectionState = "0705D8E3D8EDDBF1DBF1DBF1DBF1"
+        self._password = "0E0CD1ECDFF4E7F5E7F5E7"
+        self._visibilityState = "1517CAF1D6F9D7F9D706"
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
 
@@ -59,6 +62,24 @@ class VbaProject:
 
     def getProjectId(self):
         return self._projectId
+
+    def setProtectionState(self, state):
+        self._protectionState = state
+
+    def getProtectionState(self):
+        return self._protectionState
+
+    def setVisibilityState(self, state):
+        self._visibilityState = state
+
+    def getVisibilityState(self):
+        return self._visibilityState
+
+    def setPassword(self, value):
+        self._password = value
+
+    def getPassword(self):
+        return self._password
 
     def getCodePageName(self):
         return self._codePageName

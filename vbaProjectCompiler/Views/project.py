@@ -28,6 +28,9 @@ class Project:
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += bytearray(key, codePageName) + b'="' + bytearray(self.attributes[key], codePageName) + b'"' + eol
+        result += b'CMG="' + bytearray(self.project.getProtectionState(), codePageName) + b'"' + eol
+        result += b'DPB="' + bytearray(self.project.getPassword(), codePageName) + b'"' + eol
+        result += b'GC="' + bytearray(self.project.getVisibilityState(), codePageName) + b'"' + eol
         result += eol
         result += b'[Host Extender Info]' + eol
         result += bytearray(self.hostExtenderInfo, codePageName)
