@@ -45,11 +45,11 @@ def test_dirStream():
     project.addReference(officeReference)
     project.setProjectCookie(0x08F3)
 
-    thisWorkbook = ModuleRecord(codePageName, "ThisWorkbook", "ThisWorkbook", "", 0x0333, 0, 0x0022)
+    thisWorkbook = ModuleRecord("ThisWorkbook", "", 0x0333, 0, 0x0022)
     thisWorkbook.cookie.value = 0xB81C
-    sheet1 = ModuleRecord(codePageName, "Sheet1", "Sheet1", "", 0x0333, 0, 0x0022)
+    sheet1 = ModuleRecord("Sheet1", "", 0x0333, 0, 0x0022)
     sheet1.cookie.value = 0x9B9A
-    module1 = ModuleRecord(codePageName, "Module1", "Module1", "", 0x0283, 0, 0x0021)
+    module1 = ModuleRecord("Module1", "", 0x0283, 0, 0x0021)
     module1.cookie.value = 0xB241
 
     project.addModule(thisWorkbook)
