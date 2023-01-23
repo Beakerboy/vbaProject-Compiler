@@ -24,7 +24,7 @@ class Project:
         result = b'ID=' + id + eol
         modules = self.project.modules
         for module in modules:
-            result += module.toProjectString() + eol
+            result += module.toProjectModuleString() + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += bytearray(key, 'ascii') + b'="' + bytearray(self.attributes[key], 'ascii') + b'"' + eol
