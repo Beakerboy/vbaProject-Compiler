@@ -32,7 +32,7 @@ def test_blank():
     file = open("tests/blank/vbaProject.bin", "rb")
     file.seek(0x2180)
     expected = file.read(0x0080)
-    file.seek(0x0200)
+    file.seek(0x2400)
     expected += file.read(0x0152)
 
     result = project.toBytearray()
