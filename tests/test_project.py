@@ -18,7 +18,7 @@ def test_blank():
     thisWorkbook = ModuleRecord("ThisWorkbook", 0x0022)
     sheet1 = ModuleRecord("Sheet1", 0x0022)
     module1 = ModuleRecord("Module1", 0x0021)
-    module1.addWorkspace([26, 26, 1349, 522, 'Z'])
+    module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
     project.addModule(thisWorkbook)
     project.addModule(sheet1)
