@@ -30,6 +30,6 @@ class Project:
         result += b'[Workspace]' + eol
         for module in modules:
             separator = ", "
-            result += bytearray(module.name, codePageName) + b'=' + bytearray(separator.join(map(str, module.workspace)), codePageName)
+            result += bytearray(module.modName.value, codePageName) + b'=' + bytearray(separator.join(map(str, module.workspace)), codePageName)
             result += eol
         return result
