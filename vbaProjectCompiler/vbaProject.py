@@ -63,6 +63,18 @@ class VbaProject:
     def getProjectId(self):
         return self._projectId
 
+    def setProtectionState(self, state):
+        self._protectionState = state
+
+    def getProtectionState(self):
+        return self._protectionState
+
+    def setVisibilityState(self, state):
+        self._visibilityState = state
+
+    def getVisibilityState(self):
+        return self._visibilityState
+
     def getCodePageName(self):
         return self._codePageName
 
