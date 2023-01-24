@@ -2,6 +2,8 @@ import pytest
 import struct
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.vba_Project import Vba_Project
 
 def test_projectWm():
@@ -18,8 +20,13 @@ def test_projectWm():
 def test_realData():
     vbaProject = VbaProject()
     vba_Project = Vba_Project(vbaProject)
-    
     vbaProject.setPerformanceCacheVersion(0x00B5)
+    thisWorkbook = DocModule("ThisWorkbook")
+    thisWorkbook.cookie.value = 0xB81C
+    sheet1 = DocModule("Sheet1")
+    sheet1.cookie.value = 0x9B9A
+    module1 = StdModule("Module1")
+    module1.cookie.value = 0xB241
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
