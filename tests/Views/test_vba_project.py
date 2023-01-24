@@ -17,6 +17,6 @@ def test_realData():
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
-    data = f.read(0x0410).decode("utf_16_le")
+    data = f.read(0x0420).decode("utf_16_le")
     assert data == "nope"
     
