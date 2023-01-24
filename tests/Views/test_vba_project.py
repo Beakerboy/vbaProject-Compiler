@@ -57,6 +57,7 @@ def test_realData():
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
         "Microsoft Office 16.0 Object Library"
     ))
+    delim.append(0x0003)
     expected = b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
     i = 0
     for lib in libs:
