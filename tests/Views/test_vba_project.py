@@ -74,7 +74,8 @@ def test_realData():
     for lib in libraries:
         cache += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
-    prefix = [0x0018, 0c000C, 0x000E]
+    cache += bytearray('\FF' * 20, 'charmap')
+    prefix = [0x0018, 0x000C, 0x000E]
     index = 0x0046
     i = 0
     for module in vbaProject.modules:
