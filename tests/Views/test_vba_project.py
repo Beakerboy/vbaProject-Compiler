@@ -48,3 +48,11 @@ def test_realData():
         "OLE Automation"
     ))
     # 6 double-nulls 0x0128
+    libs.append(LibidReference(
+        "windows",
+        "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+        "2.8",
+        0,
+        "C:\Program Files\Common Files\Microsoft Shared\OFFICE16\MSO.DLL",
+        "Microsoft Office 16.0 Object Library"
+    ))
