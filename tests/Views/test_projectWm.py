@@ -11,6 +11,6 @@ def test_projectWm():
     vbaProject.addModule(thisWorkbook)
     vbaProject.addModule(sheet1)
     vbaProject.addModule(module1)
-    expected = b'ThisWorkbook\x00T\x00h\x00i\x00s\x00W\x00o.r.k.b.o.o.k...Sheet1.S.h.e.e.t.1...Module1.M.o.d.u.l.e.1....'
+    expected = b'ThisWorkbook\x00T\x00h\x00i\x00s\x00W\x00o\x00r\x00k\x00b\x00o\x00o\x00k\x00\x00\x00Sheet1\x00S\x00h\x00e\x00e\x00t\x001\x00Module1\x00M\x00o\x00d\x00u\x00l\x00e\x001\x00\x00\x00\x00'
 
     assert projectWm.toBytes() == expected
