@@ -1,5 +1,7 @@
 import pytest
 from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.projectWm import ProjectWm
 
 def test_projectWm():
