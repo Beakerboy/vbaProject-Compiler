@@ -1,3 +1,5 @@
+import struct
+
 class VBA_Project:
     """
     The _VBA_PROJECT data view for the vbaProject
