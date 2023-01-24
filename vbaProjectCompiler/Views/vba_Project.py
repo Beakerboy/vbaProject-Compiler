@@ -9,7 +9,7 @@ class Vba_Project:
 
     def toBytes(self):
         endienSymbol = '<' if self.project.endien == 'little' else '>'
-        format = endienSymbol + "HHcH"
+        format = endienSymbol + "HHBH"
         output = b''
         reserved1 = 0x61CC
         reserved2 = 0x00
