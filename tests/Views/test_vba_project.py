@@ -20,9 +20,9 @@ def test_realData():
     offset = 0x14C0
     f.seek(offset)
     data = f.read(0x0470)
-    libs = []
+    libraries = []
     delim = []
-    libs.append(LibidReference(
+    libraries.append(LibidReference(
         "windows",
         "{000204EF-0000-0000-C000-000000000046}",
         "4.2",
@@ -31,7 +31,7 @@ def test_realData():
         "Visual Basic For Applications"
     ))
     delim.append(0x011A)
-    libs.append(LibidReference(
+    libraries.append(LibidReference(
         "windows",
         "{00020813-0000-0000-C000-000000000046}",
         "1.9",
@@ -40,7 +40,7 @@ def test_realData():
         "Microsoft Excel 16.0 Object Library"
     ))
     delim.append(0x00BC)
-    libs.append(LibidReference(
+    libraries.append(LibidReference(
         "windows",
         "{00020430-0000-0000-C000-000000000046}",
         "2.0",
@@ -49,7 +49,7 @@ def test_realData():
         "OLE Automation"
     ))
     delim.append(0x0128)
-    libs.append(LibidReference(
+    libraries.append(LibidReference(
         "windows",
         "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
         "2.8",
@@ -61,7 +61,7 @@ def test_realData():
     expected = b'\xCC\x61\xB5\x00\x00\x03\x00'
     expected += b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
     i = 0
-    for lib in libs:
+    for lib in libraries:
         expected += bytearray(str(libs), "utf_16_le") + struct.pack("<HHHH", 0, 0, 0, delim[i])
         i += 1
     assert expected == data
