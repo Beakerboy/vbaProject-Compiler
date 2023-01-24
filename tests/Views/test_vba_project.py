@@ -18,7 +18,7 @@ def test_realData():
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
-    data = f.read(0x0440).decode("utf_16_le")
+    data = f.read(0x0460).decode("utf_16_le")
     assert data == "nope"
     libs = []
     libs.append(LibidReference(
