@@ -16,6 +16,10 @@ def test_projectWm():
     assert vba_Project.toBytes() == expected
 
 def test_realData():
+    vbaProject = VbaProject()
+    vba_Project = Vba_Project(vbaProject)
+    
+    vbaProject.setPerformanceCacheVersion(0x00B5)
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
@@ -58,10 +62,14 @@ def test_realData():
         "Microsoft Office 16.0 Object Library"
     ))
     delim.append(0x0003)
-    expected = b'\xCC\x61\xB5\x00\x00\x03\x00'
-    expected += b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
+    cache = b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
     i = 0
     for lib in libraries:
-        expected += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
+        cache += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
     assert expected == data
+    prefix = 0x0018
+    names = ["ThisWorkbook", "Sheet1", "Module1"]
+    index = 0x0046
+    #peefix + name + 0x0014 + "2F65be0257" + 0xFFFF + 27 + 
+    assert vba_Project.toBytes() == data
