@@ -18,9 +18,9 @@ def test_realData():
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
-    data = f.read(0x0470).decode("utf_16_le")
-    assert data == "nope"
+    data = f.read(0x0470)
     libs = []
+    delim = []
     libs.append(LibidReference(
         "windows",
         "{000204EF-0000-0000-C000-000000000046}",
@@ -29,7 +29,7 @@ def test_realData():
         "C:\Program Files\Common Files\Microsoft Shared\VBA\VBA7.1\VBE7.DLL",
         "Visual Basic For Applications"
     ))
-    # 6 double-nulls 0x011A
+    delim.append(0x011A)
     libs.append(LibidReference(
         "windows",
         "{00020813-0000-0000-C000-000000000046}",
@@ -38,7 +38,7 @@ def test_realData():
         "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE",
         "Microsoft Excel 16.0 Object Library"
     ))
-    # 6 double-nulls 0x00BC
+    delim.append(0x00BC)
     libs.append(LibidReference(
         "windows",
         "{00020430-0000-0000-C000-000000000046}",
@@ -47,7 +47,7 @@ def test_realData():
         "C:\Windows\System32\stdole2.tlb",
         "OLE Automation"
     ))
-    # 6 double-nulls 0x0128
+    delim.append(0x0128)
     libs.append(LibidReference(
         "windows",
         "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
@@ -56,3 +56,9 @@ def test_realData():
         "C:\Program Files\Common Files\Microsoft Shared\OFFICE16\MSO.DLL",
         "Microsoft Office 16.0 Object Library"
     ))
+    expected = b''
+    i = 0
+    for lib in libs:
+        expected += bytearray(str(libs), "utf_16_le") + struct.pack("<HHHH", 0, 0, 0, delim[i])
+        i += 1
+    assert expected == data
