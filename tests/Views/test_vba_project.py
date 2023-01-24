@@ -1,4 +1,5 @@
 import pytest
+import struct
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Views.vba_Project import Vba_Project
