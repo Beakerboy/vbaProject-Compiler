@@ -24,11 +24,15 @@ class VbaProject:
     def __init__(self):
 
         self.endien = 'little'
+
+        # Protected Instance Attributes
         self._codePageName = 'cp1252'
         self._projectId = '{}'
         self._protectionState = "0705D8E3D8EDDBF1DBF1DBF1DBF1"
         self._password = "0E0CD1ECDFF4E7F5E7F5E7"
         self._visibilityState = "1517CAF1D6F9D7F9D706"
+        self._performanceCache = b''
+        self._performanceCacheVersion = 0xFFFF
         #If either self.firstMiniChainSector or self.firstDirectoryListSector is greater then 2, this will be incorrect.
         self.fatChain = [-2, -2]
 
