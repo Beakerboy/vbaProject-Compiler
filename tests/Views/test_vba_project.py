@@ -27,7 +27,7 @@ def test_realData():
         "{000204EF-0000-0000-C000-000000000046}",
         "4.2",
         9,
-        "C:\Program Files\Common Files\Microsoft Shared\VBA\VBA7.1\VBE7.DLL",
+        "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA\\VBA7.1\\VBE7.DLL",
         "Visual Basic For Applications"
     ))
     delim.append(0x011A)
@@ -36,7 +36,7 @@ def test_realData():
         "{00020813-0000-0000-C000-000000000046}",
         "1.9",
         0,
-        "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE",
+        "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
         "Microsoft Excel 16.0 Object Library"
     ))
     delim.append(0x00BC)
@@ -45,7 +45,7 @@ def test_realData():
         "{00020430-0000-0000-C000-000000000046}",
         "2.0",
         0,
-        "C:\Windows\System32\stdole2.tlb",
+        "C:\\Windows\\System32\\stdole2.tlb",
         "OLE Automation"
     ))
     delim.append(0x0128)
@@ -54,7 +54,7 @@ def test_realData():
         "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
         "2.8",
         0,
-        "C:\Program Files\Common Files\Microsoft Shared\OFFICE16\MSO.DLL",
+        "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
         "Microsoft Office 16.0 Object Library"
     ))
     expected = b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
