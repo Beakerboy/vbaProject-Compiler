@@ -29,6 +29,7 @@ def test_realData():
         "C:\Program Files\Common Files\Microsoft Shared\VBA\VBA7.1\VBE7.DLL",
         "Visual Basic For Applications"
     ))
+    # 6 double-nulls 0x011A
     libs.append(LibidReference(
         "windows",
         "{00020813-0000-0000-C000-000000000046}",
@@ -37,6 +38,7 @@ def test_realData():
         "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE",
         "Microsoft Excel 16.0 Object Library"
     ))
+    # 6 double-nulls 0x00BC
     libs.append(LibidReference(
         "windows",
         "{00020430-0000-0000-C000-000000000046}",
@@ -45,4 +47,4 @@ def test_realData():
         "C:\Windows\System32\stdole2.tlb",
         "OLE Automation"
     ))
-    
+    # 6 double-nulls 0x0128
