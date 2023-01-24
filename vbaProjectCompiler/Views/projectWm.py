@@ -1,4 +1,4 @@
-class ProjectWM:
+class ProjectWm:
     """
     The ProjectWM data view for the vbaProject
     """
