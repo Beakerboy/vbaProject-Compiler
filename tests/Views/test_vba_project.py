@@ -62,6 +62,6 @@ def test_realData():
     expected += b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
     i = 0
     for lib in libraries:
-        expected += bytearray(str(libs), "utf_16_le") + struct.pack("<HHHH", 0, 0, 0, delim[i])
+        expected += bytearray(str(lib), "utf_16_le") + struct.pack("<HHHH", 0, 0, 0, delim[i])
         i += 1
     assert expected == data
