@@ -5,7 +5,7 @@ from vbaProjectCompiler.Views.vba_Project import Vba_Project
 def test_projectWm():
     vbaProject = VbaProject()
     vba_Project = Vba_Project(vbaProject)
-    vbaProject.setPerformanceCacheVersion(0x61CC)
+    vbaProject.setPerformanceCacheVersion(0x00B5)
     expected = b'\xCC\x61\xB5\x00\x00\x03\x00'
     result = vba_Project.toBytes()
     assert vba_Project.toBytes() == expected
