@@ -82,5 +82,5 @@ def test_realData():
         name = module.modName.value.encode("utf_16_le")
         cache += struct.pack("<H", prefix[i]) + name + struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i) + "65be0257".encode("utf_16_le") + struct.pack("<HHH", 0xFFFF, 0x0227, prefix[i]) + name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
         i += 1
-    vbaProject.addPerformanceCache(cache)
+    vbaProject.setPerformanceCache(cache)
     assert vba_Project.toBytes() == data
