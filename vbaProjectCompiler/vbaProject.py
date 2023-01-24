@@ -85,6 +85,18 @@ class VbaProject:
     def getPassword(self):
         return self._password
 
+    def setPerformanceCache(self, cache):
+        self._performanceCache = cache
+
+    def getPerformanceCache(self):
+        return self._performanceCache
+
+    def setPerformanceCacheVersion(self, version):
+        self._performanceCacheVersion = version
+
+    def getPerformanceCacheVersion(self):
+        return self._performanceCacheVersion
+
     def getCodePageName(self):
         return self._codePageName
 
