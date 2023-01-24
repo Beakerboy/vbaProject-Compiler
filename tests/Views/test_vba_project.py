@@ -30,7 +30,7 @@ def test_realData():
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x14C0
     f.seek(offset)
-    data = f.read(0x047A)
+    data = f.read(0x0700)
     libraries = []
     delim = []
     libraries.append(LibidReference(
