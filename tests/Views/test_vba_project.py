@@ -74,9 +74,11 @@ def test_realData():
     for lib in libraries:
         cache += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
-    assert expected == data
-    prefix = 0x0018
-    names = ["ThisWorkbook", "Sheet1", "Module1"]
+    prefix = [0x0018, 0c000C, 0x000E]
     index = 0x0046
-    #peefix + name + 0x0014 + "2F65be0257" + 0xFFFF + 27 + 
+    i = 0
+    for module in vbaProject.modules:
+        name = module.modName.value.encode("utf_16_le")
+        cache += struct.pack("<H", prefix[i]) + name + struct.pack("<HH", 0x0014, 0x0032) + chr(F) + "65be0257".encode("utf_16_le") + struct.pack("<HHH", 0xFFFF, 0x0227, prefix[i]) + name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
+    vbaProject.addPerformanceCache(cache)
     assert vba_Project.toBytes() == data
