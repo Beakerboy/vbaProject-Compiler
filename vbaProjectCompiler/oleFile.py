@@ -271,16 +271,18 @@ class OleFile:
         # add project
         #Get the first sector of directories
         #i = 0
-        sectorBytes = 2 ** self.uSectorShift
-        entriesPerSector = sectorBytes // 128
-        entries = directories[i * entriesPerSector: (i + 1)* entriesPerSector]
+        entriesPerSector = self.uSectorShift - 3 + 1
+        start = i * entriesPerSector
+        end = (i + 1)* entriesPerSector
+        entries = self.directories[start:end]
+        #initialize sector with zeroes.
         for directory in entries:
-            # determine if is uses fat or minifat storage
-            # determine the staring sector
-            # determine what sector it starts at
-            # write the directory entry
+            
             if directory.size > self.ulMiniSectorCutoff:
+    
                 #find first unused fat sector
+                # save starting sector to object
+                # write directory entry
                 # initialize sectors with zeros
                 # update fat chain
                 # write data
