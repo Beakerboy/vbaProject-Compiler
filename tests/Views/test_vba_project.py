@@ -74,7 +74,7 @@ def test_realData():
     for lib in libraries:
         cache += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
-    cache += struct.pack("<HHHHI", 2, 2, 1, 6, 0x0212) + bytearray('\xFF' * 36, 'charmap')
+    cache += struct.pack("<HHHH8I", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1, 0x0218, 0) + bytearray('\xFF' * 36, 'charmap')
     prefix = [0x0018, 0x000C, 0x000E]
     index = 0x0046
     i = 0
