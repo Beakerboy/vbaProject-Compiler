@@ -5,6 +5,8 @@ class OleFile:
 
     #class default constructor
     def __init__(self, project):
+        self.project = project
+
         #Instance Attributes
         self.uMinorVersion            = 62
         self.uDllVersion              = 3
