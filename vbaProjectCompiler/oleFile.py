@@ -113,7 +113,7 @@ class OleFile:
         """
         Calculate the number of sectors needed to express the FAT chain.
         """
-        return (len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1
+        return min((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1, 1)
 
     def countDirectoryListSectors(self):
         """
