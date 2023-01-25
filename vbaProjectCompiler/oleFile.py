@@ -171,6 +171,20 @@ class OleFile:
                 chain.append(-2)
         return chain
 
+    def bytesPerSector(self):
+        return 2 ** self.uSectorShift
+
+    def bytesPerMinifatSector(self):
+         return 2 ** self.uMiniSectorShift
+
+    def findMinifatSectorOffset(self, sectorNumber):
+        """
+        Get the file offset for a specific minifat sector number
+        """
+        MinifatSectorsPerSector = self.uSectorShift - self.uMiniSectorShift + 1
+        fatChain = (sectorNumber - 1) // MinifatSectorsPerSector + 1
+        
+
     def finalize(self):
         #add these if they are missing.
         thisWorkbook = Directory()
