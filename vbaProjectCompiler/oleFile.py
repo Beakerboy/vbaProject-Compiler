@@ -270,7 +270,7 @@ class OleFile:
         # add projectWm
         # add project
         #Get the first sector of directories
-        #i = 0
+        i = 0
         entriesPerSector = self.uSectorShift - 3 + 1
         start = i * entriesPerSector
         end = (i + 1)* entriesPerSector
