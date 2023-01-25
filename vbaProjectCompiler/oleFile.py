@@ -268,7 +268,7 @@ class OleFile:
         #write an empty Fat sector
         f.write(
             struct.pack(packSymbol + 'I', 0xfffffffd) + \
-            bytearray('\x00' * (self.bytesPerSector() - 4))
+            bytearray('\x00' * (self.bytesPerSector() - 4), 'ascii')
         )
         ##write empty directory sector
         f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
