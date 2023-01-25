@@ -56,13 +56,14 @@ class OleFile:
         self.directories.append(vba)
 
     def header(self):
+        packSymbol = '<' if endien == 'little' else '>'
         """Create a 512 byte header sector for a OLE object."""
    
         LONG_LONG_ZERO = b'\x00\x00\x00\x00\x00\x00\x00\x00'
 
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
 
-        format = self.uByteOrder + "8s16s6H10I"
+        format = packSymbol + "8s16s6H10I"
         header = struct.pack(
             format,
             absig,
