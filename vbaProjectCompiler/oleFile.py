@@ -136,7 +136,7 @@ class OleFile:
         output = b''
         list = self.getFatSectors()
         for sector in list[0:109]:
-            output += struct.pack(packsymbol + "I", sector)
+            output += struct.pack(packSymbol + "I", sector)
         output = output.ljust(436, b'\xff')
         return output
 
