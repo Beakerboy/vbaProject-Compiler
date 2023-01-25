@@ -277,8 +277,10 @@ class OleFile:
         entries = self.directories[start:end]
         #initialize sector with zeroes.
         for directory in entries:
-            
-            if directory.size > self.ulMiniSectorCutoff:
+            if directory.type != 2
+                #write directory object
+                pass
+            elif directory.size > self.ulMiniSectorCutoff:
     
                 #find first unused fat sector
                 # save starting sector to object
@@ -289,6 +291,8 @@ class OleFile:
                 pass
             else:
                 #Find the first unused minifat location
+                # save starting sector to object
+                # write directory entry
                 # determine for many minifat sectors are needed
                 # determine if a new minifat sector chain is needed
                     #write a new sector
