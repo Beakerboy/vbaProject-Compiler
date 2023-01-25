@@ -24,7 +24,7 @@ class OleFile:
         #A list of directories
         self.directories = []
 
-        self.createInitalDirectories()
+        self.createInitialDirectories()
 
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
