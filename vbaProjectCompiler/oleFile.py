@@ -3,9 +3,10 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 class OleFile:
 
-    HEADER_BYTES = 512
+   
     #class default constructor
     def __init__(self, project):
+        self.HEADER_BYTES = 512
         self.project = project
 
         #Instance Attributes
@@ -274,9 +275,9 @@ class OleFile:
             bytearray('\x00' * (self.bytesPerSector() - 4), 'ascii')
         )
         ##write empty directory sector
-        f.seek(OleFile.HEADER_BYTES + self.firstDirectoryListSector * 4)
+        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
         f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
-        f.seek(OleFile.HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
+        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
         #f.write()
         ##write empty minifat sector
         ##pull data from self.project
