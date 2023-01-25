@@ -1,6 +1,7 @@
 # test_vbaProject.py
 
 import pytest, binascii, sys
+from os.path import exists
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.oleFile import OleFile
 
@@ -21,3 +22,9 @@ def test_header():
     padding = emptyLine * 27
     expected += b'\x00\x00\x00\x00' + padding
     assert result == expected
+
+def test_write():
+    vbaProject = VbaProject()
+    project = OleFile(vbaProject)
+    project.write(".")
+    assert exists('./vbaProject.bin')
