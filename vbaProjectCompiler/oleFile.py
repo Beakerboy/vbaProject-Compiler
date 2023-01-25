@@ -259,18 +259,18 @@ class OleFile:
     def writeFile(self,path):
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
-        #write empty fat sector
-        #write empty directory sector
-        #write empty minifat sector
-        #pull data from self.project
-        for module in self.project.modules:
+        ##write empty fat sector
+        ##write empty directory sector
+        ##write empty minifat sector
+        ##pull data from self.project
+        #for module in self.project.modules:
             # add each as a directory listing
         # add _VBA_Project
         # add dir
         # add projectWm
         # add project
         #Get the first sector of directories
-        i = 0
+        #i = 0
         sectorBytes = 2 ** self.uSectorShift
         entriesPerSector = sectorBytes // 128
         entries = directories[i * entriesPerSector: (i + 1)* entriesPerSector]
@@ -284,6 +284,7 @@ class OleFile:
                 # initialize sectors with zeros
                 # update fat chain
                 # write data
+                pass
             else:
                 #Find the first unused minifat location
                 # determine for many minifat sectors are needed
@@ -294,3 +295,4 @@ class OleFile:
                     #update fat chain
                     #initialize
                 # overwrite minifat sectors with data
+                pass
