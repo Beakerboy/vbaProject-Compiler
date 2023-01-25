@@ -26,5 +26,5 @@ def test_header():
 def test_write():
     vbaProject = VbaProject()
     project = OleFile(vbaProject)
-    project.write(".")
+    project.writeFile(".")
     assert exists('./vbaProject.bin')
