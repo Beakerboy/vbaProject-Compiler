@@ -33,3 +33,4 @@ def test_minifatSectors():
     vbaProject = VbaProject()
     project = OleFile(vbaProject)
     assert project.findMinifatSectorOffset(0) == 1536
+    assert project.findMinifatSectorOffset(1) == 1600
