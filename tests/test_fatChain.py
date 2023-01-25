@@ -22,7 +22,7 @@ def test_defaults():
 def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
     project = VbaProject()
-    olefile = OleFile(project)
+    oleFile = OleFile(project)
     assert oleFile.countDirectoryListSectors() == 1
     olefile.finalize()
     assert oleFile.countDirectoryListSectors() == 2
