@@ -1,4 +1,5 @@
 import struct, os
+from vbaProjectCompiler.Directories.directory import Directory
 
 class OleFile:
 
