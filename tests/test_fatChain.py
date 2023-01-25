@@ -14,10 +14,8 @@ def test_defaults():
     #Test that by default, the Fat chain will reside in sector zero
     assert oleFile.getFatSectors() == [0]
 
-    #Test that when no data is present, all streams are terminated after the first sector
-    #current library does not include any directory streams, so no data stream is present.
-    #If This test starts to fail with [-2, -2, -2] change the test.
-    assert oleFile.fatChain == [-2, -2]
+    #Test that when no data is present, all sectors are free.
+    assert oleFile.fatChain == []
     
 def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
