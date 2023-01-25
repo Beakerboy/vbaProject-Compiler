@@ -24,6 +24,8 @@ class OleFile:
         #A list of directories
         self.directories = []
 
+        self.createInitalDirectories()
+
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
@@ -33,6 +35,25 @@ class OleFile:
 
     def getFirstMiniChainSector(self):
         return self.firstMiniChainSector
+
+    def createInitialDirectories():
+        root = Directory()
+        root.name = "Root Entry"
+        root.type = 5
+        root.subDirectoryId = 8
+        root.modifiedHigh = 3266847680
+        root.modifiedLow  =   31007795
+        root.sector = 3
+        root.size = 6528
+        self.directories.append(root)
+
+        vba = Directory()
+        vba.name = "VBA"
+        vba.type = 1
+        vba.subDirectoryId = 4
+        vba.modifiedHigh = 3266847680
+        vba.modifiedLow  =   31007795
+        self.directories.append(vba)
 
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
