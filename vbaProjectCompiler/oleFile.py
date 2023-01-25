@@ -179,7 +179,7 @@ class OleFile:
         thisWorkbook.color = 1
         thisWorkbook.nextDirectoryId = 5
         thisWorkbook.size = 999
-        self.directories.append(thisWorkbook)
+        #self.directories.append(thisWorkbook)
 
         sheet1 = Directory()
         sheet1.name = "Sheet1"
@@ -188,7 +188,7 @@ class OleFile:
         sheet1.previousDirectoryId = 6
         sheet1.sector = 16
         sheet1.size = 991
-        self.directories.append(sheet1)
+        #self.directories.append(sheet1)
 
         module1 = Directory()
         module1.name = "Module1"
@@ -198,7 +198,7 @@ class OleFile:
         module1.nextDirectoryId = 2
         module1.sector = 2
         module1.size = 681
-        self.directories.append(module1)
+        #self.directories.append(module1)
 
         #these all need to be added
         vba_project = Directory()
@@ -238,3 +238,35 @@ class OleFile:
         #write empty fat sector
         #write empty directory sector
         #write empty minifat sector
+        #pull data from self.project
+        for module in self.project.modules:
+            # add each as a directory listing
+        # add _VBA_Project
+        # add dir
+        # add projectWm
+        # add project
+        #Get the first sector of directories
+        i = 0
+        sectorBytes = 2 ** self.uSectorShift
+        entriesPerSector = sectorBytes // 128
+        entries = directories[i * entriesPerSector: (i + 1)* entriesPerSector]
+        for directory in entries:
+            # determine if is uses fat or minifat storage
+            # determine the staring sector
+            # determine what sector it starts at
+            # write the directory entry
+            if directory.size > self.ulMiniSectorCutoff:
+                #find first unused fat sector
+                # initialize sectors with zeros
+                # update fat chain
+                # write data
+            else:
+                #Find the first unused minifat location
+                # determine for many minifat sectors are needed
+                # determine if a new minifat sector chain is needed
+                    #write a new sector
+                    # update fat chain
+                # determine if a new data sector is needed
+                    #update fat chain
+                    #initialize
+                # overwrite minifat sectors with data
