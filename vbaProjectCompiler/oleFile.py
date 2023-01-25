@@ -8,7 +8,6 @@ class OleFile:
         #Instance Attributes
         self.uMinorVersion            = 62
         self.uDllVersion              = 3
-        self.uByteOrder               = "<"
         self.uSectorShift             = 9
         self.uMiniSectorShift         = 6
         self.firstDirectoryListSector = 1
