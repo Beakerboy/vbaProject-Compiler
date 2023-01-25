@@ -28,3 +28,8 @@ def test_write():
     project = OleFile(vbaProject)
     project.writeFile(".")
     assert exists('./vbaProject.bin')
+
+def test_minifatSectors():
+    vbaProject = VbaProject()
+    project = OleFile(vbaProject)
+    assert project.findMinifatSectorOffset(0) == 1536
