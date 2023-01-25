@@ -277,7 +277,7 @@ class OleFile:
         entries = self.directories[start:end]
         #initialize sector with zeroes.
         for directory in entries:
-            if directory.type != 2
+            if directory.type != 2:
                 #write directory object
                 pass
             elif directory.size > self.ulMiniSectorCutoff:
