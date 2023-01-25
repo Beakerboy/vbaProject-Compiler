@@ -21,6 +21,9 @@ class OleFile:
         #The list of pointers to the address of the next file piece
         minifatChain = []
 
+        #A list of directories
+        self.directories = []
+
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
