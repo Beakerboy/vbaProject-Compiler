@@ -186,10 +186,11 @@ class OleFile:
     def findMinifatSectorOffset(self, sectorNumber):
         """
         Get the file offset for a specific minifat sector number
+        Zero Indexed
         """
         MinifatSectorsPerSector = self.uSectorShift - self.uMiniSectorShift + 1
-        fatChainDepth = (sectorNumber - 1) // MinifatSectorsPerSector + 1
-        remainingMinifatSectors = (sectorNumber - 1) % MinifatSectorsPerSector
+        fatChainDepth = sectorNumber // MinifatSectorsPerSector
+        remainingMinifatSectors = sectorNumber % MinifatSectorsPerSector
         return self.findFileOffset(self.firstMiniChainSector, fatChainDepth) + remainingMinifatSectors * self.bytesPerMinifatSector()
 
     def findFileOffset(self, startSector, depth):
