@@ -16,7 +16,7 @@ class OleFile:
         self.ulMiniSectorCutoff       = 4096
 
         #the FAT chain
-        self.fatChain = [65534, 65534]
+        self.fatChain = [0xfffffffd , 0xfffffffe]
 
         #The list of pointers to the address of the next file piece
         self.minifatChain = []
