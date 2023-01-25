@@ -102,7 +102,7 @@ class OleFile:
     def countDifSectors(self):
         """
         How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
-        What is sectors are not 512 bytes?
+        What if sectors are not 512 bytes?
         """
         count = self.countFatChainSectors()
         if count <= 109:
