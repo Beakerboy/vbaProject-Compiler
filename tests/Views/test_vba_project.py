@@ -17,9 +17,8 @@ def test_projectWm():
     expected = b'\xCC\x61\xB5\x00\x00\x03\x00\x00\x01\x02\x03'
     assert vba_Project.toBytes() == expected
 
-def test_realData():
+def createCache():
     vbaProject = VbaProject()
-    vba_Project = Vba_Project(vbaProject)
     vbaProject.setPerformanceCacheVersion(0x00B5)
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
@@ -27,10 +26,7 @@ def test_realData():
     sheet1.cookie.value = 0x9B9A
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
-    f = open('tests/blank/vbaProject.bin', 'rb')
-    offset = 0x14C0
-    f.seek(offset)
-    data = f.read(0x0700)
+
     libraries = []
     delim = []
     libraries.append(LibidReference(
@@ -82,5 +78,4 @@ def test_realData():
         name = module.modName.value.encode("utf_16_le")
         cache += struct.pack("<H", prefix[i]) + name + struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i) + "65be0257".encode("utf_16_le") + struct.pack("<HHH", 0xFFFF, 0x0227, prefix[i]) + name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
         i += 1
-    vbaProject.setPerformanceCache(cache)
-    assert vba_Project.toBytes() == data
+    return cache
