@@ -3,6 +3,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 class OleFile:
 
+    HEADER_BYTES = 512
     #class default constructor
     def __init__(self, project):
         self.project = project
@@ -261,10 +262,16 @@ class OleFile:
         project.size = 466
 
     def writeFile(self,path):
+        packSymbol = '<' if self.project.endien == 'little' else '>'
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
-        ##write empty fat sector
+        #write an empty Fat sector
+        f.write(struct.pack(packSymbol + 'I', 0xfffffffd) + bytearray('\x00' * (self.bytesPerSector() - 4))
         ##write empty directory sector
+        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
+        f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
+        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
+        #f.write()
         ##write empty minifat sector
         ##pull data from self.project
         #for module in self.project.modules:
