@@ -261,7 +261,10 @@ class OleFile:
         project.sector = 94
         project.size = 466
 
-    def writeFile(self,path):
+    def writeFile(self, path):
+        """
+        Write the OLE file
+        """
         packSymbol = '<' if self.project.endien == 'little' else '>'
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
@@ -271,9 +274,9 @@ class OleFile:
             bytearray('\x00' * (self.bytesPerSector() - 4), 'ascii')
         )
         ##write empty directory sector
-        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
+        f.seek(HEADER_BYTES + self.firstDirectoryListSector * 4)
         f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
-        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
+        f.seek(HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
         #f.write()
         ##write empty minifat sector
         ##pull data from self.project
