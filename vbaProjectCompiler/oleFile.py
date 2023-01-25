@@ -95,7 +95,7 @@ class OleFile:
         If more sectors are needed, the DIF sector lists these sector numbers.
         """
         if len(self.getFatSectors()) <= 109:
-            return 65534
+            return 0xfffffffe
         #research how Dif works
         return 0
 
