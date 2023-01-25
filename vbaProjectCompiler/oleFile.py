@@ -36,7 +36,7 @@ class OleFile:
     def getFirstMiniChainSector(self):
         return self.firstMiniChainSector
 
-    def createInitialDirectories():
+    def createInitialDirectories(self):
         root = Directory()
         root.name = "Root Entry"
         root.type = 5
