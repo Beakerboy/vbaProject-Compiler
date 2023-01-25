@@ -131,7 +131,7 @@ class OleFile:
         total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** self.uSectorShift)
         return total
 
-        def getMinifatChain(self):
+    def getMinifatChain(self):
         """Use the info in the directory list to create the minifat chain"""
         #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
         chain = []
