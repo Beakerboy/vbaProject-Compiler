@@ -7,7 +7,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 def test_defaults():
     project = VbaProject()
-    olefile = OleFile(project)
+    oleFile = OleFile(project)
     #Test that only one fat chain sector is needed when no data is present
     assert oleFile.countFatChainSectors() == 1
 
