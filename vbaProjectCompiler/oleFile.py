@@ -274,9 +274,9 @@ class OleFile:
             bytearray('\x00' * (self.bytesPerSector() - 4), 'ascii')
         )
         ##write empty directory sector
-        f.seek(HEADER_BYTES + self.firstDirectoryListSector * 4)
+        f.seek(OleFile.HEADER_BYTES + self.firstDirectoryListSector * 4)
         f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
-        f.seek(HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
+        f.seek(OleFile.HEADER_BYTES + self.firstDirectoryListSector * self.self.bytesPerSector())
         #f.write()
         ##write empty minifat sector
         ##pull data from self.project
