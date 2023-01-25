@@ -233,7 +233,7 @@ class OleFile:
         project.size = 466
 
     def writeFile(self,path):
-        f = open(path + '/vbaProject.bin', 'w+')
+        f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         #write empty fat sector
         #write empty directory sector
