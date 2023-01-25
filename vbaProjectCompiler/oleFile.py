@@ -15,7 +15,7 @@ class OleFile:
         self.ulMiniSectorCutoff       = 4096
 
         #the FAT chain
-        self.fatChain = [-2, -2]
+        self.fatChain = [65534, 65534]
 
         #The list of pointers to the address of the next file piece
         minifatChain = []
@@ -37,14 +37,14 @@ class OleFile:
 
         absig = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
 
-        format = self.uByteOrder + "8s16shhhhhhiiIIIIIIiI"
+        format = self.uByteOrder + "8s16s6H10I"
         header = struct.pack(
             format,
             absig,
             LONG_LONG_ZERO + LONG_LONG_ZERO,  #clsid
             self.uMinorVersion,
             self.uDllVersion,
-            -2,   #BOM
+            65534,   #BOM
             self.uSectorShift,
             self.uMiniSectorShift,
             0,    #usReserved
@@ -70,7 +70,7 @@ class OleFile:
         If more sectors are needed, the DIF sector lists these sector numbers.
         """
         if len(self.getFatSectors()) <= 109:
-            return -2
+            return 65534
         #research how Dif works
         return 0
 
