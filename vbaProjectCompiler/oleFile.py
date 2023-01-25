@@ -16,7 +16,7 @@ class OleFile:
         self.ulMiniSectorCutoff       = 4096
 
         #the FAT chain
-        self.fatChain = [0xfffffffd , 0xfffffffe]
+        self.fatChain = []
 
         #The list of pointers to the address of the next file piece
         self.minifatChain = []
@@ -231,3 +231,10 @@ class OleFile:
         project.nextDirectoryId = 7
         project.sector = 94
         project.size = 466
+
+    def writeFile(self,path):
+        f = open(path + '/vbaProject.bin', 'w+')
+        f.write(self.header())
+        #write empty fat sector
+        #write empty directory sector
+        #write empty minifat sector
