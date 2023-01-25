@@ -24,6 +24,6 @@ def test_longerDirectoryList():
     project = VbaProject()
     oleFile = OleFile(project)
     assert oleFile.countDirectoryListSectors() == 1
-    olefile.finalize()
+    oleFile.finalize()
     assert oleFile.countDirectoryListSectors() == 2
     #assert project.fatChain == [4, -2, -2, -2]
