@@ -106,7 +106,7 @@ class OleFile:
         """
         count = self.countFatChainSectors()
         if count <= 109:
-            return 0
+            return 0xfffffffe
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
     def countFatChainSectors(self):
