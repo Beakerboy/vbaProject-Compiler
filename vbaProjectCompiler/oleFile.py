@@ -19,7 +19,7 @@ class OleFile:
         self.fatChain = [65534, 65534]
 
         #The list of pointers to the address of the next file piece
-        minifatChain = []
+        self.minifatChain = []
 
         #A list of directories
         self.directories = []
