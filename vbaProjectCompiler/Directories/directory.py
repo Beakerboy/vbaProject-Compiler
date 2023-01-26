@@ -44,15 +44,15 @@ class Directory:
             self.subDirectoryId
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
-        if !isinstance(self.userFlags, int):
+        if not isinstance(self.userFlags, int):
             raise Exception("flag")
-        if !isinstance(self.created, int):
+        if not isinstance(self.created, int):
             raise Exception("cteated")
-        if !isinstance(self.modified, int):
+        if not isinstance(self.modified, int):
             raise Exception("moistifie")
-        if !isinstance(self.sector, int):
+        if not isinstance(self.sector, int):
             raise Exception("sector")
-        if !isinstance(self.fileSize(), int):
+        if not isinstance(self.fileSize(), int):
             raise Exception("filesize")
         dir += struct.pack(
             endienSymbol + "IQQIII",
