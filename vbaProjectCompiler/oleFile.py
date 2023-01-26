@@ -152,11 +152,6 @@ class OleFile:
             sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
 
-    def writeFatSector(self, i):
-        """return a 512 byte sector"""
-        return "FE FF FF FF"
-        # followed by 511 bytes
-
     def getFatChainLength(self):
         """Count the number of entries in the complete FAT chain."""
         total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** self.uSectorShift)
