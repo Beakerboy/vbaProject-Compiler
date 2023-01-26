@@ -2,12 +2,11 @@ import os
 from vbaProjectCompiler.Directories.directory import Directory
 
 class StreamDirectory(Directory):
-    type = 2
     
     def __init__(self):
         super(StreamDirectory, self).__init__()
         self.filePath = ""
-
+        self.type = 2
         # Binary Performance Cache data
         self._performanceCache = b''
 
