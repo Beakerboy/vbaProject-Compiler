@@ -281,59 +281,67 @@ class OleFile:
         packSymbol = '<' if self.project.endien == 'little' else '>'
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
-        #write an empty Fat sector
+        # write an empty Fat sector
         f.write(self.writeFatSector(0))
 
-        #write empty directory sector
-        #Reserve sector in fat table
+        # write empty directory sector
+        # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
         f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.bytesPerSector())
         emptyDirectoryEntry = Directory()
         entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
         f.write(emptyDirectoryEntry.toBytes() * entriesPerSector)
-        ##write empty minifat sector
-        #Reserve sector in fat table
+        # write empty minifat sector
+        # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
         f.seek(self.HEADER_BYTES + self.firstMiniChainSector * self.bytesPerSector())
         entriesPerSector = 2 ** (self.uSectorShift - 2) + 1
         f.write(b'\xFF\xFF\xFF\xFF' * entriesPerSector)
-        ##pull data from self.project
-        #for module in self.project.modules:
-            # add each as a directory listing
+        # pull data from self.project
+        for module in self.project.modules:
+            self.directory.addModule(module)
         # add _VBA_Project
         # add dir
         # add projectWm
         # add project
-        #Get the first sector of directories
+        # flatten directory tree
+        self.streams = self.directory.flatten()
+        # Get the first sector of streams
         i = 0
-        entriesPerSector = self.uSectorShift - 3 + 1
+        entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
         start = i * entriesPerSector
-        end = (i + 1)* entriesPerSector
-        entries = self.directories[start:end]
-        #initialize sector with zeroes.
-        for directory in entries:
-            if directory.type != 2:
+        end = (i + 1) * entriesPerSector
+        entries = self.streams[start:end]
+        for stream in entries:
+            if stream.type == 1
                 #write directory object
                 pass
-            elif directory.size > self.ulMiniSectorCutoff:
-    
-                #find first unused fat sector
-                # save starting sector to object
-                # write directory entry
-                # initialize sectors with zeros
-                # update fat chain
-                # write data
-                pass
-            else:
-                #Find the first unused minifat location
-                # save starting sector to object
-                # write directory entry
-                # determine for many minifat sectors are needed
-                # determine if a new minifat sector chain is needed
-                    #write a new sector
+            elif stream.type == 2
+                if stream.size > self.ulMiniSectorCutoff:
+                    # calculate the number of sectors needed
+                    # update object with number of reserved bytes
+                    # find first unused fat sector
+                    # save starting sector to object
+                    # write directory entry
+                    # initialize sectors with zeros
                     # update fat chain
-                # determine if a new data sector is needed
+                    # write data
+                    pass
+                else:
+                    # calculate the number of sectors needed
+                    # update object with number of reserved bytes
+                    # Find the first unused minifat location
+                    # save starting sector to object
+                    # write directory entry
+                    # determine for many minifat sectors are needed
+                    # determine if a new minifat sector chain is needed
+                    # write a new sector
+                    # update fat chain
+                    # determine if a new data sector is needed
                     #update fat chain
                     #initialize
-                # overwrite minifat sectors with data
-                pass
+                    # overwrite minifat sectors with data
+                    pass
+          # write root entry directory info
+          # write fat chain sectors
+          # write minifat chain sectors
