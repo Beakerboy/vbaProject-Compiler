@@ -24,3 +24,6 @@ class StorageDirectory(Directory):
 
     def addFile(self, stream):
         self.directories.append(stream)
+
+    def createBinaryTree(self):
+        pass
