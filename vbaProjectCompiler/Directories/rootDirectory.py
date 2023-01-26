@@ -7,13 +7,16 @@ class RootDirectory(StorageDirectory):
     def __init__(self):
         super(RootDirectory, self).__init__()
         self.name = "Root Entry"
+        VBADirectory = StorageDirectory()
+        VBADirectory.name = "VBA"
+        self.directories.append(VBADirectory)
 
     def fileSize(self):
         """
         Need to see how to handle streams that are mixed
         between fat and minifat storage.
         """
-        #Need to use the value from the header
+        # Need to use the value from the header
         minifatSectorSize = 64
         size = 0
         for dir in self.directories:
