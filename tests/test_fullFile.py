@@ -1,6 +1,9 @@
 from functools import partial
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.oleFile import OleFile
+from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.stdModule import StdModule
+from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
 def test_fullFile():
     project = VbaProject()
