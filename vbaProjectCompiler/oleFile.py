@@ -196,9 +196,10 @@ class OleFile:
     def findFileOffset(self, startSector, depth):
         """
         Follow the fat chain starting at startSector, for depth hops to find the file offset.
+        depth is zero or greater.
         """
         sector = startSector
-        for i in range(depth - 1):
+        for i in range(depth):
             sector = self.fatChain[sector]
         return sector * self.bytesPerSector() + 512
 
