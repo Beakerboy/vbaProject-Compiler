@@ -39,5 +39,5 @@ class StorageDirectory(Directory):
             if child.type == 2:
                 self.flat.append(child)
             else:
-                self.flat.append(child.flaten())
+                self.flat.append(child.flatten())
         return self.flat
