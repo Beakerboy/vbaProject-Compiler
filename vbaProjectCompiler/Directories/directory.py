@@ -27,7 +27,7 @@ class Directory:
         return (len(self.name) + 1) * 2
 
     def fileSize(self):
-        pass
+        return 0
 
     def writeDirectory(self, codePageName, endien):
         endienSymbol = '<' if endien == 'little' else '>'
