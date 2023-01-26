@@ -1,17 +1,15 @@
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
-class RootDirectory(Directory):
+class RootDirectory(StorageDirectory):
     type = 5
 
-    def __init__(self):
-        self.directories = []
-        vba_project = StorageDirectory()
-        super(RootDirectory, self).__init__()
-        self.directories.append(vba_project)
-
     def fileSize(self):
-        #Nesd to use the value from the header
+        """
+        Need to see how to handle streams that are mixed
+        between fat and minifat storage.
+        """
+        #Need to use the value from the header
         minifatSectorSize = 64
         size = 0
         for dir in self.directories:
