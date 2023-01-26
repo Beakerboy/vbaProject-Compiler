@@ -1,4 +1,6 @@
 from functools import partial
+from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.oleFile import OleFile
 
 def test_fullFile():
     project = VbaProject()
