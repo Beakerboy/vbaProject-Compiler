@@ -32,3 +32,8 @@ class StreamDirectory(Directory):
 
     def minifatSectorsUsed(self):
         return (self.fileSize() - 1) // 64 + 1
+
+    @classmethod
+    def createFromModule(cls, module):
+        cls.name = module.name
+        return cls
