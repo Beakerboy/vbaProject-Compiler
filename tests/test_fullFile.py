@@ -1,3 +1,4 @@
+import struct
 from functools import partial
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.oleFile import OleFile
@@ -60,7 +61,7 @@ def test_fullFile():
     project.addModule(thisWorkbook)
     project.addModule(sheet1)
     project.addModule(module1)
-    fileIO = FileIO(project)
+    fileIO = OleFile(project)
     fileIO.writeFile(".")
     # assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
     # compare new file to blank file in 512 block chunks
