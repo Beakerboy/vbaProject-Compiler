@@ -8,9 +8,9 @@ class Directory:
 
         self.color = 0
 
-        self.previousDirectoryId = -1
-        self.nextDirectoryId     = -1
-        self.subDirectoryId      = -1
+        self.previousDirectoryId = 0xFFFFFFFF
+        self.nextDirectoryId     = 0xFFFFFFFF
+        self.subDirectoryId      = 0xFFFFFFFF
 
         self.classId = ""
 
@@ -29,8 +29,9 @@ class Directory:
     def fileSize(self):
         pass
 
-    def writeDirectory(self):
-        format = "<64shbbiii"
+    def writeDirectory(self, codePageName, endien):
+        endienSymbol = '<' if endien == 'little' else '>'
+        format = endienSymbol + "64shbb3I"
         
         dir = struct.pack(
             format,
@@ -44,7 +45,7 @@ class Directory:
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
         dir += struct.pack(
-            "<IqIIIII",
+            endienSymbol + "IQIIIII",
             self.userFlags,
             self.created,
             self.modifiedHigh,
