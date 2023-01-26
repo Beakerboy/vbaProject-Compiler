@@ -313,10 +313,10 @@ class OleFile:
         end = (i + 1) * entriesPerSector
         entries = self.streams[start:end]
         for stream in entries:
-            if stream.type == 1
+            if stream.type == 1:
                 #write directory object
                 pass
-            elif stream.type == 2
+            elif stream.type == 2:
                 if stream.size > self.ulMiniSectorCutoff:
                     # calculate the number of sectors needed
                     # update object with number of reserved bytes
