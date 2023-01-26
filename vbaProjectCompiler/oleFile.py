@@ -284,12 +284,20 @@ class OleFile:
         f.write(self.header())
         #write an empty Fat sector
         f.write(self.writeFatSector(0))
-        ##write empty directory sector
-        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
-        f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
+
+        #write empty directory sector
+        #Reserve sector in fat table
+        self.fatChain.append(0xfffffffe)
         f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.bytesPerSector())
-        #f.write()
+        emptyDirectoryEntry = Directory()
+        entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
+        f.write(emptyDirectoryEntry.toBytes() * entriesPerSector)
         ##write empty minifat sector
+        #Reserve sector in fat table
+        self.fatChain.append(0xfffffffe)
+        f.seek(self.HEADER_BYTES + self.firstMiniChainSector * self.bytesPerSector())
+        entriesPerSector = 2 ** (self.uSectorShift - 2) + 1
+        f.write(b'\xFF\xFF\xFF\xFF' * entriesPerSector)
         ##pull data from self.project
         #for module in self.project.modules:
             # add each as a directory listing
