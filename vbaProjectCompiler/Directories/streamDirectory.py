@@ -7,7 +7,19 @@ class StreamDirectory(Directory):
     def __init__(self):
         super(StreamDirectory, self).__init__()
         self.filePath = ""
-     
+
+        #Binary Performance Cache data
+        self._performanceCache = b''
+
+        #How many bytes does this item reserve in the file.
+        #This includes padding to fill a sector or ministream.
+        self.bytesUsed = 0
+
+    def setPerformanceCache(self, cache):
+        self._performanceCache = cache
+
+    def setBytesReserved(self, quantity):
+        self.bytesUsed = quantity
 
     def fileSize(self):
         """
