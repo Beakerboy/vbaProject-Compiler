@@ -20,5 +20,8 @@ class RootDirectory(StorageDirectory):
             size += dir.minifatSectorsUsed()
         return size * minifatSectorSize
 
+    def addModule(self, module):
+        self.directories[0].addModule(module)
+        
     def addFile(self, stream):
         self.directories[0].addFile(stream)
