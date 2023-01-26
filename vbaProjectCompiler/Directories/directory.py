@@ -17,8 +17,7 @@ class Directory:
         self.userFlags = 0
 
         self.created  = 0
-        self.modifiedHigh = 0
-        self.modifiedLow = 0
+        self.modified = 0
 
         self.sector = 0
 
@@ -45,11 +44,10 @@ class Directory:
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
         dir += struct.pack(
-            endienSymbol + "IQIIIII",
+            endienSymbol + "IQQIII",
             self.userFlags,
             self.created,
-            self.modifiedHigh,
-            self.modifiedLow,
+            self.modified,
             self.sector,
             self.fileSize(),
             0
