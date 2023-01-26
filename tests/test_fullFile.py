@@ -1,6 +1,6 @@
 from functools import partial
 
-test_fullFile():
+def test_fullFile():
     project = VbaProject()
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
