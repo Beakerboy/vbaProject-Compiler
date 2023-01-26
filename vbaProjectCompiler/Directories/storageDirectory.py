@@ -27,3 +27,12 @@ class StorageDirectory(Directory):
 
     def createBinaryTree(self):
         pass
+
+    def flatten(self):
+        self.flat = [self]
+        for child in self.directories:
+            if child.type == 2:
+                self.flat.append(child)
+            else
+                self.flat.append(child.flaten())
+        return self.flat
