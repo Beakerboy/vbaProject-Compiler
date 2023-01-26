@@ -2,11 +2,11 @@ from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 class RootDirectory(StorageDirectory):
-    type = 5
 
     def __init__(self):
         super(RootDirectory, self).__init__()
         self.name = "Root Entry"
+        self.type = 5
         VBADirectory = StorageDirectory()
         VBADirectory.name = "VBA"
         self.directories.append(VBADirectory)
