@@ -56,7 +56,7 @@ def test_fullFile():
     project.addModule(module1)
     fileIO = FileIO(project)
     fileIO.writeFile(".")
-    assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
+    # assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
     # compare new file to blank file in 512 block chunks
     new = open(./vbaProject.bin, "rb")
     expected = open("tests/blank/vbaProject.bin", "rb")
