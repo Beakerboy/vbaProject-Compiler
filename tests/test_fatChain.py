@@ -15,7 +15,7 @@ def test_defaults():
     assert oleFile.getFatSectors() == [0]
 
     #Test that when no data is present, all sectors are free.
-    assert oleFile.fatChain == []
+    assert oleFile.fatChain == [0xfffffffd]
     
 def test_longerDirectoryList():
     #Test that when we add four files to the directory, the directory list is one longer.
