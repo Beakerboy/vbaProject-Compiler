@@ -18,6 +18,8 @@ class ModuleRecord():
         self.cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
+        self.created = 0
+        self.modified = 0
     
     def addPerformanceCache(self, cache):
         self.cache = cache
