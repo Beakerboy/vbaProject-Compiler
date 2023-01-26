@@ -4,9 +4,9 @@ from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 class StorageDirectory(Directory):
 
     def __init__(self):
+        super(StorageDirectory, self).__init__()
         self.type = 1
         self.directories = []
-        super(StorageDirectory, self).__init__()
 
     def fileSize(self):
         return 0
