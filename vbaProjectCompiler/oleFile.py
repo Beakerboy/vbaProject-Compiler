@@ -1,5 +1,6 @@
 import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 
 class OleFile:
    
@@ -25,8 +26,7 @@ class OleFile:
 
         #A list of directories
         self.directories = []
-
-        self.createInitialDirectories()
+        self.directory = RootDirectory()
 
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
