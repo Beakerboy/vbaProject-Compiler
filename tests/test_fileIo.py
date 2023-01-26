@@ -33,5 +33,7 @@ def test_minifatSectors():
     vbaProject = VbaProject()
     project = OleFile(vbaProject)
     assert project.findMinifatSectorOffset(0) == 1536
-    project.fatChain[2] = 6
+    project.fatChain.append(6)
+    project.fatChain.append(6)
+    project.fatChain.append(6)
     assert project.findMinifatSectorOffset(11) == 512 * 7 + 64 * 3
