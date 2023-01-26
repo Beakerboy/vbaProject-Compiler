@@ -290,7 +290,7 @@ class OleFile:
         f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.bytesPerSector())
         emptyDirectoryEntry = Directory()
         entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
-        f.write(emptyDirectoryEntry.writeDirectory() * entriesPerSector)
+        f.write(emptyDirectoryEntry.writeDirectory(self.project.codePageName, self.project.endien) * entriesPerSector)
         # write empty minifat sector
         # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
