@@ -4,6 +4,10 @@ from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 class RootDirectory(StorageDirectory):
     type = 5
 
+    def __init__(self):
+        super(RootDirectory, self).__init__()
+        self.name = "Root Entry"
+
     def fileSize(self):
         """
         Need to see how to handle streams that are mixed
