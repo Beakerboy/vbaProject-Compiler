@@ -1,6 +1,6 @@
 import datetime
 
-test_datetime():
+def test_datetime():
     input = 0x01D92433C2B823C0
     date = filetime2datetime(input)
     assert date.ctime() == "Wed Dec 4 00:00:00 2002"
