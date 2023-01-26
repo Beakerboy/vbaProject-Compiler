@@ -2,7 +2,6 @@ import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
 
 class OleFile:
-
    
     #class default constructor
     def __init__(self, project):
