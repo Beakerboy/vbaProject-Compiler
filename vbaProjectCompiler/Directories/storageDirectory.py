@@ -22,6 +22,10 @@ class StorageDirectory(Directory):
             size += dir.paddedBytesUsed()
         return size
 
+    def addModule(self, module):
+        stream = StreamDirectory.createFromModule()
+        self.directories.append(stream)
+
     def addFile(self, stream):
         self.directories.append(stream)
 
