@@ -2,9 +2,9 @@ from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
 class StorageDirectory(Directory):
-    type = 1
 
     def __init__(self):
+        self.type = 1
         self.directories = []
         super(StorageDirectory, self).__init__()
 
