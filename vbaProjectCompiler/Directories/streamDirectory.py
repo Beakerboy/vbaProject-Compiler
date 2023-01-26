@@ -34,5 +34,6 @@ class StreamDirectory(Directory):
 
     @classmethod
     def createFromModule(cls, module):
-        cls.name = module.modName.value
-        return cls
+        ins = cls()
+        ins.name = module.modName.value
+        return ins
