@@ -163,6 +163,8 @@ class OleFile:
         end = (i + 1) * addressesPerSector
         sectors = self.fatChain[start:end]
         output = b''
+        packSymbol = '<' if self.project.endien == 'little' else '>'
+        format = packSymbol + "I"
         for sector in sectors:
             output += struct.pack(format, sector)
         #Pad the output to fill the sector.
