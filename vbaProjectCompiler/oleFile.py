@@ -18,8 +18,8 @@ class OleFile:
         self.firstMiniChainSector     = 2
         self.ulMiniSectorCutoff       = 4096
 
-        #the FAT chain
-        self.fatChain = []
+        #the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
+        self.fatChain = [0xfffffffd]
 
         #The list of pointers to the address of the next file piece
         self.minifatChain = []
@@ -153,17 +153,28 @@ class OleFile:
         return sectorList
 
     def writeFatSector(self, i):
-        """return a 512 byte sector"""
-        return "FE FF FF FF"
-        # followed by 511 bytes
-
-    def getFatChainLength(self):
-        """Count the number of entries in the complete FAT chain."""
-        total = ((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1) * (2 ** self.uSectorShift)
-        return total
+        """
+        Write a full sector's worth of FAT chain data.
+        Zero indexed
+        """
+        #Each address is 4 bytes 
+        addressesPerSector = 2 ** (self.uSectorShift - 2)
+        start = i * addressesPerSector
+        end = (i + 1) * addressesPerSector
+        sectors = self.fatChain[start:end]
+        output = b''
+        packSymbol = '<' if self.project.endien == 'little' else '>'
+        format = packSymbol + "I"
+        for sector in sectors:
+            output += struct.pack(format, sector)
+        #Pad the output to fill the sector.
+        output = output.ljust(2 ** self.uSectorShift, b'\xff')
+        return output
 
     def getMinifatChain(self):
-        """Use the info in the directory list to create the minifat chain"""
+        """
+        Use the info in the directory list to create the minifat chain
+        """
         #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
         chain = []
         #All files with data require one sector, how many more are needed.
@@ -272,10 +283,7 @@ class OleFile:
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         #write an empty Fat sector
-        f.write(
-            struct.pack(packSymbol + 'I', 0xfffffffd) + \
-            bytearray('\x00' * (self.bytesPerSector() - 4), 'ascii')
-        )
+        f.write(self.writeFatSector(0))
         ##write empty directory sector
         f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
         f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
