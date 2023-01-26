@@ -20,6 +20,7 @@ class Directory:
         self.modified = 0
 
         self.sector = 0
+        self.type = 0
 
     def nameSize(self):
         """The byte length of the name"""
