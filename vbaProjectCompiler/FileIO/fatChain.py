@@ -28,6 +28,8 @@ class FatChain(SectorChain):
             raise Exception("Number must be greater than zero.")
         if start >= len(self._chain):
             raise Exception("Chain does not exist at that address.")
+        if self._chain[start] == 0xFFFFFFFD:
+            raise Exception("Unable to start on a Fat Chain sector.")
         newSectors = []
         lastSector = start
         nextSector = start
