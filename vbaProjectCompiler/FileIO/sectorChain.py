@@ -2,9 +2,9 @@ import os
 
 class SectorChain:
 
-    def __init__(self):
+    def __init__(self, size):
         # The number of bytes in each sector
-        self._sectorSize = 0
+        self._sectorSize = size
 
         # The chain.
         # Each entry points to the address of the next element in the chain.
