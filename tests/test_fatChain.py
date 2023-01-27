@@ -41,3 +41,10 @@ def test_tooShortException():
     
     with pytest.raises(Exception) as e_info:
         chain.extendChain(4, 4)
+
+def test_newFatTableSector():
+    chain = FatChain(512)
+    chain.startNewChain()
+    chain.extendChain(0, 127)
+    chain.startNewChain()
+    assert assert chain.getLength() == 130
