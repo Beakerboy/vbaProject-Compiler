@@ -324,7 +324,7 @@ class OleFile:
         # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
         emptyDirectoryEntry = Directory()
-        entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
+        entriesPerSector = 2 ** (self.uSectorShift - 7)
         emptyDirectoryBytes = emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien)
         self.writeDataToSector(
             f,
