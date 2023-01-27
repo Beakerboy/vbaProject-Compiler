@@ -356,8 +356,8 @@ class OleFile:
             if i > 0:
                 newSector = self.extendFatChain(self.firstDirectoryListSector, 1)
                 #self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
-            start = i * entriesPerSector
-            end = (i + 1) * entriesPerSector
+            start = i * directoryEntriesPerSector
+            end = start + directoryEntriesPerSector
             entries = self.streams[start:end]
             for stream in entries:
                 if stream.type == 2:
