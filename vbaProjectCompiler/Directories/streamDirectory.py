@@ -14,7 +14,7 @@ class StreamDirectory(Directory):
         self.bytesUsed = 0
 
     def getData(self):
-        return self._module.getData()
+        return self.module.getData()
 
     def setBytesReserved(self, quantity):
         self.bytesUsed = quantity
@@ -23,7 +23,7 @@ class StreamDirectory(Directory):
         """
         Size in bytes of the compressed file and performance cache
         """
-        return self._module.getSize()
+        return self.module.getSize()
 
     def minifatSectorsUsed(self):
         return (self.fileSize() - 1) // 64 + 1
@@ -32,5 +32,5 @@ class StreamDirectory(Directory):
     def createFromModule(cls, module):
         ins = cls()
         ins.name = module.modName.value
-        ins._module = module
+        ins.module = module
         return ins
