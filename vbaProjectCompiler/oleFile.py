@@ -344,4 +344,6 @@ class OleFile:
                     pass
           # write root entry directory info
           # write fat chain sectors
+          f.seek(512)
+          f.write(self.writeFatSector(0))
           # write minifat chain sectors
