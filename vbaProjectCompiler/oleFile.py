@@ -302,7 +302,7 @@ class OleFile:
         if dataLength > self.bytesPerSector():
             raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
         if dataLength < self.bytesPerSector():
-            data = data.ljust(436, b'\xff')
+            data = data.ljust(self.bytesPerSector(), b'\x00')
         # Check File length and fill up to the desired sector
         fileLength = file.seek(-1, os.SEEK_END)
         desiredLength = 512 + sector * (2 ** self.uSectorShift)
@@ -328,8 +328,7 @@ class OleFile:
         emptyDirectoryBytes = emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien)
         self.writeDataToSector(
             f,
-            self.firstDirectoryListSector,
-            emptyDirectoryBytes * entriesPerSector
+            self.firstDirectoryListSector
         )
         # write empty minifat sector
         # Reserve sector in fat table
