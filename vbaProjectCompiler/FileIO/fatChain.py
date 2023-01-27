@@ -54,6 +54,12 @@ class FatChain(SectorChain):
         return newSectors
 
     def startNewChain(self):
+        """
+        We assume sectors are being filled sequentially.
+        Start a new single sector chain and return the address.
+        """
+        if len(self._chain) % 0x80 == 0:
+            self._chain.append(0xFFFFFFFD)
         self._chain.append(0xfffffffe)
         return len(self._chain) - 1
 
