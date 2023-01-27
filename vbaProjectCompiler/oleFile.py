@@ -194,29 +194,6 @@ class OleFile:
                 chain.append(-2)
         return chain
 
-    def extendFatChain(self, start, number):
-        newSectors = []
-        lastSector = start
-        nextSector = start
-        while nextSector != 0xFFFFFFFE:
-            lastSector = nextSector
-            nextSector = self.fatChain[lastSector]
-        firstFreeSector = len(self.fatChain)
-        # Check That we are not reserving what should be a FAT sector
-        if firstFreeSector % 0x80 == 0:
-            self.fatChain.append(0xFFFFFFFD)
-            firstFreeSector += 1
-        self.fatChain[lastSector] = firstFreeSector
-        newSectors.append(firstFreeSector)
-        for i in range(number - 1):
-            if len(self.fatChain) % 0x80 == 0:
-                self.fatChain.append(0xFFFFFFFD)
-            self.fatChain.append(firstFreeSector)
-            newSectors.append(firstFreeSector)
-            firstFreeSector += 1
-        self.fatChain.append(0xFFFFFFFE)
-        return newSectors
-
     def bytesPerSector(self):
         return 2 ** self.uSectorShift
 
