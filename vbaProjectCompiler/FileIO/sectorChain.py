@@ -12,3 +12,6 @@ class SectorChain:
 
     def getSectorSize(self):
         return self._sectorSize
+
+    def extendChain():
+        pass
