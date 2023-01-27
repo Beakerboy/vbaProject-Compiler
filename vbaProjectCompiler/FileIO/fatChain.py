@@ -45,3 +45,6 @@ class FatChain(SectorChain):
             firstFreeSector += 1
         self._chain.append(0xFFFFFFFE)
         return newSectors
+
+    def startNewChain(self):
+        self._chain.append(0xfffffffe)
