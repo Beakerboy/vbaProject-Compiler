@@ -13,6 +13,9 @@ class StreamDirectory(Directory):
         # This includes padding to fill a sector or ministream.
         self.bytesUsed = 0
 
+    def getData(self):
+        return self._module.getData()
+
     def setBytesReserved(self, quantity):
         self.bytesUsed = quantity
 
