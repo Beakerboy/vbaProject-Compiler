@@ -377,7 +377,7 @@ class OleFile:
                         # write data
                         pass
                     else:
-                        self.minifatChain.addStream(stream.getData())
+                        self._minifatChain.addStream(stream.getData())
                         # calculate the number of sectors needed
                         # update object with number of reserved bytes
                         # Find the first unused minifat location
