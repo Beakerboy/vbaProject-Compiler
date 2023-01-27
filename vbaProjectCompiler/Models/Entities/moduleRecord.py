@@ -28,6 +28,9 @@ class ModuleRecord():
         self.workspace  = [val1, val2, val3, val4, val5]
 
     def pack(self, codePageName, endien):
+        """
+        Pack the metadata for use in the dir stream.
+        """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
         typeId = PackedData("HI", typeIdValue, 0) 
         self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
@@ -38,3 +41,23 @@ class ModuleRecord():
 
     def toProjectModuleString(self):
         return self.type + "=" + self.modName.value
+
+    def addFile(self, filePath):
+        # Normalize file
+        # Save to new name
+        # compress the file and save
+        pass
+
+    def getData(self):
+        """
+        """
+        # Read the compresses file
+        # Combine it with the performanceCache
+        return self.cache
+
+    def getChunkOfData(self, size, number):
+        """
+        Split the data into chucks of size {size} and
+        return the {number}th chunk
+        """
+        pass
