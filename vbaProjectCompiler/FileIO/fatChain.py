@@ -48,3 +48,4 @@ class FatChain(SectorChain):
 
     def startNewChain(self):
         self._chain.append(0xfffffffe)
+        return len(self._chain) - 1
