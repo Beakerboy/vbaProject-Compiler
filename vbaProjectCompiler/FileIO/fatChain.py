@@ -26,7 +26,7 @@ class FatChain(SectorChain):
         if firstFreeSector % 0x80 == 0:
             self._chain.append(0xFFFFFFFD)
             firstFreeSector += 1
-        self.fatChain[lastSector] = firstFreeSector
+        self._chain[lastSector] = firstFreeSector
         newSectors.append(firstFreeSector)
         for i in range(number - 1):
             if len(self._chain) % 0x80 == 0:
