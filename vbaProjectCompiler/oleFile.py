@@ -333,9 +333,9 @@ class OleFile:
         # write empty minifat sector
         # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
-        f.seek(self.HEADER_BYTES + self.firstMiniChainSector * self.bytesPerSector())
-        entriesPerSector = 2 ** (self.uSectorShift - 2) + 1
-        f.write(b'\xFF\xFF\xFF\xFF' * entriesPerSector)
+        minifatEntriesPerSector = 2 ** (self.uSectorShift - 2)
+        self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * mimifatEntriesPerSector)
+
         # pull data from self.project
         for module in self.project.modules:
             self.directory.addModule(module)
@@ -347,12 +347,12 @@ class OleFile:
         self.streams = self.directory.flatten()
         # Get the first sector of streams
         i = 0
-        entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
+        directoryEntriesPerSector = 2 ** (self.uSectorShift - 7)
         start = 0
         while start < len(self.streams):
             if i > 0:
                 newSector = self.extendFatChain(self.firstDirectoryListSector, 1)
-                self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * entriesPerSector)
+                self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
             start = i * entriesPerSector
             end = (i + 1) * entriesPerSector
             entries = self.streams[start:end]
