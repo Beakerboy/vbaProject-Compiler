@@ -379,7 +379,7 @@ class OleFile:
                         # write data
                         pass
                     else:
-                        miniSectorsPeeSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
+                        miniSectorsPerSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
                         initialLength = (self._minifatChain.length() - 1) // miniSectorsPerSector + 1
                         newSectors = self._minifatChain.addStream(stream.getData())
                         newLength =  (self._minifatChain.length() - 1) // miniSectorsPeeSector + 1
