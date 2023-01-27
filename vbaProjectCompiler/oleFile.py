@@ -384,7 +384,7 @@ class OleFile:
                         newSectors = self._minifatChain.addStream(stream.getData())
                         newLength =  (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
                         if newLength > initialLength:
-                            self.fatChain.extendChain(self.firstMiniChainSector, newLength - initialLength)
+                            self._fatChain.extendChain(self.firstMiniChainSector, newLength - initialLength)
                         stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
                         stream.setSector(newSectors[0])
             i += 1
