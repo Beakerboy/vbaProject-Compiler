@@ -24,7 +24,9 @@ class StorageDirectory(Directory):
         return size
 
     def addModule(self, module):
-        stream = StreamDirectory.createFromModule(module)
+        stream = StreamDirectory()
+        stream.name = module.modName.value
+        stream.module = module
         self.directories.append(stream)
 
     def addFile(self, stream):
