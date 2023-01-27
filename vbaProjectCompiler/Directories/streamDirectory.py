@@ -12,6 +12,7 @@ class StreamDirectory(Directory):
         # How many bytes does this item reserve in the file.
         # This includes padding to fill a sector or ministream.
         self.bytesUsed = 0
+        self.module = ""
 
     def getData(self):
         return self.module.getData()
