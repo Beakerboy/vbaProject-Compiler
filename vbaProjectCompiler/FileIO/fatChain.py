@@ -2,6 +2,10 @@ import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class FatChain(SectorChain):
 
+    def __init__(self):
+        super(RootDirectory, self).__init__()
+        self._chain = [0xfffffffd]
+
     def writeDataToSector(self, file, sector, data = b'\x00'):
         dataLength = len(data)
         if dataLength > self._sectorSize:
