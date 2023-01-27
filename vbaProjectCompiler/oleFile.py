@@ -317,7 +317,7 @@ class OleFile:
                 #write directory object
                 pass
             elif stream.type == 2:
-                if stream.size > self.ulMiniSectorCutoff:
+                if stream.fileSize() > self.ulMiniSectorCutoff:
                     # calculate the number of sectors needed
                     # update object with number of reserved bytes
                     # find first unused fat sector
