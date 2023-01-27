@@ -377,21 +377,14 @@ class OleFile:
                         # write data
                         pass
                     else:
-                        self._minifatChain.addStream(stream.getData())
-                        # calculate the number of sectors needed
-                        # update object with number of reserved bytes
-                        # Find the first unused minifat location
-                        # save starting sector to object
-                        # write directory entry
-                        # determine for many minifat sectors are needed
-                        # determine if a new minifat sector chain is needed
-                        # write a new sector
-                        # update fat chain
-                        # determine if a new data sector is needed
-                        #update fat chain
-                        #initialize
-                        # overwrite minifat sectors with data
-                        pass
+                        miniSectorsPeeSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
+                        initialLength = (self._minifatChain.length() - 1) // miniSectorsPerSector + 1
+                        newSectors = self._minifatChain.addStream(stream.getData())
+                        newLength =  (self._minifatChain.length() - 1) // miniSectorsPeeSector + 1
+                        if newLength > initialLength:
+                            self.fatChain.extendChain(self.firstMiniChainSector, newLength - initialLength)
+                        stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
+                        stream.setSector(newSectors[0])
             i += 1
         # write root entry directory info
         # write fat chain sectors
