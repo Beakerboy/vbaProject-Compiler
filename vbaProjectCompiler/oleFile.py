@@ -297,6 +297,19 @@ class OleFile:
         project.sector = 94
         project.size = 466
 
+    def writeDataToSector(file, sector, data = b'\x00')
+        dataLength = len(data)
+        if dataLength > self.bytesPerSector():
+            raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
+        if dataLength < self.bytesPerSector()
+            data = data.ljust(436, b'\xff')
+        # Check File length and fill up to the desired sector
+        fileLength = file.seek(-1, os.SEEK_END)
+        desiredLength = 512 + sector * (2 ** self.uSectorShift)
+        if fileLength < desiredLength:
+            file.write(b'\x00' * (desiredLength - fileLength))
+        file.write(data)
+
     def writeFile(self, path):
         """
         Write the OLE file
@@ -334,9 +347,9 @@ class OleFile:
         entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
         start = 0
         while start < len(self.streams):
-            if start > 0:
-                self.extendFatChain(self.firstDirectoryListSector, 1)
-                
+            if i > 0:
+                newSector = self.extendFatChain(self.firstDirectoryListSector, 1)
+                self.writeToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * entriesPerSector)
             start = i * entriesPerSector
             end = (i + 1) * entriesPerSector
             entries = self.streams[start:end]
