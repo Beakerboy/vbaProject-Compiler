@@ -13,3 +13,26 @@ class FatChain(SectorChain):
         if fileLength < desiredLength:
             file.write(b'\x00' * (desiredLength - fileLength))
         file.write(data)
+
+    def extendChain(self, start, number):
+        newSectors = []
+        lastSector = start
+        nextSector = start
+        while nextSector != 0xFFFFFFFE:
+            lastSector = nextSector
+            nextSector = self._chain[lastSector]
+        firstFreeSector = len(self._chain)
+        # Check That we are not reserving what should be a FAT sector
+        if firstFreeSector % 0x80 == 0:
+            self._chain.append(0xFFFFFFFD)
+            firstFreeSector += 1
+        self.fatChain[lastSector] = firstFreeSector
+        newSectors.append(firstFreeSector)
+        for i in range(number - 1):
+            if len(self._chain) % 0x80 == 0:
+                self._chain.append(0xFFFFFFFD)
+            self._chain.append(firstFreeSector)
+            newSectors.append(firstFreeSector)
+            firstFreeSector += 1
+        self._chain.append(0xFFFFFFFE)
+        return newSectors
