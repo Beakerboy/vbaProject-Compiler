@@ -334,7 +334,7 @@ class OleFile:
         # Reserve sector in fat table
         self.fatChain.append(0xfffffffe)
         minifatEntriesPerSector = 2 ** (self.uSectorShift - 2)
-        self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * mimifatEntriesPerSector)
+        self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * minifatEntriesPerSector)
 
         # pull data from self.project
         for module in self.project.modules:
