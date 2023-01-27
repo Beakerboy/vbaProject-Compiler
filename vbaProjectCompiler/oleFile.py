@@ -111,7 +111,7 @@ class OleFile:
 
     def countMinifatFatChainSectors(self):
         addressesPerSector = 2 ** (self.uSectorShift - 2)
-        return max((len(self.minifatChain) - 1) // addressesPerSector + 1, 1)
+        return max((len(self._miniChain.getChain()) - 1) // addressesPerSector + 1, 1)
   
     def writeHeaderFatSectorList(self):
         """
