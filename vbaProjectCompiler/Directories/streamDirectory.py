@@ -5,7 +5,6 @@ class StreamDirectory(Directory):
     
     def __init__(self):
         super(StreamDirectory, self).__init__()
-        self.filePath = ""
         self.type = 2
         # Binary Performance Cache data
         self._performanceCache = b''
@@ -14,20 +13,14 @@ class StreamDirectory(Directory):
         # This includes padding to fill a sector or ministream.
         self.bytesUsed = 0
 
-    def setPerformanceCache(self, cache):
-        self._performanceCache = cache
-
     def setBytesReserved(self, quantity):
         self.bytesUsed = quantity
 
     def fileSize(self):
         """
-        Size in bytes of the file after it has been compressed
+        Size in bytes of the compressed file and performance cache
         """
-        if self.filePath == "":
-            return 0
-        file_size = os.stat(self.filePath)
-        return file_size.st_size
+        return self._module.getSize()
 
     def minifatSectorsUsed(self):
         return (self.fileSize() - 1) // 64 + 1
@@ -36,4 +29,5 @@ class StreamDirectory(Directory):
     def createFromModule(cls, module):
         ins = cls()
         ins.name = module.modName.value
+        ins._module = module
         return ins
