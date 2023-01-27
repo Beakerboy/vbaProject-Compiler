@@ -23,7 +23,8 @@ class OleFile:
         self.fatChain = [0xfffffffd]
 
         # The list of pointers to the address of the next file piece
-        self._minifatChain = MinifatChain(2 ** self.uMiniSectorShift, self._fatChain)
+        self._minifatChain = MinifatChain(2 ** self.uMiniSectorShift)
+        self._minifatChain.setFatChain(self._fatChain)
         
         self.minifatChain = []
 
