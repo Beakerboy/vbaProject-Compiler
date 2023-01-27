@@ -1,6 +1,8 @@
 import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
+from vbaProjectCompiler.FileIO.fatChain import FatChain
+from vbaProjectCompiler.Directories.miniChain import MiniChain
 
 class OleFile:
    
@@ -23,7 +25,7 @@ class OleFile:
         self.fatChain = [0xfffffffd]
 
         # The list of pointers to the address of the next file piece
-        self._minifatChain = MinifatChain(2 ** self.uMiniSectorShift)
+        self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
         self._minifatChain.setFatChain(self._fatChain)
         
         self.minifatChain = []
