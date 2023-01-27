@@ -187,6 +187,20 @@ class OleFile:
                 chain.append(-2)
         return chain
 
+    def extendFatChain(start, number):
+        lastSector = start
+        nextSector = start
+        while nextSector != 0xFFFFFFFE:
+            lastSector = nextSector
+            nextSector = self.fatChain[lastSector]
+        firstFreeSector = len(self.fatChain)
+        self.fatChain[lastSector] = firstFreeSector
+        # Need to check if this crosses paths with a fatChain sector
+        for i in range(number - 1):
+            self.fatChain.append(firstFreeSector)
+            firstFreeSector += 1
+        self.fatChain.append(0xFFFFFFFE)
+
     def bytesPerSector(self):
         return 2 ** self.uSectorShift
 
@@ -311,6 +325,9 @@ class OleFile:
         entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
         start = 0
         while start < len(self.streams):
+            if start > 0:
+                self.extendFatChain(self.firstDirectoryListSector, 1)
+                
             start = i * entriesPerSector
             end = (i + 1) * entriesPerSector
             entries = self.streams[start:end]
