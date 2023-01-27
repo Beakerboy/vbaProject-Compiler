@@ -24,6 +24,10 @@ class FatChain(SectorChain):
         The fat chain needs to ensure that new sectors do not land on any sectors which will be
         for fat chain information.
         """
+        if number < 1:
+            raise Exception("Number must be greater than zero.")
+        if start >= len(self._chain)
+            raise Exception("Chain does not exist at that address.")
         newSectors = []
         lastSector = start
         nextSector = start
