@@ -2,6 +2,9 @@ import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class MiniChain(SectorChain):
 
+    def setFatChain(self, fatChain):
+        self._fatChain = fatChain
+
     def writeDataToSector(self, file, sector, data = b'\x00'):
         dataLength = len(data)
         if dataLength > self._sectorSize:
