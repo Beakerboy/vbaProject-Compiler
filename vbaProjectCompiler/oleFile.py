@@ -2,7 +2,7 @@ import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
-from vbaProjectCompiler.Directories.miniChain import MiniChain
+from vbaProjectCompiler.FileIO.miniChain import MiniChain
 
 class OleFile:
    
