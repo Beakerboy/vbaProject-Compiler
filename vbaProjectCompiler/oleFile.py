@@ -326,14 +326,12 @@ class OleFile:
         # flatten directory tree
         self.streams = self.directory.flatten()
         # Get the first sector of streams
-        i = 0
         directoryEntriesPerSector = 2 ** (self.uSectorShift - 7)
         start = 0
-        while i < len(self.streams):
-            if i > 0:
+        while start < len(self.streams):
+            if start > 0:
                 newSector = self._fatChain.extendChain(self.firstDirectoryListSector, 1)
                 #self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
-            start = i * directoryEntriesPerSector
             end = start + directoryEntriesPerSector
             entries = self.streams[start:end]
             for stream in entries:
@@ -362,7 +360,7 @@ class OleFile:
                             self._fatChain.extendChain(self.directory.getSector(), newLength - initialLength)
                         stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
                         stream.setSector(newSectors[0])
-            i += 1
+            start = end
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # write fat sectors
