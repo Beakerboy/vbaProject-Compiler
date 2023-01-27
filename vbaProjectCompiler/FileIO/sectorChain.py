@@ -18,3 +18,10 @@ class SectorChain:
         Extend the chain that starts at sector {start} by {length} additional sectors
         """
         pass
+
+    def writeDataToSector(self, file, sector, data = b'\x00'):
+        """
+        Write the provided data to a specific sector.
+        Overwriting the existing data.
+        """
+        pass
