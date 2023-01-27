@@ -334,7 +334,7 @@ class OleFile:
         #    self.firstDirectoryListSector
         #)
         # write empty minifat sector
-        # Reserve sector in fat table
+        # Reserve sector for minifat table
         self._fatChain.startNewChain()
         minifatEntriesPerSector = 2 ** (self.uSectorShift - 2)
         #self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * minifatEntriesPerSector)
@@ -376,18 +376,20 @@ class OleFile:
                         miniSectorsPerSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
                         initialLength = (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
                         newSectors = self._minifatChain.addStream(stream.getData())
-                        newLength =  (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
-                        if newLength > initialLength:
-                            self._fatChain.extendChain(self.firstMiniChainSector, newLength - initialLength)
+                        newLength = (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
+                        if self._minifatChain.getLength() == 0:
+                            self.directory.setSector(self._fatChain.startNewChain())
+                        elif newLength > initialLength:
+                            self._fatChain.extendChain(self.directory.getSector(), newLength - initialLength)
                         stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
                         stream.setSector(newSectors[0])
             i += 1
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
-        # write an empty Fat sector
+        # write fat sectors
         f.write(self.writeFatSector(0))
-        # write root entry directory info
-        # write fat chain sectors
-        f.seek(512)
-        f.write(self.writeFatSector(0))
+        # write directory sectors
+        # write minifat chain
+        # write minifat data
+       
         # write minifat chain sectors
