@@ -19,8 +19,14 @@ class Directory:
         self.created  = 0
         self.modified = 0
 
-        self.sector = 0
+        # The sector where this stream begins
+        # This can either be a minifat sector number or a Fat sector
+        # depending on the stream size.
+        self._sector = 0
         self.type = 0
+
+    def setSector(self, value):
+        self._sector = value
 
     def nameSize(self):
         """The byte length of the name"""
@@ -44,22 +50,12 @@ class Directory:
             self.subDirectoryId
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
-        if not isinstance(self.userFlags, int):
-            raise Exception("flag")
-        if not isinstance(self.created, int):
-            raise Exception("cteated")
-        if not isinstance(self.modified, int):
-            raise Exception("moistifie")
-        if not isinstance(self.sector, int):
-            raise Exception("sector")
-        if not isinstance(self.fileSize(), int):
-            raise Exception("filesize")
         dir += struct.pack(
             endienSymbol + "IQQIII",
             self.userFlags,
             self.created,
             self.modified,
-            self.sector,
+            self._sector,
             self.fileSize(),
             0
         )        
