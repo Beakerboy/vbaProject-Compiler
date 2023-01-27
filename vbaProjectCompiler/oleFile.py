@@ -309,39 +309,42 @@ class OleFile:
         # Get the first sector of streams
         i = 0
         entriesPerSector = 2 ** (self.uSectorShift - 6) + 1
-        start = i * entriesPerSector
-        end = (i + 1) * entriesPerSector
-        entries = self.streams[start:end]
-        for stream in entries:
-            if stream.type == 1:
-                #write directory object
-                pass
-            elif stream.type == 2:
-                if stream.fileSize() > self.ulMiniSectorCutoff:
-                    # calculate the number of sectors needed
-                    # update object with number of reserved bytes
-                    # find first unused fat sector
-                    # save starting sector to object
-                    # write directory entry
-                    # initialize sectors with zeros
-                    # update fat chain
-                    # write data
+        start = 0
+        while start < len(self.streams):
+            start = i * entriesPerSector
+            end = (i + 1) * entriesPerSector
+            entries = self.streams[start:end]
+            for stream in entries:
+                if stream.type == 1:
+                    #write directory object
                     pass
-                else:
-                    # calculate the number of sectors needed
-                    # update object with number of reserved bytes
-                    # Find the first unused minifat location
-                    # save starting sector to object
-                    # write directory entry
-                    # determine for many minifat sectors are needed
-                    # determine if a new minifat sector chain is needed
-                    # write a new sector
-                    # update fat chain
-                    # determine if a new data sector is needed
-                    #update fat chain
-                    #initialize
-                    # overwrite minifat sectors with data
-                    pass
+                elif stream.type == 2:
+                    if stream.fileSize() > self.ulMiniSectorCutoff:
+                        # calculate the number of sectors needed
+                        # update object with number of reserved bytes
+                        # find first unused fat sector
+                        # save starting sector to object
+                        # write directory entry
+                        # initialize sectors with zeros
+                        # update fat chain
+                        # write data
+                        pass
+                    else:
+                        # calculate the number of sectors needed
+                        # update object with number of reserved bytes
+                        # Find the first unused minifat location
+                        # save starting sector to object
+                        # write directory entry
+                        # determine for many minifat sectors are needed
+                        # determine if a new minifat sector chain is needed
+                        # write a new sector
+                        # update fat chain
+                        # determine if a new data sector is needed
+                        #update fat chain
+                        #initialize
+                        # overwrite minifat sectors with data
+                        pass
+            i += 1
         # write root entry directory info
         # write fat chain sectors
         f.seek(512)
