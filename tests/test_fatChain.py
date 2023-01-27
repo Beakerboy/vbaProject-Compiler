@@ -25,7 +25,7 @@ def test_extendChain():
     chain.startNewChain()
     chain.startNewChain()
     chain.extendChain(1, 2)
-    assert chain.getLength() == 4
+    assert chain.getLength() == 5
     assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
     
