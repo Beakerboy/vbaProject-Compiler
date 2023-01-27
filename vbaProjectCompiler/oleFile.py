@@ -370,3 +370,4 @@ class OleFile:
         # write minifat data
        
         # write minifat chain sectors
+        f.close()
