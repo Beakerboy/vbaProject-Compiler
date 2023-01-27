@@ -1,3 +1,4 @@
+import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class MiniChain(SectorChain):
 
