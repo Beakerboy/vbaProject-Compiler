@@ -47,4 +47,4 @@ def test_newFatTableSector():
     chain.startNewChain()
     chain.extendChain(0, 127)
     chain.startNewChain()
-    assert assert chain.getLength() == 130
+    assert chain.getLength() == 130
