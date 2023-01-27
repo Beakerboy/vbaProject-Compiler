@@ -49,3 +49,13 @@ class FatChain(SectorChain):
     def startNewChain(self):
         self._chain.append(0xfffffffe)
         return len(self._chain) - 1
+
+    def findSector(self, startSector, depth):
+        """
+        Follow the fat chain starting at startSector, for depth {depth} to find the sector.
+        depth is zero or greater.
+        """
+        sector = startSector
+        for i in range(depth):
+            sector = self._chain[sector]
+        return sector
