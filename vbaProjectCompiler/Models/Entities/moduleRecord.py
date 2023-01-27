@@ -20,9 +20,15 @@ class ModuleRecord():
         self.type = ''
         self.created = 0
         self.modified = 0
-    
+        self._fileSize = 0
+        self._size = 0
+
+    def getSize(self):
+        return self._size
+
     def addPerformanceCache(self, cache):
         self.cache = cache
+        self._size = len(cache) + self._fileSize
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace  = [val1, val2, val3, val4, val5]
@@ -46,7 +52,8 @@ class ModuleRecord():
         # Normalize file
         # Save to new name
         # compress the file and save
-        pass
+        # update self._fileSize
+        self._size = self._fileSize + len(self.cache)
 
     def getData(self):
         """
