@@ -42,7 +42,7 @@ def test_tooShortException():
     with pytest.raises(Exception) as e_info:
         chain.extendChain(4, 4)
 
-def test_tooShortException():
+def test_extendNonChain():
     chain = FatChain(512)
     chain.startNewChain()
     
