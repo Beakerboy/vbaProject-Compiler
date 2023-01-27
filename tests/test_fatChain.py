@@ -28,4 +28,16 @@ def test_extendChain():
     assert chain.getLength() == 5
     assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
+def test_zeroLengthException():
+    chain = FatChain(512)
+    chain.startNewChain()
     
+    with pytest.raises(Exception) as e_info:
+        chain.extendChain(1, 0)
+
+def test_tooShortException():
+    chain = FatChain(512)
+    chain.startNewChain()
+    
+    with pytest.raises(Exception) as e_info:
+        chain.extendChain(4, 4)
