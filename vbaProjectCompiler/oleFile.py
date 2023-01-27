@@ -22,46 +22,23 @@ class OleFile:
 
         # the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
         self._fatChain = FatChain(2 ** self.uSectorShift)
-        self.fatChain = [0xfffffffd]
 
         # The list of pointers to the address of the next file piece
         self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
         self._minifatChain.setFatChain(self._fatChain)
-        
-        self.minifatChain = []
 
-        #A list of directories
-        self.directories = []
+        # A list of directories
         self.directory = RootDirectory()
 
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
     def setFirstDirectoryListSector(self, i):
-        #need to ensure sector is not already reserved
+        # need to ensure sector is not already reserved
         self.firstDirectoryListSector = i
 
     def getFirstMiniChainSector(self):
         return self.firstMiniChainSector
-
-    def createInitialDirectories(self):
-        root = Directory()
-        root.name = "Root Entry"
-        root.type = 5
-        root.subDirectoryId = 8
-        root.modifiedHigh = 3266847680
-        root.modifiedLow  =   31007795
-        root.sector = 3
-        root.size = 6528
-        self.directories.append(root)
-
-        vba = Directory()
-        vba.name = "VBA"
-        vba.type = 1
-        vba.subDirectoryId = 4
-        vba.modifiedHigh = 3266847680
-        vba.modifiedLow  =   31007795
-        self.directories.append(vba)
 
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
