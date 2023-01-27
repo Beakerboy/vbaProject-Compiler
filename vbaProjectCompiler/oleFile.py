@@ -152,7 +152,7 @@ class OleFile:
     def getFatSectors(self):
         """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
         sectorList = []
-        numberOfSectors = self.countFatChainSectors()
+        numberOfSectors = self._fatChain.getLength()
         for i in range(numberOfSectors):
             sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
@@ -322,26 +322,22 @@ class OleFile:
         Write the OLE file
         """
         packSymbol = '<' if self.project.endien == 'little' else '>'
-        f = open(path + '/vbaProject.bin', 'wb+')
-        f.write(self.header())
-        # write an empty Fat sector
-        f.write(self.writeFatSector(0))
 
         # write empty directory sector
         # Reserve sector in fat table
         self._fatChain.startNewChain()
-        emptyDirectoryEntry = Directory()
-        entriesPerSector = 2 ** (self.uSectorShift - 7)
-        emptyDirectoryBytes = emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien)
-        self.writeDataToSector(
-            f,
-            self.firstDirectoryListSector
-        )
+        #emptyDirectoryEntry = Directory()
+        #entriesPerSector = 2 ** (self.uSectorShift - 7)
+        #emptyDirectoryBytes = emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien)
+        #self.writeDataToSector(
+        #    f,
+        #    self.firstDirectoryListSector
+        #)
         # write empty minifat sector
         # Reserve sector in fat table
         self._fatChain.startNewChain()
         minifatEntriesPerSector = 2 ** (self.uSectorShift - 2)
-        self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * minifatEntriesPerSector)
+        #self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * minifatEntriesPerSector)
 
         # pull data from self.project
         for module in self.project.modules:
@@ -356,18 +352,15 @@ class OleFile:
         i = 0
         directoryEntriesPerSector = 2 ** (self.uSectorShift - 7)
         start = 0
-        while start < len(self.streams):
+        while i < len(self.streams):
             if i > 0:
                 newSector = self.extendFatChain(self.firstDirectoryListSector, 1)
-                self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
+                #self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
             start = i * entriesPerSector
             end = (i + 1) * entriesPerSector
             entries = self.streams[start:end]
             for stream in entries:
-                if stream.type == 1:
-                    #write directory object
-                    pass
-                elif stream.type == 2:
+                if stream.type == 2:
                     if stream.fileSize() > self.ulMiniSectorCutoff:
                         # self.fatChain.addFileToChain()
                         # update object with number of reserved bytes
@@ -389,6 +382,10 @@ class OleFile:
                         stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
                         stream.setSector(newSectors[0])
             i += 1
+        f = open(path + '/vbaProject.bin', 'wb+')
+        f.write(self.header())
+        # write an empty Fat sector
+        f.write(self.writeFatSector(0))
         # write root entry directory info
         # write fat chain sectors
         f.seek(512)
