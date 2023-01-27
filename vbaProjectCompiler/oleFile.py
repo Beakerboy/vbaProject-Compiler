@@ -4,12 +4,12 @@ from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 
 class OleFile:
    
-    #class default constructor
+    # class default constructor
     def __init__(self, project):
         self.HEADER_BYTES = 512
         self.project = project
 
-        #Instance Attributes
+        # Instance Attributes
         self.uMinorVersion            = 62
         self.uDllVersion              = 3
         self.uSectorShift             = 9
@@ -18,10 +18,13 @@ class OleFile:
         self.firstMiniChainSector     = 2
         self.ulMiniSectorCutoff       = 4096
 
-        #the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
+        # the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
+        self._fatChain = FatChain(2 ** self.uSectorShift)
         self.fatChain = [0xfffffffd]
 
-        #The list of pointers to the address of the next file piece
+        # The list of pointers to the address of the next file piece
+        self._minifatChain = MinifatChain(2 ** self.uMiniSectorShift, self._fatChain)
+        
         self.minifatChain = []
 
         #A list of directories
@@ -362,8 +365,9 @@ class OleFile:
                     pass
                 elif stream.type == 2:
                     if stream.fileSize() > self.ulMiniSectorCutoff:
-                        # calculate the number of sectors needed
+                        # self.fatChain.addFileToChain()
                         # update object with number of reserved bytes
+                        # stream.setSector(sectors[0])
                         # find first unused fat sector
                         # save starting sector to object
                         # write directory entry
@@ -372,6 +376,7 @@ class OleFile:
                         # write data
                         pass
                     else:
+                        self.minifatChain.addStream(stream.getData())
                         # calculate the number of sectors needed
                         # update object with number of reserved bytes
                         # Find the first unused minifat location
