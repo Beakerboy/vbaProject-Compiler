@@ -297,7 +297,7 @@ class OleFile:
         project.sector = 94
         project.size = 466
 
-    def writeDataToSector(file, sector, data = b'\x00'):
+    def writeDataToSector(self, file, sector, data = b'\x00'):
         dataLength = len(data)
         if dataLength > self.bytesPerSector():
             raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
