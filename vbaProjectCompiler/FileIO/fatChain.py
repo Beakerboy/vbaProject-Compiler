@@ -2,8 +2,8 @@ import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class FatChain(SectorChain):
 
-    def __init__(self):
-        super(RootDirectory, self).__init__()
+    def __init__(self, size):
+        super(RootDirectory, self).__init__(size)
         self._chain = [0xfffffffd]
 
     def writeDataToSector(self, file, sector, data = b'\x00'):
