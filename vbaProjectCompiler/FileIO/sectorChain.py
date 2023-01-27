@@ -16,6 +16,9 @@ class SectorChain:
     def getLength(self):
         return len(self._chain)
 
+    def getChain(self):
+        return self._chain
+
     def extendChain(self, start, length):
         """
         Extend the chain that starts at sector {start} by {length} additional sectors
