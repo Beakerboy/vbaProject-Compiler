@@ -15,6 +15,10 @@ class FatChain(SectorChain):
         file.write(data)
 
     def extendChain(self, start, number):
+        """
+        The fat chain needs to ensure that new sectors do not land on any sectors which will be
+        for fat chain information.
+        """
         newSectors = []
         lastSector = start
         nextSector = start
