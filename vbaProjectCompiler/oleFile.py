@@ -166,7 +166,8 @@ class OleFile:
         addressesPerSector = 2 ** (self.uSectorShift - 2)
         start = i * addressesPerSector
         end = (i + 1) * addressesPerSector
-        sectors = self.fatChain[start:end]
+        chain = self._fatChain.getChain()
+        sectors = chain[start:end]
         output = b''
         packSymbol = '<' if self.project.endien == 'little' else '>'
         format = packSymbol + "I"
