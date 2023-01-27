@@ -28,6 +28,9 @@ class Directory:
     def setSector(self, value):
         self._sector = value
 
+    def getSector(self):
+        return self._sector
+
     def nameSize(self):
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
