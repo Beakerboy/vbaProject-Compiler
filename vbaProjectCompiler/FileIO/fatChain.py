@@ -52,8 +52,6 @@ class FatChain(SectorChain):
             else:
                 self._chain.append(firstFreeSector)
             newSectors.append(firstFreeSector)
-        if len(self._chain) % 0x80 == 0:
-            self._chain.append(0xFFFFFFFD)
         self._chain.append(0xFFFFFFFE)
         newSectors.append(len(self._chain) - 1)
         return newSectors
