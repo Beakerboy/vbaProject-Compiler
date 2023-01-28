@@ -64,7 +64,7 @@ def test_extendThroughFatSector():
     chain.extendChain(1, 1)
     assert chain.getLength() == 130
 
-def test_extendThroughFatSector():
+def test_extendThroughFatSector2():
     chain = FatChain(512)
     chain.startNewChain()
     chain.extendChain(1, 125)
