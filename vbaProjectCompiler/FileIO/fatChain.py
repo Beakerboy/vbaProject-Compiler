@@ -45,12 +45,17 @@ class FatChain(SectorChain):
         newSectors.append(firstFreeSector)
         for i in range(number - 1):
             firstFreeSector += 1
-            if len(self._chain) % 0x80 == 0:
-                self._chain.append(0xFFFFFFFD)
+            if firstFreeSector % 0x80 == 0:
                 firstFreeSector += 1
-            self._chain.append(firstFreeSector)
+                self._chain.append(firstFreeSector)
+                self._chain.append(0xFFFFFFFD)
+            else:
+                self._chain.append(firstFreeSector)
             newSectors.append(firstFreeSector)
+        if len(self._chain) % 0x80 == 0:
+            self._chain.append(0xFFFFFFFD)
         self._chain.append(0xFFFFFFFE)
+        newSectors.append(len(self._chain) - 1)
         return newSectors
 
     def startNewChain(self):
