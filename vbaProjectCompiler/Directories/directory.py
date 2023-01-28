@@ -22,18 +22,21 @@ class Directory:
         # The sector where this stream begins
         # This can either be a minifat sector number or a Fat sector
         # depending on the stream size.
-        self._sector = 0
+        self._startSector = 0
         self.type = 0
 
-    def setSector(self, value):
-        self._sector = value
+    def setStartSector(self, value):
+        self._startSector = value
 
-    def getSector(self):
-        return self._sector
+    def getStartSector(self):
+        return self._startSector
 
     def nameSize(self):
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
+
+    def setAdditionalSectors(sectorList):
+        self._additionalSectors = sectorList
 
     def fileSize(self):
         return 0
