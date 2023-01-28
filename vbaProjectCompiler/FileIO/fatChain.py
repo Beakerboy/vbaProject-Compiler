@@ -38,14 +38,14 @@ class FatChain(SectorChain):
             nextSector = self._chain[lastSector]
         firstFreeSector = len(self._chain)
         # Check That we are not reserving what should be a FAT sector
-        if firstFreeSector % 0x80 == 0:
+        if firstFreeSector % 0x40 == 0:
             self._chain.append(0xFFFFFFFD)
             firstFreeSector += 1
         self._chain[lastSector] = firstFreeSector
         newSectors.append(firstFreeSector)
         for i in range(number - 1):
             firstFreeSector += 1
-            if len(self._chain) % 0x80 == 0:
+            if len(self._chain) % 0x40 == 0:
                 self._chain.append(0xFFFFFFFD)
                 firstFreeSector += 1
             self._chain.append(firstFreeSector)
