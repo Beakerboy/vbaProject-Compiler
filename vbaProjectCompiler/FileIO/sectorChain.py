@@ -10,6 +10,9 @@ class SectorChain:
         # Each entry points to the address of the next element in the chain.
         self._chain = []
 
+    def __len__(self):
+        return len(self._chain)
+
     def getSectorSize(self):
         return self._sectorSize
 
