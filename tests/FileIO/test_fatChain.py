@@ -71,6 +71,7 @@ def test_extendThroughFatSector2():
     chain.extendChain(1, 3)
     assert chain.getLength() == 131
     assert chain.findSector(126, 0) == 126
+    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130,0xFFFFFFFE]
     assert chain.findSector(126, 2) == 129
     assert chain.findSector(126, 3) == 0xFFFFFFFE
     assert chain.findSector(126, 4) == 0xFFFFFFFE
