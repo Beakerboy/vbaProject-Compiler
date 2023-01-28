@@ -2,9 +2,6 @@ import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class MiniChain(SectorChain):
 
-    def setFatChain(self, fatChain):
-        self._fatChain = fatChain
-
     def addStream(self, data):
         sectors = (len(data) - 1) // self._sectorSize + 1
         sectorNumber = len(self._chain)
