@@ -71,4 +71,6 @@ class FatChain(SectorChain):
         sector = startSector
         for i in range(depth):
             sector = self._chain[sector]
+            if sector == 0xFFFFFFFE:
+                return sector
         return sector
