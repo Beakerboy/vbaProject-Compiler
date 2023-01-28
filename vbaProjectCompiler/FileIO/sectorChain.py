@@ -10,6 +10,10 @@ class SectorChain:
         # Each entry points to the address of the next element in the chain.
         self._chain = []
 
+        # Each stream begins at the start of a sector and is padded to fill
+        # the end of a sector.
+        self._streams = []
+
     def __len__(self):
         return len(self._chain)
 
@@ -21,3 +25,10 @@ class SectorChain:
 
     def getChain(self):
         return self._chain
+
+    def addStream(stream):
+        sector = self.startNewChain()
+        stream.setStartSector(sector)
+        sectorsNeeded = stream.getSize() - 1) // self._sectorSize + 1
+        additionalSectors = self.extendChain(sector, sectorsNeeded)
+        stream.setAdditionalSectors(additionalSectors)
