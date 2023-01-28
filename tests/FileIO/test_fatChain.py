@@ -7,6 +7,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 def test_initialProperties():
     chain = FatChain(512)
+    assert chain.getSectorSize() == 512
     assert chain.getLength() == 1
     assert chain.getChain() == [0xfffffffd]
 
