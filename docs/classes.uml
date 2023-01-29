@@ -1,0 +1,74 @@
+class DocModule {
+    docTlibVer
+    type
+    __init__()
+    toProjectModuleString()
+}
+
+ModuleRecord <|- DocModule
+class docModule_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+docModule_py .. DocModule : contains >
+
+class ModuleRecord {
+    _fileSize
+    _size
+    cache
+    cookie
+    created
+    docString
+    helpContext
+    modName
+    modified
+    offsetRec
+    streamName
+    type
+    workspace
+    __init__()
+    addFile()
+    addPerformanceCache()
+    addWorkspace()
+    getChunkOfData()
+    getData()
+    getSize()
+    pack()
+    toProjectModuleString()
+}
+
+ModuleRecord *--> DoubleEncodedString : modName
+ModuleRecord *--> DoubleEncodedString : streamName
+ModuleRecord *--> DoubleEncodedString : docString
+ModuleRecord *--> IdSizeField : helpContext
+ModuleRecord *--> IdSizeField : cookie
+ModuleRecord *--> IdSizeField : offsetRec
+class moduleRecord_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+moduleRecord_py .. ModuleRecord : contains >
+
+class ReferenceRecord {
+    RefName
+    codePageName
+    libidRef
+    __init__()
+    pack()
+}
+
+ReferenceRecord *--> DoubleEncodedString : RefName
+class referenceRecord_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+referenceRecord_py .. ReferenceRecord : contains >
+
+endheader
+class StdModule {
+    upgrade to pro
+    upgrade to pro()
+}
+
+ModuleRecord <|- StdModule
+class stdModule_py <<module>> << (M,orchid) >> #DarkSeaGreen {
+}
+
+stdModule_py .. StdModule : contains >
