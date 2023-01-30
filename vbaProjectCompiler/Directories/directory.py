@@ -35,7 +35,7 @@ class Directory:
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
-    def setAdditionalSectors(sectorList):
+    def setAdditionalSectors(self, sectorList):
         self._additionalSectors = sectorList
 
     def fileSize(self):
