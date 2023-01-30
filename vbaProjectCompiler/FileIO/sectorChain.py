@@ -29,6 +29,6 @@ class SectorChain:
     def addStream(stream):
         sector = self.startNewChain()
         stream.setStartSector(sector)
-        sectorsNeeded = stream.getSize() - 1) // self._sectorSize + 1
+        sectorsNeeded = (stream.getSize() - 1) // self._sectorSize + 1
         additionalSectors = self.extendChain(sector, sectorsNeeded)
         stream.setAdditionalSectors(additionalSectors)
