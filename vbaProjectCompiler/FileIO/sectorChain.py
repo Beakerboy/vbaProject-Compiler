@@ -32,3 +32,4 @@ class SectorChain:
         sectorsNeeded = (stream.getSize() - 1) // self._sectorSize + 1
         additionalSectors = self.extendChain(sector, sectorsNeeded)
         stream.setAdditionalSectors(additionalSectors)
+        self._streams.append(stream)
