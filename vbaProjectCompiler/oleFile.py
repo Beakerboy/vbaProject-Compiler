@@ -128,7 +128,7 @@ class OleFile:
     def getFatSectors(self):
         """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
         sectorList = []
-        numberOfSectors = self._fatChain.getLength()
+        numberOfSectors = (self._fatChain.getLength() - 1) // 128 + 1
         for i in range(numberOfSectors):
             sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
