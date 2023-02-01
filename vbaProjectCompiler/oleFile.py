@@ -276,21 +276,12 @@ class OleFile:
         """
         packSymbol = '<' if self.project.endien == 'little' else '>'
 
-        # write empty directory sector
-        # Reserve sector in fat table
-        self._fatChain.startNewChain()
-        #emptyDirectoryEntry = Directory()
-        #entriesPerSector = 2 ** (self.uSectorShift - 7)
-        #emptyDirectoryBytes = emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien)
-        #self.writeDataToSector(
-        #    f,
-        #    self.firstDirectoryListSector
-        #)
-        # write empty minifat sector
-        # Reserve sector for minifat table
-        self._fatChain.startNewChain()
-        minifatEntriesPerSector = 2 ** (self.uSectorShift - 2)
-        #self.writeDataToSector(f, self.firstMiniChainSector, b'\xFF\xFF\xFF\xFF' * minifatEntriesPerSector)
+        directoryStream = DirectoryStream()
+        directoryStream.setStorageChain(self._fatChain)
+        self._fatChain.addStream(directoryStream)
+
+        self._minifatChain.setStorageChain(self._fatChain)
+        self._fatChain.addStream(self._minifatChain)
 
         # pull data from self.project
         for module in self.project.modules:
@@ -301,42 +292,22 @@ class OleFile:
         # add project
         # flatten directory tree
         self.streams = self.directory.flatten()
-        # Get the first sector of streams
-        directoryEntriesPerSector = 2 ** (self.uSectorShift - 7)
-        start = 0
-        while start < len(self.streams):
-            if start > 0:
-                newSector = self._fatChain.extendChain(self.firstDirectoryListSector, 1)
-                #self.writeDataToSector(f, newSector[0], emptyDirectoryEntry.writeDirectory(self.project.getCodePageName(), self.project.endien) * directoryEntriesPerSector)
-            end = start + directoryEntriesPerSector
-            entries = self.streams[start:end]
-            for stream in entries:
-                if stream.type == 2:
-                    if stream.fileSize() > self.ulMiniSectorCutoff:
-                        # self.fatChain.addFileToChain()
-                        # update object with number of reserved bytes
-                        # stream.setSector(sectors[0])
-                        # find first unused fat sector
-                        # save starting sector to object
-                        # write directory entry
-                        # initialize sectors with zeros
-                        # update fat chain
-                        # write data
-                        pass
-                    else:
-                        miniSectorsPerSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
-                        initialLength = (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
-                        if self._minifatChain.getLength() == 0:
-                            self.directory.setSector(self._fatChain.startNewChain())
-                            initialLength = 1
-                        newSectors = self._minifatChain.addStream(stream.getData())
-                        newLength = (self._minifatChain.getLength() - 1) // miniSectorsPerSector + 1
-                        
-                        if newLength > initialLength:
-                            self._fatChain.extendChain(self.directory.getSector(), newLength - initialLength)
-                        stream.setBytesReserved(len(newSectors) * 2 ** self.uMiniSectorShift)
-                        stream.setSector(newSectors[0])
-            start = end
+        for stream in self.streams
+            directoryStream.append(stream)
+            if stream.type == 2:
+                if stream.fileSize() > self.ulMiniSectorCutoff:
+                    # self.fatChain.addFileToChain()
+                    # update object with number of reserved bytes
+                    # stream.setSector(sectors[0])
+                    # find first unused fat sector
+                    # save starting sector to object
+                    # write directory entry
+                    # initialize sectors with zeros
+                    # update fat chain
+                    # write data
+                    pass
+                else:
+                    pass
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # write fat sectors
