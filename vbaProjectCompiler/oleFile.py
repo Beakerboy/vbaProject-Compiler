@@ -20,12 +20,11 @@ class OleFile:
         self.firstMiniChainSector     = 2
         self.ulMiniSectorCutoff       = 4096
 
-        # the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
+        # the FAT chain holds large files, the minifat chain, the minifat data, and the directory tree.
         self._fatChain = FatChain(2 ** self.uSectorShift)
 
         # The list of pointers to the address of the next file piece
         self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
-        self._minifatChain.setFatChain(self._fatChain)
 
         # A list of directories
         self.directory = RootDirectory()
