@@ -1,7 +1,7 @@
 import pytest
 from vbaProjectCompiler.decompressor import Decompressor
 
-def test_Compressor():
+def test_Decompressor():
     comp = Decompressor()
     header = b'\x19\xB0'
     comp.setCompressedHeader(header)
