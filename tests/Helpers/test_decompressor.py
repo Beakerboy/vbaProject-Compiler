@@ -1,5 +1,5 @@
 import pytest
-from vbaProjectCompiler.decompressor import Decompressor
+from vbaProjectCompiler.Helpers.decompressor import Decompressor
 
 def test_Decompressor():
     comp = Decompressor()
