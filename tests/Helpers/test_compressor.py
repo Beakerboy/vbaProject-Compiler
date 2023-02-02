@@ -8,7 +8,7 @@ def test_unableToCompress():
     assert comp.compress() == expected
 
 def test_maxCompression():
-    input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    input = b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     comp = Compressor(input)
     expected = "\x01\x03\xB0\x02\x61\x45\x00"
     assert comp.compress() == expected
