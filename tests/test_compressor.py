@@ -1,5 +1,5 @@
 import pytest
-from vbaProjectCompiler.decompressor import Compressor
+from vbaProjectCompiler.Helpers.compressor import Compressor
 
 def test_unableToCompress():
     input = b'abcdefghijklmnopqrstuv.'
