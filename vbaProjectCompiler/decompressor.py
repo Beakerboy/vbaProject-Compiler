@@ -22,10 +22,6 @@ class Decompressor:
             raise Exception("Expecting " + str(self.compressedChunkSize - 2) + " bytes, but given " + str(len(data)) + ".")
         self.compressedData = data
 
-    def setCompression(self, compress):
-        """Set if we want to compress the source or include it raw"""
-        self.compressed = 1 if compress else 0
-
     def setCompressedHeader(self, compressedHeader):
         """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
         length = len(compressedHeader)
@@ -126,6 +122,10 @@ class Decompressor:
         return i
 
 class Compressor:
+    def __init__(self, compress=TRUE):
+        # If compress is FALSE, the result will be raw.
+        self.compress = compress
+        
     def compress(self):
         self.compressed_container = bytearray()
         self.compressed_current = 0
