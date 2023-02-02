@@ -1,20 +1,18 @@
 import struct
 class Decompressor:
-    # class attributes
 
-    endien                   = ''
-    # is the data compressed?
-    compressed               = 1
-
-    #the size in bytes of the chunk after compression
-    compressedChunkSize      = 0
-
-    # The chunk after compression
-    compressedData           = bytearray(b'')
-
-    def __init__(self, endien = 'little'):
-        self.endien = endien
+    def __init__(self, endian = 'little'):
+        self.endian = endien
         self.uncompressedData = bytearray(b'')
+        
+        # The chunk after compression
+        self.compressedData = bytearray(b'')
+
+        #the size in bytes of the chunk after compression
+        self.compressedChunkSize = 0
+
+        # is the data compressed?
+        self.compressed = 1
 
     def setCompressedData(self, data):
         """
@@ -55,7 +53,9 @@ class Decompressor:
         intHeader = (self.compressed << 15) | 0x3000 | (self.compressedChunkSize - 3)
         if intHeader > (2*0x7fff) or 0 > intHeader:
             raise Exception('intHeader out of range: ' + str(intHeader))
-        return struct.pack("<H", intHeader)
+        packSymbol = '<' if self.endian == 'little' else '>'
+        format = packSymbol + 'H'
+        return struct.pack(format, intHeader)
 
     def decompress(self, data):
         orig_data = data
@@ -81,7 +81,7 @@ class Decompressor:
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
-                  copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])
+                  copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])  # Note this this will always be little endien.
                   del data[:2]
                   
                   for i in range(copyToken["length"]):
