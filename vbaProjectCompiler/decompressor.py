@@ -124,7 +124,7 @@ class Decompressor:
 class Compressor:
     def __init__(self, compress=True):
         # If compress is FALSE, the result will be raw.
-        self.compress = compress
+        self._compress = compress
         
     def compress(self):
         self.compressed_container = bytearray()
