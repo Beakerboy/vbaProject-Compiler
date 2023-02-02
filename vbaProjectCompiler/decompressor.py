@@ -122,7 +122,7 @@ class Decompressor:
         return i
 
 class Compressor:
-    def __init__(self, compress=TRUE):
+    def __init__(self, compress=True):
         # If compress is FALSE, the result will be raw.
         self.compress = compress
         
