@@ -245,7 +245,7 @@ class Compressor:
             length = best_length
             if (maximum_length < best_length):
                 length = maximum_length
-             offset = self.decompressed_current - best_candidate
+            offset = self.decompressed_current - best_candidate
         else:
             length = 0
             offset = 0
