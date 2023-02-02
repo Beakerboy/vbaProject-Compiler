@@ -216,7 +216,7 @@ class Compressor:
                 self.compressed_current = compressed_end
         else:
             if self.compressed_current < compressed_end:
-		        if not(isInstance(self.compressed_current, int)) or not(isInstance(self.decompressed_current, int)):
+                if not(isInstance(self.compressed_current, int)) or not(isInstance(self.decompressed_current, int)):
                     raise Exception("values must be integers compressed_current is " + str(self.compressed_current) + " and decomprssed_current is " + str(self.compressed_current) + ".")
 			
                 self.compressed_container[self.compressed_current] = self.data[self.decompressed_current]
