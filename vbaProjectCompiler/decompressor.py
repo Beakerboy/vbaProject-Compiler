@@ -125,40 +125,39 @@ class Decompressor:
             i += 1
         return i
 
-    class Compressor:
-        def compress(self):
-            self.compressed_container = bytearray()
-            self.compressed_current = 0
-            self.compressed_chunk_start = 0
-            self.decompressed_current = 0
-            self.decompressed_buffer_end = len(self.data)
-            self.decompressed_chunk_start = 0
+class Compressor:
+    def compress(self):
+        self.compressed_container = bytearray()
+        self.compressed_current = 0
+        self.compressed_chunk_start = 0
+        self.decompressed_current = 0
+        self.decompressed_buffer_end = len(self.data)
+        self.decompressed_chunk_start = 0
 
-            signature_byte = 0x01
-            self.compressed_container.append(signature_byte)
-            self.compressed_current = self.compressed_current + 1
+        signature_byte = 0x01
+        self.compressed_container.append(signature_byte)
+        self.compressed_current = self.compressed_current + 1
+        while self.decompressed_current < self.decompressed_buffer_end:
+            self.compressed_chunk_start = self.compressed_current
+            self.decompressed_chunk_start = self.decompressed_current
+            self.compress_decompressed_chunk()
 
-            while self.decompressed_current < self.decompressed_buffer_end:
-                self.compressed_chunk_start = self.compressed_current
-                self.decompressed_chunk_start = self.decompressed_current
-                self.compress_decompressed_chunk()
+        return self.compressed_container
 
-            return self.compressed_container
+    def compress_decompressed_chunk(self):
+        self.compressed_container.extend(bytearray(4096 + 2))
+        compressed_end = self.compressed_chunk_start + 4098
+        self.compressed_current = self.compressed_chunk_start + 2
+        decompressed_end = self.decompressed_buffer_end
 
-        def compress_decompressed_chunk(self):
-            self.compressed_container.extend(bytearray(4096 + 2))
-            compressed_end = self.compressed_chunk_start + 4098
-            self.compressed_current = self.compressed_chunk_start + 2
-            decompressed_end = self.decompressed_buffer_end
+        if (self.decompressed_chunk_start + 4096) < self.decompressed_buffer_end:
+            decompressed_end = (self.decompressed_chunk_start + 4096)
 
-            if (self.decompressed_chunk_start + 4096) < self.decompressed_buffer_end:
-                decompressed_end = (self.decompressed_chunk_start + 4096)
+        while (self.decompressed_current < decompressed_end) and (self.compressed_current < compressed_end):
+            self.compress_token_sequence(compressed_end, decompressed_end)
 
-		while (self.decompressed_current < decompressed_end) and (self.compressed_current < compressed_end):
-				self.compress_token_sequence(compressed_end, decompressed_end)
-
-		if self.decompressed_current < decompressed_end:
-			self.compress_raw_chunk(decompressed_end - 1)
+        if self.decompressed_current < decompressed_end:
+            self.compress_raw_chunk(decompressed_end - 1)
 			compressed_flag = 0
 		else:
 			compressed_flag = 1
