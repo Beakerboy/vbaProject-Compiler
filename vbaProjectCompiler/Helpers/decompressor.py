@@ -1,15 +1,15 @@
 import struct
 class Decompressor:
-    #class attributes
+    # class attributes
 
     endien                   = ''
-    #is the data compressed?
+    # is the data compressed?
     compressed               = 1
 
     #the size in bytes of the chunk after compression
     compressedChunkSize      = 0
 
-    #The chunk after compression
+    # The chunk after compression
     compressedData           = bytearray(b'')
 
     def __init__(self, endien = 'little'):
@@ -17,21 +17,25 @@ class Decompressor:
         self.uncompressedData = bytearray(b'')
 
     def setCompressedData(self, data):
-        """set the Compressed data attribute"""
+        """
+        set the Compressed data attribute
+        """
         if len(data) != self.compressedChunkSize - 2:
             raise Exception("Expecting " + str(self.compressedChunkSize - 2) + " bytes, but given " + str(len(data)) + ".")
         self.compressedData = data
 
     def setCompressedHeader(self, compressedHeader):
-        """The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed"""
+        """
+        The compressed header is two bytes. 12 signature byes followed by \011 and a single bit that is 0b1 if compressed
+        """
         length = len(compressedHeader)
         if length != 2:
             raise Exception("The header must be two bytes. Given " + str(length) + ".")
         intHeader = int.from_bytes(compressedHeader, "little")
-        #data is compressed if the least significat bit is 0b1
+        # data is compressed if the least significat bit is 0b1
         self.compressed = (intHeader & 0x8000) >> 15
 
-        #the 12 most significant bits is three less than the chunk size
+        # the 12 most significant bits is three less than the chunk size
         self.compressedChunkSize = (intHeader & 0x0FFF) + 3
         if not(self.compressed) and self.compressedChunkSize != 4096:
             raise Exception("If uncompressed, chunk must be 4096 bytes.")
