@@ -2,7 +2,7 @@
 import pytest
 
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.decompressor import Decompressor
+from vbaProjectCompiler.Helpers.decompressor import Decompressor
 from vbaProjectCompiler.Views.dirStream import DirStream
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
