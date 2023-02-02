@@ -12,14 +12,6 @@ def test_Decompressor():
     comp.setCompressedData(data)
     assert comp.getCompressedChunk() == bytearray(header) + bytearray(data)
 
-def test_maxCompression():
-    comp = Decompressor()
-    #comp.setCompression(True)
-    #input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    #result = comp.compress(input);
-    expected = "\x01\x03\xB0\x02\x61\x45\x00"
-    #assert expected == result
-
 def test_normalCompression():
     comp = Decompressor()
     expected = "#aaabcdefaaaaghijaaaaaklaaamnopqaaaaaaaaaaaarstuvwxyzaaa"
