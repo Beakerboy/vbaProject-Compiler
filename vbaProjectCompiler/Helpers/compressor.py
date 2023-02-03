@@ -43,7 +43,7 @@ class Compressor:
         chunkSize = len(chunk)
         # if the compression algorithm produces a chunk too large, use raw.
         if chunkSize > 4096:
-            chuckSize = 4096
+            chunkSize = 4096
             chunk = data.ljust(4096, '\0')
             compressAndSig = 0x3000
         header = compressAndSig & chunkSize
@@ -92,7 +92,7 @@ class Compressor:
         candidate = len(self.activeChunk) - len(uncompressedStream) - 1
         while candidate >= 0:
             C = candidate
-            D = candidate + 1
+            D = len(self.activeChunk) - len(uncompressedStream)
             L = 0
             while D < len(self.activeChunk) and self.activeChunk[D] == self.activeChunk[C]:
                 C += 1
