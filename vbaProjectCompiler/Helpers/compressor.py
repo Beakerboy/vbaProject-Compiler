@@ -61,7 +61,7 @@ class Compressor:
                 token = b''
                 uncompressedData, token, flag = self.compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
-                tokens += bytes(token)
+                tokens += token
         tokenSequence = bytes(tokenFlag) + tokens
         return uncompressedData, tokenSequence
 
@@ -111,7 +111,7 @@ class Compressor:
             offset = len(self.activeChunk) - len(uncompressedStream) - bestCandidate
             copyToken = self.packCopyToken(length, offset, help)
         else:
-            copyToken = uncompressedStream[0]
+            copyToken = bytes(uncompressedStream[0])
         return copyToken, length
 
     def copytokenHelp(self, difference):
@@ -130,10 +130,15 @@ class Compressor:
         }
 
     def packCopyToken(self, length, offset, help):
+        """
+        Create the copy token from the length, offset, and currect position
+        
+        return bytes
+        """
         temp1 = offset - 1
         temp2 = 16 - help["bitCount"]
         temp3 = length - 3
-        return (temp1 << temp2) | temp3
+        return struct.pack("<H", (temp1 << temp2) | temp3)
 
     def ceilLog2(self, int):
         i = 4
