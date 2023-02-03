@@ -55,7 +55,7 @@ class Compressor:
         uncompressedData = data
         chunk = b''
         while len(uncompressedData) > 0:
-            uncompressesData, compressedTokenSequence = compressTokenSequence(uncompressedData)
+            uncompressesData, compressedTokenSequence = self.compressTokenSequence(uncompressedData)
             chunk += compressedTokenSequence
 
         chunkSize = len(chunk)
@@ -67,7 +67,7 @@ class Compressor:
         header = compressAndSig & chunkSize
         packSymbol = '<' if self.endian == 'little' else '>'
         format = packSymbol + 'H'
-        chunk = struct.pack(format, header) + chuck
+        chunk = struct.pack(format, header) + chunk
         return chunk
 
     def compressTokenSequence(self, data):
@@ -76,7 +76,7 @@ class Compressor:
         tokens = b''
         for i in range(8):
             if len(uncompressedData) > 0:
-                uncompressedData, token, flag = compressToken(uncompressedData)
+                uncompressedData, token, flag = self.compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
                 tokens += token
         tokenSequence = tokenFlag + tokens
@@ -89,7 +89,7 @@ class Compressor:
         two bytes indicating the location and length of the replacement sequence
         the flag byte is 1 if replacement took place
         """
-        offset, length = matching(uncompressedData)
+        offset, length = self.matching(uncompressedData)
         if length == 0:
             uncompressedData = uncompressedData[1:]
         else:
