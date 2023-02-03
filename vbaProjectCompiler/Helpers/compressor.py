@@ -76,7 +76,7 @@ class Compressor:
         tokens = b''
         for i in range(8):
             if len(uncompressedData) > 0:
-                uncompressedData, token, flag += compressToken(uncompressedData)
+                uncompressedData, token, flag = compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
                 tokens += token
         tokenSequence = tokenFlag + tokens
