@@ -106,7 +106,7 @@ class Compressor:
             candidate -= 1
             
         if bestLength >= 3:
-            difference =  len(self.uncompressedChunk) - len(uncompressedStream)
+            difference =  len(self.activeChunk) - len(uncompressedStream)
             help = self.copytokenHelp(difference)
             maximumLength = help["maxLength"]
             length = min(maximumLength, bestLength)
