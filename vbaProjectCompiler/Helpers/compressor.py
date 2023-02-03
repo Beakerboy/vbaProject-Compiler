@@ -1,7 +1,7 @@
 import struct
 class Compressor:
-    def __init__(self, endien='little'):
-        self.endien = endien
+    def __init__(self, endian='little'):
+        self.endian = endian
  
         # The compressed container begins with a sgnature byte and an empty header
         self.compressedData = bytearray(b'\x01')
@@ -10,7 +10,7 @@ class Compressor:
         self._compress = compress
         
     def compress(self, data):
-	    """
+        """
         Compress a bytearray
 
         :param data bytes: bytes of compressed data
@@ -18,7 +18,7 @@ class Compressor:
         :rtype: bytes
         """
 	
-	    self.uncompresssdData = data
+        self.uncompresssdData = data
 
         numberOfChunks = (len(data) - 1) // 4096 + 1
         
