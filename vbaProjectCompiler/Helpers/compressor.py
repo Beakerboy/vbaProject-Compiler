@@ -90,9 +90,13 @@ class Compressor:
         """
         offset, length = self.matching(uncompressedData)
         if length == 0:
+            token = uncompressedData[0]
             uncompressedData = uncompressedData[1:]
+            tokenFlag = 0
         else:
+            tokenFlag = 1
             uncompressedData = uncompressedData[length:]
+            token = self.packCopyToken()
         return uncompressedData, token, tokenFlag
 
     def matching(self, uncompressedStream):
@@ -118,22 +122,35 @@ class Compressor:
             candidate -= 1
             
         if bestLength >= 3:
-            maximumLength = self.copytokenHelp(uncompressedStream)
+            difference =  len(self.uncompressedChunk) - len(uncompressedStream)
+            help = self.copytokenHelp(difference)
+            maximumLength = help["maxLength"]
             length = min(maximumLength, bestLength)
             offset = len(self.activeChunk) - len(uncompressedStream) - bestCandidate
+            copyToken = self.packCopyToken(length, offset, help)
         return offset, length
 
-    def copytokenHelp(self, uncompressedStream):
+    def copytokenHelp(self, difference):
         """
-        Calculate a lengthMask, offsetMask, and bitCount
+        Calculate a lengthMask, offsetMask, and bitCount from the length of the uncompressedData
         """
-        difference = len(self.uncompressedChunk) - len(uncompressedStream)
         bitCount = self.ceilLog2(difference)
         lengthMask = 0xFFFF >> bitCount
         offsetMask = ~lengthMask & 0xFFFF
         maxLength = 0xFFFF << bitCount + 3
-        return maxLength
-        
+        return {
+            "lengthMask": lengthMask,
+            "offsetMask": offsetMask,
+            "bitCount": bitCount,
+            "maxLength": maxLength
+        }
+
+    def packCopyToken(self, length, offset, help):
+        temp1 = offset - 1
+        temp2 = 16 - help["bitCount"]
+        temp3 = length - 3
+        return (temp1 << temp2) | temp3
+
     def ceilLog2(self, int):
         i = 4
         while 2 ** i < int:
