@@ -23,7 +23,7 @@ class Compressor:
         numberOfChunks = (len(data) - 1) // 4096 + 1
         
         for i in range(numberOfChunks):
-            chunk = self.compressChunk(data[i * 4066: (i + 1) * 4096])
+            chunk = self.compressChunk(data[i * 4096: (i + 1) * 4096])
             self.compressedData += chunk
             
         return self.compressedData
