@@ -76,7 +76,7 @@ class Compressor:
                 token = b''
                 uncompressedData, token, flag = self.compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
-                tokens += token
+                tokens += bytes(token)
         tokenSequence = bytes(tokenFlag) + tokens
         return uncompressedData, tokenSequence
 
