@@ -58,7 +58,7 @@ class Compressor:
             uncompressesData, compressedTokenSequence = compressTokenSequence(uncompressedData)
             chunk += compressedTokenSequence
 
-       chunkSize = len(chunk)
+        chunkSize = len(chunk)
         # if the compression algorithm produces a chunk too large, use raw.
         if chunkSize > 4096:
             chuckSize = 4096
