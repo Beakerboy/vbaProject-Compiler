@@ -39,7 +39,7 @@ class Compressor:
         i = 0
         while len(uncompressedData) > 0:
             if i > 5000:
-                raise Exception("Loop executed too many times. Remaining data:" + str(uncompressedData, "ascii"))
+                raise Exception("Loop executed too many times. Remaining data:" + str(uncompressedData, "ascii") + str(chunk, "ascii"))
             uncompressedData, compressedTokenSequence = self.compressTokenSequence(uncompressedData)
             chunk += compressedTokenSequence
             i += 1
