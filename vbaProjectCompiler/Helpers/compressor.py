@@ -69,16 +69,15 @@ class Compressor:
 
     def compressTokenSequence(self, data):
         uncompressedData = data
-        tokenFlag = b'\x00'
+        tokenFlag = 0
         tokens = b''
         for i in range(8):
             if len(uncompressedData) > 0:
                 token = b''
-                tokenflag = 0
                 uncompressedData, token, flag = self.compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
                 tokens += token
-        tokenSequence = tokenFlag + tokens
+        tokenSequence = bytes(tokenFlag) + tokens
         return uncompressedData, tokenSequence
 
     def compressToken(self, uncompressedData):
