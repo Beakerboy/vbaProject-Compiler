@@ -76,8 +76,8 @@ class Compressor:
         tokens = b''
         for i in range(8):
             if len(uncompressedData) > 0:
-		token = b''
-		tokenflag = 0
+                token = b''
+                tokenflag = 0
                 uncompressedData, token, flag = self.compressToken(uncompressedData)
                 tokenFlag = (flag << i) | tokenFlag
                 tokens += token
