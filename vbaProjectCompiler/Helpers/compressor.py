@@ -49,7 +49,7 @@ class Compressor:
         """
         
         # Initialize with an empty header
-        # Is endien-ness supposed to affect the header organization?
+        # Is endian-ness supposed to affect the header organization?
         # The docs state 12 length bits + 0b011 + compression-bit but real world little endian file has compression-bit + 0b011 + 12 length bits
         compressAndSig = 0xB000
         uncompressedData = data
@@ -65,7 +65,7 @@ class Compressor:
             chunk = data.ljust(4096, '\0')
             compressAndSig = 0x3000
         header = compressAndSig & chunkSize
-        packSymbol = '<' if self.endien = 'little' else '>'
+        packSymbol = '<' if self.endian = 'little' else '>'
         format = packSymbol + 'H'
         chunk = struct.pack(format, header) + chuck
         return chunk
