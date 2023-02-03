@@ -95,7 +95,7 @@ class Compressor:
             uncompressedData = uncompressedData[length:]
         return uncompressedData, token, tokenFlag
 
-    def matching(self, uncompressedDtream):
+    def matching(self, uncompressedStream):
         """
         Work backwards through the uncompressed data that has already been compressed to find the longest series of matching bytes
         """
@@ -107,7 +107,7 @@ class Compressor:
         while candidate >= 0:
             C = candidate
             D = candidate + 1
-            len = 0
+            L = 0
             while D < len(self.activeChunk) and self.activeChunk[D] == self.activeChunk[C]:
                 C += 1
                 D += 1
