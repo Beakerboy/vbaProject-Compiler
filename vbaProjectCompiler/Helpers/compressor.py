@@ -65,7 +65,7 @@ class Compressor:
             chunk = data.ljust(4096, '\0')
             compressAndSig = 0x3000
         header = compressAndSig & chunkSize
-        packSymbol = '<' if self.endian = 'little' else '>'
+        packSymbol = '<' if self.endian == 'little' else '>'
         format = packSymbol + 'H'
         chunk = struct.pack(format, header) + chuck
         return chunk
