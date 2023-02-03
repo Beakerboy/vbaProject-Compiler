@@ -72,8 +72,8 @@ class Compressor:
         two bytes indicating the location and length of the replacement sequence
         the flag byte is 1 if replacement took place
         """
-        token = self.matching(uncompressedData)
-        if length(token) == 1:
+        token, length = self.matching(uncompressedData)
+        if len(token) == 1:
             uncompressedData = uncompressedData[1:]
             tokenFlag = 0
         else:
@@ -112,7 +112,7 @@ class Compressor:
             copyToken = self.packCopyToken(length, offset, help)
         else:
             copyToken = uncompressedStream[0]
-        return copyToken
+        return copyToken, length
 
     def copytokenHelp(self, difference):
         """
