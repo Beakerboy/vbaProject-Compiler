@@ -2,7 +2,7 @@ import struct
 class Decompressor:
 
     def __init__(self, endian = 'little'):
-        self.endian = endien
+        self.endian = endian
         self.uncompressedData = bytearray(b'')
         
         # The chunk after compression
@@ -81,7 +81,7 @@ class Decompressor:
               else:
                   if len(data) < 2:
                       raise Exception("Copy Token does not exist. FlagToken was " + str(flagToken) + " and decompressed chunk is " + self.uncompressedData + '.')
-                  copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])  # Note this this will always be little endien.
+                  copyToken = self.unpackCopytoken(struct.unpack("<H", data[:2])[0])  # Note this this will always be little endian.
                   del data[:2]
                   
                   for i in range(copyToken["length"]):
