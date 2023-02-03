@@ -31,6 +31,6 @@ def test_longPoorCompression():
     comp = Compressor()
     result = comp.compress(data)
     # the length is 1 container signature byte, 2 header bytes, and the original data padded to 4096 bytes
-    assert len(result) = 4099
+    assert len(result) == 4099
     assert result[3] & 0xF0 == 0x30
           
