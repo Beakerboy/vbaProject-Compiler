@@ -5,9 +5,6 @@ class Compressor:
  
         # The compressed container begins with a sgnature byte and an empty header
         self.compressedData = bytearray(b'\x01')
-	
-        # If compress is FALSE, the result will be raw.
-        self._compress = compress
         
     def compress(self, data):
         """
@@ -18,7 +15,7 @@ class Compressor:
         :rtype: bytes
         """
 	
-        self.uncompresssdData = data
+        self.originalData = data
 
         numberOfChunks = (len(data) - 1) // 4096 + 1
         
@@ -47,7 +44,7 @@ class Compressor:
         """
         A chunk of data is 4096 bytes or less. This will return a stream of max length 4098, a 2 byte header and up to 4096 bytes of data.
         """
-        
+        self.activeChunk = data
         # Initialize with an empty header
         # Is endian-ness supposed to affect the header organization?
         # The docs state 12 length bits + 0b011 + compression-bit but real world little endian file has compression-bit + 0b011 + 12 length bits
@@ -96,8 +93,49 @@ class Compressor:
             uncompressedData = uncompressedData[1:]
         else:
             uncompressedData = uncompressedData[length:]
-        return uncompressedData, tokenFlag, token
+        return uncompressedData, token, tokenFlag
 
-    def matching(self):
-        
+    def matching(self, uncompressedDtream):
+        """
+        Work backwards through the uncompressed data that has already been compressed to find the longest series of matching bytes
+        """
+        offset = 0
+        length = 0
+        bestLength = 0
+        bestCandidate = 0
+        candidate = len(self.activeChunk) - len(uncompressedStream) - 1
+        while candidate >= 0:
+            C = candidate
+            D = candidate + 1
+            len = 0
+            while D < len(self.activeChunk) and self.activeChunk[D] == self.activeChunk[C]:
+                C += 1
+                D += 1
+                L += 1
+            if L > bestLength:
+                bestLength = L
+                bestCandidate = candidate
+            candidate -= 1
+            
+        if bestLength >= 3
+            maximumLength = self.copytokenHelp(uncompressedStream)
+            length = min(maximunLength, bestLength)
+            offset = len(self.activeChunk) - len(uncompressedStream) - bestCandidate
         return offset, length
+
+    def copytokenHelp(self, uncompressedStream):
+        """
+        Calculate a lengthMask, offsetMask, and bitCount
+        """
+        difference = len(self.uncompressedChunk) - len(uncompressedStream)
+        bitCount = self.ceilLog2(difference)
+        lengthMask = 0xFFFF >> bitCount
+        offsetMask = ~lengthMask & 0xFFFF
+        maxLength = 0xFFFF << bitCount + 3
+        return maxLength
+        
+    def ceilLog2(self, int):
+        i = 4
+        while 2 ** i < int:
+            i += 1
+        return i
