@@ -2,10 +2,10 @@ import struct
 class Compressor:
     def __init__(self, endian='little'):
         self.endian = endian
- 
+
         # The compressed container begins with a sgnature byte and an empty header
         self.compressedData = bytearray(b'\x01')
-        
+
     def compress(self, data):
         """
         Compress a bytearray
@@ -24,21 +24,6 @@ class Compressor:
             self.compressedData += chunk
             
         return self.compressedData
-        self.compressed_current = 0
-        self.compressed_chunk_start = 0
-        self.decompressed_current = 0
-        self.decompressed_buffer_end = len(self.data)
-        self.decompressed_chunk_start = 0
-	
-        signature_byte = 0x01
-        self.compressed_container.append(signature_byte)
-        self.compressed_current = self.compressed_current + 1
-        while self.decompressed_current < self.decompressed_buffer_end:
-            self.compressed_chunk_start = self.compressed_current
-            self.decompressed_chunk_start = self.decompressed_current
-            self.compress_decompressed_chunk()
-
-        return self.compressed_container
 
     def compressChunk(self, data):
         """
