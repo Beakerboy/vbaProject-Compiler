@@ -36,9 +36,13 @@ class Compressor:
         compressAndSig = 0xB000
         uncompressedData = data
         chunk = b''
+        i = 0
         while len(uncompressedData) > 0:
+            if i > 5000:
+                raise Exception('loop executed too many times")
             uncompressedData, compressedTokenSequence = self.compressTokenSequence(uncompressedData)
             chunk += compressedTokenSequence
+            i += 1
 
         chunkSize = len(chunk)
         # if the compression algorithm produces a chunk too large, use raw.
