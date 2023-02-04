@@ -13,7 +13,7 @@ def test_dirStream():
     project = VbaProject()
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x1EC0
-    length = 0x022E
+    length = 0x0238
     f.seek(offset)
     container = f.read(length)
     comp = Decompressor()
