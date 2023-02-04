@@ -4,6 +4,7 @@ from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
 
+
 class OleFile:
    
     # class default constructor
@@ -20,7 +21,8 @@ class OleFile:
         self.firstMiniChainSector     = 2
         self.ulMiniSectorCutoff       = 4096
 
-        # the FAT chain holds large files, the minifat chain, the minifat data, and the directory tree.
+        # the FAT chain holds large files, the minifat chain, the minifat data,
+        # and the directory tree.
         self._fatChain = FatChain(2 ** self.uSectorShift)
 
         # The list of pointers to the address of the next file piece
@@ -75,17 +77,20 @@ class OleFile:
 
     def getDifStartSector(self):
         """
-        The Fat sector lost in the header can only list the position of 109 sectors.
-        If more sectors are needed, the DIF sector lists these sector numbers.
+        The Fat sector lost in the header can only list the position of 109
+        sectors.If more sectors are needed, the DIF sector lists these sector
+        numbers.
         """
         if len(self.getFatSectors()) <= 109:
             return 0xfffffffe
         #research how Dif works
         return 0
 
+
     def countDifSectors(self):
         """
-        How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
+        How many sectors of 512 entries are needed to list the positions of the
+        remaining FAT sectors.
         What if sectors are not 512 bytes?
         """
         count = self.countFatChainSectors()
@@ -93,11 +98,13 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
+
     def countFatChainSectors(self):
         """
         Calculate the number of sectors needed to express the FAT chain.
         """
         return max((len(self._fatChain.getChain()) - 1) // (2 ** self.uSectorShift - 1) + 1, 1)
+
 
     def countDirectoryListSectors(self):
         """
@@ -108,16 +115,20 @@ class OleFile:
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
         return directorySectors
 
+
     def countMinifatFatChainSectors(self):
         addressesPerSector = 2 ** (self.uSectorShift - 2)
         return max((len(self._minifatChain.getChain()) - 1) // addressesPerSector + 1, 1)
-  
+
+
     def writeHeaderFatSectorList(self):
         """
-        Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF
+        Create a 436 byte stream of the first 109 FAT sectors, padded with
+        \\xFF.
         """
         packSymbol = '<' if self.project.endien == 'little' else '>'
-        #if the list is longer then 109 entries, need to mange the extended MSAT sectors.
+        # if the list is longer then 109 entries, need to mange the extended
+        # MSAT sectors.
         output = b''
         list = self.getFatSectors()
         for sector in list[0:109]:
@@ -125,8 +136,12 @@ class OleFile:
         output = output.ljust(436, b'\xff')
         return output
 
+
     def getFatSectors(self):
-        """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
+        """
+        List which sectors contain FAT chain information. They should be on
+        128 sector intervals.
+        """
         sectorList = []
         numberOfSectors = (self._fatChain.getLength() - 1) // 128 + 1
         for i in range(numberOfSectors):
@@ -157,7 +172,8 @@ class OleFile:
         """
         Use the info in the directory list to create the minifat chain
         """
-        # foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
+        # foreach element in the array, if the size is greater then zero
+        # determine how many 64 byte sectors are needed to contain the data
         chain = []
         #All files with data require one sector, how many more are needed.
         additionalMinifatSectors = 0
@@ -292,7 +308,7 @@ class OleFile:
         # add project
         # flatten directory tree
         self.streams = self.directory.flatten()
-        for stream in self.streams
+        for stream in self.streams:
             directoryStream.append(stream)
             if stream.type == 2:
                 if stream.fileSize() > self.ulMiniSectorCutoff:
