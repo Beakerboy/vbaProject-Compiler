@@ -1,5 +1,6 @@
+import pytest-mock
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
-from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
+from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
 
 def test_directory():
@@ -20,7 +21,17 @@ def test_directory():
 def test_RootDirectory():
     dir = RootDirectory()
     assert dir.type == 5
+
     stream = StreamDirectory()
-    stream.filePath = "tests/blank/PROJECT"
+
+    def mock_func(self):
+        return 447
+
+    mocker.patch(
+        # Make dir think the file is 448 bytes
+        'vbaProjectCompiler.Directories.streamDirectory.minifatSectorsUsed',
+        mock_func
+    )
+    
     dir.addFile(stream)
-    assert dir.fileSize() == 448
+    assert dir.fileSize() == 447
