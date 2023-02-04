@@ -18,7 +18,7 @@ def test_directory():
     assert dir.writeDirectory('cp1254', 'little') == expected
 
 
-def test_RootDirectory():
+def test_RootDirectory(mocker):
     dir = RootDirectory()
     assert dir.type == 5
 
