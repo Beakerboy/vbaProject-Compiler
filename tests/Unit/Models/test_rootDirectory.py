@@ -1,6 +1,5 @@
 import pytest
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
-from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
 
 def test_directory():
@@ -18,20 +17,15 @@ def test_directory():
     assert dir.writeDirectory('cp1254', 'little') == expected
 
 
-def test_RootDirectory(mocker):
+def test_RootDirectory():
     dir = RootDirectory()
     assert dir.type == 5
 
-    stream = StreamDirectory()
+    class StreamMock():
+        def minifatSectorsUsed(self):
+            return 4
 
-    def mock_func(self):
-        return 447
-
-    mocker.patch(
-        # Make dir think the file is 448 bytes
-        'vbaProjectCompiler.Directories.streamDirectory.minifatSectorsUsed',
-        mock_func
-    )
+    mock = StreamMock()
     
-    dir.addFile(stream)
-    assert dir.fileSize() == 447
+    dir.addFile(mock)
+    assert dir.fileSize() == 256
