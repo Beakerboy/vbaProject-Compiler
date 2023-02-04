@@ -1,6 +1,6 @@
 # test_vbaProjectCompiler.py
 import pytest
-
+from ms_ovba_compression.compressor import Compressor
 from ms_ovba_compression.decompressor import Decompressor
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Views.dirStream import DirStream
@@ -65,3 +65,7 @@ def test_dirStream():
     project.addModule(module1)
 
     assert stream.toBytes() == decompressedStream
+    
+    comp = Compressor()
+    assert comp.compress(stream.toBytes()) == container
+    
