@@ -21,4 +21,4 @@ class StreamBase:
        """
        Add new data to the bytearray
        """
-       self._data += datd
+       self._data += data
