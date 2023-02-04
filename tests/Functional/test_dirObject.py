@@ -11,7 +11,8 @@ from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 
 
 def test_dirStream():
-    project = VbaProject()
+
+    # Read the data from the demo file and decompress it.
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x1EC0
     length = 0x0232
@@ -19,6 +20,9 @@ def test_dirStream():
     container = f.read(length)
     comp = Decompressor()
     decompressedStream = comp.decompress(container)
+
+    # Create a project with the same attributes
+    project = VbaProject()
     stream = DirStream(project)
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
@@ -59,5 +63,5 @@ def test_dirStream():
     project.addModule(thisWorkbook)
     project.addModule(sheet1)
     project.addModule(module1)
-    expected = bytes(decompressedStream)
-    assert stream.toBytes() == expected
+
+    assert stream.toBytes() == decompressedStream
