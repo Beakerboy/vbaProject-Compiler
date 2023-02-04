@@ -1,4 +1,4 @@
-import pytest-mock
+import pytest
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
