@@ -1,4 +1,5 @@
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
+from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 
 def test_directory():
