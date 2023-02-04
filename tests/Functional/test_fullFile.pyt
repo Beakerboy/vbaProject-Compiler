@@ -7,6 +7,7 @@ from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
+
 def test_fullFile():
     project = VbaProject()
     codePage = 0x04E4
