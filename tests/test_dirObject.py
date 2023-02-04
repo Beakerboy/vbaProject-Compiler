@@ -1,8 +1,7 @@
 # test_vbaProjectCompiler.py
 import pytest
-
+from ms_ovba_compression.decompressor import Decompressor
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.decompressor import Decompressor
 from vbaProjectCompiler.Views.dirStream import DirStream
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
@@ -14,13 +13,11 @@ def test_dirStream():
     project = VbaProject()
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x1EC0
+    length = 0x0362
     f.seek(offset)
-    sig = f.read(1)
-    header = f.read(2)
+    container = f.read(length)
     comp = Decompressor()
-    comp.setCompressedHeader(header)
-    readChunk = bytearray(f.read(comp.compressedChunkSize - 2))
-    decompressedStream = comp.decompress(readChunk)
+    decompressedStream = comp.decompress(container)
     stream = DirStream(project)
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
