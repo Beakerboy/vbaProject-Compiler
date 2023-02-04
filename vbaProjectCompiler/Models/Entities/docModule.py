@@ -11,5 +11,16 @@ class DocModule(ModuleRecord):
         super(DocModule, self).__init__(name)
         self.type = "Document"
 
+        # GUID
+        self._vbBase = ""
+
     def toProjectModuleString(self):
         return "Document=" + self.modName.value + "/&H" + self.docTlibVer.to_bytes(4, "big").hex()
+
+
+    def addVbBase(self, guid):
+        """
+        Should probably abstract this to add other attributes to the file during normalization
+        """
+        self._vbBase = guid
+        
