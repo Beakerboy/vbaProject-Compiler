@@ -3,6 +3,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
+from vbaProjectCompiler.Models.Entites.Streams.directoryStream import DirectoryStream
 
 
 class OleFile:
