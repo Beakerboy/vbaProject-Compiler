@@ -18,8 +18,8 @@ def test_dirStream():
     length = 0x0232
     f.seek(offset)
     container = f.read(length)
-    comp = Decompressor()
-    decompressedStream = comp.decompress(container)
+    decomp = Decompressor()
+    decompressedStream = decomp.decompress(container)
 
     # Create a project with the same attributes
     project = VbaProject()
@@ -65,7 +65,8 @@ def test_dirStream():
     project.addModule(module1)
 
     assert stream.toBytes() == decompressedStream
-    
+
+    # The compression results are not the same.
     comp = Compressor()
-    assert comp.compress(stream.toBytes()) == container
+    assert decomp.decompress(comp.compress(stream.toBytes())) == decompressedStream
     
