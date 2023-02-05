@@ -22,6 +22,7 @@ def test_addSmallStream():
     parentChain.addStream(chain)
     chain.addStream(stream)
     assert chain.getSectors() == [0]
+    assert chain.getChain() = [0xFFFFFFFE]
     assert len(chain) == 1
 
 
