@@ -80,5 +80,5 @@ def test_extendThroughFatSector2():
 
 
 class StreamStub(StreamBase):
-    def getSize(self):
+    def streamSize(self):
         return 1
