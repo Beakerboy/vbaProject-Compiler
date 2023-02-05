@@ -11,7 +11,7 @@ class StreamBase:
         self._data = b''
 
         # An array of sectors this stream will reside
-        self._additionalSectors = []
+        self._sectors = []
 
         # An object of type SectorChain which will be storing this stream
         self._storageChain = 0
@@ -21,12 +21,24 @@ class StreamBase:
         self._storageChain = chain
 
 
+    def setStartSector(self, sector):
+        """
+        Set the location of the first sector of the file
+        Must be run first
+        """
+        self._sectors = [sector]
+
+
+    def setAdditionalSectors(self, sectors):
+        self._sectors.append(sectors)
+
+
     def append(self, data):
         """
         Extend the data in this stream. Request additional chain storage if needed
         """
         self._extendData(data)
-        currentSecCnt = len(self._additionalSectors) + 1
+        currentSecCnt = len(self._sectors)
         newSectors = self._storageChain.requestNewSectors(currentSecCnt, self.streamSize())
         if len(newSectors) > 0:
             self._additionalSectors.append(newSectors)
