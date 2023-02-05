@@ -1,4 +1,3 @@
-
 class StreamBase:
     """
     Base class for any object which will appear as a stream within a sector chain
