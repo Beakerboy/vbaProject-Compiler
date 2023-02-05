@@ -307,24 +307,15 @@ class OleFile:
         # add dir
         # add projectWm
         # add project
-        # flatten directory tree
+        # Flatten directory tree
         self.streams = self.directory.flatten()
         for stream in self.streams:
             directoryStream.append(stream)
             if stream.type == 2:
                 if stream.fileSize() > self.ulMiniSectorCutoff:
-                    # self.fatChain.addFileToChain()
-                    # update object with number of reserved bytes
-                    # stream.setSector(sectors[0])
-                    # find first unused fat sector
-                    # save starting sector to object
-                    # write directory entry
-                    # initialize sectors with zeros
-                    # update fat chain
-                    # write data
-                    pass
+                    self._fatChain.addStream(stream)
                 else:
-                    pass
+                    self._minifatChain.addStream(stream)
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # write fat sectors
