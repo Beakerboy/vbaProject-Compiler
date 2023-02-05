@@ -6,6 +6,7 @@ from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 class MiniChain(StreamBase, SectorChain):
 
     def __init__(self, size):
+        super().__init__()
         super().__init__(size)
 
     def addStream(self, stream):
