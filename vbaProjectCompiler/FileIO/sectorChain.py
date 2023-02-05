@@ -35,10 +35,19 @@ class SectorChain:
         self._nextFreeSector +=1
 
 
+    def extendChain(self, stream, number):
+        """
+        """
+        sectorList = []
+        for i in range(number):
+            sectorList.append(self.reserveNextFreeSector())
+        stream.setAdditionalSectors(sectorList)
+
+
     def addStream(self, stream):
         sector = self.startNewChain()
         stream.setStartSector(sector)
         sectorsNeeded = (stream.getSize() - 1) // self._sectorSize + 1
-        additionalSectors = self.extendChain(sector, sectorsNeeded)
+        additionalSectors = self.extendChain(stream, sectorsNeeded)
         stream.setAdditionalSectors(additionalSectors)
         self._streams.append(stream)
