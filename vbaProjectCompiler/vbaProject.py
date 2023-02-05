@@ -1,9 +1,9 @@
 import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
 
+
 class VbaProject:
 
-    #class default constructor
     def __init__(self):
 
         self.endien = 'little'
@@ -17,14 +17,14 @@ class VbaProject:
         self._performanceCache = b''
         self._performanceCacheVersion = 0xFFFF
 
-        #A list of directories
+        # A list of directories
         self.directories = []
-        self.references  = []
-        self.modules     = []
+        self.references = []
+        self.modules = []
 
         self.projectCookie = 0xFFFF
         
-    #Getters and Setters
+    # Getters and Setters
     def setProjectId(self, id):
         self._projectId = id
 
@@ -64,11 +64,12 @@ class VbaProject:
     def getCodePageName(self):
         return self._codePageName
 
-    def addReference(self, ref):
-        self.references.append(ref)
+    def setProjectCookie(self, value):
+        self.projectCookie = value
 
+    # Appenders
     def addModule(self, ref):
         self.modules.append(ref)
 
-    def setProjectCookie(self, value):
-        self.projectCookie = value
+    def addReference(self, ref):
+        self.references.append(ref)
