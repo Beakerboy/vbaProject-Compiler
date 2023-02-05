@@ -8,27 +8,29 @@ from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 def test_initialProperties():
     chain = FatChain(512)
     assert chain.getSectorSize() == 512
-    assert chain.getLength() == 1
+    assert len(chain) == 1
     assert chain.getChain() == [0xfffffffd]
 
 def test_addingChain():
     chain = FatChain(512)
     stream = StreamStub()
     chain.addStream(stream)
-    assert chain.getLength() == 2
+    assert len(chain) == 2
     assert chain.getChain() == [0xfffffffd, 0xfffffffe]
 
     stream2 = StreamStub()
     chain.addStream(stream2)
-    assert chain.getLength() == 3
+    assert len(chain) == 3
     assert chain.getChain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
 def test_extendChain():
     chain = FatChain(512)
-    chain.startNewChain()
-    chain.startNewChain()
-    chain.extendChain(1, 2)
-    assert chain.getLength() == 5
+    stream1 = StreamStub()
+    chain.addStream(stream1)
+    stream2 = StreamStub()
+    chain.addStream(stream2)
+    chain.extendChain(stream1, 2)
+    assert len(chain) == 5
     assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
 def test_zeroLengthException():
