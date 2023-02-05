@@ -1,6 +1,6 @@
 import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
-from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
+from vbaProjectCompiler.Models.Entities.Streams.array_stream import ArrayStream
 
 
 class MiniChain(SectorChain, StreamBase):
@@ -19,7 +19,7 @@ class MiniChain(SectorChain, StreamBase):
         # If we have not started a minifat data stream in the FAT chain
         # start one now.
         if len(self._streams) == 0:
-            self._streams = StreamBase()
+            self._streams = ArrayStream()
             self._storageChain.addStream(self._streams)
 
         # Create a new entry on the minifat chain and tell the stream what it is
