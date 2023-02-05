@@ -44,6 +44,14 @@ class SectorChain:
         stream.setAdditionalSectors(sectorList)
 
 
+    def requestNewSectors(self, stream):
+        """
+        the size of the stream has changed, based on the new size, are additional sectors needed?
+        """
+        
+        pass
+
+
     def addStream(self, stream):
         sector = self.startNewChain()
         stream.setStartSector(sector)
