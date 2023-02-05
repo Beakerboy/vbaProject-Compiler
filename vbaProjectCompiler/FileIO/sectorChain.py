@@ -8,6 +8,8 @@ class SectorChain:
 
         # The chain.
         # Each entry points to the address of the next element in the chain.
+        # if each stream is keeping track of their sectors we can just have a function
+        # dole out the next int, skipping chain sectors.
         self._chain = []
 
         # Each stream begins at the start of a sector and is padded to fill
