@@ -32,7 +32,7 @@ class SectorChain:
             sectors = stream.getSectors()
             max = sectors[-1]
             if max >= len(chain):
-                number = max - len(chain)
+                number = max - len(chain) + 1
                 chain.extend([0] * number)
             for i in range(len(sectors)):
                 sectornum = sectors[i]
