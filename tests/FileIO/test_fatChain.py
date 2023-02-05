@@ -1,9 +1,9 @@
-# test_fatChain.py
-
 import pytest
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.FileIO.fatChain import FatChain
+from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
+
 
 def test_initialProperties():
     chain = FatChain(512)
