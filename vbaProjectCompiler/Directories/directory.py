@@ -1,5 +1,6 @@
 import struct
 
+
 class Directory:
     """An OLE directory object"""
     
