@@ -38,7 +38,7 @@ class MiniChain(SectorChain, StreamBase):
         stream.setAdditionalSectors(sectorList)
 
 
-    def startNewChain(self):
+    def _startNewChain(self):
         # Increase the necessary chain resources by one address
         newSector = self._reserveNextFreeSector()
         self.append(1)
