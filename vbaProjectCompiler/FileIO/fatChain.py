@@ -1,10 +1,13 @@
 import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
+
+
 class FatChain(SectorChain):
 
     def __init__(self):
         super(FatChain, self).__init__()
         self._nextFreeSector = 1
+
 
     def getChain(self):
         chain = super(FatChain, self).getChain()
