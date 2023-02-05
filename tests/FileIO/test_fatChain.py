@@ -11,6 +11,7 @@ def test_initialProperties():
     assert len(chain) == 1
     assert chain.getChain() == [0xfffffffd]
 
+
 def test_addingChain():
     chain = FatChain(512)
     stream = StreamStub()
