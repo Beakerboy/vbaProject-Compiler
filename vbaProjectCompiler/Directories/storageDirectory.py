@@ -1,11 +1,12 @@
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
 class StorageDirectory(Directory):
-    type = 1
 
     def __init__(self):
-        self.directories = []
         super(StorageDirectory, self).__init__()
+        self.type = 1
+        self.directories = []
 
     def fileSize(self):
         return 0
@@ -16,5 +17,29 @@ class StorageDirectory(Directory):
             size += dir.minifatSectorsUsed()
         return size
 
+    def paddedBytesUsed(self):
+        size = 0
+        for dir in self.directories:
+            size += dir.paddedBytesUsed()
+        return size
+
+    def addModule(self, module):
+        stream = StreamDirectory()
+        stream.name = module.modName.value
+        stream.module = module
+        self.directories.append(stream)
+
     def addFile(self, stream):
         self.directories.append(stream)
+
+    def createBinaryTree(self):
+        pass
+
+    def flatten(self):
+        self.flat = [self]
+        for child in self.directories:
+            if child.type == 2:
+                self.flat.append(child)
+            else:
+                self.flat.extend(child.flatten())
+        return self.flat

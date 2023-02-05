@@ -1,15 +1,19 @@
 import struct, os
 from vbaProjectCompiler.Directories.directory import Directory
+from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
+from vbaProjectCompiler.FileIO.fatChain import FatChain
+from vbaProjectCompiler.FileIO.miniChain import MiniChain
+from vbaProjectCompiler.Models.Entites.Streams.directoryStream import DirectoryStream
+
 
 class OleFile:
-
    
-    #class default constructor
+    # class default constructor
     def __init__(self, project):
         self.HEADER_BYTES = 512
         self.project = project
 
-        #Instance Attributes
+        # Instance Attributes
         self.uMinorVersion            = 62
         self.uDllVersion              = 3
         self.uSectorShift             = 9
@@ -18,45 +22,25 @@ class OleFile:
         self.firstMiniChainSector     = 2
         self.ulMiniSectorCutoff       = 4096
 
-        #the FAT chain starts at sector zero, so element zero marks this sector as a fat sector.
-        self.fatChain = [0xfffffffd]
+        # the FAT chain holds large files, the minifat chain, the minifat data,
+        # and the directory tree.
+        self._fatChain = FatChain(2 ** self.uSectorShift)
 
-        #The list of pointers to the address of the next file piece
-        self.minifatChain = []
+        # The list of pointers to the address of the next file piece
+        self._minifatChain = MiniChain(2 ** self.uMiniSectorShift)
 
-        #A list of directories
-        self.directories = []
-
-        self.createInitialDirectories()
+        # A list of directories
+        self.directory = RootDirectory()
 
     def getFirstDirectoryListSector(self):
         return self.firstDirectoryListSector
 
     def setFirstDirectoryListSector(self, i):
-        #need to ensure sector is not already reserved
+        # need to ensure sector is not already reserved
         self.firstDirectoryListSector = i
 
     def getFirstMiniChainSector(self):
         return self.firstMiniChainSector
-
-    def createInitialDirectories(self):
-        root = Directory()
-        root.name = "Root Entry"
-        root.type = 5
-        root.subDirectoryId = 8
-        root.modifiedHigh = 3266847680
-        root.modifiedLow  =   31007795
-        root.sector = 3
-        root.size = 6528
-        self.directories.append(root)
-
-        vba = Directory()
-        vba.name = "VBA"
-        vba.type = 1
-        vba.subDirectoryId = 4
-        vba.modifiedHigh = 3266847680
-        vba.modifiedLow  =   31007795
-        self.directories.append(vba)
 
     def header(self):
         """Create a 512 byte header sector for a OLE object."""
@@ -94,17 +78,20 @@ class OleFile:
 
     def getDifStartSector(self):
         """
-        The Fat sector lost in the header can only list the position of 109 sectors.
-        If more sectors are needed, the DIF sector lists these sector numbers.
+        The Fat sector lost in the header can only list the position of 109
+        sectors.If more sectors are needed, the DIF sector lists these sector
+        numbers.
         """
         if len(self.getFatSectors()) <= 109:
             return 0xfffffffe
         #research how Dif works
         return 0
 
+
     def countDifSectors(self):
         """
-        How many sectors of 512 entries are needed to list the positions of the remaining FAT sectors
+        How many sectors of 512 entries are needed to list the positions of the
+        remaining FAT sectors.
         What if sectors are not 512 bytes?
         """
         count = self.countFatChainSectors()
@@ -112,11 +99,13 @@ class OleFile:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
 
+
     def countFatChainSectors(self):
         """
         Calculate the number of sectors needed to express the FAT chain.
         """
-        return max((len(self.fatChain) - 1) // (2 ** self.uSectorShift - 1) + 1, 1)
+        return max((len(self._fatChain.getChain()) - 1) // (2 ** self.uSectorShift - 1) + 1, 1)
+
 
     def countDirectoryListSectors(self):
         """
@@ -127,16 +116,20 @@ class OleFile:
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
         return directorySectors
 
+
     def countMinifatFatChainSectors(self):
         addressesPerSector = 2 ** (self.uSectorShift - 2)
-        return max((len(self.minifatChain) - 1) // addressesPerSector + 1, 1)
-  
+        return max((len(self._minifatChain.getChain()) - 1) // addressesPerSector + 1, 1)
+
+
     def writeHeaderFatSectorList(self):
         """
-        Create a 436 byte stream of the first 109 FAT sectors, padded with \\xFF
+        Create a 436 byte stream of the first 109 FAT sectors, padded with
+        \\xFF.
         """
         packSymbol = '<' if self.project.endien == 'little' else '>'
-        #if the list is longer then 109 entries, need to mange the extended MSAT sectors.
+        # if the list is longer then 109 entries, need to mange the extended
+        # MSAT sectors.
         output = b''
         list = self.getFatSectors()
         for sector in list[0:109]:
@@ -144,10 +137,14 @@ class OleFile:
         output = output.ljust(436, b'\xff')
         return output
 
+
     def getFatSectors(self):
-        """List which sectors contain FAT chain information. They should be on 128 sector intervals."""
+        """
+        List which sectors contain FAT chain information. They should be on
+        128 sector intervals.
+        """
         sectorList = []
-        numberOfSectors = self.countFatChainSectors()
+        numberOfSectors = (self._fatChain.getLength() - 1) // 128 + 1
         for i in range(numberOfSectors):
             sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
@@ -161,7 +158,8 @@ class OleFile:
         addressesPerSector = 2 ** (self.uSectorShift - 2)
         start = i * addressesPerSector
         end = (i + 1) * addressesPerSector
-        sectors = self.fatChain[start:end]
+        chain = self._fatChain.getChain()
+        sectors = chain[start:end]
         output = b''
         packSymbol = '<' if self.project.endien == 'little' else '>'
         format = packSymbol + "I"
@@ -175,7 +173,8 @@ class OleFile:
         """
         Use the info in the directory list to create the minifat chain
         """
-        #foreach element in the array, if the size is greater then zero determine how many 64byte sectors are needed to contain the data
+        # foreach element in the array, if the size is greater then zero
+        # determine how many 64 byte sectors are needed to contain the data
         chain = []
         #All files with data require one sector, how many more are needed.
         additionalMinifatSectors = 0
@@ -275,58 +274,55 @@ class OleFile:
         project.sector = 94
         project.size = 466
 
+    def writeDataToSector(self, file, sector, data = b'\x00'):
+        dataLength = len(data)
+        if dataLength > self.bytesPerSector():
+            raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
+        if dataLength < self.bytesPerSector():
+            data = data.ljust(self.bytesPerSector(), b'\x00')
+        # Check File length and fill up to the desired sector
+        fileLength = file.seek(-1, os.SEEK_END)
+        desiredLength = 512 + sector * (2 ** self.uSectorShift)
+        if fileLength < desiredLength:
+            file.write(b'\x00' * (desiredLength - fileLength))
+        file.write(data)
+
     def writeFile(self, path):
         """
         Write the OLE file
         """
         packSymbol = '<' if self.project.endien == 'little' else '>'
-        f = open(path + '/vbaProject.bin', 'wb+')
-        f.write(self.header())
-        #write an empty Fat sector
-        f.write(self.writeFatSector(0))
-        ##write empty directory sector
-        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * 4)
-        f.write(struct.pack(packSymbol + 'I', 0xfffffffe))
-        f.seek(self.HEADER_BYTES + self.firstDirectoryListSector * self.bytesPerSector())
-        #f.write()
-        ##write empty minifat sector
-        ##pull data from self.project
-        #for module in self.project.modules:
-            # add each as a directory listing
+
+        directoryStream = DirectoryStream()
+        directoryStream.setStorageChain(self._fatChain)
+        self._fatChain.addStream(directoryStream)
+
+        self._minifatChain.setStorageChain(self._fatChain)
+        self._fatChain.addStream(self._minifatChain)
+
+        # pull data from self.project
+        for module in self.project.modules:
+            self.directory.addModule(module)
         # add _VBA_Project
         # add dir
         # add projectWm
         # add project
-        #Get the first sector of directories
-        i = 0
-        entriesPerSector = self.uSectorShift - 3 + 1
-        start = i * entriesPerSector
-        end = (i + 1)* entriesPerSector
-        entries = self.directories[start:end]
-        #initialize sector with zeroes.
-        for directory in entries:
-            if directory.type != 2:
-                #write directory object
-                pass
-            elif directory.size > self.ulMiniSectorCutoff:
-    
-                #find first unused fat sector
-                # save starting sector to object
-                # write directory entry
-                # initialize sectors with zeros
-                # update fat chain
-                # write data
-                pass
-            else:
-                #Find the first unused minifat location
-                # save starting sector to object
-                # write directory entry
-                # determine for many minifat sectors are needed
-                # determine if a new minifat sector chain is needed
-                    #write a new sector
-                    # update fat chain
-                # determine if a new data sector is needed
-                    #update fat chain
-                    #initialize
-                # overwrite minifat sectors with data
-                pass
+        # Flatten directory tree
+        self.streams = self.directory.flatten()
+        for stream in self.streams:
+            directoryStream.append(stream)
+            if stream.type == 2:
+                if stream.fileSize() > self.ulMiniSectorCutoff:
+                    self._fatChain.addStream(stream)
+                else:
+                    self._minifatChain.addStream(stream)
+        f = open(path + '/vbaProject.bin', 'wb+')
+        f.write(self.header())
+        # write fat sectors
+        f.write(self.writeFatSector(0))
+        # write directory sectors
+        # write minifat chain
+        # write minifat data
+       
+        # write minifat chain sectors
+        f.close()

@@ -17,17 +17,29 @@ class Directory:
         self.userFlags = 0
 
         self.created  = 0
-        self.modifiedHigh = 0
-        self.modifiedLow = 0
+        self.modified = 0
 
-        self.sector = 0
+        # The sector where this stream begins
+        # This can either be a minifat sector number or a Fat sector
+        # depending on the stream size.
+        self._startSector = 0
+        self.type = 0
+
+    def setStartSector(self, value):
+        self._startSector = value
+
+    def getStartSector(self):
+        return self._startSector
 
     def nameSize(self):
         """The byte length of the name"""
         return (len(self.name) + 1) * 2
 
+    def setAdditionalSectors(self, sectorList):
+        self._additionalSectors = sectorList
+
     def fileSize(self):
-        pass
+        return 0
 
     def writeDirectory(self, codePageName, endien):
         endienSymbol = '<' if endien == 'little' else '>'
@@ -45,12 +57,11 @@ class Directory:
         )
         dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
         dir += struct.pack(
-            endienSymbol + "IQIIIII",
+            endienSymbol + "IQQIII",
             self.userFlags,
             self.created,
-            self.modifiedHigh,
-            self.modifiedLow,
-            self.sector,
+            self.modified,
+            self._startSector,
             self.fileSize(),
             0
         )        
