@@ -35,7 +35,7 @@ class StreamBase:
     def streamSize(self):
         """
         The size the stream will be when rendered
-        ""
+        """
         return len(self._data)
 
 
