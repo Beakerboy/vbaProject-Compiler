@@ -6,11 +6,8 @@ class SectorChain:
         # The number of bytes in each sector
         self._sectorSize = size
 
-        # The chain.
-        # Each entry points to the address of the next element in the chain.
-        # if each stream is keeping track of their sectors we can just have a function
-        # dole out the next int, skipping chain sectors.
-        self._chain = []
+        # The next available sector on the chain
+        self._nextFreeSector = 0
 
         # Each stream begins at the start of a sector and is padded to fill
         # the end of a sector.
