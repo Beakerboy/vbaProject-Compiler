@@ -44,10 +44,11 @@ def test_newFatTableSector():
 
 def test_extendThroughFatSector():
     chain = FatChain(512)
-    chain.startNewChain()
-    chain.extendChain(1, 126)
+    stream1 = StreamStub()
+    chain.addStream(stream1)
+    chain.extendChain(stream1, 126)
     assert len(chain) == 128
-    chain.extendChain(1, 1)
+    chain.extendChain(stream1, 1)
     assert chain.getLength() == 130
 
 def test_lastSectorOnFatSector():
