@@ -19,6 +19,7 @@ def test_addSmallStream():
     stream = StreamStub(16)
     parentChain = ChainMock(512)
     chain.setStorageChain(parentChain)
+    chain.setStartSector(0)
     chain.addStream(stream)
     assert len(chain) == 1
 
@@ -37,6 +38,7 @@ def test_addBiggerData():
     stream = StreamStub(65)
     parentChain = ChainMock(512)
     chain.setStorageChain(parentChain)
+    chain.setStartSector(0)  # Shuldn't have to do this (again?)
     chain.addStream(stream)
     assert len(chain) == 2
 
