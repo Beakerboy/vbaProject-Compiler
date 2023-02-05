@@ -10,11 +10,15 @@ class FatChain(SectorChain):
 
 
     def getChain(self):
-        chain = super(FatChain, self).getChain()
-        if len(chain) == 0:
+        """ 0x80 should be replaced in case sector is longer
+        """
+        if len(self) == 0:
             chain = [0xFFFFFFFD]
         else:
-            pass
+            chain = super().getChain()
+            num = (len(self) - 1) // 0x80 + 1
+            for i in range(num):
+                chain[i * 0x80] = 0xFFFFFFFD
         return chain
 
 
