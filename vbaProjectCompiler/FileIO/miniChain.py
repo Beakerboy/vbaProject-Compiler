@@ -23,7 +23,7 @@ class MiniChain(SectorChain, StreamBase):
             self._streams = ArrayStream()
             self._streams.setStorageChain(self._storageChain)
             self._storageChain.addStream(self._streams)
-        StreamBase.addStream(self, stream)
+        SectorChain.addStream(self, stream)
 
     def extendChain(self, stream, number):
         """
