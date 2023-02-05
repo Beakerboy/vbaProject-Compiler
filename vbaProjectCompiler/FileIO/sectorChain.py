@@ -1,5 +1,3 @@
-import os
-
 class SectorChain:
 
     def __init__(self, size):
@@ -13,18 +11,14 @@ class SectorChain:
         # the end of a sector.
         self._streams = []
 
-
     def __len__(self):
         return self._nextFreeSector
-
 
     def getSectorSize(self):
         return self._sectorSize
 
-
     def getLength(self):
         return len(self._chain)
-
 
     def getChain(self):
         chain = []
@@ -43,12 +37,10 @@ class SectorChain:
                 
         return chain
 
-
     def _reserveNextFreeSector(self):
         sector = self._nextFreeSector
         self._nextFreeSector += 1
         return sector
-
 
     def extendChain(self, stream, number):
         """
@@ -57,7 +49,6 @@ class SectorChain:
         for i in range(number):
             sectorList.append(self._reserveNextFreeSector())
         stream.setAdditionalSectors(sectorList)
-
 
     def requestNewSectors(self, stream):
         """
@@ -70,7 +61,6 @@ class SectorChain:
             self.extendChain(stream, needed - have)
         pass
 
-
     def addStream(self, stream):
         sector = self._startNewChain()
         stream.setStartSector(sector)
@@ -78,7 +68,6 @@ class SectorChain:
         if sectorsNeeded > 0:
             self.extendChain(stream, sectorsNeeded)
         self._streams.append(stream)
-
 
     def _startNewChain(self):
         # Increase the necessary chain resources by one address
