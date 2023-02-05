@@ -12,6 +12,8 @@ class ArrayStream(StreamBase):
         # This object stors data in an array
         self._data = []
 
+    def __iter__(self):
+        return iter(self._data)
 
     def _extendData(self, data):
         """
