@@ -15,7 +15,7 @@ class SectorChain:
 
 
     def __len__(self):
-        return len(self._chain)
+        return self._nextFreeSector
 
 
     def getSectorSize(self):
