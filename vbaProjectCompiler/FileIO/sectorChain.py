@@ -49,6 +49,7 @@ class SectorChain:
         self._nextFreeSector +=1
         return sector
 
+
     def extendChain(self, stream, number):
         """
         """
