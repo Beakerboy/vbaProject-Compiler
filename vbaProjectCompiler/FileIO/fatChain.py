@@ -23,4 +23,4 @@ class FatChain(SectorChain):
             self._nextFreeSector += 1
         sector = self._nextFreeSector
         self._nextFreeSector += 1
-       return sector
+        return sector
