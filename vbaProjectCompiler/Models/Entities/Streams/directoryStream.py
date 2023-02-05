@@ -6,4 +6,8 @@ class DirectoryStream(StreamBase):
     The directory stream is an arrary of directory records
     """
 
-    pass
+    def extendData(self, data):
+       """
+       Add new data to the bytearray
+       """
+       self._data.append(data)
