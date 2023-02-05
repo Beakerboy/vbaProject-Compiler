@@ -23,6 +23,7 @@ def test_addingChain():
     assert len(chain) == 3
     assert chain.getChain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
+
 def test_extendChain():
     chain = FatChain(512)
     stream1 = StreamStub()
@@ -32,6 +33,7 @@ def test_extendChain():
     chain.extendChain(stream1, 2)
     assert len(chain) == 5
     assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
+
 
 def test_newFatTableSector():
     chain = FatChain(512)
@@ -43,6 +45,7 @@ def test_newFatTableSector():
     assert chain.getChain()[126:] == [127, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
+
 def test_extendThroughFatSector():
     chain = FatChain(512)
     stream1 = StreamStub()
@@ -51,7 +54,9 @@ def test_extendThroughFatSector():
     assert len(chain) == 128
 
     chain.extendChain(stream1, 1)
+    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
+
 
 def test_lastSectorOnFatSector():
     chain = FatChain(512)
@@ -60,8 +65,9 @@ def test_lastSectorOnFatSector():
     chain.extendChain(stream1, 125)
     assert len(chain) == 127
     chain.extendChain(stream1, 2)
-    assert len(chain) == 130
     assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
+    assert len(chain) == 130
+
 
 def test_extendThroughFatSector2():
     chain = FatChain(512)
