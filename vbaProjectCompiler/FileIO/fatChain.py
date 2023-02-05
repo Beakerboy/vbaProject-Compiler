@@ -4,7 +4,7 @@ from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 
 class FatChain(SectorChain):
 
-    def __init__(self):
+    def __init__(self, size):
         super(FatChain, self).__init__()
         self._nextFreeSector = 1
 
