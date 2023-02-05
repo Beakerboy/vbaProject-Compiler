@@ -65,8 +65,8 @@ class SectorChain:
         """
         size = stream.streamSize()
         have = len(stream.getSectors())
-        if have * self._sectorSize < size:
-            needed = size - 1 // self._sectorSize + 1
+        if (have * self._sectorSize) < size:
+            needed = (size - 1) // self._sectorSize + 1
             self.extendChain(stream, needed - have)
         pass
 
