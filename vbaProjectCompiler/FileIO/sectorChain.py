@@ -68,12 +68,13 @@ class SectorChain:
 
 
     def addStream(self, stream):
-        sector = self._startNewChain(self)
+        sector = self._startNewChain()
         stream.setStartSector(sector)
         sectorsNeeded = (stream.getSize() - 1) // self._sectorSize + 1
         additionalSectors = self.extendChain(stream, sectorsNeeded)
         stream.setAdditionalSectors(additionalSectors)
         self._streams.append(stream)
+
 
     def _startNewChain(self):
         # Increase the necessary chain resources by one address
