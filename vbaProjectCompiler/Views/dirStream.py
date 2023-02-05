@@ -6,6 +6,7 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedSt
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
+
 class DirStream(StreamDirectory):
     """
     The dir stream is compressed on write
