@@ -46,7 +46,6 @@ class StreamBase:
         Extend the data in this stream. Request additional chain storage if needed
         """
         self._extendData(data)
-        currentSecCnt = len(self._sectors)
         self._storageChain.requestNewSectors(self)
 
 
