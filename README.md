@@ -54,4 +54,3 @@ These are all different views of data from the following Models
 * fatChain
 * minifatChain
 * directoryStream
-
