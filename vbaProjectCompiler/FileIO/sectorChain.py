@@ -28,7 +28,7 @@ class SectorChain:
 
     def getChain(self):
         chain = []
-        for stream in streams:
+        for stream in self._streams:
             sectors = stream.getSectors()
             max = sectors[-1]
             if max >= len(chain):
