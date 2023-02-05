@@ -46,6 +46,7 @@ class Project:
 
     def _attr(self, name, value):
         codePageName = self.project.getCodePageName()
+        eol = b'\x0D\x0A'
         b_name = bytes(name, codePageName)
         b_value = bytes(value, codePageName)
         return b_name + b'="' + b_value + b'"' + eol
