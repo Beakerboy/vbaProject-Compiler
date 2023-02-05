@@ -49,7 +49,7 @@ def test_extendThroughFatSector():
     chain.extendChain(stream1, 126)
     assert len(chain) == 128
     chain.extendChain(stream1, 1)
-    assert chain.getLength() == 130
+    assert len(chain) == 130
 
 def test_lastSectorOnFatSector():
     chain = FatChain(512)
