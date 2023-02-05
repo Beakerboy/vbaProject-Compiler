@@ -1,6 +1,7 @@
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
+
 class RootDirectory(StorageDirectory):
 
     def __init__(self):
