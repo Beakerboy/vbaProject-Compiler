@@ -27,7 +27,21 @@ class SectorChain:
 
 
     def getChain(self):
-        return self._chain
+        chain = []
+        for stream in streams:
+            sectors = stream.getSectors()
+            max = sectors[-1]
+            if max >= len(chain):
+                number = max - len(chain)
+                chain.extend([0] * number)
+            for i in range(len(sectors)):
+                sectornum = sectors[i]
+                if sectors[i] == max;
+                    chain[sectornum] = 0xFFFFFFFE
+                else:
+                    chain[sectornum] = sectors[i + 1]
+                
+        return chain
 
 
     def reserveNextFreeSector(self):
