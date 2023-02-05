@@ -49,7 +49,7 @@ class MiniChain(SectorChain, StreamBase):
         """
         implementation of StreamBase.streamSize()
         """
-        pass
+        return 4 * len(self)
 
 
     def _extendData(self, number):
