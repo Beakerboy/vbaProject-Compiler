@@ -16,11 +16,11 @@ class StreamBase:
        """
        Extend the data in this stream. Request additional chain storage if needed
        """
-       self.extendData(data)
+       self._extendData(data)
        self._storageChain.requestNewSectors(len(self._additionalSectors) + 1, self.streamSize())
 
 
-   def extendData(self, data):
+   def _extendData(self, data):
        """
        Add new data to the bytearray
        """
