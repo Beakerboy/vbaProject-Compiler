@@ -34,7 +34,7 @@ class StreamBase:
 
 
     def setAdditionalSectors(self, sectors):
-        self._sectors.append(sectors)
+        self._sectors.extend(sectors)
 
 
     def getSectors(self):
