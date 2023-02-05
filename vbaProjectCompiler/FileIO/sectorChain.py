@@ -36,7 +36,7 @@ class SectorChain:
                 chain.extend([0] * number)
             for i in range(len(sectors)):
                 sectornum = sectors[i]
-                if sectors[i] == max;
+                if sectors[i] == max:
                     chain[sectornum] = 0xFFFFFFFE
                 else:
                     chain[sectornum] = sectors[i + 1]
