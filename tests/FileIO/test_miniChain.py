@@ -14,7 +14,7 @@ def test_zeroLength():
     assert len(chain) == 0
 
 
-def test_parentChain():
+def test_addSmallStream():
     chain = MiniChain(64)
     stream = StreamStub(16)
     parentChain = ChainMock(512)
@@ -23,7 +23,7 @@ def test_parentChain():
     assert len(chain) == 1
 
 
-def test_addSmallStream():
+def test_parentChain():
     chain = MiniChain(64)
     stream = StreamStub(16)
     parentChain = ChainMock(512)
