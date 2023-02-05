@@ -4,7 +4,7 @@ from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 
 class MiniChain(SectorChain, StreamBase):
-
+        
     def addStream(self, stream):
         """
         Add a new stream to the minifat chaain and arrange the storage resources
@@ -32,12 +32,15 @@ class MiniChain(SectorChain, StreamBase):
     def extendChain(self, stream, number):
         """
         """
-        pass
+        sectorList = []
+        for i in range(number):
+            sectorList.append(self.reserveNextFreeSector())
+        stream.setAdditionalSectors(sectorList)
 
 
     def startNewChain(self):
         # Increase the necessary chain resources by one address
-        newSector = self._nextFreeSector
+        newSector = self.reserveNextFreeSector()
         self.append(1)
         return newSector
 
@@ -53,5 +56,5 @@ class MiniChain(SectorChain, StreamBase):
         """
         implementation of StreamBase._extendData()
         """
-        self._nextFreeSector += data
+        pass
 
