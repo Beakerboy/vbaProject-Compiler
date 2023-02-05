@@ -33,20 +33,17 @@ class MiniChain(SectorChain, StreamBase):
             sectorList.append(self._reserveNextFreeSector())
         stream.setAdditionalSectors(sectorList)
 
-
     def _startNewChain(self):
         # Increase the necessary chain resources by one address
         newSector = self._reserveNextFreeSector()
         self.append(1)
         return newSector
-
  
     def streamSize(self):
         """
         implementation of StreamBase.streamSize()
         """
         return 4 * len(self)
-
 
     def _extendData(self, number):
         """
