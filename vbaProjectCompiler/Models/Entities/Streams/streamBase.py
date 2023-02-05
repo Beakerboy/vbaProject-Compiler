@@ -37,6 +37,10 @@ class StreamBase:
         self._sectors.append(sectors)
 
 
+    def getSectors(self):
+        return self._sectors
+
+
     def append(self, data):
         """
         Extend the data in this stream. Request additional chain storage if needed
