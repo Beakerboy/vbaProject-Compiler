@@ -40,6 +40,7 @@ def test_newFatTableSector():
     chain.extendChain(stream1, 126)
     stream2 = StreamStub()
     chain.addStream(stream2)
+    assert chain.getChain()[126:] == [127, 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFE]
     assert len(chain) == 130
 
 def test_extendThroughFatSector():
@@ -47,7 +48,8 @@ def test_extendThroughFatSector():
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 126)
-    assert len(chain) == 128
+    assert len(chain) == 129
+
     chain.extendChain(stream1, 1)
     assert len(chain) == 130
 
