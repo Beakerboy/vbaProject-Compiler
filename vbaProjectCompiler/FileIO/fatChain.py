@@ -22,7 +22,7 @@ class FatChain(SectorChain):
         return chain
 
 
-    def reserveNextFreeSector(self):
+    def _reserveNextFreeSector(self):
         if self._nextFreeSector % 0x80 == 0:
             self._nextFreeSector += 1
         sector = self._nextFreeSector
