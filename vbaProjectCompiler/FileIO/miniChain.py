@@ -19,7 +19,7 @@ class MiniChain(SectorChain, StreamBase):
             self._storageChain.addStream(self._streams)
 
         # Create a new entry on the minifat chain and tell the stream what it is
-        sector = self.startNewChain()
+        sector = self._startNewChain()
         stream.setStartSector(sector)
 
         # Figure out how many more are needed and pass it on to the stream
