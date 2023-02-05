@@ -55,5 +55,5 @@ class StreamStub(StreamBase):
     def streamSize(self):
         return self._mocksize
 
-    def extendData(self):
+    def _extendData(self):
         pass
