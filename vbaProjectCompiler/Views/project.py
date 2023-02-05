@@ -27,8 +27,7 @@ class Project:
             result += bytes(module.toProjectModuleString(), codePageName) + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
-            result += bytes(key, codePageName) + b'="'
-            result += bytes(self.attributes[key], codePageName) + b'"' + eol
+            result += self._attr(key, self.attributes[key])
         result += self._attr("CMG", self.project.getProtectionState())
         result += self._attr("DPB", self.project.getPassword())
         result += self._attr("GC", self.project.getVisibilityState())
