@@ -41,5 +41,5 @@ class StreamStub(StreamBase):
         super().__init__()
         self._mocksize = size
 
-    def getSize(self):
+    def streamSize(self):
         return self._mocksize
