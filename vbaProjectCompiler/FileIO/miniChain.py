@@ -1,6 +1,7 @@
 import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 from vbaProjectCompiler.Models.Entities.Streams.array_stream import ArrayStream
+from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 
 class MiniChain(SectorChain, StreamBase):
