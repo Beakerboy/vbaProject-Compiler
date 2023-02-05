@@ -11,7 +11,7 @@ class DirectoryStream(StreamBase):
        self._data = []
 
 
-    def extendData(self, data):
+    def _extendData(self, data):
        """
        Add new data to the bytearray
        """
