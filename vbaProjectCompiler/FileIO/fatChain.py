@@ -7,7 +7,7 @@ class FatChain(SectorChain):
         self._nextFreeSector = 1
 
     def getChain(self):
-        chain = super(fatChain, self).getChain()
+        chain = super(FatChain, self).getChain()
         if len(chain) == 0:
             chain = [0xFFFFFFFD]
         else:
