@@ -27,8 +27,7 @@ def test_parentChain():
     chain = MiniChain(64)
     stream = StreamStub(16)
     parentChain = ChainMock(512)
-    chain.setStorageChain(parentChain)
-    chain.setStartSector(0)
+    parentChain.addStream(chain)
     assert chain.getStartSector() == 0 
 
 
