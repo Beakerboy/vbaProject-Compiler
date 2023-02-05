@@ -1,5 +1,6 @@
 import pytest
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
+from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 
 def test_getSectorSize():
