@@ -44,7 +44,7 @@ class SectorChain:
         return chain
 
 
-    def reserveNextFreeSector(self):
+    def _reserveNextFreeSector(self):
         sector = self._nextFreeSector
         self._nextFreeSector +=1
         return sector
@@ -68,7 +68,7 @@ class SectorChain:
 
 
     def addStream(self, stream):
-        sector = reserveNextFreeSector(self)
+        sector = self._reserveNextFreeSector(self)
         stream.setStartSector(sector)
         sectorsNeeded = (stream.getSize() - 1) // self._sectorSize + 1
         additionalSectors = self.extendChain(stream, sectorsNeeded)
