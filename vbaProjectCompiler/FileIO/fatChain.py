@@ -3,11 +3,11 @@ from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 class FatChain(SectorChain):
 
     def __init__(self):
-        super(fatChain, self).__init__()
+        super(FatChain, self).__init__()
         self._nextFreeSector = 1
 
     def getChain(self):
-        super(fatChain, self).getChain()
+        chain = super(fatChain, self).getChain()
         if len(chain) == 0:
             chain = [0xFFFFFFFD]
         else:
