@@ -24,20 +24,29 @@ class Project:
         result = b'ID="' + id + b'"' + eol
         modules = self.project.modules
         for module in modules:
-            result += bytearray(module.toProjectModuleString(), codePageName) + eol
+            result += bytes(module.toProjectModuleString(), codePageName) + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
-            result += bytearray(key, codePageName) + b'="' + bytearray(self.attributes[key], codePageName) + b'"' + eol
-        result += b'CMG="' + bytearray(self.project.getProtectionState(), codePageName) + b'"' + eol
-        result += b'DPB="' + bytearray(self.project.getPassword(), codePageName) + b'"' + eol
-        result += b'GC="' + bytearray(self.project.getVisibilityState(), codePageName) + b'"' + eol
+            result += bytes(key, codePageName) + b'="'
+            result += bytes(self.attributes[key], codePageName) + b'"' + eol
+        result += self._attr("CMG", self.project.getProtectionState())
+        result += self._attr("DPB", self.project.getPassword())
+        result += self._attr("GC", self.project.getVisibilityState())
         result += eol
         result += b'[Host Extender Info]' + eol
-        result += bytearray(self.hostExtenderInfo, codePageName)
+        result += bytes(self.hostExtenderInfo, codePageName)
         result += eol + eol
         result += b'[Workspace]' + eol
         for module in modules:
             separator = ", "
-            result += bytearray(module.modName.value, codePageName) + b'=' + bytearray(separator.join(map(str, module.workspace)), codePageName)
+            result += bytes(module.modName.value, codePageName) + b'='
+            joined = separator.join(map(str, module.workspace))
+            result += bytes(joined, codePageName)
             result += eol
         return result
+
+    def _attr(self, name, value):
+        codePageName = self.project.getCodePageName()
+        b_name = bytes(name, codePageName)
+        b_value = bytes(value, codePageName)
+        return b_name + b'="' + b_value + b'"' + eol
