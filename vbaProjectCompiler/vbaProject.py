@@ -1,7 +1,3 @@
-import struct, os
-from vbaProjectCompiler.Directories.directory import Directory
-
-
 class VbaProject:
 
     def __init__(self):
