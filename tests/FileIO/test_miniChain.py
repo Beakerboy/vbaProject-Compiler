@@ -1,14 +1,35 @@
 import pytest
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
 
-def test_addData():
+
+def test_getSectorSize():
     chain = MiniChain(64)
-    sectors = chain.addStream(b'\x00')
-    assert sectors == [0]
+    assert chain.getSectorSize() == 64
+
+
+def test_zeroLength():
+    chain = MiniChain(64)
+    assert len(chain) == 0
+
+
+def test_addStream()
+    chain = MiniChain(64)
+    stream = StreamStub(16)
+    chain.addStream(stream)
+    assert len(chain) == 1
+
 
 def test_addBiggerData():
     chain = MiniChain(64)
-    f = open("tests/blank/ThisWorkbook", "rb")
-    data = f.read()
-    sectors = chain.addStream(data)
-    assert len(sectors) == 5
+    stream = StreamStub(65)
+    chain.addStream(stream)
+    assert len(chain) == 2
+
+
+class StreamStub(StreamBase):
+    def __init__(self, size):
+        super().__init__()
+        self._mocksize = size
+
+    def getSize(self):
+        return self._mocksize
