@@ -34,13 +34,13 @@ class MiniChain(SectorChain, StreamBase):
         """
         sectorList = []
         for i in range(number):
-            sectorList.append(self.reserveNextFreeSector())
+            sectorList.append(self._reserveNextFreeSector())
         stream.setAdditionalSectors(sectorList)
 
 
     def startNewChain(self):
         # Increase the necessary chain resources by one address
-        newSector = self.reserveNextFreeSector()
+        newSector = self._reserveNextFreeSector()
         self.append(1)
         return newSector
 
