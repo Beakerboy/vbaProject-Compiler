@@ -5,10 +5,12 @@ class StreamBase:
    """
 
    def __init__(self):
-       pass
+       self._data = b''
+
 
    def setStorageChain(self, chain):
        self._storageChain = chain
+
 
    def append(self, data):
        """
@@ -16,6 +18,7 @@ class StreamBase:
        """
        self.extendData(data)
        self._storageChain.requestNewSectors(len(self._additionalSectors) + 1, self.streamSize())
+
 
    def extendData(self, data):
        """
