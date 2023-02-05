@@ -46,7 +46,7 @@ class SectorChain:
 
     def _reserveNextFreeSector(self):
         sector = self._nextFreeSector
-        self._nextFreeSector +=1
+        self._nextFreeSector += 1
         return sector
 
 
