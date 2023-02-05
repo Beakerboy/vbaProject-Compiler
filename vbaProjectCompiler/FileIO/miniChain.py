@@ -3,11 +3,10 @@ from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 
-class MiniChain(SectorChain, StreamBase):
+class MiniChain(StreamBase, SectorChain):
 
     def __init__(self, size):
         super().__init__(size)
-
 
     def addStream(self, stream):
         """
