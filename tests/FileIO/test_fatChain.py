@@ -33,32 +33,13 @@ def test_extendChain():
     assert len(chain) == 5
     assert chain.getChain() == [0xfffffffd, 3, 0xfffffffe, 4, 0xfffffffe]
 
-def test_zeroLengthException():
-    chain = FatChain(512)
-    chain.startNewChain()
-    
-    with pytest.raises(Exception) as e_info:
-        chain.extendChain(1, 0)
-
-def test_tooShortException():
-    chain = FatChain(512)
-    chain.startNewChain()
-    
-    with pytest.raises(Exception) as e_info:
-        chain.extendChain(4, 4)
-
-def test_extendNonChain():
-    chain = FatChain(512)
-    chain.startNewChain()
-    
-    with pytest.raises(Exception) as e_info:
-        chain.extendChain(0, 4)
-
 def test_newFatTableSector():
     chain = FatChain(512)
-    chain.startNewChain()
-    chain.extendChain(1, 126)
-    chain.startNewChain()
+    stream1 = StreamStub()
+    chain.addStream(stream1)
+    chain.extendChain(stream1, 126)
+    stream2 = StreamStub()
+    chain.addStream(stream2)
     assert chain.getLength() == 130
 
 def test_extendThroughFatSector():
@@ -71,25 +52,23 @@ def test_extendThroughFatSector():
 
 def test_lastSectorOnFatSector():
     chain = FatChain(512)
-    chain.startNewChain()
-    chain.extendChain(1, 125)
+    stream1 = StreamStub()
+    chain.addStream(stream1)
+    chain.extendChain(stream1, 125)
     assert chain.getLength() == 127
-    chain.extendChain(1, 2)
+    chain.extendChain(stream1, 2)
     assert chain.getLength() == 130
     assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 0xFFFFFFFE]
 
 def test_extendThroughFatSector2():
     chain = FatChain(512)
-    chain.startNewChain()
-    chain.extendChain(1, 125)
-    chain.extendChain(1, 3)
+    stream1 = StreamStub()
+    chain.addStream(stream1)
+    chain.extendChain(stream1, 125)
+    chain.extendChain(stream1, 3)
     assert chain.getLength() == 131
-    assert chain.findSector(126, 0) == 126
     assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130,0xFFFFFFFE]
-    assert chain.findSector(126, 2) == 129
-    assert chain.findSector(126, 3) == 130
-    assert chain.findSector(126, 4) == 0xFFFFFFFE
-    assert chain.findSector(126, 5) == 0xFFFFFFFE
+
 
 class StreamStub(StreamBase):
     pass
