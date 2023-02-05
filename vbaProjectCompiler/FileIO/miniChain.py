@@ -23,16 +23,7 @@ class MiniChain(SectorChain, StreamBase):
             self._streams = ArrayStream()
             self._streams.setStorageChain(self._storageChain)
             self._storageChain.addStream(self._streams)
-
-        # Create a new entry on the minifat chain and tell the stream what it is
-        sector = self._startNewChain()
-        stream.setStartSector(sector)
-
-        # Figure out how many more are needed and pass it on to the stream
-        sectorsNeeded = (stream.streamSize() - 1) // self._sectorSize + 1
-        self.extendChain(stream, sectorsNeeded)
-        self._streams.append(stream)
-
+        StreamBase.addStream(self, stream)
 
     def extendChain(self, stream, number):
         """
