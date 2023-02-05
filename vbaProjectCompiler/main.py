@@ -1,7 +1,6 @@
-from vbaProjectCompiler.directory import Directory
-from vbaProjectCompiler.vbaProject import VbaProject
-
 def main(args):
+    pass
+
 
 def hexDumpString(data):
     decompressed = bytearray(data, encoding="charmap")
