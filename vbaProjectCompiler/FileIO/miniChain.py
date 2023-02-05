@@ -28,7 +28,7 @@ class MiniChain(SectorChain, StreamBase):
 
         # Figure out how many more are needed and pass it on to the stream
         sectorsNeeded = (stream.streamSize() - 1) // self._sectorSize + 1
-        additionalSectors = self.extendChain(sector, sectorsNeeded)
+        additionalSectors = self.extendChain(stream, sectorsNeeded)
         stream.setAdditionalSectors(additionalSectors)
         self._streams.append(stream)
 
