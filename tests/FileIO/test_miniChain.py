@@ -12,7 +12,7 @@ def test_zeroLength():
     assert len(chain) == 0
 
 
-def test_addStream()
+def test_addSmallStream():
     chain = MiniChain(64)
     stream = StreamStub(16)
     chain.addStream(stream)
