@@ -63,7 +63,11 @@ class SectorChain:
         """
         the size of the stream has changed, based on the new size, are additional sectors needed?
         """
-        
+        size = stream.streamSize()
+        have = len(stream.getSectors())
+        if have * self._sectorSize < size:
+            needed = size - 1 // self._sectorSize + 1
+            self.extendChain(stream, needed - have)
         pass
 
 
