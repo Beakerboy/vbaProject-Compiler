@@ -75,7 +75,7 @@ class SectorChain:
         sector = self._startNewChain()
         stream.setStartSector(sector)
         sectorsNeeded = max((stream.streamSize() - 1) // self._sectorSize, 0)
-        if sectorsNeeded > 1:
+        if sectorsNeeded > 0:
             self.extendChain(stream, sectorsNeeded)
         self._streams.append(stream)
 
