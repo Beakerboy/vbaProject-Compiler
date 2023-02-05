@@ -13,11 +13,13 @@ def test_initialProperties():
 
 def test_addingChain():
     chain = FatChain(512)
-    chain.startNewChain()
+    stream = StreamStub()
+    chain.addStream(stream)
     assert chain.getLength() == 2
     assert chain.getChain() == [0xfffffffd, 0xfffffffe]
 
-    chain.startNewChain()
+    stream2 = StreamStub()
+    chain.addStream(stream2)
     assert chain.getLength() == 3
     assert chain.getChain() == [0xfffffffd, 0xfffffffe, 0xfffffffe]
 
@@ -86,3 +88,6 @@ def test_extendThroughFatSector2():
     assert chain.findSector(126, 3) == 130
     assert chain.findSector(126, 4) == 0xFFFFFFFE
     assert chain.findSector(126, 5) == 0xFFFFFFFE
+
+class StreamStub(StreamBase):
+    pass
