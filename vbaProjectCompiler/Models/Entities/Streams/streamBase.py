@@ -29,6 +29,10 @@ class StreamBase:
         self._sectors = [sector]
 
 
+    def getStartSector(self):
+        return self._sectors[0]
+
+
     def setAdditionalSectors(self, sectors):
         self._sectors.append(sectors)
 
