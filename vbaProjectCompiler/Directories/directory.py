@@ -61,7 +61,7 @@ class Directory:
             self.userFlags,
             self.created,
             self.modified,
-            self._sector,
+            self._startSector,
             self.fileSize(),
             0
         )        
