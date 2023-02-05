@@ -47,9 +47,7 @@ class StreamBase:
         """
         self._extendData(data)
         currentSecCnt = len(self._sectors)
-        newSectors = self._storageChain.requestNewSectors(currentSecCnt, self.streamSize())
-        if len(newSectors) > 0:
-            self._additionalSectors.append(newSectors)
+        self._storageChain.requestNewSectors(self)
 
 
     def streamSize(self):
