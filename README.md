@@ -24,6 +24,10 @@ ole_file.writeFile(".")
 The VbaProject class has many layers of customization available. Forexample a librry referenece can be added to the project.
 
 ```python
+from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
+from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+
+
 codePage = 0x04E4
 codePageName = "cp" + str(codePage)
 libidRef = LibidReference(
