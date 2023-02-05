@@ -13,17 +13,27 @@ class SectorChain:
         # the end of a sector.
         self._streams = []
 
+
     def __len__(self):
         return len(self._chain)
+
 
     def getSectorSize(self):
         return self._sectorSize
 
+
     def getLength(self):
         return len(self._chain)
 
+
     def getChain(self):
         return self._chain
+
+
+    def reserveNextFreeSector(self):
+        sector = self._nextFreeSector
+        self._nextFreeSector +=1
+
 
     def addStream(self, stream):
         sector = self.startNewChain()
