@@ -6,6 +6,14 @@ class FatChain(SectorChain):
         super(fatChain, self).__init__()
         self._nextFreeSector = 1
 
+    def getChain(self):
+        super(fatChain, self).getChain()
+        if len(chain) == 0:
+            chain = [0xFFFFFFFD]
+        else:
+            pass
+        return chain
+
 
     def reserveNextFreeSector(self):
         sector = self._nextFreeSector
