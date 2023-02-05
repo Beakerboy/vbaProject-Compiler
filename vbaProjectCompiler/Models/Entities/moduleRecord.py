@@ -2,6 +2,7 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedSt
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 
+
 class ModuleRecord():
     def __init__(self, name):
         """
