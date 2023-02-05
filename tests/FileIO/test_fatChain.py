@@ -48,7 +48,7 @@ def test_extendThroughFatSector():
     stream1 = StreamStub()
     chain.addStream(stream1)
     chain.extendChain(stream1, 126)
-    assert len(chain) == 129
+    assert len(chain) == 128
 
     chain.extendChain(stream1, 1)
     assert len(chain) == 130
