@@ -4,7 +4,11 @@ from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 
 class MiniChain(SectorChain, StreamBase):
-        
+
+    def __init__(self, size):
+        super().__init__(size)
+
+
     def addStream(self, stream):
         """
         Add a new stream to the minifat chaain and arrange the storage resources
