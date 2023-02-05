@@ -7,7 +7,6 @@ class MiniChain(SectorChain, StreamBase):
 
     def __init__(self, size):
         super().__init__(size)
-        super().__init__()
 
     def addStream(self, stream):
         """
