@@ -21,6 +21,7 @@ class MiniChain(SectorChain, StreamBase):
         # start one now.
         if len(self._streams) == 0:
             self._streams = ArrayStream()
+            self._stream.setStorageChain(self._storageChain)
             self._storageChain.addStream(self._streams)
 
         # Create a new entry on the minifat chain and tell the stream what it is
