@@ -7,7 +7,7 @@ class ArrayStream(StreamBase):
     """
 
     def __init__(self):
-        super().__init__(self)
+        StreamBase.__init__(self)
 
         # This object stors data in an array
         self._data = []
