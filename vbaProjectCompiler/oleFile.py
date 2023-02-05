@@ -274,7 +274,7 @@ class OleFile:
         project.sector = 94
         project.size = 466
 
-    def writeDataToSector(self, file, sector, data = b'\x00'):
+    def writeDataToSector(self, file, sector, data=b'\x00'):
         dataLength = len(data)
         if dataLength > self.bytesPerSector():
             raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
@@ -291,7 +291,7 @@ class OleFile:
         """
         Write the OLE file
         """
-        packSymbol = '<' if self.project.endien == 'little' else '>'
+        # packSymbol = '<' if self.project.endien == 'little' else '>'
 
         directoryStream = DirectoryStream()
         directoryStream.setStorageChain(self._fatChain)
