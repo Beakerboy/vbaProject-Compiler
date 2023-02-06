@@ -3,7 +3,8 @@ from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
 class ArrayStream(StreamBase):
     """
-    Base class for any object which will appear as a stream within a sector chain
+    Base class for any object which will appear as a stream within a sector
+    chain.
     """
 
     def __init__(self):
