@@ -1,6 +1,7 @@
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
+
 class StorageDirectory(Directory):
 
     def __init__(self):

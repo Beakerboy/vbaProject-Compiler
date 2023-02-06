@@ -1,6 +1,3 @@
-import pytest
-from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
 
@@ -10,6 +7,7 @@ def test_initialProperties():
     assert chain.getSectorSize() == 512
     assert len(chain) == 1
     assert chain.getChain() == [0xfffffffd]
+
 
 def test_addingChain():
     chain = FatChain(512)
@@ -76,7 +74,7 @@ def test_extendThroughFatSector2():
     chain.extendChain(stream1, 125)
     chain.extendChain(stream1, 3)
     assert len(chain) == 131
-    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130,0xFFFFFFFE]
+    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
 
 
 class StreamStub(StreamBase):

@@ -1,11 +1,8 @@
-# test_project.py
-
-import pytest
-from pathlib import Path
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
 from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.project import Project
+
 
 def test_blank():
     vbaProject = VbaProject()
@@ -17,7 +14,9 @@ def test_blank():
     vbaProject.setPassword("BCBEA7A2591C5A1C5A1C")
     vbaProject.setVisibilityState("37352C2BDCDD56DE56DEA9")
 
-    project.hostExtenderInfo = "&H00000001={3832D640-CF90-11CF-8E43-00A0C911005A};VBE;&H00000000"
+    project.hostExtenderInfo = ("&H00000001="
+                                + "{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
+                                + "&H00000000")
 
     thisWorkbook = DocModule("ThisWorkbook")
     sheet1 = DocModule("Sheet1")
@@ -28,12 +27,11 @@ def test_blank():
     vbaProject.addModule(sheet1)
     vbaProject.addModule(module1)
 
-    #expected = Path("tests/blank/vbaProject.bin").read_text()
+    # expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
     file.seek(0x2180)
     expected = file.read(0x0080)
     file.seek(0x2400)
     expected += file.read(0x0152)
 
-    result = project.toBytearray()
     assert project.toBytearray() == expected

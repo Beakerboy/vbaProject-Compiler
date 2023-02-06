@@ -1,22 +1,23 @@
 import struct
 
+
 class Directory:
     """An OLE directory object"""
-    
+
     def __init__(self):
         self.name = ""
 
         self.color = 0
 
         self.previousDirectoryId = 0xFFFFFFFF
-        self.nextDirectoryId     = 0xFFFFFFFF
-        self.subDirectoryId      = 0xFFFFFFFF
+        self.nextDirectoryId = 0xFFFFFFFF
+        self.subDirectoryId = 0xFFFFFFFF
 
         self.classId = ""
 
         self.userFlags = 0
 
-        self.created  = 0
+        self.created = 0
         self.modified = 0
 
         # The sector where this stream begins
@@ -44,7 +45,7 @@ class Directory:
     def writeDirectory(self, codePageName, endien):
         endienSymbol = '<' if endien == 'little' else '>'
         format = endienSymbol + "64shbb3I"
-        
+
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
@@ -64,5 +65,5 @@ class Directory:
             self._startSector,
             self.fileSize(),
             0
-        )        
+        )
         return dir

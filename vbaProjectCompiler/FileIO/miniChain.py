@@ -1,4 +1,3 @@
-import os
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 from vbaProjectCompiler.Models.Entities.Streams.array_stream import ArrayStream
 from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
@@ -12,7 +11,7 @@ class MiniChain(SectorChain, StreamBase):
 
     def addStream(self, stream):
         """
-        Add a new stream to the minifat chaain and arrange the storage resources
+        Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the
         FAT resources for them.
         """
@@ -33,24 +32,20 @@ class MiniChain(SectorChain, StreamBase):
             sectorList.append(self._reserveNextFreeSector())
         stream.setAdditionalSectors(sectorList)
 
-
     def _startNewChain(self):
         # Increase the necessary chain resources by one address
         newSector = self._reserveNextFreeSector()
         self.append(1)
         return newSector
 
- 
     def streamSize(self):
         """
         implementation of StreamBase.streamSize()
         """
         return 4 * len(self)
 
-
     def _extendData(self, number):
         """
         implementation of StreamBase._extendData()
         """
         pass
-

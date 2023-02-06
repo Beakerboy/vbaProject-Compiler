@@ -2,11 +2,13 @@ import pytest
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
+
 def test_StorageDirectory():
     dir1 = StorageDirectory()
     assert dir1.type == 1
     assert len(dir1.directories) == 0
     assert dir1.minifatSectorsUsed() == 0
+
 
 def test_addFile():
     dir2 = StorageDirectory()
