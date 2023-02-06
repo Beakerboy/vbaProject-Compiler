@@ -1,5 +1,6 @@
 class LibidReference():
-    def __init__(self, pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
+    def __init__(self, pathType, libidGuid, version,
+                 libidLcid, libidPath, libidRegName):
         self.libidReferenceKind = "G" if pathType == "windows" else "H"
         self.libidGuid = libidGuid
         self.version = version
