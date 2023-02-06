@@ -1,5 +1,5 @@
-
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+
 
 class DoubleEncodedString():
     """
