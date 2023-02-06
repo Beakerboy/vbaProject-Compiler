@@ -3,15 +3,15 @@ import struct
 
 class Directory:
     """An OLE directory object"""
-    
+
     def __init__(self):
         self.name = ""
 
         self.color = 0
 
         self.previousDirectoryId = 0xFFFFFFFF
-        self.nextDirectoryId     = 0xFFFFFFFF
-        self.subDirectoryId      = 0xFFFFFFFF
+        self.nextDirectoryId = 0xFFFFFFFF
+        self.subDirectoryId = 0xFFFFFFFF
 
         self.classId = ""
 
@@ -45,7 +45,7 @@ class Directory:
     def writeDirectory(self, codePageName, endien):
         endienSymbol = '<' if endien == 'little' else '>'
         format = endienSymbol + "64shbb3I"
-        
+
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
