@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Models.Fields.doubleEncodedString import(
+from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
