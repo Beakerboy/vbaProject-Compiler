@@ -6,7 +6,7 @@ def test_datetime():
     date = filetime2datetime(input)
     assert date.ctime() == "Mon Jan  9 14:07:51 2023"
 
-    
+
 def filetime2datetime(filetime):
     """
     convert FILETIME (64 bits int) to Python datetime.datetime
