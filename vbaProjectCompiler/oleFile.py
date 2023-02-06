@@ -84,7 +84,7 @@ class OleFile:
         """
         if len(self.getFatSectors()) <= 109:
             return 0xfffffffe
-        #research how Dif works
+        # research how Dif works
         return 0
 
 
@@ -111,7 +111,7 @@ class OleFile:
         """
         The number of sectors needed to express the directory list
         """
-        #Each directory record is 128 bytes
+        # Each directory record is 128 bytes
         directoriesPerSector = (2 ** self.uSectorShift) // 128
         directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
         return directorySectors
@@ -154,7 +154,7 @@ class OleFile:
         Write a full sector's worth of FAT chain data.
         Zero indexed
         """
-        #Each address is 4 bytes 
+        # Each address is 4 bytes 
         addressesPerSector = 2 ** (self.uSectorShift - 2)
         start = i * addressesPerSector
         end = (i + 1) * addressesPerSector
@@ -165,7 +165,7 @@ class OleFile:
         format = packSymbol + "I"
         for sector in sectors:
             output += struct.pack(format, sector)
-        #Pad the output to fill the sector.
+        # Pad the output to fill the sector.
         output = output.ljust(2 ** self.uSectorShift, b'\xff')
         return output
 
@@ -176,14 +176,15 @@ class OleFile:
         # foreach element in the array, if the size is greater then zero
         # determine how many 64 byte sectors are needed to contain the data
         chain = []
-        #All files with data require one sector, how many more are needed.
+        # All files with data require one sector, how many more are needed.
         additionalMinifatSectors = 0
         for file in self.directories:
             if file.size > 0:
-                additionalMinifatSectors = (file.size - 1) // (2 ** self.uMiniSectorShift)
+                bytes_per_sector = self.bytesPerMinifatSector()
+                additionalMinifatSectors = (file.size - 1) // sbytes_per_sector
                 for i in range(additionalMinifatSectors):
                     chain.append(len(chain) + 1)
-                #Append the chain terminator
+                # Append the chain terminator
                 chain.append(-2)
         return chain
 
@@ -198,14 +199,17 @@ class OleFile:
         Get the file offset for a specific minifat sector number
         Zero Indexed
         """
-        MinifatSectorsPerSector = 2 ** (self.uSectorShift - self.uMiniSectorShift)
+        diff = self.uSectorShift - self.uMiniSectorShift
+        MinifatSectorsPerSector = 2 ** diff
         fatChainDepth = sectorNumber // MinifatSectorsPerSector
         remainingMinifatSectors = sectorNumber % MinifatSectorsPerSector
-        return self.findFileOffset(self.firstMiniChainSector, fatChainDepth) + remainingMinifatSectors * self.bytesPerMinifatSector()
+        return (self.findFileOffset(self.firstMiniChainSector, fatChainDepth) 
+                + remainingMinifatSectors * self.bytesPerMinifatSector())
 
     def findFileOffset(self, startSector, depth):
         """
-        Follow the fat chain starting at startSector, for depth hops to find the file offset.
+        Follow the fat chain starting at startSector, for depth hops to find
+        the file offset.
         depth is zero or greater.
         """
         sector = startSector
@@ -214,14 +218,14 @@ class OleFile:
         return sector * self.bytesPerSector() + 512
 
     def finalize(self):
-        #add these if they are missing.
+        # add these if they are missing.
         thisWorkbook = Directory()
         thisWorkbook.name = "ThisWorkbook"
         thisWorkbook.type = 2
         thisWorkbook.color = 1
         thisWorkbook.nextDirectoryId = 5
         thisWorkbook.size = 999
-        #self.directories.append(thisWorkbook)
+        # self.directories.append(thisWorkbook)
 
         sheet1 = Directory()
         sheet1.name = "Sheet1"
@@ -230,7 +234,7 @@ class OleFile:
         sheet1.previousDirectoryId = 6
         sheet1.sector = 16
         sheet1.size = 991
-        #self.directories.append(sheet1)
+        # self.directories.append(sheet1)
 
         module1 = Directory()
         module1.name = "Module1"
@@ -242,7 +246,7 @@ class OleFile:
         module1.size = 681
         #self.directories.append(module1)
 
-        #these all need to be added
+        # these all need to be added
         vba_project = Directory()
         vba_project.name = "_VBA_Project"
         vba_project.type = 2
@@ -257,7 +261,7 @@ class OleFile:
         dir.size = 562
         self.directories.append(dir)
 
-        #This one is not always required.
+        # This one is not always required.
         projectWm = Directory()
         projectWm.name = "PROJECTwm"
         projectWm.type = 2
@@ -277,7 +281,9 @@ class OleFile:
     def writeDataToSector(self, file, sector, data=b'\x00'):
         dataLength = len(data)
         if dataLength > self.bytesPerSector():
-            raise Exception("Data length is " + str(dataLength) + " bytes. Longer than a sector")
+            message = ("Data length is " + str(dataLength)
+                       + " bytes. Longer than a sector")
+            raise Exception(message)
         if dataLength < self.bytesPerSector():
             data = data.ljust(self.bytesPerSector(), b'\x00')
         # Check File length and fill up to the desired sector
@@ -323,6 +329,6 @@ class OleFile:
         # write directory sectors
         # write minifat chain
         # write minifat data
-       
+
         # write minifat chain sectors
         f.close()
