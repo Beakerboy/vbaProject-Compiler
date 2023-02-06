@@ -65,5 +65,5 @@ class Directory:
             self._startSector,
             self.fileSize(),
             0
-        )        
+        )
         return dir
