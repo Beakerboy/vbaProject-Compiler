@@ -23,7 +23,7 @@ def test_directory():
           + b'\x33\x24\xD9\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
          )
 
-    assert dir.writeDirectory('cp1254', 'little') == exp
+    assert dir.writeDirectory('cp1254', 'little') == ex
 
 
 def test_RootDirectory():
