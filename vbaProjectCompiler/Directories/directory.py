@@ -17,7 +17,7 @@ class Directory:
 
         self.userFlags = 0
 
-        self.created  = 0
+        self.created = 0
         self.modified = 0
 
         # The sector where this stream begins
