@@ -1,4 +1,3 @@
-import pytest
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
