@@ -34,5 +34,4 @@ def test_blank():
     file.seek(0x2400)
     expected += file.read(0x0152)
 
-    result = project.toBytearray()
     assert project.toBytearray() == expected
