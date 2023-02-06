@@ -19,7 +19,7 @@ class VbaProject:
         self.modules = []
 
         self.projectCookie = 0xFFFF
-        
+
     # Getters and Setters
     def setProjectId(self, id):
         self._projectId = id
