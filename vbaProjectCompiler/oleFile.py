@@ -53,18 +53,18 @@ class OleFile:
         header = struct.pack(
             format,
             absig,
-            LONG_LONG_ZERO + LONG_LONG_ZERO,  #clsid
+            LONG_LONG_ZERO + LONG_LONG_ZERO,  # clsid
             self.uMinorVersion,
             self.uDllVersion,
-            65534,   #BOM
+            65534,   # BOM
             self.uSectorShift,
             self.uMiniSectorShift,
-            0,    #usReserved
-            0,    #ulReserved1
-            0,    #csectDir
+            0,    # usReserved
+            0,    # ulReserved1
+            0,    # csectDir
             self.countFatChainSectors(),
             self.firstDirectoryListSector,
-            0,    #signature
+            0,    # signature
             self.ulMiniSectorCutoff,
             self.getFirstMiniChainSector(),
             self.countMinifatFatChainSectors(),
