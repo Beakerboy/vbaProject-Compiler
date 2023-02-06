@@ -1,4 +1,3 @@
-import pytest
 from pathlib import Path
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
