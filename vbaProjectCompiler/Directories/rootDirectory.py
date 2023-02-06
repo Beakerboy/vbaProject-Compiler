@@ -26,6 +26,6 @@ class RootDirectory(StorageDirectory):
 
     def addModule(self, module):
         self.directories[0].addModule(module)
-        
+
     def addFile(self, stream):
         self.directories[0].addFile(stream)
