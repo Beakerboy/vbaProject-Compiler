@@ -27,7 +27,7 @@ def test_blank():
     vbaProject.addModule(sheet1)
     vbaProject.addModule(module1)
 
-    #expected = Path("tests/blank/vbaProject.bin").read_text()
+    # expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
     file.seek(0x2180)
     expected = file.read(0x0080)
