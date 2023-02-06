@@ -39,7 +39,7 @@ class ModuleRecord():
         Pack the metadata for use in the dir stream.
         """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
-        typeId = PackedData("HI", typeIdValue, 0) 
+        typeId = PackedData("HI", typeIdValue, 0)
         self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
         output = (self.modName.pack(codePageName, endien)
                   + self.streamName.pack(codePageName, endien)
