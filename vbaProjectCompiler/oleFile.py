@@ -1,4 +1,5 @@
-import struct, os
+import os
+import struct
 from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
@@ -7,7 +8,7 @@ from vbaProjectCompiler.Models.Entites.Streams.directoryStream import DirectoryS
 
 
 class OleFile:
-   
+
     # class default constructor
     def __init__(self, project):
         self.HEADER_BYTES = 512
