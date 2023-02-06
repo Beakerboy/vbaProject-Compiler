@@ -11,7 +11,7 @@ class MiniChain(SectorChain, StreamBase):
 
     def addStream(self, stream):
         """
-        Add a new stream to the minifat chaain and arrange the storage resources
+        Add a new stream to the minifat chain and arrange the storage resources
         We need to manage changes to the minifat chain, minifat stream, and the
         FAT resources for them.
         """
