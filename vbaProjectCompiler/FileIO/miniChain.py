@@ -37,7 +37,7 @@ class MiniChain(SectorChain, StreamBase):
         newSector = self._reserveNextFreeSector()
         self.append(1)
         return newSector
- 
+
     def streamSize(self):
         """
         implementation of StreamBase.streamSize()
