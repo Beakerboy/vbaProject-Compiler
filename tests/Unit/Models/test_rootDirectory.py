@@ -1,7 +1,7 @@
 import pytest
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 
-1234567890123456789012345678901234567890123456789012345678901234567890123456789
+
 def test_directory():
 
     dir = RootDirectory()
