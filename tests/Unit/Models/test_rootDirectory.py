@@ -1,4 +1,3 @@
-import pytest
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 
 
