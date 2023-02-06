@@ -16,7 +16,7 @@ class DocModule(ModuleRecord):
 
     def toProjectModuleString(self):
         return ("Document=" + self.modName.value + "/&H"
-                + self.docTlibVer.to_bytes(4, "big").hex()
+                + self.docTlibVer.to_bytes(4, "big").hex())
 
     def addVbBase(self, guid):
         """
