@@ -15,7 +15,7 @@ class ModuleRecord():
         self.docString = DoubleEncodedString([0x001C, 0x0048], "")
         self.helpContext = IdSizeField(0x001E, 4, 0)
         self.cookie = IdSizeField(0x002C, 2, 0xFFFF)
-       
+
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
         self.cache = b''
@@ -34,7 +34,7 @@ class ModuleRecord():
         self._size = len(cache) + self._fileSize
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
-        self.workspace  = [val1, val2, val3, val4, val5]
+        self.workspace = [val1, val2, val3, val4, val5]
 
     def pack(self, codePageName, endien):
         """
