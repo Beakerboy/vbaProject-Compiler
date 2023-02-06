@@ -159,4 +159,5 @@ def test_dirStream():
 
     # The compression results are not the same.
     comp = Compressor()
-    assert decomp.decompress(comp.compress(stream.toBytes())) == decompressedStream
+    compressed = comp.compress(stream.toBytes())
+    assert decomp.decompress(compressed) == decompressedStream
