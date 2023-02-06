@@ -1,4 +1,3 @@
-from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
 
