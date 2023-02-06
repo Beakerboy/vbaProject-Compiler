@@ -1,4 +1,3 @@
-import pytest
 from ms_ovba_compression.compressor import Compressor
 from ms_ovba_compression.decompressor import Decompressor
 from vbaProjectCompiler.vbaProject import VbaProject
