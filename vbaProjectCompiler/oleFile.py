@@ -14,13 +14,13 @@ class OleFile:
         self.project = project
 
         # Instance Attributes
-        self.uMinorVersion            = 62
-        self.uDllVersion              = 3
-        self.uSectorShift             = 9
-        self.uMiniSectorShift         = 6
+        self.uMinorVersion = 62
+        self.uDllVersion = 3
+        self.uSectorShift = 9
+        self.uMiniSectorShift = 6
         self.firstDirectoryListSector = 1
-        self.firstMiniChainSector     = 2
-        self.ulMiniSectorCutoff       = 4096
+        self.firstMiniChainSector = 2
+        self.ulMiniSectorCutoff = 4096
 
         # the FAT chain holds large files, the minifat chain, the minifat data,
         # and the directory tree.
