@@ -52,7 +52,8 @@ class SectorChain:
 
     def requestNewSectors(self, stream):
         """
-        the size of the stream has changed, based on the new size, are additional sectors needed?
+        the size of the stream has changed, based on the new size, are
+        additional sectors needed?
         """
         size = stream.streamSize()
         have = len(stream.getSectors())
