@@ -181,7 +181,7 @@ class OleFile:
         for file in self.directories:
             if file.size > 0:
                 bytes_per_sector = self.bytesPerMinifatSector()
-                additionalMinifatSectors = (file.size - 1) // sbytes_per_sector
+                additionalMinifatSectors = (file.size - 1) // bytes_per_sector
                 for i in range(additionalMinifatSectors):
                     chain.append(len(chain) + 1)
                 # Append the chain terminator
