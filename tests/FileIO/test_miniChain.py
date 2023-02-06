@@ -1,4 +1,3 @@
-import pytest
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
 from vbaProjectCompiler.FileIO.sectorChain import SectorChain
 from vbaProjectCompiler.Models.Entities.Streams.streamBase import StreamBase
@@ -28,11 +27,10 @@ def test_addSmallStream():
 
 def test_parentChain():
     chain = MiniChain(64)
-    stream = StreamStub(16)
     parentChain = ChainMock(512)
     chain.setStorageChain(parentChain)
     parentChain.addStream(chain)
-    assert chain.getStartSector() == 0 
+    assert chain.getStartSector() == 0
 
 
 def test_addBiggerData():
