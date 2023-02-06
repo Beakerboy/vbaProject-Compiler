@@ -34,7 +34,7 @@ class SectorChain:
                     chain[sectornum] = 0xFFFFFFFE
                 else:
                     chain[sectornum] = sectors[i + 1]
-                
+
         return chain
 
     def _reserveNextFreeSector(self):
