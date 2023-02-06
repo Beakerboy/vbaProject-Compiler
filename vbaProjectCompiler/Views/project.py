@@ -9,7 +9,7 @@ class Project:
         # A list of attributes and values
         self.attributes = {}
 
-        #The HostExtenderInfo string
+        # The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
     def addAttribute(self, name, value):
