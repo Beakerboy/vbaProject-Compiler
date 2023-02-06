@@ -1,4 +1,6 @@
 import struct
+
+
 class PackedData():
     """
     Mutivalue field with a packing format
