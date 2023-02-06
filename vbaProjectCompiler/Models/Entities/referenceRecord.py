@@ -1,4 +1,3 @@
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 
