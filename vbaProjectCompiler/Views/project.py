@@ -5,10 +5,10 @@ class Project:
     def __init__(self, project):
         self.project = project
         # Attributes
-    
-        #A list of attributes and values
+
+        # A list of attributes and values
         self.attributes = {}
-    
+
         #The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
