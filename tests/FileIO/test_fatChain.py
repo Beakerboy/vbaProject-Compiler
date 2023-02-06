@@ -74,7 +74,7 @@ def test_extendThroughFatSector2():
     chain.extendChain(stream1, 125)
     chain.extendChain(stream1, 3)
     assert len(chain) == 131
-    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130,0xFFFFFFFE]
+    assert chain.getChain()[126:] == [127, 129, 0xFFFFFFFD, 130, 0xFFFFFFFE]
 
 
 class StreamStub(StreamBase):
