@@ -1,8 +1,9 @@
 import struct
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
-from vbaProjectCompiler.Models.Fields.doubleEncodedString import DoubleEncodedString
+from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
+    DoubleEncodedString
+)
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
@@ -15,8 +16,8 @@ class DirStream(StreamDirectory):
     def __init__(self, project):
         self.project = project
         self.codePage = 0x04E4
-        codePageName = "cp" + str(self.codePage)
-        syskind = IdSizeField(1, 4, 3) #0=16bit, 1=32bit, 2=mac, 3=64bit
+        # 0=16bit, 1=32bit, 2=mac, 3=64bit
+        syskind = IdSizeField(1, 4, 3)
         compatVersion = IdSizeField(74, 4, 3)
         lcid = IdSizeField(2, 4, 0x0409)
         lcidInvoke = IdSizeField(20, 4, 0x0409)
@@ -44,14 +45,16 @@ class DirStream(StreamDirectory):
             minorVersion,
             constants
         ]
-        self.references  = []
+        self.references = []
         self.modules = []
-       
+
     def toBytes(self):
         endien = self.project.endien
         codePageName = self.project.getCodePageName()
         packSymbol = '<' if endien == 'little' else '>'
-        self.projectCookie = IdSizeField(19, 2, self.project.projectCookie) #should be 0xFFFF
+        # should be 0xFFFF
+        cookie_value = self.project.projectCookie
+        self.projectCookie = IdSizeField(19, 2, cookie_value)
         self.references = self.project.references
         self.modules = self.project.modules
         output = b''
@@ -59,10 +62,11 @@ class DirStream(StreamDirectory):
             output += record.pack(codePageName, endien)
         for record in self.references:
             output += record.pack(codePageName, endien)
-        
+
         modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
 
-        output += modulesHeader.pack(codePageName, endien) + self.projectCookie.pack(codePageName, endien)
+        output += (modulesHeader.pack(codePageName, endien)
+                   + self.projectCookie.pack(codePageName, endien)
         for record in self.modules:
             output += record.pack(codePageName, endien)
         output += struct.pack(packSymbol + "HI", 16, 0)
