@@ -1,4 +1,3 @@
-import os
 from vbaProjectCompiler.Directories.directory import Directory
 
 
