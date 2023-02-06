@@ -15,5 +15,10 @@ class Vba_Project:
         reserved2 = 0x00
         reserved3 = 0x0003
 
-        output += struct.pack(format, reserved1, self.project.getPerformanceCacheVersion(), reserved2, reserved3)
+        output += struct.pack(format,
+            reserved1,
+            self.project.getPerformanceCacheVersion(),
+            reserved2,
+            reserved3
+        )
         return output + self.project.getPerformanceCache()
