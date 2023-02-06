@@ -15,7 +15,7 @@ def test_blank():
     vbaProject.setVisibilityState("37352C2BDCDD56DE56DEA9")
 
     project.hostExtenderInfo = ("&H00000001="
-                                +"{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
+                                + "{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
                                 + "&H00000000")
 
     thisWorkbook = DocModule("ThisWorkbook")
