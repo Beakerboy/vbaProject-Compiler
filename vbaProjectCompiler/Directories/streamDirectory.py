@@ -2,7 +2,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 
 
 class StreamDirectory(Directory):
-    
+
     def __init__(self):
         super(StreamDirectory, self).__init__()
         self.type = 2
