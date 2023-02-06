@@ -6,7 +6,6 @@ def test_projectWm():
     vbaProject = VbaProject()
     vba_Project = Vba_Project(vbaProject)
     expected = b'\xCC\x61\xFF\xFF\x00\x03\x00'
-    result = vba_Project.toBytes()
     assert vba_Project.toBytes() == expected
     vbaProject.setPerformanceCache(b'\x00\x01\x02\x03')
     vbaProject.setPerformanceCacheVersion(0x00B5)
