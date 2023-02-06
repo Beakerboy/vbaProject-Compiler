@@ -15,4 +15,5 @@ class DoubleEncodedString():
         format = "utf_16_le" if endien == 'little' else "utf_16_be"
         encoded = self.value.encode(format)
         self.modName2 = IdSizeField(self.ids[1], len(encoded), encoded)
-        return self.modName1.pack(codePageName, endien) + self.modName2.pack(codePageName, endien)
+        return (self.modName1.pack(codePageName, endien)
+                + self.modName2.pack(codePageName, endien))
