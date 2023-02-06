@@ -1,6 +1,7 @@
 class StreamBase:
     """
-    Base class for any object which will appear as a stream within a sector chain
+    Base class for any object which will appear as a stream within a sector
+    chain.
     """
 
     def __init__(self):
@@ -36,7 +37,8 @@ class StreamBase:
 
     def append(self, data):
         """
-        Extend the data in this stream. Request additional chain storage if needed
+        Extend the data in this stream.
+        Request additional chain storage if needed
         """
         self._extendData(data)
         self._storageChain.requestNewSectors(self)
