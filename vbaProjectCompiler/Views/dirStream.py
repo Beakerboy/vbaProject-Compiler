@@ -66,7 +66,7 @@ class DirStream(StreamDirectory):
         modulesHeader = IdSizeField(0x000F, 2, len(self.modules))
 
         output += (modulesHeader.pack(codePageName, endien)
-                   + self.projectCookie.pack(codePageName, endien)
+                   + self.projectCookie.pack(codePageName, endien))
         for record in self.modules:
             output += record.pack(codePageName, endien)
         output += struct.pack(packSymbol + "HI", 16, 0)
