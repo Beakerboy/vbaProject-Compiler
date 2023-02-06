@@ -87,7 +87,6 @@ class OleFile:
         # research how Dif works
         return 0
 
-
     def countDifSectors(self):
         """
         How many sectors of 512 entries are needed to list the positions of the
@@ -98,29 +97,6 @@ class OleFile:
         if count <= 109:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
-
-
-    def countFatChainSectors(self):
-        """
-        Calculate the number of sectors needed to express the FAT chain.
-        """
-        return max((len(self._fatChain.getChain()) - 1) // (2 ** self.uSectorShift - 1) + 1, 1)
-
-
-    def countDirectoryListSectors(self):
-        """
-        The number of sectors needed to express the directory list
-        """
-        # Each directory record is 128 bytes
-        directoriesPerSector = (2 ** self.uSectorShift) // 128
-        directorySectors = (len(self.directories) - 1) // directoriesPerSector + 1
-        return directorySectors
-
-
-    def countMinifatFatChainSectors(self):
-        addressesPerSector = 2 ** (self.uSectorShift - 2)
-        return max((len(self._minifatChain.getChain()) - 1) // addressesPerSector + 1, 1)
-
 
     def writeHeaderFatSectorList(self):
         """
@@ -136,7 +112,6 @@ class OleFile:
             output += struct.pack(packSymbol + "I", sector)
         output = output.ljust(436, b'\xff')
         return output
-
 
     def getFatSectors(self):
         """
@@ -154,7 +129,7 @@ class OleFile:
         Write a full sector's worth of FAT chain data.
         Zero indexed
         """
-        # Each address is 4 bytes 
+        # Each address is 4 bytes
         addressesPerSector = 2 ** (self.uSectorShift - 2)
         start = i * addressesPerSector
         end = (i + 1) * addressesPerSector
@@ -192,7 +167,7 @@ class OleFile:
         return 2 ** self.uSectorShift
 
     def bytesPerMinifatSector(self):
-         return 2 ** self.uMiniSectorShift
+        return 2 ** self.uMiniSectorShift
 
     def findMinifatSectorOffset(self, sectorNumber):
         """
@@ -203,7 +178,7 @@ class OleFile:
         MinifatSectorsPerSector = 2 ** diff
         fatChainDepth = sectorNumber // MinifatSectorsPerSector
         remainingMinifatSectors = sectorNumber % MinifatSectorsPerSector
-        return (self.findFileOffset(self.firstMiniChainSector, fatChainDepth) 
+        return (self.findFileOffset(self.firstMiniChainSector, fatChainDepth)
                 + remainingMinifatSectors * self.bytesPerMinifatSector())
 
     def findFileOffset(self, startSector, depth):
@@ -244,7 +219,7 @@ class OleFile:
         module1.nextDirectoryId = 2
         module1.sector = 2
         module1.size = 681
-        #self.directories.append(module1)
+        # self.directories.append(module1)
 
         # these all need to be added
         vba_project = Directory()
