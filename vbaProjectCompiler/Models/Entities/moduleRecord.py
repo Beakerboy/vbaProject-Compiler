@@ -84,9 +84,10 @@ class ModuleRecord():
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
         for i in range(5):
             line = f.readline()
-       
+
         new_f.write(line)
-        new_f.writelines(['Attribute VB_Base = "0{00020819-0000-0000-C000-000000000046}"'])
+        txt = 'Attribute VB_Base = "0{00020819-0000-0000-C000-000000000046}"'
+        new_f.writelines([txt])
         while line := f.readline():
            new_f.writelines([line])
         new_f.writelines(['Attribute VB_TemplateDerived = False'])
