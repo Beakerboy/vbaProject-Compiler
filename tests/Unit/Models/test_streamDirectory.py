@@ -10,4 +10,4 @@ def test_StreamDirectory():
 class ModuleStub():
 
     def __init__(self):
-        self.name = "stub"
+        self.modName = "stub"
