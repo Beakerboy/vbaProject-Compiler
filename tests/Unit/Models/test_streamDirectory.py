@@ -2,7 +2,7 @@ from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 
 
 def test_StreamDirectory():
-    stub = ModeStub()
+    stub = ModuleStub()
     dir = StreamDirectory.createFromModule(stub)
     assert dir.type == 2
 
