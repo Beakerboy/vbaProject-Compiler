@@ -3,6 +3,7 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
 
+
 def test_StreamDirectory():
     stub = ModuleStub()
     dir = StreamDirectory.createFromModule(stub)
