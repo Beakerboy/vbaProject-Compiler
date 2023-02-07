@@ -1,5 +1,7 @@
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
-
+from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
+    DoubleEncodedString
+)
 
 def test_StreamDirectory():
     stub = ModuleStub()
@@ -10,4 +12,4 @@ def test_StreamDirectory():
 class ModuleStub():
 
     def __init__(self):
-        self.modName = "stub"
+        self.modName = DoubleEncodedString([0x0019, 0x0047], "stub")
