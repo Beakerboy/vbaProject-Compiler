@@ -1,3 +1,4 @@
+import io
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
@@ -57,7 +58,8 @@ class ModuleRecord():
     def toProjectModuleString(self):
         return self.type + "=" + self.modName.value
 
-    def addFile(self, filePath):
+    def addFile(self, file_path):
+        self._file_path = file_path
         # Normalize file
         # Save to new name
         # compress the file and save
@@ -77,3 +79,17 @@ class ModuleRecord():
         return the {number}th chunk
         """
         pass
+
+    def _normalizeFile(self):
+        f = open(self._file_path, "r")
+        new_f = open(self._file_path + ".new", "a+", newline='\r\n')
+        for i in range(5)
+            line = f.readline()
+       
+        new_f.write(line)
+        new_f.writelines(['Attribute VB_Base = "0{00020819-0000-0000-C000-000000000046}"'])
+        while line := f.readline():
+           new_f.writelines([line])
+        new_f.writelines(['Attribute VB_TemplateDerived = False'])
+        new_f.writelines(['Attribute VB_Customizable = True'])
+        new_f.close()
