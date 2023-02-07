@@ -89,7 +89,7 @@ class ModuleRecord():
         txt = 'Attribute VB_Base = "0{00020819-0000-0000-C000-000000000046}"'
         new_f.writelines([txt])
         while line := f.readline():
-           new_f.writelines([line])
+            new_f.writelines([line])
         new_f.writelines(['Attribute VB_TemplateDerived = False'])
         new_f.writelines(['Attribute VB_Customizable = True'])
         new_f.close()
