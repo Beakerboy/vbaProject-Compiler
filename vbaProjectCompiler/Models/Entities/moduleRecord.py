@@ -1,4 +1,3 @@
-import io
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
@@ -83,7 +82,7 @@ class ModuleRecord():
     def _normalizeFile(self):
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
-        for i in range(5)
+        for i in range(5):
             line = f.readline()
        
         new_f.write(line)
