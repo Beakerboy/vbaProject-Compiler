@@ -86,6 +86,6 @@ class ModuleRecord():
         new_f.writelines([txt])
         while line := f.readline():
             new_f.writelines([line])
-        new_f.writelines(['Attribute VB_TemplateDerived = False'])
-        new_f.writelines(['Attribute VB_Customizable = True'])
+        new_f.writelines(['Attribute VB_TemplateDerived = False\n'])
+        new_f.writelines(['Attribute VB_Customizable = True\n'])
         new_f.close()
