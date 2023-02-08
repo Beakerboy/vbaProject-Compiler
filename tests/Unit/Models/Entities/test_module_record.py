@@ -17,8 +17,8 @@ def test_constructor():
     assert file_size.st_size == 0x03E7
     f_stream = open(path3, "rb")
     full_binary = open('tests/blank/vbaProject.bin', 'rb')
-    offset = 0x0800
-    length = 0x03E7
+    offset = 0x0B33
+    length = 0x00B3
     full_binary.seek(offset)
     container = f.read(length)
     assert f_stream.read() == container
