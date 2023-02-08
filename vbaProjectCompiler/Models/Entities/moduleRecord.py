@@ -57,7 +57,7 @@ class ModuleRecord():
     def toProjectModuleString(self):
         return self.type + "=" + self.modName.value
 
-    def addFile(self, file_path):
+    def add_file(self, file_path):
         self._file_path = file_path
         # Normalize file
         # Save to new name
