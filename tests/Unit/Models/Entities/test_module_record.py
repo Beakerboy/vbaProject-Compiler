@@ -11,3 +11,11 @@ def test_constructor():
     e = open(path2, "r")
     while line := f.readline():
         assert line == e.readline()
+    path3 = path1 + ".full"
+    f_stream = open(path3, "rb")
+    full_binary = open('tests/blank/vbaProject.bin', 'rb')
+    offset = 0x0800
+    length = 0x03E7
+    full_binary.seek(offset)
+    container = f.read(length)
+    assery f_stream.read() == container
