@@ -83,7 +83,7 @@ class ModuleRecord():
             line = f.readline()
 
         new_f.write(line)
-        txt = self._attr("Base", "0{00020819-0000-0000-C000-000000000046}")
+        txt = self._attr("Base", '"0{00020819-0000-0000-C000-000000000046}"')
         new_f.writelines([txt])
         while line := f.readline():
             new_f.writelines([line])
