@@ -75,7 +75,7 @@ class ModuleRecord():
         """
         pass
 
-    def _normalize_file(self):
+    def normalize_file(self):
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
         for i in range(5):
