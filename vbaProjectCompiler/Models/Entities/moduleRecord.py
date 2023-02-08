@@ -98,4 +98,3 @@ class ModuleRecord():
         compressed = ms_ovba.compress(contents)
         full_f.write(compressed)
         full_f.close()
-   
