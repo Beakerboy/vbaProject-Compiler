@@ -11,4 +11,3 @@ def test_constructor():
     e = open(path2, "r")
     while line := f.readline():
         assert line == e.readline()
-
