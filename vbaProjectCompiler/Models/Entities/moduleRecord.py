@@ -18,7 +18,7 @@ class ModuleRecord():
 
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
-        self.cache = b''
+        self._cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
         self.created = 0
@@ -27,11 +27,12 @@ class ModuleRecord():
         self._size = 0
 
     def getSize(self):
-        return self._size
+        """ is this method necessary
+        """
+        return len(self._cache)
 
     def addPerformanceCache(self, cache):
-        self.cache = cache
-        self._size = len(cache) + self._fileSize
+        self._cache = cache
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
@@ -59,11 +60,6 @@ class ModuleRecord():
 
     def add_file(self, file_path):
         self._file_path = file_path
-        self._normalize_file()
-        # Save to new name
-        # compress the file and save
-        # update self._fileSize
-        self._size = self._fileSize + len(self.cache)
 
     def getData(self):
         """
