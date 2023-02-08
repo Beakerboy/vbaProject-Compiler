@@ -1,3 +1,4 @@
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
@@ -89,3 +90,12 @@ class ModuleRecord():
         new_f.writelines(['Attribute VB_TemplateDerived = False\n'])
         new_f.writelines(['Attribute VB_Customizable = True\n'])
         new_f.close()
+        full_f = open(self._file_path + ".full", "wb")
+        full_f.write(self.cache)
+        with open(self._file_path + ".new", mode="rb") as new_f:
+            contents = new_f.read()
+        ms_ovba = MsOvba()
+        compressed = ms_ovba.compress(contents)
+        full_f.write(compressed)
+        full_f.close()
+   
