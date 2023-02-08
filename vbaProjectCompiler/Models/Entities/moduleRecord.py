@@ -100,4 +100,4 @@ class ModuleRecord():
         full_f.close()
 
     def _attr(self, name, value):
-        return 'Attribute VB_' + name + ' = "' + value + '"\n'
+        return 'Attribute VB_' + name + ' = ' + value + '\n'
