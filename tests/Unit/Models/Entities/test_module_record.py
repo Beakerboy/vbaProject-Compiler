@@ -18,4 +18,4 @@ def test_constructor():
     length = 0x03E7
     full_binary.seek(offset)
     container = f.read(length)
-    assery f_stream.read() == container
+    assert f_stream.read() == container
