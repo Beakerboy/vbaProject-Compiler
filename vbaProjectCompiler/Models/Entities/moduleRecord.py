@@ -59,7 +59,7 @@ class ModuleRecord():
 
     def add_file(self, file_path):
         self._file_path = file_path
-        # Normalize file
+        self._normalize_file()
         # Save to new name
         # compress the file and save
         # update self._fileSize
@@ -79,7 +79,7 @@ class ModuleRecord():
         """
         pass
 
-    def _normalizeFile(self):
+    def _normalize_file(self):
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
         for i in range(5):
