@@ -88,7 +88,7 @@ class ModuleRecord():
         while line := f.readline():
             new_f.writelines([line])
         new_f.writelines([self._attr("TemplateDerived", "False")])
-        new_f.writelines([self_attr("Customizable", "True")])
+        new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
         full_f = open(self._file_path + ".full", "wb")
         full_f.write(self.cache)
