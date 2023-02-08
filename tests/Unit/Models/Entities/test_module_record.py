@@ -1,3 +1,4 @@
+import os
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
 
@@ -12,6 +13,8 @@ def test_constructor():
     while line := f.readline():
         assert line == e.readline()
     path3 = path1 + ".full"
+    file_size = os.stat(path3)
+    assert file_size.st_size == 0x03E7
     f_stream = open(path3, "rb")
     full_binary = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x0800
