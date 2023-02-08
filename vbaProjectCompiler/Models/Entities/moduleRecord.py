@@ -18,7 +18,7 @@ class ModuleRecord():
 
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
-        self._cache = b''
+        self.cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
         self.created = 0
@@ -29,10 +29,10 @@ class ModuleRecord():
     def getSize(self):
         """ is this method necessary
         """
-        return len(self._cache)
+        return len(self.cache)
 
     def addPerformanceCache(self, cache):
-        self._cache = cache
+        self.cache = cache
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
