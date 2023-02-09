@@ -1,4 +1,3 @@
-import pytest
 from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Directories.storageDirectory import StorageDirectory
 
