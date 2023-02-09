@@ -29,7 +29,7 @@ class ModuleRecord():
 
         self._guid = "00020819-0000-0000-C000-000000000046"
 
-    dev setGuid(self, guid):
+    def set_guid(self, guid):
         """
         Need to create a custom field type or use an existing
         python library
