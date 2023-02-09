@@ -1,4 +1,3 @@
-import os
 from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
@@ -14,8 +13,6 @@ def test_constructor():
     while line := f.readline():
         assert line == e.readline()
     path3 = path1 + ".bin"
-    file_size = os.stat(path3)
-    # assert file_size.st_size == 0x00B3
     f_stream = open(path3, "rb")
     full_binary = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x0B33
