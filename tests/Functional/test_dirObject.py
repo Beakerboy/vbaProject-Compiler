@@ -1,5 +1,4 @@
-from ms_ovba_compression.compressor import Compressor
-from ms_ovba_compression.decompressor import Decompressor
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Views.dirStream import DirStream
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
@@ -16,8 +15,8 @@ def test_dirStream():
     length = 0x0232
     f.seek(offset)
     container = f.read(length)
-    decomp = Decompressor()
-    decompressedStream = decomp.decompress(container)
+    ms_ovba = MsOvba()
+    decompressedStream = ms_ovba.decompress(container)
 
     # Create a project with the same attributes
     project = VbaProject()
@@ -158,6 +157,5 @@ def test_dirStream():
     assert stream.toBytes() == decompressedStream
 
     # The compression results are not the same.
-    comp = Compressor()
-    compressed = comp.compress(stream.toBytes())
-    assert decomp.decompress(compressed) == decompressedStream
+    compressed = ms_ovba.compress(stream.toBytes())
+    assert ms_ovba.decompress(compressed) == decompressedStream

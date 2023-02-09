@@ -1,3 +1,4 @@
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
@@ -26,12 +27,22 @@ class ModuleRecord():
         self._fileSize = 0
         self._size = 0
 
+        self._guid = "00020819-0000-0000-C000-000000000046"
+
+    def set_guid(self, guid):
+        """
+        Need to create a custom field type or use an existing
+        python library
+        """
+        self._guid = guid
+
     def getSize(self):
-        return self._size
+        """ is this method necessary
+        """
+        return len(self.cache)
 
     def addPerformanceCache(self, cache):
         self.cache = cache
-        self._size = len(cache) + self._fileSize
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
@@ -57,12 +68,8 @@ class ModuleRecord():
     def toProjectModuleString(self):
         return self.type + "=" + self.modName.value
 
-    def addFile(self, filePath):
-        # Normalize file
-        # Save to new name
-        # compress the file and save
-        # update self._fileSize
-        self._size = self._fileSize + len(self.cache)
+    def add_file(self, file_path):
+        self._file_path = file_path
 
     def getData(self):
         """
@@ -77,3 +84,29 @@ class ModuleRecord():
         return the {number}th chunk
         """
         pass
+
+    def normalize_file(self):
+        f = open(self._file_path, "r")
+        new_f = open(self._file_path + ".new", "a+", newline='\r\n')
+        for i in range(5):
+            line = f.readline()
+
+        new_f.write(line)
+        txt = self._attr("Base", '"0{' + self._guid + '}"')
+        new_f.writelines([txt])
+        while line := f.readline():
+            new_f.writelines([line])
+        new_f.writelines([self._attr("TemplateDerived", "False")])
+        new_f.writelines([self._attr("Customizable", "True")])
+        new_f.close()
+        bin_f = open(self._file_path + ".bin", "wb")
+        bin_f.write(self.cache)
+        with open(self._file_path + ".new", mode="rb") as new_f:
+            contents = new_f.read()
+        ms_ovba = MsOvba()
+        compressed = ms_ovba.compress(contents)
+        bin_f.write(compressed)
+        bin_f.close()
+
+    def _attr(self, name, value):
+        return 'Attribute VB_' + name + ' = ' + value + '\n'
