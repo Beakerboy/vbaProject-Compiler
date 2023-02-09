@@ -19,7 +19,7 @@ def test_constructor():
     f_stream = open(path3, "rb")
     full_binary = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x0B33
-    length = 0x00B3
+    length = 0x00B4
     full_binary.seek(offset)
     container = full_binary.read(length)
     ms_ovba = MsOvba()
