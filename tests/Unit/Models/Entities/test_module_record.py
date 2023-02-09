@@ -23,4 +23,6 @@ def test_constructor():
     full_binary.seek(offset)
     container = full_binary.read(length)
     ms_ovba = MsOvba()
-    assert ms_ovba.decompress(f_stream.read()) == ms_ovba.decompress(container)
+    test_data = ms_ovba.decompress(f_stream.read())
+    expected_data = ms_ovba.decompress(container)
+    assert test_data == expected_data
