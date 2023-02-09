@@ -1,4 +1,5 @@
 import os
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
 
 
@@ -21,4 +22,5 @@ def test_constructor():
     length = 0x00B3
     full_binary.seek(offset)
     container = full_binary.read(length)
-    assert f_stream.read() == container
+    ms_ovba = MsOvba()
+    assert ms_ovba.decompress(f_stream.read()) == ms_ovba.decompress(container)
