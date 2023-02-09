@@ -1,7 +1,7 @@
 import pytest, binascii, sys
 from os.path import exists
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.oleFile import OleFile
+from vbaProjectCompiler.ole_file import OleFile
 
 
 def test_getFirstDirectoryListSector():
