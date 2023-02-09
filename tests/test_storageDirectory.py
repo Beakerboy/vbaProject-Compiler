@@ -7,13 +7,11 @@ def test_StorageDirectory():
     dir1 = StorageDirectory()
     assert dir1.type == 1
     assert len(dir1.directories) == 0
-    assert dir1.minifatSectorsUsed() == 0
 
+    class MockModule():
+        type = 2
 
-def test_addFile():
-    dir2 = StorageDirectory()
-    stream = StreamDirectory()
-    stream.filePath = "tests/blank/PROJECT"
-    dir2.addFile(stream)
-    assert dir2.minifatSectorsUsed() == 7
-    assert dir2.fileSize() == 0
+    mock = MockModule()
+    assert len(dir1.flatten()) == 1
+    dir1.addModule(mock)
+    assert len(dir1.flatten()) == 2
