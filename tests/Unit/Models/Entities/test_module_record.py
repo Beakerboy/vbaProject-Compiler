@@ -13,7 +13,7 @@ def test_constructor():
     e = open(path2, "r")
     while line := f.readline():
         assert line == e.readline()
-    path3 = path1 + ".full"
+    path3 = path1 + ".bin"
     file_size = os.stat(path3)
     # assert file_size.st_size == 0x00B3
     f_stream = open(path3, "rb")
