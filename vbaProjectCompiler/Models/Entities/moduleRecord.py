@@ -90,14 +90,14 @@ class ModuleRecord():
         new_f.writelines([self._attr("TemplateDerived", "False")])
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
-        full_f = open(self._file_path + ".full", "wb")
-        full_f.write(self.cache)
+        bin_f = open(self._file_path + ".bin", "wb")
+        bin_f.write(self.cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
             contents = new_f.read()
         ms_ovba = MsOvba()
         compressed = ms_ovba.compress(contents)
-        full_f.write(compressed)
-        full_f.close()
+        bin_f.write(compressed)
+        bin_f.close()
 
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
