@@ -34,6 +34,7 @@ def test_fullFile():
     project.addReference(officeReference)
     project.setProjectCookie(0x08F3)
     project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
+    rand_nums = [0x41, 0xBC, 0x7B, 0x37, 0x7B]
     project.setProtectionState("41435A5A5E5A5E5A5E5A5E")
     project.setPassword("BCBEA7A2591C5A1C5A1C")
     project.setVisibilityState("37352C2BDCDD56DE56DEA9")
