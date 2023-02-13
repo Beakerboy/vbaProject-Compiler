@@ -1,6 +1,6 @@
 from os.path import exists
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.ole_file import OleFile
+from vba_project_compiler.ole_file import OleFile
 
 
 def test_getFirstDirectoryListSector():
