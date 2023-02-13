@@ -1,4 +1,3 @@
-import pytest, binascii, sys
 from os.path import exists
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.ole_file import OleFile
