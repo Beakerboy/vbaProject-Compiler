@@ -35,9 +35,15 @@ class Project:
         cmg = ms_ovba_crypto.encrypt(project_id, self.project.getProtectionState())
         dpb = ms_ovba_crypto.encrypt(project_id, self.project.getPassword())
         gc = ms_ovba_crypto.encrypt(project_id, self.project.getVisibilityState())
-        result += bytes('CMG="', codePageName) + binascii.hexlify(cmg).upper() + b'\x22\x0D\x0A'
-        result += bytes('DPB="', codePageName) + binascii.hexlify(dpb).upper() + b'\x22\x0D\x0A'
-        result += bytes('GC="', codePageName) + binascii.hexlify(gc).upper() + b'\x22\x0D\x0A'
+        result += bytes('CMG="', codePageName)
+            + binascii.hexlify(cmg).upper()
+            + b'\x22\x0D\x0A'
+        result += bytes('DPB="', codePageName) 
+            + binascii.hexlify(dpb).upper()
+            + b'\x22\x0D\x0A'
+        result += bytes('GC="', codePageName)
+            + binascii.hexlify(gc).upper()
+            + b'\x22\x0D\x0A'
         result += eol
         result += b'[Host Extender Info]' + eol
         result += bytes(self.hostExtenderInfo, codePageName)
