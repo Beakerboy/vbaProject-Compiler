@@ -7,9 +7,9 @@ class VbaProject:
         # Protected Instance Attributes
         self._codePageName = 'cp1252'
         self._projectId = '{}'
-        self._protectionState = "0705D8E3D8EDDBF1DBF1DBF1DBF1"
-        self._password = "0E0CD1ECDFF4E7F5E7F5E7"
-        self._visibilityState = "1517CAF1D6F9D7F9D706"
+        self._protectionState = b'\x00\x00\x00\x00'
+        self._password = b'\x00'
+        self._visibilityState = b'\xFF'
         self._performanceCache = b''
         self._performanceCacheVersion = 0xFFFF
 
