@@ -1,6 +1,5 @@
 import os
 import struct
-from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
@@ -195,67 +194,6 @@ class OleFile:
             sector = self.fatChain[sector]
         return sector * self.bytesPerSector() + 512
 
-    def finalize(self):
-        # add these if they are missing.
-        thisWorkbook = Directory()
-        thisWorkbook.name = "ThisWorkbook"
-        thisWorkbook.type = 2
-        thisWorkbook.color = 1
-        thisWorkbook.nextDirectoryId = 5
-        thisWorkbook.size = 999
-        # self.directories.append(thisWorkbook)
-
-        sheet1 = Directory()
-        sheet1.name = "Sheet1"
-        sheet1.type = 2
-        sheet1.color = 1
-        sheet1.previousDirectoryId = 6
-        sheet1.sector = 16
-        sheet1.size = 991
-        # self.directories.append(sheet1)
-
-        module1 = Directory()
-        module1.name = "Module1"
-        module1.type = 2
-        module1.color = 1
-        module1.previousDirectoryId = 3
-        module1.nextDirectoryId = 2
-        module1.sector = 2
-        module1.size = 681
-        # self.directories.append(module1)
-
-        # these all need to be added
-        vba_project = Directory()
-        vba_project.name = "_VBA_Project"
-        vba_project.type = 2
-        vba_project.sector = 43
-        vba_project.size = 2544
-        self.directories.append(vba_project)
-
-        dir = Directory()
-        dir.name = "dir"
-        dir.type = 2
-        dir.sector = 83
-        dir.size = 562
-        self.directories.append(dir)
-
-        # This one is not always required.
-        projectWm = Directory()
-        projectWm.name = "PROJECTwm"
-        projectWm.type = 2
-        projectWm.sector = 92
-        projectWm.size = 86
-        self.directories.append(projectWm)
-
-        project = Directory()
-        project.name = "PROJECT"
-        project.type = 2
-        project.color = 1
-        project.previousDirectoryId = 1
-        project.nextDirectoryId = 7
-        project.sector = 94
-        project.size = 466
-
     def writeDataToSector(self, file, sector, data=b'\x00'):
         dataLength = len(data)
         if dataLength > self.bytesPerSector():
@@ -271,9 +209,9 @@ class OleFile:
             file.write(b'\x00' * (desiredLength - fileLength))
         file.write(data)
 
-    def writeFile(self, path):
+    def build_file(self):
         """
-        Write the OLE file
+        Build the OLE file data structures from the project data.
         """
         # packSymbol = '<' if self.project.endien == 'little' else '>'
 
@@ -300,6 +238,11 @@ class OleFile:
                     self._fatChain.addStream(stream)
                 else:
                     self._minifatChain.addStream(stream)
+
+    def write_file(self, path):
+        """
+        Write the OLE file to disk
+        """
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # write fat sectors
@@ -310,3 +253,10 @@ class OleFile:
 
         # write minifat chain sectors
         f.close()
+
+    def writeFile(self, path):
+        """
+        Build and Write the OLE file
+        """
+        self.build_file()
+        self.write_file(path)
