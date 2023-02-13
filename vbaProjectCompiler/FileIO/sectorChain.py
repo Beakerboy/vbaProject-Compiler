@@ -75,7 +75,7 @@ class SectorChain:
         newSector = self._reserveNextFreeSector()
         return newSector
 
-    def write_chain(self, path, endian):
+    def write_chain(self, path, endian="little"):
         """
         write the chain list to a file.
         """
@@ -85,7 +85,7 @@ class SectorChain:
         for address in chain:
             f.write(address.to_bytes(4, endian))
 
-    def write_streams(self, path, endian):
+    def write_streams(self, path, endian="little"):
         sectors = len(self)
         f = open(path, "wb")
         f.write(b'\x00' * sectors * self._sectorSize)
