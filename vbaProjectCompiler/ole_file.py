@@ -271,9 +271,9 @@ class OleFile:
             file.write(b'\x00' * (desiredLength - fileLength))
         file.write(data)
 
-    def writeFile(self, path):
+    def build_file(self):
         """
-        Write the OLE file
+        Build the OLE file data structures from the project data.
         """
         # packSymbol = '<' if self.project.endien == 'little' else '>'
 
@@ -300,6 +300,11 @@ class OleFile:
                     self._fatChain.addStream(stream)
                 else:
                     self._minifatChain.addStream(stream)
+
+    def write_file(self, path):
+        """
+        Write the OLE file to disk
+        """
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
         # write fat sectors
@@ -310,3 +315,10 @@ class OleFile:
 
         # write minifat chain sectors
         f.close()
+
+    def writeFile(self, path):
+        """
+        Build and Write the OLE file
+        """
+        self.build_file()
+        self.write_file(path)
