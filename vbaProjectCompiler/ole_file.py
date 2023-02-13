@@ -162,8 +162,11 @@ class OleFile:
         """
         f = open(path + '/vbaProject.bin', 'wb+')
         f.write(self.header())
-        # write fat sectors
-        f.write(self.writeFatSector(0))
+        # extend file to full size
+        sectors = len(self._fatChain)
+        f.write(b'\x00' * sectors * self._fatChain.getSectorSize())
+        
+        self._fatChain.write_chain("./fatChain.bin")
         # write directory sectors
         # write minifat chain
         # write minifat data
