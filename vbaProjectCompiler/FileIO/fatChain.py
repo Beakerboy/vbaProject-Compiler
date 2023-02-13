@@ -25,3 +25,9 @@ class FatChain(SectorChain):
         sector = self._nextFreeSector
         self._nextFreeSector += 1
         return sector
+
+    def count_fat_chain_sectors():
+        """
+        How many fat chain sectors are needed to express the chain?
+        """
+        return (self._nextFreeSector - 1) // self._sectorSize + 1
