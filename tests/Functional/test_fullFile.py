@@ -2,7 +2,7 @@ import struct
 import unittest.mock
 from functools import partial
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.oleFile import OleFile
+from vbaProjectCompiler.ole_file import OleFile
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
 from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
