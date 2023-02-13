@@ -74,3 +74,13 @@ class SectorChain:
         # Increase the necessary chain resources by one address
         newSector = self._reserveNextFreeSector()
         return newSector
+
+    def write_chain(self, path, endian):
+        """
+        write the chain list to a file.
+        """
+        chain = self.getChain()
+        f = open(path, "wb")
+        # Each address is 4 bytes
+        for address in chain:
+            f.write(address.to_bytes(4, endian))
