@@ -165,12 +165,6 @@ class OleFile:
                 chain.append(-2)
         return chain
 
-    def bytesPerSector(self):
-        return 2 ** self.uSectorShift
-
-    def bytesPerMinifatSector(self):
-        return 2 ** self.uMiniSectorShift
-
     def findMinifatSectorOffset(self, sectorNumber):
         """
         Get the file offset for a specific minifat sector number
@@ -181,7 +175,7 @@ class OleFile:
         fatChainDepth = sectorNumber // MinifatSectorsPerSector
         remainingMinifatSectors = sectorNumber % MinifatSectorsPerSector
         return (self.findFileOffset(self.firstMiniChainSector, fatChainDepth)
-                + remainingMinifatSectors * self.bytesPerMinifatSector())
+                + remainingMinifatSectors * self._minifatChain.getSectorSize())
 
     def findFileOffset(self, startSector, depth):
         """
@@ -191,17 +185,17 @@ class OleFile:
         """
         sector = startSector
         for i in range(depth):
-            sector = self.fatChain[sector]
-        return sector * self.bytesPerSector() + 512
+            sector = self._fatChain[sector]
+        return sector * self._fatChain.getSectorSize() + 512
 
     def writeDataToSector(self, file, sector, data=b'\x00'):
         dataLength = len(data)
-        if dataLength > self.bytesPerSector():
+        if dataLength > self._fatChain.getSectorSize():
             message = ("Data length is " + str(dataLength)
                        + " bytes. Longer than a sector")
             raise Exception(message)
-        if dataLength < self.bytesPerSector():
-            data = data.ljust(self.bytesPerSector(), b'\x00')
+        if dataLength < self._fatChain.getSectorSize():
+            data = data.ljust(self._fatChain.getSectorSize(), b'\x00')
         # Check File length and fill up to the desired sector
         fileLength = file.seek(-1, os.SEEK_END)
         desiredLength = 512 + sector * (2 ** self.uSectorShift)
