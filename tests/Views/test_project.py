@@ -1,10 +1,28 @@
+import unittest.mock
+
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
 from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Views.project import Project
 
 
+class NotSoRandom():
+    _rand = []
+
+    @classmethod
+    def set_seed(cls, seeds):
+        cls._rand = seeds
+
+    @classmethod
+    def randint(cls, param1, param2):
+        return cls._rand.pop(0)
+
+
+@unittest.mock.patch('random.randint', NotSoRandom.randint)
+
 def test_blank():
+    rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
+    NotSoRandom.set_seed(rand)
     vbaProject = VbaProject()
     vbaProject.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project = Project(vbaProject)
