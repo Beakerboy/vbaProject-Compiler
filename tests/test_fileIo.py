@@ -10,7 +10,7 @@ def test_getFirstDirectoryListSector():
     project.setFirstDirectoryListSector(2)
     assert project.getFirstDirectoryListSector() == 2
 
-1234567890123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
 def test_header():
     vbaProject = VbaProject()
     project = OleFile(vbaProject)
