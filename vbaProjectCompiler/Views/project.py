@@ -1,3 +1,4 @@
+import binascii
 import ms_ovba_crypto
 
 
@@ -34,9 +35,9 @@ class Project:
         cmg = ms_ovba_crypto.encrypt(project_id, self.project.getProtectionState())
         dpb = ms_ovba_crypto.encrypt(project_id, self.project.getPassword())
         gc = ms_ovba_crypto.encrypt(project_id, self.project.getVisibilityState())
-        result += self._attr("CMG", cmg)
-        result += self._attr("DPB", dpb)
-        result += self._attr("GC", gc)
+        result += self._attr("CMG", binascii.hexlify(cmg).upper())
+        result += self._attr("DPB", binascii.hexlify(dpb).upper())
+        result += self._attr("GC", binascii.hexlify(gc).upper())
         result += eol
         result += b'[Host Extender Info]' + eol
         result += bytes(self.hostExtenderInfo, codePageName)
