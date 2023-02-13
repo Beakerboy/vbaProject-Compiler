@@ -20,25 +20,26 @@ class Project:
         self.attributes[name] = value
 
     def toBytearray(self):
-        codePageName = self.project.getCodePageName()
+        project = self.project
+        codePageName = project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-        project_id = self.project.getProjectId()
+        project_id = project.getProjectId()
         id = bytearray(project_id, codePageName)
         result = b'ID="' + id + b'"' + eol
-        modules = self.project.modules
+        modules = project.modules
         for module in modules:
             result += bytes(module.toProjectModuleString(), codePageName) + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
-        cmg = ms_ovba_crypto.encrypt(project_id, self.project.getProtectionState())
-        dpb = ms_ovba_crypto.encrypt(project_id, self.project.getPassword())
-        gc = ms_ovba_crypto.encrypt(project_id, self.project.getVisibilityState())
+        cmg = ms_ovba_crypto.encrypt(project_id, project.getProtectionState())
+        dpb = ms_ovba_crypto.encrypt(project_id, project.getPassword())
+        gc = ms_ovba_crypto.encrypt(project_id, project.getVisibilityState())
         result += (bytes('CMG="', codePageName)
                    + binascii.hexlify(cmg).upper()
                    + b'\x22\x0D\x0A')
-        result += (bytes('DPB="', codePageName) 
+        result += (bytes('DPB="', codePageName)
                    + binascii.hexlify(dpb).upper()
                    + b'\x22\x0D\x0A')
         result += (bytes('GC="', codePageName)
