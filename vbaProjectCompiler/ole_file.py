@@ -164,7 +164,7 @@ class OleFile:
         # extend file to full size
         sectors = len(self._fatChain)
         f.write(b'\x00' * sectors * self._fatChain.getSectorSize())
-        
+
         self._fatChain.write_chain("./fatChain.bin")
         # write directory sectors
         # write minifat chain
