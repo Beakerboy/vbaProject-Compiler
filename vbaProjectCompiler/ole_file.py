@@ -65,7 +65,7 @@ class OleFile:
             0,    # usReserved
             0,    # ulReserved1
             0,    # csectDir
-            self.countFatChainSectors(),
+            self._fatChain.count_fat_chain_sectors(),
             self.firstDirectoryListSector,
             0,    # signature
             self.ulMiniSectorCutoff,
