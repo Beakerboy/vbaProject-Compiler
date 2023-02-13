@@ -15,6 +15,9 @@ class SectorChain:
         return self._nextFreeSector
 
     def getSectorSize(self):
+        """
+        Get the number of bytes in each sector
+        """
         return self._sectorSize
 
     def getChain(self):
