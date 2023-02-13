@@ -4,7 +4,7 @@ from vbaProjectCompiler.Directories.directory import Directory
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
 from vbaProjectCompiler.FileIO.miniChain import MiniChain
-from vbaProjectCompiler.Models.Entites.Streams.directoryStream import (
+from vbaProjectCompiler.Models.Entities.Streams.directoryStream import (
     DirectoryStream
 )
 
@@ -65,12 +65,12 @@ class OleFile:
             0,    # usReserved
             0,    # ulReserved1
             0,    # csectDir
-            self.countFatChainSectors(),
+            self._fatChain.count_fat_chain_sectors(),
             self.firstDirectoryListSector,
             0,    # signature
             self.ulMiniSectorCutoff,
             self.getFirstMiniChainSector(),
-            self.countMinifatFatChainSectors(),
+            max([len(self._minifatChain.getSectors()), 1]),
             self.getDifStartSector(),
             self.countDifSectors()
         )
@@ -96,7 +96,7 @@ class OleFile:
         remaining FAT sectors.
         What if sectors are not 512 bytes?
         """
-        count = self.countFatChainSectors()
+        count = self._fatChain.count_fat_chain_sectors()
         if count <= 109:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
@@ -122,7 +122,7 @@ class OleFile:
         128 sector intervals.
         """
         sectorList = []
-        numberOfSectors = (self._fatChain.getLength() - 1) // 128 + 1
+        numberOfSectors = (len(self._fatChain) - 1) // 128 + 1
         for i in range(numberOfSectors):
             sectorList.append(i * (2 ** (self.uSectorShift - 2)))
         return sectorList
