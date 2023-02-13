@@ -70,7 +70,7 @@ class OleFile:
             0,    # signature
             self.ulMiniSectorCutoff,
             self.getFirstMiniChainSector(),
-            max(len(self._minifatChain.getSectors()), 1),
+            max([len(self._minifatChain.getSectors()), 1]),
             self.getDifStartSector(),
             self.countDifSectors()
         )
