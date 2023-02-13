@@ -31,9 +31,9 @@ class Project:
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
-        cmg = ms_ovba_crypto.encrypt(self.project.getProtectionState())
-        dpb = ms_ovba_crypto.encrypt(self.project.getPassword())
-        gc = ms_ovba_crypto.encrypt(self.project.getVisibilityState())
+        cmg = ms_ovba_crypto.encrypt(id, self.project.getProtectionState())
+        dpb = ms_ovba_crypto.encrypt(id, self.project.getPassword())
+        gc = ms_ovba_crypto.encrypt(id, self.project.getVisibilityState())
         result += self._attr("CMG", cmg)
         result += self._attr("DPB", dpb)
         result += self._attr("GC", gc)
