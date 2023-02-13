@@ -22,8 +22,8 @@ class Project:
         codePageName = self.project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-
-        id = bytearray(self.project.getProjectId(), codePageName)
+        project_id = self.project.getProjectId()
+        id = bytearray(project_id, codePageName)
         result = b'ID="' + id + b'"' + eol
         modules = self.project.modules
         for module in modules:
@@ -31,9 +31,9 @@ class Project:
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
-        cmg = ms_ovba_crypto.encrypt(id, self.project.getProtectionState())
-        dpb = ms_ovba_crypto.encrypt(id, self.project.getPassword())
-        gc = ms_ovba_crypto.encrypt(id, self.project.getVisibilityState())
+        cmg = ms_ovba_crypto.encrypt(project_id, self.project.getProtectionState())
+        dpb = ms_ovba_crypto.encrypt(project_id, self.project.getPassword())
+        gc = ms_ovba_crypto.encrypt(project_id, self.project.getVisibilityState())
         result += self._attr("CMG", cmg)
         result += self._attr("DPB", dpb)
         result += self._attr("GC", gc)
