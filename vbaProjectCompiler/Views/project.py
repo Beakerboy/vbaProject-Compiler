@@ -1,3 +1,6 @@
+import ms_ovba_crypto
+
+
 class Project:
     """
     The Project data view for the vbaProject
@@ -28,9 +31,12 @@ class Project:
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
-        result += self._attr("CMG", self.project.getProtectionState())
-        result += self._attr("DPB", self.project.getPassword())
-        result += self._attr("GC", self.project.getVisibilityState())
+        cmg = ms_ovba_crypto.encrypt(self.project.getProtectionState())
+        dpb = ms_ovba_crypto.encrypt(self.project.getPassword())
+        gc = ms_ovba_crypto.encrypt(self.project.getVisibilityState())
+        result += self._attr("CMG", cmg)
+        result += self._attr("DPB", dpb)
+        result += self._attr("GC", gc)
         result += eol
         result += b'[Host Extender Info]' + eol
         result += bytes(self.hostExtenderInfo, codePageName)
