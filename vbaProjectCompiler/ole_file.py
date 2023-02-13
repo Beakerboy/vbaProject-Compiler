@@ -96,7 +96,7 @@ class OleFile:
         remaining FAT sectors.
         What if sectors are not 512 bytes?
         """
-        count = self.countFatChainSectors()
+        count = self._fatChain.count_fat_chain_sectors()
         if count <= 109:
             return 0
         return (count - 109 - 1) // (2 ** (self.uSectorShift - 2)) + 1
