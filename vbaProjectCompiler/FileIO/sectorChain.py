@@ -17,9 +17,6 @@ class SectorChain:
     def getSectorSize(self):
         return self._sectorSize
 
-    def getLength(self):
-        return len(self._chain)
-
     def getChain(self):
         chain = []
         for stream in self._streams:
