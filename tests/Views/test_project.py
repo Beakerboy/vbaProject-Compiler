@@ -10,9 +10,6 @@ def test_blank():
     project = Project(vbaProject)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
-    vbaProject.setProtectionState("41435A5A5E5A5E5A5E5A5E")
-    vbaProject.setPassword("BCBEA7A2591C5A1C5A1C")
-    vbaProject.setVisibilityState("37352C2BDCDD56DE56DEA9")
 
     project.hostExtenderInfo = ("&H00000001="
                                 + "{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
