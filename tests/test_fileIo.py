@@ -24,7 +24,7 @@ def test_header():
     empty = b'\xff\xff\xff\xff'
     emptyLine = empty * 4
     padding = emptyLine * 27
-    expected += b'\x00\x00\x00\x00' + padding
+    expe += b'\x00\x00\x00\x00' + padding
     assert result == expe
 
 
