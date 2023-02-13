@@ -78,7 +78,13 @@ def test_fullFile():
     project.addModule(module1)
     fileIO = OleFile(project)
     fileIO.build_file()
+
     # Alter red-black tree
+    fileIO.streams[2].color = 1
+    fileIO.streams[3].color = 1
+    fileIO.streams[4].color = 1
+    fileIO.streams[8].color = 1
+
     fileIO.write_file(".")
     # assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
     # compare new file to blank file in 512 block chunks
