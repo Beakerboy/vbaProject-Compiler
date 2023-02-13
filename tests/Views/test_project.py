@@ -19,7 +19,6 @@ class NotSoRandom():
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
-
 def test_blank():
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
