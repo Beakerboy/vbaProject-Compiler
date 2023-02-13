@@ -1,4 +1,3 @@
-import os
 import struct
 from vbaProjectCompiler.Directories.rootDirectory import RootDirectory
 from vbaProjectCompiler.FileIO.fatChain import FatChain
