@@ -84,3 +84,15 @@ class SectorChain:
         # Each address is 4 bytes
         for address in chain:
             f.write(address.to_bytes(4, endian))
+
+    def write_streams(self, path, endian):
+        sectors = len(self)
+        f = open(path, "wb")
+        f.write(b'\x00' * sectors * self._sectorSize)
+        for stream in self._streams:
+            sectors = stream.getSectors()
+            s = open(stream.file, "rb")
+            for sector in sectors:
+                sector_data = s.read(self._sectorSize)
+                f.seek(sector * self._sectorSize)
+                f.write(sector_data)
