@@ -33,7 +33,9 @@ class Directory:
         return self._startSector
 
     def nameSize(self):
-        """The byte length of the name"""
+        """
+        The byte length of the name including a 2 byte null terminator
+        """
         return (len(self.name) + 1) * 2
 
     def setAdditionalSectors(self, sectorList):
@@ -42,10 +44,10 @@ class Directory:
     def fileSize(self):
         return 0
 
-    def writeDirectory(self, codePageName, endien):
-        endienSymbol = '<' if endien == 'little' else '>'
-        format = endienSymbol + "64shbb3I"
-
+    def to_bytes(self, codePageName, endian="little"):
+        endianSymbol = '<' if endian == 'little' else '>'
+        format = endianSymbol + "64shbb3I"
+        utf_format = "utf_16_le" if endian == 'little' else "utf_16_be"
         dir = struct.pack(
             format,
             self.name.encode("utf_16_le"),
@@ -56,7 +58,7 @@ class Directory:
             self.nextDirectoryId,
             self.subDirectoryId
         )
-        dir += bytearray(self.classId, "utf8").ljust(16, b'\x00')
+        dir += bytearray(self.classId, codePageName).ljust(16, b'\x00')
         dir += struct.pack(
             endienSymbol + "IQQIII",
             self.userFlags,
