@@ -1,4 +1,6 @@
 from ms_cfb import OleFile
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 
 class VbaProject:
