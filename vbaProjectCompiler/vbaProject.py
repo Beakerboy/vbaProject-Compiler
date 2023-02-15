@@ -2,6 +2,12 @@ from ms_cfb import OleFile
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
+from vbaProjectCompiler.Views.dirStream import DirStream
+from vbaProjectCompiler.Views.vba_Project import Vba_Project
+from vbaProjectCompiler.Views.project import Project
+from vbaProjectCompiler.Views.projectWm import ProjectWm
+
+
 
 class VbaProject:
 
@@ -39,6 +45,12 @@ class VbaProject:
         return self._protectionState
 
     def setVisibilityState(self, state):
+        """
+        0   = not visible
+        255 = visible
+        """
+        if state != 0 or state != 255:
+            raise Exception("Bad visibility value.")
         self._visibilityState = state
 
     def getVisibilityState(self):
