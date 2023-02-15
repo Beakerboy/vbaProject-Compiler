@@ -8,7 +8,6 @@ from vbaProjectCompiler.Views.project import Project
 from vbaProjectCompiler.Views.projectWm import ProjectWm
 
 
-
 class VbaProject:
 
     def __init__(self):
