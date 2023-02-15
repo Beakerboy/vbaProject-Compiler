@@ -1,3 +1,6 @@
+from ms_cfb import OleFile
+
+
 class VbaProject:
 
     def __init__(self):
@@ -71,7 +74,7 @@ class VbaProject:
         self.references.append(ref)
 
     def write_file(self):
-        ole_file = MsCFB()
+        ole_file = OleFile()
         VBADirectory = StorageDirectory()
         VBADirectory.set_name("VBA")
         for module in self.project.modules:
