@@ -1,5 +1,4 @@
 import struct
-from vbaProjectCompiler.Directories.streamDirectory import StreamDirectory
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
@@ -7,7 +6,7 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 
 
-class DirStream(StreamDirectory):
+class DirStream():
     """
     The dir stream is compressed on write
     """
@@ -47,7 +46,7 @@ class DirStream(StreamDirectory):
         self.references = []
         self.modules = []
 
-    def toBytes(self):
+    def to_bytes(self):
         endien = self.project.endien
         codePageName = self.project.getCodePageName()
         packSymbol = '<' if endien == 'little' else '>'
