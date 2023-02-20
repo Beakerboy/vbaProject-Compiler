@@ -35,7 +35,7 @@ class Project:
             result += self._attr(key, self.attributes[key])
         cmg = ms_ovba_crypto.encrypt(project_id, project.getProtectionState())
         dpb = ms_ovba_crypto.encrypt(project_id, project.getPassword())
-        gc = ms_ovba_crypto.encrypt(project_id, project.getVisibilityState())
+        gc = ms_ovba_crypto.encrypt(project_id, project.get_visibility_state())
         result += (bytes('CMG="', codePageName)
                    + binascii.hexlify(cmg).upper()
                    + b'\x22\x0D\x0A')
