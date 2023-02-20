@@ -1,6 +1,6 @@
-#from ms_cfb import OleFile
-#from ms_cfb.Models.Directories.storage_directory import StorageDirectory
-#from ms_cfb.Models.Directories.stream_directory import StreamDirectory
+# from ms_cfb import OleFile
+# from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+# from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 from vbaProjectCompiler.Views.dirStream import DirStream
 from vbaProjectCompiler.Views.vba_Project import Vba_Project
