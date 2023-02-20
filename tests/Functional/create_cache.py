@@ -1,4 +1,4 @@
-ca = def create_cache(cookie, guid):
+def create_cache(cookie, guid):
     co = cookie
     ca = (b''
           + b'\x01\x16\x03\x00\x00\xF0\x00\x00\x00\xD2\x02\x00\x00\xD4\x00\x00'
