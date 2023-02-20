@@ -17,7 +17,7 @@ class VbaProject:
         # Protected Instance Attributes
         self._codePageName = 'cp1252'
         self._projectId = '{}'
-        self._protectionState = b'\x00\x00\x00\x00'
+        self._protection_state = b'\x00\x00\x00\x00'
         self._password = b'\x00'
         self._visibility_state = b'\xFF'
         self._performanceCache = b''
@@ -37,11 +37,11 @@ class VbaProject:
     def getProjectId(self):
         return self._projectId
 
-    def setProtectionState(self, state):
-        self._protectionState = state
+    def set_protection_state(self, state):
+        self._protection_state = state
 
-    def getProtectionState(self):
-        return self._protectionState
+    def get_protection_state(self):
+        return self._protection_state
 
     def set_visibility_state(self, state):
         """
@@ -55,10 +55,10 @@ class VbaProject:
     def get_visibility_state(self):
         return self._visibility_state
 
-    def setPassword(self, value):
+    def set_password(self, value):
         self._password = value
 
-    def getPassword(self):
+    def get_password(self):
         return self._password
 
     def setPerformanceCache(self, cache):

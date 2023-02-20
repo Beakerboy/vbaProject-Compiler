@@ -33,8 +33,11 @@ class Project:
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
-        cmg = ms_ovba_crypto.encrypt(project_id, project.getProtectionState())
-        dpb = ms_ovba_crypto.encrypt(project_id, project.getPassword())
+        cmg = ms_ovba_crypto.encrypt(
+                                     project_id,
+                                     project.get_protection_state()
+                                    )
+        dpb = ms_ovba_crypto.encrypt(project_id, project.get_password())
         gc = ms_ovba_crypto.encrypt(project_id, project.get_visibility_state())
         result += (bytes('CMG="', codePageName)
                    + binascii.hexlify(cmg).upper()
