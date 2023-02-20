@@ -7,6 +7,7 @@ def test_set_get_visibility():
     project.set_visibility_state(0)
     assert project.get_visibility_state() == 0
 
+
 def test_bad_visibility():
     """
     Visibility must be zero or 0xFF
