@@ -49,7 +49,7 @@ def test_dirStream():
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
     guid = "0{00020819-0000-0000-C000-000000000046}"
-    cache = create_cache(thisWorkbook.cookie.value, guid)
+    cache = create_cache.create_cache(thisWorkbook.cookie.value, guid)
     thisWorkbook.addPerformanceCache(cache)
 
     sheet1 = DocModule("Sheet1")
