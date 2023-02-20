@@ -3,9 +3,9 @@
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 # from vbaProjectCompiler.Views.dirStream import DirStream
-from vbaProjectCompiler.Views.vba_Project import Vba_Project
-from vbaProjectCompiler.Views.project import Project
-from vbaProjectCompiler.Views.projectWm import ProjectWm
+# from vbaProjectCompiler.Views.vba_Project import Vba_Project
+# from vbaProjectCompiler.Views.project import Project
+# from vbaProjectCompiler.Views.projectWm import ProjectWm
 
 
 class VbaProject:
