@@ -1,3 +1,4 @@
+import pytest
 from vbaProjectCompiler.vbaProject import VbaProject
 
 
