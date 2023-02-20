@@ -19,7 +19,7 @@ class VbaProject:
         self._projectId = '{}'
         self._protectionState = b'\x00\x00\x00\x00'
         self._password = b'\x00'
-        self._visibilityState = b'\xFF'
+        self._visibility_state = b'\xFF'
         self._performanceCache = b''
         self._performanceCacheVersion = 0xFFFF
 
@@ -50,10 +50,10 @@ class VbaProject:
         """
         if state != 0 and state != 255:
             raise Exception("Bad visibility value.")
-        self._visibilityState = state
+        self._visibility_state = state
 
     def get_visibility_state(self):
-        return self._visibilityState
+        return self._visibility_state
 
     def setPassword(self, value):
         self._password = value
