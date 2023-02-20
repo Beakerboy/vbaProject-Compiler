@@ -54,7 +54,7 @@ def test_dirStream():
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
-    sheet1.addPerformanceCache(ca)
+    sheet1.addPerformanceCache(cache)
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
