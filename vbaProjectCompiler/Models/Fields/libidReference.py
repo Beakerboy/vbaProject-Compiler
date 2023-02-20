@@ -1,5 +1,6 @@
 class LibidReference():
-    def __init__(self, pathType, libidGuid, version, libidLcid, libidPath, libidRegName):
+    def __init__(self, pathType, libidGuid, version,
+                 libidLcid, libidPath, libidRegName):
         self.libidReferenceKind = "G" if pathType == "windows" else "H"
         self.libidGuid = libidGuid
         self.version = version
@@ -17,9 +18,9 @@ class LibidReference():
             self.libidRegName
 
     def __len__(self):
-        return len(self.libidReferenceKind) + \
-            len(self.libidGuid) + \
-            len(self.version) + \
-            len(self.libidLcid) + \
-            len(self.libidPath) + \
-            len(self.libidRegName) + 6
+        return (len(self.libidReferenceKind)
+                + len(self.libidGuid)
+                + len(self.version)
+                + len(self.libidLcid)
+                + len(self.libidPath)
+                + len(self.libidRegName) + 6)

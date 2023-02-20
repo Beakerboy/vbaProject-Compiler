@@ -1,7 +1,10 @@
 import struct
+
+
 class IdSizeField():
     """
-    Many Records have the same format, a two bye ID, a four byte size and an int value formatted to the defined si
+    Many Records have the same format, a two bye ID, a four byte size and an
+    int value formatted to the defined size.
     """
 
     def __init__(self, id, size, value):
@@ -14,7 +17,7 @@ class IdSizeField():
         format = endienSymbol + "HI"
         if isinstance(self.value, str):
             self.stringValue = self.value
-            self.value = bytes(self.value, encoding = "ascii")
+            self.value = bytes(self.value, encoding="ascii")
             format += str(self.size) + "s"
         elif isinstance(self.value, bytes):
             format += str(self.size) + "s"
@@ -23,5 +26,6 @@ class IdSizeField():
         elif self.size == 4:
             format += "I"
         else:
-            raise Exception("Received data of type " + type(self.value).__name__)
+            msg = "Received data of type " + type(self.value).__name__
+            raise Exception(msg)
         return struct.pack(format, self.id, self.size, self.value)

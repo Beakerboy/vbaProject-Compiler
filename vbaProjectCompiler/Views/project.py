@@ -1,3 +1,7 @@
+import binascii
+import ms_ovba_crypto
+
+
 class Project:
     """
     The Project data view for the vbaProject
@@ -5,39 +9,61 @@ class Project:
     def __init__(self, project):
         self.project = project
         # Attributes
-    
-        #A list of attributes and values
+
+        # A list of attributes and values
         self.attributes = {}
-    
-        #The HostExtenderInfo string
+
+        # The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
     def addAttribute(self, name, value):
         self.attributes[name] = value
 
     def toBytearray(self):
-        codePageName = self.project.getCodePageName()
+        project = self.project
+        codePageName = project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-
-        id = bytearray(self.project.getProjectId(), codePageName)
+        project_id = project.getProjectId()
+        id = bytearray(project_id, codePageName)
         result = b'ID="' + id + b'"' + eol
-        modules = self.project.modules
+        modules = project.modules
         for module in modules:
-            result += bytearray(module.toProjectModuleString(), codePageName) + eol
+            result += bytes(module.toProjectModuleString(), codePageName) + eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
-            result += bytearray(key, codePageName) + b'="' + bytearray(self.attributes[key], codePageName) + b'"' + eol
-        result += b'CMG="' + bytearray(self.project.getProtectionState(), codePageName) + b'"' + eol
-        result += b'DPB="' + bytearray(self.project.getPassword(), codePageName) + b'"' + eol
-        result += b'GC="' + bytearray(self.project.getVisibilityState(), codePageName) + b'"' + eol
+            result += self._attr(key, self.attributes[key])
+        cmg = ms_ovba_crypto.encrypt(
+                                     project_id,
+                                     project.get_protection_state()
+                                    )
+        dpb = ms_ovba_crypto.encrypt(project_id, project.get_password())
+        gc = ms_ovba_crypto.encrypt(project_id, project.get_visibility_state())
+        result += (bytes('CMG="', codePageName)
+                   + binascii.hexlify(cmg).upper()
+                   + b'\x22\x0D\x0A')
+        result += (bytes('DPB="', codePageName)
+                   + binascii.hexlify(dpb).upper()
+                   + b'\x22\x0D\x0A')
+        result += (bytes('GC="', codePageName)
+                   + binascii.hexlify(gc).upper()
+                   + b'\x22\x0D\x0A')
         result += eol
         result += b'[Host Extender Info]' + eol
-        result += bytearray(self.hostExtenderInfo, codePageName)
+        result += bytes(self.hostExtenderInfo, codePageName)
         result += eol + eol
         result += b'[Workspace]' + eol
         for module in modules:
             separator = ", "
-            result += bytearray(module.modName.value, codePageName) + b'=' + bytearray(separator.join(map(str, module.workspace)), codePageName)
+            result += bytes(module.modName.value, codePageName) + b'='
+            joined = separator.join(map(str, module.workspace))
+            result += bytes(joined, codePageName)
             result += eol
         return result
+
+    def _attr(self, name, value):
+        codePageName = self.project.getCodePageName()
+        eol = b'\x0D\x0A'
+        b_name = bytes(name, codePageName)
+        b_value = bytes(value, codePageName)
+        return b_name + b'="' + b_value + b'"' + eol
