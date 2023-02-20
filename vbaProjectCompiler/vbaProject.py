@@ -43,7 +43,7 @@ class VbaProject:
     def getProtectionState(self):
         return self._protectionState
 
-    def setVisibilityState(self, state):
+    def set_visibility_state(self, state):
         """
         0   = not visible
         255 = visible
@@ -52,7 +52,7 @@ class VbaProject:
             raise Exception("Bad visibility value.")
         self._visibilityState = state
 
-    def getVisibilityState(self):
+    def get_visibility_state(self):
         return self._visibilityState
 
     def setPassword(self, value):
