@@ -154,8 +154,8 @@ def test_dirStream():
     project.addModule(sheet1)
     project.addModule(module1)
 
-    assert stream.toBytes() == decompressedStream
+    assert stream.to_bytes() == decompressedStream
 
     # The compression results are not the same.
-    compressed = ms_ovba.compress(stream.toBytes())
+    compressed = ms_ovba.compress(stream.to_bytes())
     assert ms_ovba.decompress(compressed) == decompressedStream
