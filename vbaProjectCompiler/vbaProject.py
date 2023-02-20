@@ -48,7 +48,7 @@ class VbaProject:
         0   = not visible
         255 = visible
         """
-        if state != 0 or state != 255:
+        if state != 0 and state != 255:
             raise Exception("Bad visibility value.")
         self._visibilityState = state
 
