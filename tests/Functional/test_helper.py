@@ -1,4 +1,5 @@
 import create_cache
+import pytest
 
 
 data_for_test = [((0xB81C, "{00020819-0000-0000-C000-000000000046}"), (0x0800, 0x0333)),
