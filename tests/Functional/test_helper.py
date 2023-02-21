@@ -1,4 +1,7 @@
-test_create_cache():
+import create_cache
+
+
+def test_create_cache():
     # Read the data from the demo file and decompress it.
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x0800
