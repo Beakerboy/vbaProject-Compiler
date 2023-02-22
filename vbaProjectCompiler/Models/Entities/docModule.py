@@ -33,6 +33,7 @@ class DocModule(ModuleRecord):
                 "53 4C FF FF FF FF 00 00 01 00 53 10 FF FF FF FF",
                 "00 00 01 00 53 94 FF FF FF FF 00 00 00 00 02 3C",
                 "FF FF FF FF")
+        data = bytes.fromhex(" ".join(data))
         ca = self._create_cache_header(self.cookie, b'\xD2', b'\x00\x02',
                                        b'\xD9', b'\x2D\x03', b'\x23\x01',
                                        b'\x08', b'\x18')
@@ -41,6 +42,7 @@ class DocModule(ModuleRecord):
                 "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
                 "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
                 "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+        data2 = bytes.fromhex(" ".join(data2))
         ca = (ca + self._create_cache_middle(data, data1, data2)
           + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
           + self._create_cache_footer(b'\00'))
