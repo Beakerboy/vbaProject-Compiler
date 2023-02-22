@@ -95,13 +95,16 @@ class VbaProject:
         views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
-    def _build_ole_directory(directory):
+    def _build_ole_directory():
+        directory = StorageDirectory()
+        directory.set_name("VBA")
         for module in self.project.modules:
             path = module.get_name() + '.bin'
             dir = StreamDirectory()
             dir.set_name(module.get_name())
             dir.add_stream(path)
             directory.add_directory(dir)
+        return directory
 
     def _write_ole_file(dir):
         # ole_file = OleFile()
@@ -111,7 +114,5 @@ class VbaProject:
 
     def write_file(self):
         self._create_binary_files()
-        # directory = StorageDirectory()
-        # directory.set_name("VBA")
-        self._build_ole_directory(directory)
+        directory = self._build_ole_directory()
         self._write_ole_file(directory)
