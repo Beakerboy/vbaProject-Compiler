@@ -38,10 +38,10 @@ class DocModule(ModuleRecord):
                                        b'\xD9', b'\x2D\x03', b'\x23\x01',
                                        b'\x08', b'\x18')
         data1 = (guid_size + guid_bytes)
-        data2= ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
-                "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
-                "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
-                "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+        data2 = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
+                 "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
+                 "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
+                 "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
         data2 = bytes.fromhex(" ".join(data2))
         ca = (ca + self._create_cache_middle(data, data1, data2)
           + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
