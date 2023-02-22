@@ -46,6 +46,7 @@ def create_cache_footer(c1):
           + b'\x01\x08\x00\x00\x00\xFF\xFF\xFF\xFF\x78\x00\x00\x00\xFF\xFF\xFF'
           + b'\xFF\x00\x00')
 
+
 def create_cache(cookie, guid):
     co = cookie.to_bytes(2, "little")
     ca = create_cache_header(cookie, b'\xD2', b'\x00\x02', b'\xD9',
