@@ -74,7 +74,6 @@ def test_fullFile():
     module_path = "blank_files/ThisWorkbook.cls"
     thisWorkbook.add_file(module_path)
     thisWorkbook.normalize_file()
-    assert module_matches_bin(module_path + ".bin", 0x0333, "tests/vbaProject.bin", 0x0800, 0xB3)
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
@@ -85,7 +84,6 @@ def test_fullFile():
     module_path = "blank_files/Sheet1.cls"
     sheet1.addFile(module_path)
     sheet1.normalize_file()
-    assert module_matches_bin(module_path + ".bin", 0x0333, "tests/vbaProject.bin", 0x0C00, 0xAB)
 
     # module1 = StdModule("Module1")
     # module1.cookie.value = 0xB241
@@ -98,7 +96,10 @@ def test_fullFile():
     project.addModule(sheet1)
     # project.addModule(module1)
 
-    # Create the views and test them
+    project.write_file()
+
+    assert module_matches_bin("ThisWorkbook.bin", 0x0333, "tests/vbaProject.bin", 0x0C00, 0xAB)
+    assert module_matches_bin("Sheet1.bin", 0x0333, "tests/vbaProject.bin", 0x0C00, 0xAB)
     
     # fileIO = OleFile(project)
     # fileIO.build_file()
