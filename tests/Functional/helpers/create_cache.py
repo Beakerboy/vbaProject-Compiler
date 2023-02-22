@@ -1,15 +1,15 @@
 def create_standard_cache(cookie):
     ca = create_cache_header(cookie, b'\x22', b'\x88\c01', b'\x29',
-                               b'\x7D\x02', b'\x03\x00', b'\x02', b'\x00', b'')
+                               b'\x7D\x02', b'\x03\x00', b'\x02', b'\x00')
     data2 = b'\xFF\xFF\xFF\xFF\x78\x00\x00\x00'
-    ca = (ca + create_cache_middle(b'', d2)
+    ca = (ca + create_cache_middle(b'', b'', data2)
           + b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-          + b'')
-    return ca += create_cache_footer(b'\xFF')
+          + create_cache_footer(b'\xFF'))
+    return ca
 
 
-def create_cache_header(co, c1, c2, c3, c4, c5, c6, ms):
-    sz = len(ms).to_bytes(2, "little")
+def create_cache_header(cookie, c1, c2, c3, c4, c5, c6, ms):
+    co = cookie.to_bytes(2, "little")
     ca = (b''
           + b'\x01\x16\x03\x00\x00\xF0\x00\x00\x00' + c1 + b'\x02\x00\x00\xD4\x00\x00'
           + b'\x00' + c2 + b'\x00\x00\xFF\xFF\xFF\xFF' + c3 + b'\x02\x00\x00' + c4 + b'\x00'
@@ -27,7 +27,7 @@ def create_cache_header(co, c1, c2, c3, c4, c5, c6, ms):
           + b'\x00\x00\x00\x00\x4D\x45\x00\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00'
           + b'\x00\x00\xFF\xFF\x00\x00\x00\x00\xFF\xFF\x01\x01\x00\x00\x00\x00'
           + b'\xDF\x00\xFF\xFF\x00\x00\x00\x00' + c7 + b'\x00\xFF\xFF\xFF\xFF\xFF\xFF'
-          + b'\xFF' * (16 * 7 + 10) + sz + ms + b'\x00\x00\xFF\xFF\x01\x01')
+          + b'\xFF' * (16 * 7 + 10))
 
 
 def create_cache_footer(c1):
@@ -45,33 +45,37 @@ def create_cache_footer(c1):
           + b'\x01\x08\x00\x00\x00\xFF\xFF\xFF\xFF\x78\x00\x00\x00\xFF\xFF\xFF'
           + b'\xFF\x00\x00')
 
-def create_cache_middle(data, data2):
+def create_cache_middle(data1, data2, data3):
     data_bytes = b''
-    for ms in data:
-        data_bytes += ms
-    size = len(data).to_bytes(2, "little")
-    size2 = len(data2).to_bytes(4, "little")
-    ca = (b'\x00\x00\x00\x00' + size + data_bytes
+    for msg in data2:
+        data2_bytes += msg
+    size1 = len(data1).to_bytes(2, "little")
+    size2 = len(data2).to_bytes(2, "little")
+    size3 = len(data3).to_bytes(4, "little")
+    ca = (size1 + data1 + b'\x00\x00\xFF\xFF\x01\x01'
+          + b'\x00\x00\x00\x00' + size2 + data2_bytes
           + b'\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF\x01\x01'
-          + size2 + data2 + b'\x00\x00\xFF\xFF\x00\x00'
+          + size3 + data3 + b'\x00\x00\xFF\xFF\x00\x00'
           
 
 def create_cache(cookie, guid):
-    co = cookie.to_bytes(2, "little")
+    guid = '0' + guid
+    guid_bytes = bytes(guid, "utf_16_le")
+    guid_size = len(guid_bytes).to_bytes(2, "little")
     ms = (b'\x00\x00\x02\x00'
           + b'\x53\x4C\xFF\xFF\xFF\xFF\x00\x00\x01\x00\x53\x10\xFF\xFF\xFF\xFF'
           + b'\x00\x00\x01\x00\x53\x94\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x02\x3C'
           + b'\xFF\xFF\xFF\xFF')
     ca = create_cache_header(cookie, b'\xD2', b'\x00\x02', b'\xD9',
-                               b'\x2D\x03', b'\x23\x01', b'\x08', b'\x18', ms)
-    data1 = (b'\x4E\x00\x30\x00' + bytes(guid, "utf_16_le"))
+                               b'\x2D\x03', b'\x23\x01', b'\x08', b'\x18')
+    data1 = (guid_size + guid_bytes)
     d2 = (b''
           + b'\x02\x80\xFE\xFF\xFF\xFF\xFF\xFF\x20\x00\x00\x00\xFF\xFF\xFF\xFF'
           + b'\x30\x00\x00\x00\x02\x01\xFF\xFF\x00\x00\x00\x00\x00\x00\x00\x00'
           + b'\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x2E\x00\x43\x00'
           + b'\x1D\x00\x00\x00\x25\x00\x00\x00\xFF\xFF\xFF\xFF\x40\x00\x00\x00'
           + b'')
-    ca = (ca + create_cache_middle(data1, d2)
+    ca = (ca + create_cache_middle(ms, data1, d2)
           + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
           + create_cache_footer(b'\00'))
     return ca
