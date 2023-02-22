@@ -37,11 +37,10 @@ class DocModule(ModuleRecord):
                                        b'\xD9', b'\x2D\x03', b'\x23\x01',
                                        b'\x08', b'\x18')
         data1 = (guid_size + guid_bytes)
-        d2 = ("02\x80\xFE\xFF\xFF\xFF\xFF\xFF\x20\x00\x00\x00\xFF\xFF\xFF\xFF'
+        d2 = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF"
               "30\x00\x00\x00\x02\x01\xFF\xFF\x00\x00\x00\x00\x00\x00\x00\x00'
-          + b'\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x2E\x00\x43\x00'
-          + b'\x1D\x00\x00\x00\x25\x00\x00\x00\xFF\xFF\xFF\xFF\x40\x00\x00\x00'
-          + b'')
+              "FF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x2E\x00\x43\x00'
+              "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
         ca = (ca + self._create_cache_middle(ms, data1, d2)
           + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
           + self._create_cache_footer(b'\00'))
