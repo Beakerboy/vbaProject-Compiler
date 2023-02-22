@@ -3,7 +3,6 @@ import struct
 import unittest.mock
 from functools import partial
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.oleFile import OleFile
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
 from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
@@ -59,16 +58,19 @@ def test_fullFile():
     guid = "{00020819-0000-0000-C000-000000000046}"
     cache = create_cache.create_cache(thisWorkbook.cookie.value, guid)
     
-    thisWorkbook.addPerformanceCache(ca)
+    thisWorkbook.addPerformanceCache(cache)
     thisWorkbook.addVbBase(guid)
-    #thisWorkbook.addFile(path)
+    thisWorkbook.add_file("blank_files/ThisWorkbook.cls")
+    thisWorkbook.normalize_file()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     guid = guid = "{00020820-0000-0000-C000-000000000046}"
+    cache = create_cache.create_cache(sheet1.cookie.value, guid)
     sheet1.addPerformanceCache(cache)
     sheet1.addVbBase(guid)
-    #sheet1.addFile(path)
+    sheet1.addFile("blank_files/Sheet1.cls")
+    sheet1.normalize_file()
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
