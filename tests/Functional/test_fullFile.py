@@ -2,6 +2,7 @@ import create_cache
 import struct
 import unittest.mock
 from functools import partial
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
 from vbaProjectCompiler.Models.Entities.stdModule import StdModule
@@ -18,6 +19,16 @@ class NotSoRandom():
     @classmethod
     def randint(cls, param1, param2):
         return cls._rand.pop(0)
+
+
+def module_matches_bin(module_path, cache_size, bin_path, bin_offset, bin_length):
+    m = open(module_path, "rb")
+    b = open(bin_path, "rb")
+    b.seek(bin_offset)
+    if m.read(cache_size) != b.read(cache_size):
+        return false
+    ms_ovba = MsOvba()
+    return ms_ovba.decompress(m.read()) == ms_ovba.decompress(m.read(bin_length))
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
@@ -60,8 +71,10 @@ def test_fullFile():
     
     thisWorkbook.addPerformanceCache(cache)
     thisWorkbook.addVbBase(guid)
-    thisWorkbook.add_file("blank_files/ThisWorkbook.cls")
+    module_path = "blank_files/ThisWorkbook.cls"
+    thisWorkbook.add_file(module_path)
     thisWorkbook.normalize_file()
+    assert module_matches_bin(module_path + ".bin", 0x0333, "tests/vbaProject.bin", 0x0800, 0xB3)
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
