@@ -125,7 +125,7 @@ def test_fullFile():
           + b'\x00' * 16 * 3
           + b'\x00\x00\x00\x00\x00\xFE\xCA\x01\x00\x00\x00\xFF\xFF\xFF\xFF\x01'
           + b'\x01\x08\x00\x00\x00\xFF\xFF\xFF\xFF\x78\x00\x00\x00\xFF\xFF\xFF'
-          + b'\xFF\x00\x00'
+          + b'\xFF\x00\x00')
     # module1.addPerformanceCache(cache)
     # module1.addWorkspace(26, 26, 1349, 522, 'Z')
     # module1.addFile(path)
@@ -204,17 +204,19 @@ def createCache():
         "Microsoft Office 16.0 Object Library"
     ))
     delim.append(0x0003)
-    cache = b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01'
+    ca = (b''
+          + b'\xFF\x09\x04\x00\x00\x09\x04\x00\x00\xE4\x04\x03\x00\x00\x00\x00'
+          + b'\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01')
     i = 0
     for lib in libraries:
         cache += bytearray(str(lib), "utf_16_le") + struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
-    cache += struct.pack("<17H", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1, 0x0218, 0 , 0x021a, 1 , 0x021c, 1, 0x0222) + bytearray('\xFF' * 6, 'charmap') + bytearray('\x00' * 4, 'charmap') + bytearray('\xFF' * 36, 'charmap')
+    ca += struct.pack("<17H", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1, 0x0218, 0 , 0x021a, 1 , 0x021c, 1, 0x0222) + bytearray('\xFF' * 6, 'charmap') + bytearray('\x00' * 4, 'charmap') + bytearray('\xFF' * 36, 'charmap')
     prefix = [0x0018, 0x000C, 0x000E]
     index = 0x0046
     i = 0
     for module in vbaProject.modules:
         name = module.modName.value.encode("utf_16_le")
-        cache += struct.pack("<H", prefix[i]) + name + struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i) + "65be0257".encode("utf_16_le") + struct.pack("<HHH", 0xFFFF, 0x0227, prefix[i]) + name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
+        ca += struct.pack("<H", prefix[i]) + name + struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i) + "65be0257".encode("utf_16_le") + struct.pack("<HHH", 0xFFFF, 0x0227, prefix[i]) + name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
         i += 1
-    return cache
+    return ca
