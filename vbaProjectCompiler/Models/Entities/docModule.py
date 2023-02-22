@@ -44,6 +44,6 @@ class DocModule(ModuleRecord):
                  "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
         data2 = bytes.fromhex(" ".join(data2))
         ca = (ca + self._create_cache_middle(data, data1, data2)
-          + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-          + self._create_cache_footer(b'\00'))
+              + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+              + self._create_cache_footer(b'\00'))
         return ca
