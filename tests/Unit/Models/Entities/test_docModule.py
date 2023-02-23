@@ -5,8 +5,8 @@ def test_create_cache():
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
     guid = "{00020819-0000-0000-C000-000000000046}"
-    thisWorkbook.addVbBase(guid)
-    thisWorkbook.create_cache()
+    this_workbook.addVbBase(guid)
+    this_workbook.create_cache()
 
     f = open('tests/blank/vbaProject.bin', 'rb')
     f.seek(0x080)
