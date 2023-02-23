@@ -4,4 +4,4 @@ Next is an array of 12 byte sequences. Each array element represents a line in t
 
 Next FF FF FF FF 01 01 XX XX XX XX
 
-Next the line data, are they padded? For example, 6 data bytes followed with 0x0000 and 2 bytes followed by 0xFFFF
+Next the line data, are they padded? For example, 6 data bytes followed with 0x0000 and 2 bytes followed by 0xFFFF and 4 mystery bytes.
