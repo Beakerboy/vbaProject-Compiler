@@ -89,7 +89,7 @@ class ModuleRecord():
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
         bin_f = open(self._file_path + ".bin", "wb")
-        bin_f.write(self.cache)
+        bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
             contents = new_f.read()
         ms_ovba = MsOvba()
