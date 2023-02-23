@@ -46,4 +46,4 @@ class DocModule(ModuleRecord):
         ca = (ca + self._create_cache_middle(data, data1, data2)
               + b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00'
               + self._create_cache_footer(b'\00'))
-        return ca
+        self._cache = ca
