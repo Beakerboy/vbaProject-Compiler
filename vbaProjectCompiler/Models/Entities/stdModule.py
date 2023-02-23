@@ -7,7 +7,7 @@ class StdModule(ModuleRecord):
         super(StdModule, self).__init__(name)
         self.type = "Module"
 
-    def create_cache(self):
+    def create_cache(self)->bytes:
         ca = self._create_cache_header(self.cookie, b'\x22', b'\x88\x01',
                                        b'\x29', b'\x7D\x02', b'\x03\x00',
                                        b'\x02', b'\x00')
