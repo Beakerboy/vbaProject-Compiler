@@ -111,6 +111,7 @@ class VbaProject:
         # ole_file.add_directory(dir)
         # ole_file.build_file()
         # ole_file.write_file("vbaProject.bin")
+        pass
 
     def write_file(self):
         self._create_binary_files()
