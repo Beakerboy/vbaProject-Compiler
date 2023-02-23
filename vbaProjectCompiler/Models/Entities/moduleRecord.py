@@ -136,17 +136,17 @@ class ModuleRecord():
         return bytes.fromhex(" ".join(ca))
 
     def _create_cache_footer(self, c1):
-        fo = ("FF FF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF' + c1 * 4
-              "FF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF'
-              "FF\xFF\xFF\xFF' + c1 * 4 + b'xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF'
-              "FF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00'
-              "00\x00\x00\x00\xFF\xFF\x00\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00'
-              "00 00 FF FF FF FF FF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF",
+        fo = ("FF FF FF FF FF FF FF FF FF FF FF FF", c1 * 4,
+              "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
+              "FF FF FF FF", c1 * 4, "FF FF FF FF FF FF FF FF",
+              "FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00",
+              "00 00 00 00 FF FF 00 00 FF FF FF FF FF FF 00 00'
+              "00 00 FF FF FF FF FF\xFF FF FF FF FF FF FF FF FF",
               "FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF",
-              "FF\xFF\x00\x00\x00\x00\x00\x00\xDF\x00\x00\x00\x00\x00\x00\x00'
-              "00 ' * 16 * 3,
-              "00 00 00 00 00 FE CA 01 00 00 00 FF FF FF FF 01'
-              "01\x08\x00\x00\x00\xFF\xFF\xFF\xFF\x78\x00\x00\x00\xFF\xFF\xFF'
+              "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
+              "00 " * 16 * 3,
+              "00 00 00 00 00 FE CA 01 00 00 00 FF FF FF FF 01",
+              "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF'
               "FF 00 00")
 
     def _create_cache_middle(self, data1, data2, data3):
