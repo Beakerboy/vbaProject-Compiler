@@ -146,7 +146,7 @@ class ModuleRecord():
               "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
               "00 " * 16 * 3,
               "00 00 00 00 00 FE CA 01 00 00 00 FF FF FF FF 01",
-              "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF'
+              "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
               "FF 00 00")
         return fo
 
