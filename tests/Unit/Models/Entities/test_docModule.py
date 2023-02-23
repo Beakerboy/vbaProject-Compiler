@@ -9,6 +9,6 @@ def test_create_cache():
     this_workbook.create_cache()
 
     f = open('tests/blank/vbaProject.bin', 'rb')
-    f.seek(0x080)
+    f.seek(0x0800)
     file_data = f.read(0x0333)
     assert this_workbook.get_cache() == file_data
