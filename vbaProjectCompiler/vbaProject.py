@@ -86,7 +86,7 @@ class VbaProject:
     def addReference(self, ref):
         self.references.append(ref)
 
-    def _create_binary_files():
+    def _create_binary_files(self):
         for module in self.project.modules:
             path = module.get_name() + '.bin'
             f = open(path, "wb")
@@ -95,7 +95,7 @@ class VbaProject:
         views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
-    def _build_ole_directory():
+    def _build_ole_directory(self):
         directory = StorageDirectory()
         directory.set_name("VBA")
         for module in self.project.modules:
@@ -106,7 +106,7 @@ class VbaProject:
             directory.add_directory(dir)
         return directory
 
-    def _write_ole_file(dir):
+    def _write_ole_file(self, dir):
         # ole_file = OleFile()
         # ole_file.add_directory(dir)
         # ole_file.build_file()
