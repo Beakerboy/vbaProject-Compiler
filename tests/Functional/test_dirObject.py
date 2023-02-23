@@ -1,4 +1,3 @@
-import create_cache
 from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Views.dirStream import DirStream
@@ -49,11 +48,12 @@ def test_dirStream():
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
     guid = "{00020819-0000-0000-C000-000000000046}"
-    cache = create_cache.create_cache(thisWorkbook.cookie.value, guid)
-    thisWorkbook.addPerformanceCache(cache)
+    thisWorkbook.create_cache()
+    # thisWorkbook.addPerformanceCache(cache)
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
+    sheet1.create_cache()
     sheet1.addPerformanceCache(cache)
 
     module1 = StdModule("Module1")
