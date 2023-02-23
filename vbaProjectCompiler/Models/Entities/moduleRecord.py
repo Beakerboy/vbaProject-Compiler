@@ -106,7 +106,7 @@ class ModuleRecord():
         """
         co = binascii.hexlify(cookie.value.to_bytes(2, "little"))
         ca = ("01 16 03 00 00 F0 00 00 00", c1.hex(), "02 00 00 D4 00 00",
-              "00", c2.hex(), "00 00 FF FF FF FF", c3.hex, "02 00 00", c4.hex, "00",
+              "00", c2.hex(), "00 00 FF FF FF FF", c3.hex(), "02 00 00", c4.hex, "00",
               "00 00 00 00 00 01 00 00 00 F3 08", co, "00 00 FF",
               "FF", c5.hex(), "00 00 88 00 00 00 B6 00 FF FF 01 01 00",
               "00 00 00 FF FF FF FF 00 00 00 00 FF FF FF FF FF",
