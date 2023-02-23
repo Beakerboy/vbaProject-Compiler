@@ -138,10 +138,14 @@ class ModuleRecord():
               "FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF",
               "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
               "00 " * 16 * 3,
-              "00 00 00 00 00 FE CA 01 00 00 00 FF FF FF FF 01",
-              "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
-              "FF 00 00")
+              "00 00 00 00 00")
         return bytes.fromhex(" ".join(fo))
+
+    def _create_pcode()->bytes:
+        pcode = ("FE CA 01 00 00 00 FF FF FF FF 01",
+                 "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
+                 "FF 00 00")
+        return bytes.fromhex(" ".join(pcode))
 
     def _create_cache_middle(self, data1, data2, data3)->bytes:
         data2_bytes = b''
