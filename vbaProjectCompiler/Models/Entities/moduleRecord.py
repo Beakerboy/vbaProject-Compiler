@@ -20,7 +20,7 @@ class ModuleRecord():
 
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
-        self.cache = b''
+        self._cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
         self.created = 0
@@ -43,7 +43,7 @@ class ModuleRecord():
         return len(self.cache)
 
     def addPerformanceCache(self, cache):
-        self.cache = cache
+        self._cache = cache
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
@@ -77,14 +77,7 @@ class ModuleRecord():
         """
         # Read the compresses file
         # Combine it with the performanceCache
-        return self.cache
-
-    def getChunkOfData(self, size, number):
-        """
-        Split the data into chucks of size {size} and
-        return the {number}th chunk
-        """
-        pass
+        return self._cache
 
     def normalize_file(self):
         f = open(self._file_path, "r")
