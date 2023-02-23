@@ -8,7 +8,8 @@ class StdModule(ModuleRecord):
         self.type = "Module"
 
     def create_cache(self)->bytes:
-        ca = self._create_cache_header(self.cookie, b'\x22', b'\x88\x01',
+        id_table = 0x0188.to_bytes(2, "little")
+        ca = self._create_cache_header(self.cookie, b'\x22', id_table,
                                        b'\x29', b'\x7D\x02', b'\x03\x00',
                                        b'\x00', b'\x02', b'\x00')
         data2 = b'\xFF\xFF\xFF\xFF\x78\x00\x00\x00'
