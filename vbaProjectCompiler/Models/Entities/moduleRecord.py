@@ -151,7 +151,7 @@ class ModuleRecord():
         return fo
 
     def _create_cache_middle(self, data1, data2, data3):
-        data_bytes = b''
+        data2_bytes = b''
         for msg in data2:
             data2_bytes += msg
         size1 = len(data1).to_bytes(2, "little")
