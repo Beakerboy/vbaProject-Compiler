@@ -140,7 +140,7 @@ class ModuleRecord():
               "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
               "FF FF FF FF", c1 * 4, "FF FF FF FF FF FF FF FF",
               "FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00",
-              "00 00 00 00 FF FF 00 00 FF FF FF FF FF FF 00 00'
+              "00 00 00 00 FF FF 00 00 FF FF FF FF FF FF 00 00",
               "00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
               "FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF",
               "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
