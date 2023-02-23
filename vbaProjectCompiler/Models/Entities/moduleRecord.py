@@ -163,3 +163,4 @@ class ModuleRecord():
               + b'\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF\x01\x01'
               + size3 + data3
               + b'\x00\x00\xFF\xFF\x00\x00')
+        return ca
