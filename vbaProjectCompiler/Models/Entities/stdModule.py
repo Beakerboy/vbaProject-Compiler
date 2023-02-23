@@ -15,4 +15,4 @@ class StdModule(ModuleRecord):
         ca = (ca + self._create_cache_middle(b'', b'', data2)
               + b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
               + self._create_cache_footer(b'\xFF'))
-        return ca
+        self._cache = ca
