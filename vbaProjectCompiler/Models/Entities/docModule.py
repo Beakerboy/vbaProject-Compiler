@@ -36,7 +36,7 @@ class DocModule(ModuleRecord):
         data = bytes.fromhex(" ".join(data))
         ca = self._create_cache_header(self.cookie, b'\xD2', b'\x00\x02',
                                        b'\xD9', b'\x2D\x03', b'\x23\x01',
-                                       b'\x08', b'\x18')
+                                       b'\x88', b'\x08', b'\x18')
         data1 = [guid_size + guid_bytes]
         data2 = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                  "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
