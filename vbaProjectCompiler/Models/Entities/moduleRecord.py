@@ -124,7 +124,7 @@ class ModuleRecord():
         return bytes.fromhex(" ".join(ca))
 
     def _create_cache_footer(self, c1)->bytes:
-        fo = ("FF FF FF FF FF FF FF FF FF FF FF FF", c1 * 4,
+        fo = ("FF FF FF FF FF FF FF FF FF FF FF FF", c1.hex() * 4,
               "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
               "FF FF FF FF", c1.hex() * 4, "FF FF FF FF FF FF FF FF",
               "FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00",
