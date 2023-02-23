@@ -37,11 +37,6 @@ class ModuleRecord():
         """
         self._guid = guid
 
-    def getSize(self):
-        """ is this method necessary
-        """
-        return len(self._cache)
-
     def addPerformanceCache(self, cache):
         self._cache = cache
 
@@ -54,7 +49,7 @@ class ModuleRecord():
         """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
         typeId = PackedData("HI", typeIdValue, 0)
-        self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
+        self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
         output = (self.modName.pack(codePageName, endien)
                   + self.streamName.pack(codePageName, endien)
                   + self.docString.pack(codePageName, endien)
