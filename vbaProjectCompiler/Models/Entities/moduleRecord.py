@@ -40,7 +40,7 @@ class ModuleRecord():
     def getSize(self):
         """ is this method necessary
         """
-        return len(self.cache)
+        return len(self._cache)
 
     def addPerformanceCache(self, cache):
         self._cache = cache
