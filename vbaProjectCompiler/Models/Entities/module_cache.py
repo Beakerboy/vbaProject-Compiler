@@ -1,7 +1,7 @@
 class ModuleCache():
 
     def __init__(self):
-        pass
+        guids1= b'\xff' * 4 + b'\x00' * 54
 
     def to_bytes() -> bytes:
         oto = self.object_table_offset()
