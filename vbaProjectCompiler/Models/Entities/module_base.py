@@ -71,20 +71,20 @@ class ModuleBase():
         """
         co = cookie.value.to_bytes(2, "little").hex()
         obj_table_ofs = (0x017A - 0x8A).to_bytes(4, "little").hex()
+        guids = "FF FF FF FF " + "00 " * 54"
+        guids2 = "00 " * 32     
         ca = ("01 16 03 00 00", obj_table_ofs, c1.hex(), "02 00 00 D4 00 00",
               "00", id_table.hex(), "00 00 FF FF FF FF 00 00 00 00",
               c4.hex(), "00",
               "00 00 00 00 00 01 00 00 00 F3 08", co, "00 00 FF",
               "FF", c5.hex(), "00 00", c8.hex(),
               "00 00 00 B6 00 FF FF 01 01 00",
-              "00 00 00 FF FF FF FF 00 00 00 00 FF FF FF FF FF",
-              "FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",
-              "00 " * (16 * 2 - 1) + " 00",
-              "00 00 00 00 00 00 00 10 00 00 00 03 00 00 00 05",
-              "00 00 00 07 00 00 00 FF FF FF FF FF FF FF FF 01",
-              "01 08 00 00 00 FF FF FF FF 78 00 00 00", c6.hex(), "00 00",
-              "00 " * 15 + " 00",
-              "00 " * 14 + " FF FF",
+              "00 00 00 FF FF FF FF 00 00 00 00 FF FF",
+              guids,
+              "10 00 00 00 03 00 00 00 05 00 00 00 07 00 00 00",
+              "FF FF FF FF FF FF FF FF 01 01 08 00 00 00 FF FF",
+              "FF FF 78 00 00 00", c6.hex(), guids2,
+              "FF FF",
               "00 00 00 00 4D 45 00 00 FF FF FF FF FF FF 00 00",
               "00 00 FF FF 00 00 00 00 FF FF 01 01 00 00 00 00",
               "DF 00 FF FF 00 00 00 00", c7.hex(), "FF FF FF FF FF FF",
