@@ -1,7 +1,7 @@
-from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
+from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 
 
-class StdModule(ModuleRecord):
+class StdModule(ModuleBase):
 
     def __init__(self, name):
         super(StdModule, self).__init__(name)
