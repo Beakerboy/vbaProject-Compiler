@@ -24,7 +24,7 @@ def test_dirStream():
     stream = DirStream(project)
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
-    guid = UUID('0002043000000000C000000000000046')
+    guid = uuid.UUID('0002043000000000C000000000000046')
     libidRef = LibidReference(
         "windows",
         guid,
@@ -34,7 +34,7 @@ def test_dirStream():
         "OLE Automation"
     )
     oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
-    guid = UUID('2DF8D04C5BFA101BBDE500AA0044DE52')
+    guid = uuid.UUID('2DF8D04C5BFA101BBDE500AA0044DE52')
     libidRef2 = LibidReference(
         "windows",
         guid,
@@ -50,13 +50,13 @@ def test_dirStream():
 
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
-    guid = UUID("0002081900000000C000000000000046")
+    guid = uuid.UUID("0002081900000000C000000000000046")
     thisWorkbook.set_guid(guid)
     thisWorkbook.create_cache()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
-    guid = UUID("0002082000000000C000000000000046")
+    guid = uuid.UUID("0002082000000000C000000000000046")
     sheet1.set_guid(guid)
     sheet1.create_cache()
 
