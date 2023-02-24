@@ -7,7 +7,8 @@ class LibidReference():
         self.libidLcid = libidLcid
         self.libidPath = Path(libidPath)
         self.libidRegName = libidRegName
-        if type(self.libidPath) == "WindowsPath" or type(self.libidPath) == "PureWindowsPath":
+        if (type(self.libidPath) == "WindowsPath"
+            or type(self.libidPath) == "PureWindowsPath"):
             self.libidReferenceKind = "G"
         else:
             self.libidReferenceKind = "H"
