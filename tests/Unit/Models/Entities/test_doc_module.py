@@ -25,3 +25,26 @@ def test_create_cache2():
     f.seek(0x0C00)
     file_data = f.read(0x0333)
     assert module.get_cache() == file_data
+
+    
+def test_normalize():
+    module = DocRecord("foo")
+    path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
+    module.add_file(path1)
+    module.normalize_file()
+    f = open(path1 + ".new", "r")
+    path2 = "tests/blank/ThisWorkbook"
+    e = open(path2, "r")
+    while line := f.readline():
+        assert line == e.readline()
+    path3 = path1 + ".bin"
+    f_stream = open(path3, "rb")
+    full_binary = open('tests/blank/vbaProject.bin', 'rb')
+    offset = 0x0B33
+    length = 0x00B4
+    full_binary.seek(offset)
+    container = full_binary.read(length)
+    ms_ovba = MsOvba()
+    test_data = ms_ovba.decompress(f_stream.read())
+    expected_data = ms_ovba.decompress(container)
+    assert test_data == expected_data
