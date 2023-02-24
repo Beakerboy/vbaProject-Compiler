@@ -1,3 +1,4 @@
+import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Views.dirStream import DirStream
@@ -23,18 +24,20 @@ def test_dirStream():
     stream = DirStream(project)
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
+    guid = UUID('0002043000000000C000000000000046')
     libidRef = LibidReference(
         "windows",
-        "{00020430-0000-0000-C000-000000000046}",
+        guid,
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
         "OLE Automation"
     )
     oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
+    guid = UUID('2DF8D04C5BFA101BBDE500AA0044DE52')
     libidRef2 = LibidReference(
         "windows",
-        "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+        guid,
         "2.0",
         "0",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
@@ -47,13 +50,13 @@ def test_dirStream():
 
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
-    guid = "{00020819-0000-0000-C000-000000000046}"
+    guid = UUID("0002081900000000C000000000000046")
     thisWorkbook.set_guid(guid)
     thisWorkbook.create_cache()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
-    guid = "{00020820-0000-0000-C000-000000000046}"
+    guid = UUID("0002082000000000C000000000000046")
     sheet1.set_guid(guid)
     sheet1.create_cache()
 
