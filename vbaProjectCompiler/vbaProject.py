@@ -92,7 +92,7 @@ class VbaProject:
             f = open(path, "wb")
             f.write(module.to_file())
             f.close()
-        views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
+        # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
     def _build_ole_directory(self):
