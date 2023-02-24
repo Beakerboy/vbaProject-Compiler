@@ -152,7 +152,7 @@ class ModuleRecord():
         data2_bytes = b''
         for msg in data2:
             data2_bytes += msg
-        size1 = len(data1).to_bytes(2, "little")
+        size1 = len(data1).to_bytes(4, "little")
         size2 = len(data2).to_bytes(2, "little")
         size3 = len(indirect_table).to_bytes(4, "little")
         ca = (size1 + data1
