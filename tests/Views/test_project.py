@@ -48,4 +48,4 @@ def test_blank():
     file.seek(0x2400)
     expected += file.read(0x0152)
 
-    assert project.toBytearray() == expected
+    assert project.to_bytes() == expected
