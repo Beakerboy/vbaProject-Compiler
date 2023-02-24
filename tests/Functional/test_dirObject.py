@@ -26,7 +26,6 @@ def test_dirStream():
     codePageName = "cp" + str(codePage)
     guid = uuid.UUID('0002043000000000C000000000000046')
     libidRef = LibidReference(
-        "windows",
         guid,
         "2.0",
         "0",
@@ -36,7 +35,6 @@ def test_dirStream():
     oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
     guid = uuid.UUID('2DF8D04C5BFA101BBDE500AA0044DE52')
     libidRef2 = LibidReference(
-        "windows",
         guid,
         "2.0",
         "0",
