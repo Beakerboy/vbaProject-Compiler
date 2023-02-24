@@ -12,7 +12,7 @@ class DocModule(ModuleRecord):
         self.type = "Document"
 
         # GUID
-        self._vbBase = ""
+        self._guid = ""
 
     def toProjectModuleString(self):
         return ("Document=" + self.modName.value + "/&H"
@@ -23,7 +23,7 @@ class DocModule(ModuleRecord):
         Should probably abstract this to add other attributes to the file
         during normalization.
         """
-        self._vbBase = guid
+        self._guid = guid
 
     def create_cache(self):
         guid = '0' + self._vbBase
