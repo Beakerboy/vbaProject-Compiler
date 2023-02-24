@@ -16,4 +16,6 @@ class StdModule(ModuleRecord):
         ca = (ca + self._create_cache_middle(b'', [], data2)
               + b'\x00\x00'
               + self._create_cache_footer(b'\xFF'))
+        magic = len(ca)
+        ca += self._create_pcode()
         self._cache = ca
