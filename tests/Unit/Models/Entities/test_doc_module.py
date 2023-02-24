@@ -6,7 +6,7 @@ from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 def test_create_cache():
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
-    guid = uuid.UUID("00020819-0000-0000-C000-000000000046")
+    guid = uuid.UUID('0002081900000000C000000000000046')
     this_workbook.set_guid(guid)
     this_workbook.create_cache()
 
@@ -19,7 +19,7 @@ def test_create_cache():
 def test_create_cache2():
     module = DocModule("Sheet1")
     module.cookie.value = 0x9B9A
-    guid = uuid.UUID("00020820-0000-0000-C000-000000000046")
+    guid = uuid.UUID('0002082000000000C000000000000046')
     module.set_guid(guid)
     module.create_cache()
 
@@ -33,7 +33,7 @@ def test_normalize():
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     module.add_file(path1)
-    guid = uuid.UUID("0002081900000000C000000000000046")
+    guid = uuid.UUID('0002081900000000C000000000000046')
     module.set_guid(guid)
     module.normalize_file()
     f = open(path1 + ".new", "r")
