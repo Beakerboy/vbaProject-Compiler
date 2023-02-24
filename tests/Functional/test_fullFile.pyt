@@ -69,22 +69,19 @@ def test_fullFile():
     project.setPerformanceCacheVersion(0x00B5)
 
     # Add Modules
-    thisWorkbook = DocModule("ThisWorkbook")
-    thisWorkbook.cookie.value = 0xB81C
+    this_workbook = DocModule("ThisWorkbook")
+    this_workbook.cookie.value = 0xB81C
     guid = "{00020819-0000-0000-C000-000000000046}"
-    cache = create_cache.create_cache(thisWorkbook.cookie.value, guid)
-    
-    thisWorkbook.addPerformanceCache(cache)
+    this_workbook.create_cache()
     thisWorkbook.addVbBase(guid)
     module_path = "blank_files/ThisWorkbook.cls"
-    thisWorkbook.add_file(module_path)
-    thisWorkbook.normalize_file()
+    this_workbook.add_file(module_path)
+    this_workbook.normalize_file()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     guid = guid = "{00020820-0000-0000-C000-000000000046}"
-    cache = create_cache.create_cache(sheet1.cookie.value, guid)
-    sheet1.addPerformanceCache(cache)
+    sheet1.create_cache()
     sheet1.addVbBase(guid)
     module_path = "blank_files/Sheet1.cls"
     sheet1.addFile(module_path)
@@ -97,7 +94,7 @@ def test_fullFile():
     module_path = "tests/blank/Module1.bas"
     module1.addFile(path)
 
-    project.addModule(thisWorkbook)
+    project.addModule(this_workbook)
     project.addModule(sheet1)
     project.addModule(module1)
 

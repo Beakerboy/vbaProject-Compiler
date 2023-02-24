@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Models.Entities.stdModule import StdModule
+from vbaProjectCompiler.Models.Entities.std_module import StdModule
 
 
 def test_create_cache():
