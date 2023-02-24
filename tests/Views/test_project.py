@@ -1,8 +1,8 @@
 import unittest.mock
 
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Models.Entities.docModule import DocModule
-from vbaProjectCompiler.Models.Entities.stdModule import StdModule
+from vbaProjectCompiler.Models.Entities.doc_module import DocModule
+from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Views.project import Project
 
 
