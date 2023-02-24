@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Models.Entities.docModule import DocModule
+from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 
 
 def test_create_cache():
