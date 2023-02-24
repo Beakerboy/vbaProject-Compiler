@@ -67,29 +67,6 @@ class ModuleRecord():
         # Combine it with the performanceCache
         return self._cache
 
-    def normalize_file(self):
-        f = open(self._file_path, "r")
-        new_f = open(self._file_path + ".new", "a+", newline='\r\n')
-        for i in range(5):
-            line = f.readline()
-
-        new_f.write(line)
-        txt = self._attr("Base", '"0{' + self._guid + '}"')
-        new_f.writelines([txt])
-        while line := f.readline():
-            new_f.writelines([line])
-        new_f.writelines([self._attr("TemplateDerived", "False")])
-        new_f.writelines([self._attr("Customizable", "True")])
-        new_f.close()
-        bin_f = open(self._file_path + ".bin", "wb")
-        bin_f.write(self._cache)
-        with open(self._file_path + ".new", mode="rb") as new_f:
-            contents = new_f.read()
-        ms_ovba = MsOvba()
-        compressed = ms_ovba.compress(contents)
-        bin_f.write(compressed)
-        bin_f.close()
-
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
 
