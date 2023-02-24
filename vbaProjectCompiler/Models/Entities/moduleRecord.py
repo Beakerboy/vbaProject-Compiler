@@ -103,7 +103,7 @@ class ModuleRecord():
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
 
-    def _create_cache_header(self, cookie, c1, id_table, magic_ofs, c4, c5, c8, c6, c7)->bytes:
+    def _create_cache_header(self, cookie, c1, id_table, c4, c5, c8, c6, c7)->bytes:
         """
         Create the header for the performance cache
         id_table is the start of the indirect table.
@@ -111,7 +111,7 @@ class ModuleRecord():
         """
         co = cookie.value.to_bytes(2, "little").hex()
         ca = ("01 16 03 00 00 F0 00 00 00", c1.hex(), "02 00 00 D4 00 00",
-              "00", id_table.hex(), "00 00 FF FF FF FF", magic_ofs.hex(), "02 00 00", c4.hex(), "00",
+              "00", id_table.hex(), "00 00 FF FF FF FF 00 00 00 00", c4.hex(), "00",
               "00 00 00 00 00 01 00 00 00 F3 08", co, "00 00 FF",
               "FF", c5.hex(), "00 00", c8.hex(), "00 00 00 B6 00 FF FF 01 01 00",
               "00 00 00 FF FF FF FF 00 00 00 00 FF FF FF FF FF",
