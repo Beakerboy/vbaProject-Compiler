@@ -19,7 +19,7 @@ class ModuleRecord():
 
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
-        self.cache = b''
+        self._cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
         self.created = 0
@@ -36,13 +36,11 @@ class ModuleRecord():
         """
         self._guid = guid
 
-    def getSize(self):
-        """ is this method necessary
-        """
-        return len(self.cache)
+    def set_cache(self, cache):
+        self._cache = cache
 
-    def addPerformanceCache(self, cache):
-        self.cache = cache
+    def get_cache(self):
+        return self._cache
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
@@ -53,7 +51,7 @@ class ModuleRecord():
         """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
         typeId = PackedData("HI", typeIdValue, 0)
-        self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
+        self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
         output = (self.modName.pack(codePageName, endien)
                   + self.streamName.pack(codePageName, endien)
                   + self.docString.pack(codePageName, endien)
@@ -76,14 +74,7 @@ class ModuleRecord():
         """
         # Read the compresses file
         # Combine it with the performanceCache
-        return self.cache
-
-    def getChunkOfData(self, size, number):
-        """
-        Split the data into chucks of size {size} and
-        return the {number}th chunk
-        """
-        pass
+        return self._cache
 
     def normalize_file(self):
         f = open(self._file_path, "r")
@@ -100,7 +91,7 @@ class ModuleRecord():
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
         bin_f = open(self._file_path + ".bin", "wb")
-        bin_f.write(self.cache)
+        bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
             contents = new_f.read()
         ms_ovba = MsOvba()
@@ -110,3 +101,68 @@ class ModuleRecord():
 
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
+
+    def _create_cache_header(self, cookie, c1, id_table,
+                             c4, c5, c8, c6, c7) -> bytes:
+        """
+        Create the header for the performance cache
+        id_table is the start of the indirect table.
+        magic_ofs is 3C less than the offset of the magic code.
+        """
+        co = cookie.value.to_bytes(2, "little").hex()
+        obj_table_ofs = (0x017A - 0x8A).to_bytes(4, "little").hex()
+        ca = ("01 16 03 00 00", obj_table_ofs, c1.hex(), "02 00 00 D4 00 00",
+              "00", id_table.hex(), "00 00 FF FF FF FF 00 00 00 00",
+              c4.hex(), "00",
+              "00 00 00 00 00 01 00 00 00 F3 08", co, "00 00 FF",
+              "FF", c5.hex(), "00 00", c8.hex(),
+              "00 00 00 B6 00 FF FF 01 01 00",
+              "00 00 00 FF FF FF FF 00 00 00 00 FF FF FF FF FF",
+              "FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",
+              "00 " * (16 * 2 - 1) + " 00",
+              "00 00 00 00 00 00 00 10 00 00 00 03 00 00 00 05",
+              "00 00 00 07 00 00 00 FF FF FF FF FF FF FF FF 01",
+              "01 08 00 00 00 FF FF FF FF 78 00 00 00", c6.hex(), "00 00",
+              "00 " * 15 + " 00",
+              "00 " * 14 + " FF FF",
+              "00 00 00 00 4D 45 00 00 FF FF FF FF FF FF 00 00",
+              "00 00 FF FF 00 00 00 00 FF FF 01 01 00 00 00 00",
+              "DF 00 FF FF 00 00 00 00", c7.hex(), "FF FF FF FF FF FF",
+              "FF " * (16 * 7 + 9) + " FF")
+        return bytes.fromhex(" ".join(ca))
+
+    def _create_cache_footer(self, c1) -> bytes:
+        fo = ("00 00 00 00 00 00 00 00"
+              "FF FF FF FF FF FF FF FF FF FF FF FF", c1.hex() * 4,
+              "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
+              "FF FF FF FF", c1.hex() * 4, "FF FF FF FF FF FF FF FF",
+              "FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00",
+              "00 00 00 00 FF FF 00 00 FF FF FF FF FF FF 00 00",
+              "00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
+              "FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF",
+              "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
+              "00 " * 16 * 3,
+              "00 00 00 00 00")
+        return bytes.fromhex(" ".join(fo))
+
+    def _create_pcode(self) -> bytes:
+        pcode = ("FE CA 01 00 00 00 FF FF FF FF 01",
+                 "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
+                 "FF 00 00")
+        return bytes.fromhex(" ".join(pcode))
+
+    def _create_cache_middle(self, object_table, data2,
+                             indirect_table) -> bytes:
+        data2_bytes = b''
+        for msg in data2:
+            data2_bytes += msg
+        size1 = len(object_table).to_bytes(4, "little")
+        size2 = len(data2).to_bytes(2, "little")
+        size3 = len(indirect_table).to_bytes(4, "little")
+        ca = (size1 + object_table
+              + b'\xFF\xFF\x01\x01\x00\x00\x00\x00'
+              + size2 + data2_bytes
+              + b'\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF\x01\x01'
+              + size3 + indirect_table
+              + b'\x00\x00\xFF\xFF\x00\x00')
+        return ca
