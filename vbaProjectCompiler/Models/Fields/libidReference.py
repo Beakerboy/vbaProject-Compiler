@@ -1,11 +1,11 @@
-from pathlib import Path
+from pathlib import PurePath
 class LibidReference():
     def __init__(self, libidGuid, version,
                  libidLcid, libidPath, libidRegName):
         self.libidGuid = libidGuid
         self.version = version
         self.libidLcid = libidLcid
-        self.libidPath = Path(libidPath)
+        self.libidPath = PurePath(libidPath)
         self.libidRegName = libidRegName
         path_type = type(self.libidPath)
         if path_type == "WindowsPath" or path_type == "PureWindowsPath":
