@@ -44,7 +44,8 @@ class DocModule(ModuleRecord):
                           "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
                           "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
         indirect_table = bytes.fromhex(" ".join(indirect_table))
-        ca = (ca + self._create_cache_middle(object_table, data1, indirect_table)
+        middle = self._create_cache_middle(object_table, data1, indirect_table)
+        ca = (ca + middle
               + b'\x01\x00'
               + self._create_cache_footer(b'\00'))
         magic = (len(ca) - 0x3C).to_bytes(2, "little")
