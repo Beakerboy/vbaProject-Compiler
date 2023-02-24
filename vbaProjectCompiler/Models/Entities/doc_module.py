@@ -33,7 +33,7 @@ class DocModule(ModuleBase):
             line = f.readline()
 
         new_f.write(line)
-        txt = self._attr("Base", '"0{' + self._guid + '}"')
+        txt = self._attr("Base", '"0' + self._guid + '"')
         new_f.writelines([txt])
         while line := f.readline():
             new_f.writelines([line])
