@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Models.Entities.moduleRecord import ModuleRecord
+from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 
 
 class DocModule(ModuleRecord):
