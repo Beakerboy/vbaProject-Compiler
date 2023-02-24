@@ -19,5 +19,5 @@ class StdModule(ModuleRecord):
         magic = (len(ca) - 0x3C).to_bytes(2, "little")
         ca = ca[:0x19] + magic + ca[0x1B:]
         ca += self._create_pcode()
-      
+
         self._cache = ca
