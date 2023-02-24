@@ -43,7 +43,7 @@ class DocModule(ModuleRecord):
                           "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
                           "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
                           "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
-        data2 = bytes.fromhex(" ".join(data2))
+        indirect_table = bytes.fromhex(" ".join(indirect_table))
         ca = (ca + self._create_cache_middle(object_table, data1, indirect_table)
               + b'\x01\x00'
               + self._create_cache_footer(b'\00'))
