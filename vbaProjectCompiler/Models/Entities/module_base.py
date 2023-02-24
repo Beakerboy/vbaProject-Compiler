@@ -6,7 +6,7 @@ from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 
 
-class ModuleRecord():
+class ModuleBase():
     def __init__(self, name):
         """
         Initialize the module record
