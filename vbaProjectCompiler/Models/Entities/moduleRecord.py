@@ -148,17 +148,17 @@ class ModuleRecord():
                  "FF 00 00")
         return bytes.fromhex(" ".join(pcode))
 
-    def _create_cache_middle(self, data1, data2, data3)->bytes:
+    def _create_cache_middle(self, data1, data2, indirect_table)->bytes:
         data2_bytes = b''
         for msg in data2:
             data2_bytes += msg
         size1 = len(data1).to_bytes(2, "little")
         size2 = len(data2).to_bytes(2, "little")
-        size3 = len(data3).to_bytes(4, "little")
+        size3 = len(indirect_table).to_bytes(4, "little")
         ca = (size1 + data1
               + b'\x00\x00\xFF\xFF\x01\x01\x00\x00\x00\x00'
               + size2 + data2_bytes
               + b'\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF\x01\x01'
-              + size3 + data3
+              + size3 + indirect_table
               + b'\x00\x00\xFF\xFF\x00\x00')
         return ca
