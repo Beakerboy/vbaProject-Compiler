@@ -11,16 +11,11 @@ class LibidReference():
     def __str__(self):
         return "*\\" + \
             self.libidReferenceKind + \
-            self.libidGuid + "#" + \
+            + "{" + upper(str(self.libidGuid)) + "}#" + \
             self.version + "#" + \
             self.libidLcid + "#" + \
             self.libidPath + "#" + \
             self.libidRegName
 
     def __len__(self):
-        return (len(self.libidReferenceKind)
-                + len(self.libidGuid)
-                + len(self.version)
-                + len(self.libidLcid)
-                + len(self.libidPath)
-                + len(self.libidRegName) + 6)
+        return len(str(self))
