@@ -1,4 +1,4 @@
-from pathlig import Path
+from pathlib import Path
 class LibidReference():
     def __init__(self, libidGuid, version,
                  libidLcid, libidPath, libidRegName):
