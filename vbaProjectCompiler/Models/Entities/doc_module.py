@@ -33,7 +33,7 @@ class DocModule(ModuleBase):
             line = f.readline()
 
         new_f.write(line)
-        txt = self._attr("Base", '"0' + self._guid + '"')
+        txt = self._attr("Base", '"0{' + str(self._guid).upper() + '}"')
         new_f.writelines([txt])
         while line := f.readline():
             new_f.writelines([line])
@@ -50,7 +50,7 @@ class DocModule(ModuleBase):
         bin_f.close()
 
     def create_cache(self):
-        guid = '0' + self._guid
+        guid = '0{' + str(self._guid).upper() + '}'
         guid_bytes = bytes(guid, "utf_16_le")
         guid_size = len(guid_bytes).to_bytes(2, "little")
         object_table = ("02 00",
