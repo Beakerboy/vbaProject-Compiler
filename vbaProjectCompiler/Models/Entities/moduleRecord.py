@@ -27,15 +27,6 @@ class ModuleRecord():
         self._fileSize = 0
         self._size = 0
 
-        self._guid = "00020819-0000-0000-C000-000000000046"
-
-    def set_guid(self, guid):
-        """
-        Need to create a custom field type or use an existing
-        python library
-        """
-        self._guid = guid
-
     def set_cache(self, cache):
         self._cache = cache
 
