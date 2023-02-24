@@ -1,7 +1,7 @@
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 
 
-class DocModule(ModuleRecord):
+class DocModule(ModuleBase):
     """
     A Document Module is a module record that is associated with a worksheet or
     workbook.
