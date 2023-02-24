@@ -47,7 +47,7 @@ class DocModule(ModuleRecord):
         ca = (ca + self._create_cache_middle(data, data1, data2)
               + b'\x01\x00'
               + self._create_cache_footer(b'\00'))
-        magic = len(ca) - 0x3C
+        magic = (len(ca) - 0x3C).to_bytes(2, "little")
         ca = ca[:0x19] + magic + ca[0x22:]
         ca += self._create_pcode()
         self._cache = ca
