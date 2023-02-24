@@ -124,7 +124,7 @@ class ModuleRecord():
               "00 " * 14 + " FF FF",
               "00 00 00 00 4D 45 00 00 FF FF FF FF FF FF 00 00",
               "00 00 FF FF 00 00 00 00 FF FF 01 01 00 00 00 00",
-              "DF 00 FF FF 00 00 00 00", c7.hex(), "00 FF FF FF FF FF FF",
+              "DF 00 FF FF 00 00 00 00", c7.hex(), "FF FF FF FF FF FF",
               "FF " * (16 * 7 + 9) + " FF")
         return bytes.fromhex(" ".join(ca))
 
