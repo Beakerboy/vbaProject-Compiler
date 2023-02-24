@@ -50,13 +50,13 @@ def test_dirStream():
 
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
-    guid = uuid.UUID("0002081900000000C000000000000046")
+    guid = uuid.UUID('0002081900000000C000000000000046')
     thisWorkbook.set_guid(guid)
     thisWorkbook.create_cache()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
-    guid = uuid.UUID("0002082000000000C000000000000046")
+    guid = uuid.UUID('0002082000000000C000000000000046')
     sheet1.set_guid(guid)
     sheet1.create_cache()
 
