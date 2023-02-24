@@ -109,7 +109,7 @@ class ModuleRecord():
         magic_ofs is 3C less than the offset of the magic code.
         """
         co = cookie.value.to_bytes(2, "little").hex()
-        obj_table_ofs = (0x017A - 0x8A).to_bytes(4, "little")
+        obj_table_ofs = (0x017A - 0x8A).to_bytes(4, "little").hex()
         ca = ("01 16 03 00 00", obj_table_ofs, c1.hex(), "02 00 00 D4 00 00",
               "00", id_table.hex(), "00 00 FF FF FF FF 00 00 00 00", c4.hex(), "00",
               "00 00 00 00 00 01 00 00 00 F3 08", co, "00 00 FF",
