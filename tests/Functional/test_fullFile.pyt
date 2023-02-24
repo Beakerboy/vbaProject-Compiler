@@ -1,6 +1,7 @@
 import create_cache
 import struct
 import unittest.mock
+import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.docModule import DocModule
@@ -44,8 +45,7 @@ def test_fullFile():
     codePage = 0x04E4
     codePageName = "cp" + str(codePage)
     libidRef = LibidReference(
-        "windows",
-        "{00020430-0000-0000-C000-000000000046}",
+        uuid.UUID("0002043000000000C000000000000046"),
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
@@ -53,8 +53,7 @@ def test_fullFile():
     )
     oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
     libidRef2 = LibidReference(
-        "windows",
-        "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+        uuid.UUID("2DF8D04C5BFA101BBDE500AA0044DE52"),
         "2.0",
         "0",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
@@ -71,7 +70,7 @@ def test_fullFile():
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
-    guid = "{00020819-0000-0000-C000-000000000046}"
+    guid = uuid.UUID("0002081900000000C000000000000046")
     this_workbook.create_cache()
     thisWorkbook.addVbBase(guid)
     module_path = "blank_files/ThisWorkbook.cls"
@@ -80,7 +79,7 @@ def test_fullFile():
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
-    guid = guid = "{00020820-0000-0000-C000-000000000046}"
+    guid = uuid.UUID("0002082000000000C000000000000046")
     sheet1.create_cache()
     sheet1.addVbBase(guid)
     module_path = "blank_files/Sheet1.cls"
