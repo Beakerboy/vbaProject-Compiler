@@ -102,7 +102,7 @@ class ModuleRecord():
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
 
-    def _create_cache_header(self, cookie, c1, id_table, c4, c5, c8, c6, c7)->bytes:
+    def _create_cache_header(self, cookie, c1, id_table, c4, c5, c8, c6, c7) -> bytes:
         """
         Create the header for the performance cache
         id_table is the start of the indirect table.
@@ -127,7 +127,7 @@ class ModuleRecord():
               "FF " * (16 * 7 + 9) + " FF")
         return bytes.fromhex(" ".join(ca))
 
-    def _create_cache_footer(self, c1)->bytes:
+    def _create_cache_footer(self, c1) -> bytes:
         fo = ("00 00 00 00 00 00 00 00"
               "FF FF FF FF FF FF FF FF FF FF FF FF", c1.hex() * 4,
               "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
@@ -141,13 +141,13 @@ class ModuleRecord():
               "00 00 00 00 00")
         return bytes.fromhex(" ".join(fo))
 
-    def _create_pcode(self)->bytes:
+    def _create_pcode(self) -> bytes:
         pcode = ("FE CA 01 00 00 00 FF FF FF FF 01",
                  "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
                  "FF 00 00")
         return bytes.fromhex(" ".join(pcode))
 
-    def _create_cache_middle(self, object_table, data2, indirect_table)->bytes:
+    def _create_cache_middle(self, object_table, data2, indirect_table) -> bytes:
         data2_bytes = b''
         for msg in data2:
             data2_bytes += msg
