@@ -48,13 +48,13 @@ def test_dirStream():
     thisWorkbook = DocModule("ThisWorkbook")
     thisWorkbook.cookie.value = 0xB81C
     guid = "{00020819-0000-0000-C000-000000000046}"
-    thisWorkbook.addVbBase(guid)
+    thisWorkbook.set_guid(guid)
     thisWorkbook.create_cache()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     guid = "{00020820-0000-0000-C000-000000000046}"
-    sheet1.addVbBase(guid)
+    sheet1.set_guid(guid)
     sheet1.create_cache()
 
     module1 = StdModule("Module1")
