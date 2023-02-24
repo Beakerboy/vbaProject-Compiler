@@ -156,7 +156,7 @@ class ModuleRecord():
         size2 = len(data2).to_bytes(2, "little")
         size3 = len(indirect_table).to_bytes(4, "little")
         ca = (size1 + data1
-              + b'\x00\x00\xFF\xFF\x01\x01\x00\x00\x00\x00'
+              + b'\xFF\xFF\x01\x01\x00\x00\x00\x00'
               + size2 + data2_bytes
               + b'\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF\x01\x01'
               + size3 + indirect_table
