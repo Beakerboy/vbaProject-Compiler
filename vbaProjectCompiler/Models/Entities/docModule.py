@@ -29,11 +29,11 @@ class DocModule(ModuleRecord):
         guid = '0' + self._vbBase
         guid_bytes = bytes(guid, "utf_16_le")
         guid_size = len(guid_bytes).to_bytes(2, "little")
-        data = ("02 00",
-                "53 4C FF FF FF FF 00 00 01 00 53 10 FF FF FF FF",
-                "00 00 01 00 53 94 FF FF FF FF 00 00 00 00 02 3C",
-                "FF FF FF FF 00 00")
-        data = bytes.fromhex(" ".join(data))
+        object_table = ("02 00",
+                        "53 4C FF FF FF FF 00 00 01 00 53 10 FF FF FF FF",
+                        "00 00 01 00 53 94 FF FF FF FF 00 00 00 00 02 3C",
+                        "FF FF FF FF 00 00")
+        object_table = bytes.fromhex(" ".join(object_table))
         id_table = 0x0200.to_bytes(2, "little")
         ca = self._create_cache_header(self.cookie, b'\xD2', id_table,
                                        b'\x2D\x03', b'\x23\x01',
@@ -44,7 +44,7 @@ class DocModule(ModuleRecord):
                           "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
                           "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
         data2 = bytes.fromhex(" ".join(data2))
-        ca = (ca + self._create_cache_middle(data, data1, indirect_table)
+        ca = (ca + self._create_cache_middle(object_table, data1, indirect_table)
               + b'\x01\x00'
               + self._create_cache_footer(b'\00'))
         magic = (len(ca) - 0x3C).to_bytes(2, "little")
