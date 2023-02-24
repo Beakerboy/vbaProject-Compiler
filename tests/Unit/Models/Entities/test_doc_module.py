@@ -27,7 +27,7 @@ def test_create_cache2():
     file_data = f.read(0x0333)
     assert module.get_cache() == file_data
 
-    
+
 def test_normalize():
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
