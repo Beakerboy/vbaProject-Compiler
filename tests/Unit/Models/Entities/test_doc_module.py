@@ -33,7 +33,7 @@ def test_normalize():
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     module.add_file(path1)
-    guid = uuid.UUID("00020819-0000-0000-C000-000000000046")
+    guid = uuid.UUID("0002081900000000C000000000000046")
     module.set_guid(guid)
     module.normalize_file()
     f = open(path1 + ".new", "r")
