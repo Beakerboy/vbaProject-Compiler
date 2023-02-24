@@ -25,7 +25,7 @@ class DocModule(ModuleBase):
         during normalization.
         """
         self._guid = guid
-        
+
     def normalize_file(self):
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
