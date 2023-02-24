@@ -50,7 +50,7 @@ class DocModule(ModuleBase):
         bin_f.close()
 
     def create_cache(self):
-        guid = '0{' + str(self._guid).upper() +'}'
+        guid = '0{' + str(self._guid).upper() + '}'
         guid_bytes = bytes(guid, "utf_16_le")
         guid_size = len(guid_bytes).to_bytes(2, "little")
         object_table = ("02 00",
