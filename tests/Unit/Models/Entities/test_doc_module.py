@@ -28,7 +28,7 @@ def test_create_cache2():
 
     
 def test_normalize():
-    module = DocRecord("foo")
+    module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     module.add_file(path1)
     module.normalize_file()
