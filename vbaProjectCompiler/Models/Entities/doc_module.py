@@ -1,3 +1,5 @@
+
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 
 
