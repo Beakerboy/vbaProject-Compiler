@@ -5,7 +5,6 @@ from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 def test_str():
     guid = uuid.UUID('0002043000000000C000000000000046')
     libidRef = LibidReference(
-        "windows",
         guid,
         "2.0",
         "0",
