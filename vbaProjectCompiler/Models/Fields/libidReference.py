@@ -11,7 +11,7 @@ class LibidReference():
     def __str__(self):
         return "*\\" + \
             self.libidReferenceKind + \
-            str(self.libidGuid).upper() + "#" + \
+            "{" + str(self.libidGuid).upper() + "}#" + \
             self.version + "#" + \
             self.libidLcid + "#" + \
             self.libidPath + "#" + \
