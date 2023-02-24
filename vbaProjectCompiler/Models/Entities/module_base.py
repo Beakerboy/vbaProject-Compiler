@@ -59,13 +59,6 @@ class ModuleBase():
     def add_file(self, file_path):
         self._file_path = file_path
 
-    def getData(self):
-        """
-        """
-        # Read the compresses file
-        # Combine it with the performanceCache
-        return self._cache
-
     def _attr(self, name, value):
         return 'Attribute VB_' + name + ' = ' + value + '\n'
 
