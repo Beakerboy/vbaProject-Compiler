@@ -48,5 +48,6 @@ class DocModule(ModuleRecord):
               + b'\x01\x00'
               + self._create_cache_footer(b'\00'))
         magic = len(ca)
+        ca = ca[:0x19] + magic + ca[0x22:]
         ca += self._create_pcode()
         self._cache = ca
