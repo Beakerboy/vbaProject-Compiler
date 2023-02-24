@@ -1,7 +1,12 @@
 class ModuleCache():
 
-    def to_bytes() -> bytes:
+    def __init__(self):
         pass
+
+    def to_bytes() -> bytes:
+        oto = self.object_table_offset()
+        ito = self.id_table_offset()
+        ca = struct.pack("<CIHHHIHHiI", 1, 0x316, oto, c1, 0, 0xD4, ito, 0, -1, 0)
 
     def _create_cache_header(self, cookie, c1, id_table,
                              c4, c5, c8, c6, c7) -> bytes:
