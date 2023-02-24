@@ -11,6 +11,7 @@ def test_create_cache():
     file_data = f.read(0x0283)
     assert module.get_cache() == file_data
 
+
 def test_set_get_cache():
     module = StdModule("Module1")
     cache = b'foo'
