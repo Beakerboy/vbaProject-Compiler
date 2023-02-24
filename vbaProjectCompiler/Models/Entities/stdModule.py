@@ -17,7 +17,7 @@ class StdModule(ModuleRecord):
               + b'\x00\x00'
               + self._create_cache_footer(b'\xFF'))
         magic = (len(ca) - 0x3C).to_bytes(2, "little")
-        ca = ca[:0x19] + magic + ca[0x22:]
+        ca = ca[:0x19] + magic + ca[0x1C:]
         ca += self._create_pcode()
       
         self._cache = ca
