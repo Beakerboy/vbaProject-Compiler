@@ -4,7 +4,7 @@ import struct
 class ModuleCache():
 
     def __init__(self):
-        self.cookie
+        self.cookie = 0
         self.misc = []
         self.guids1 = b'\xff' * 4 + b'\x00' * 54
         self.indirect_table = b''
