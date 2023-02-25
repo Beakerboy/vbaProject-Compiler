@@ -6,7 +6,9 @@ class ModuleCache():
     def to_bytes() -> bytes:
         oto = self.object_table_offset() - 0x8A
         ito = self.id_table_offset()
-        ca = struct.pack("<CIHHHIHHiI", 1, 0x316, oto, c1, 0, 0xD4, ito, 0, -1, 0)
+        ca = struct.pack("<CIHHHIHHiIHIHIHHHHHHHHHhH", 1, 0x316, oto, c1, 0,
+                         0xD4, ito, 0, -1, 0, c4, 0, 0, 1, 0x08F3,
+                         cookie, 0, -1, c5, 0, c8, 0, 0xB6, -1, 0x0101)
 
     def object_table_offset(self) -> int:
         """
