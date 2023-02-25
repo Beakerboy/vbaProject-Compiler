@@ -2,6 +2,9 @@ class ModuleCache():
 
     def __init__(self):
         self.guids1= b'\xff' * 4 + b'\x00' * 54
+        self.indirect_table = b''
+        self.object_table = b''
+        self.pcode = b''
 
     def to_bytes() -> bytes:
         oto = self.object_table_offset() - 0x8A
