@@ -8,7 +8,7 @@ class ModuleCache():
         ito = self.id_table_offset()
         ca = struct.pack("<CIHHHIHHiI", 1, 0x316, oto, c1, 0, 0xD4, ito, 0, -1, 0)
 
-    def object_table_offset() -> int:
+    def object_table_offset(self) -> int:
         """
         The object table offset is 8A less than the position.
         The object table is between the block of F's and the
@@ -16,7 +16,10 @@ class ModuleCache():
         """
         return position
 
-    def pcode_offset() -> int:
+    def id_table_offset(self) -> int:
+        pass
+
+    def pcode_offset(self) -> int:
         """
         The pcode section begins with the magic code 0xCAFE
         """
