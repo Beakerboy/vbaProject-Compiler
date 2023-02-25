@@ -1,3 +1,6 @@
+import struct
+
+
 class ModuleCache():
 
     def __init__(self):
@@ -10,13 +13,13 @@ class ModuleCache():
     def to_bytes(self) -> bytes:
         oto = self.object_table_offset() - 0x8A
         ito = self.id_table_offset()
-        ca = struct.pack("<CIHHHIHHiIHIHIHHHHHHHHHhHIiIh", 1, 0x316, oto, misc[1], 0,
+        ca = struct.pack("<CIHHHIHHiIHIHIHHHHHHHHHhHIiIh", 1, 0x316, oto, self.misc[1], 0,
                          0xD4, ito, 0, -1, 0, c4, 0, 0, 1, 0x08F3,
-                         cookie, 0, -1, misc[5], 0, misc[8], 0, 0xB6, -1, 0x0101, 0
+                         cookie, 0, -1, self.misc[5], 0, self.misc[8], 0, 0xB6, -1, 0x0101, 0
                           -1, 0, -1)
         ca += self.guids1
         ca += struct.pack("<IIIIiiHIiI", 10, 3, 5, 7, -1, -1, 0x0101,
-                          8, -1, 0x78, misc[6])
+                          8, -1, 0x78, self.misc[6])
         ca += self.guids2
 
     def object_table_offset(self) -> int:
@@ -25,7 +28,7 @@ class ModuleCache():
         The object table is between the block of F's and the
         Utf-16 Guid.
         """
-        return position
+        pass
 
     def id_table_offset(self) -> int:
         pass
