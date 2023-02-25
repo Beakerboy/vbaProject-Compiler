@@ -36,7 +36,7 @@ class ModuleCache():
     def id_table_offset(self) -> int:
         pass
 
-    def set_id_table(table):
+    def set_id_table(self, table):
         self.indirect_table = table
 
     def pcode_offset(self) -> int:
