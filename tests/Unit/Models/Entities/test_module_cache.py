@@ -6,7 +6,8 @@ def test_module_cache():
     cache.cookie = 0xB81C
     cache.misc = []
     cache.guids1 = b'\xff' * 4 + b'\x00' * 54
-    cache.indirect_table = b''
+    cache.indirect_table = 0x0200.to_bytes(2, "little")
+    
     cache.object_table = b''
     cache.pcode = b''
 
