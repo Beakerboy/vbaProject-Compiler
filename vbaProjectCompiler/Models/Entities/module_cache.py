@@ -31,7 +31,7 @@ class ModuleCache():
         The object table is between the block of F's and the
         Utf-16 Guid.
         """
-        pass
+        return 0x0122 + len(self.guids1)
 
     def id_table_offset(self) -> int:
         pass
