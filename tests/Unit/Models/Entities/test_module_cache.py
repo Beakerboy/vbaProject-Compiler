@@ -1,7 +1,7 @@
 from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 
 
-test_module_cache():
+def test_module_cache():
     cache = ModuleCache()
     cache.cookie
     cache.misc = []
