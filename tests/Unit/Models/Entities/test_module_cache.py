@@ -9,4 +9,8 @@ test_module_cache():
     cache.indirect_table = b''
     cache.object_table = b''
     cache.pcode = b''
-    assert cache.to_bytes() == b''
+
+    f = open('tests/blank/vbaProject.bin', 'rb')
+    f.seek(0x0800)
+    file_data = f.read(0x0333)
+    assert cache.to_bytes() == file_data
