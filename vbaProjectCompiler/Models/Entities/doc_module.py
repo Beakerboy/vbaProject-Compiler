@@ -61,7 +61,7 @@ class DocModule(ModuleBase):
         id_table = 0x0200.to_bytes(2, "little")
         ca = self._create_cache_header(self.cookie, b'\xD2', id_table,
                                        b'\x2D\x03', b'\x23\x01',
-                                       b'\x88', b'\x08', b'\x18\x00')
+                                       b'\x88\x00', b'\x08', b'\x18\x00')
         data1 = [guid_size + guid_bytes]
         indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                           "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
