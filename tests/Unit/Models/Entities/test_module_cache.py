@@ -3,7 +3,7 @@ from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 
 def test_module_cache():
     cache = ModuleCache()
-    cache.cookie
+    cache.cookie = 0xB81C
     cache.misc = []
     cache.guids1 = b'\xff' * 4 + b'\x00' * 54
     cache.indirect_table = b''
