@@ -4,7 +4,7 @@ class ModuleCache():
         guids1= b'\xff' * 4 + b'\x00' * 54
 
     def to_bytes() -> bytes:
-        oto = self.object_table_offset()
+        oto = self.object_table_offset() - 0x8A
         ito = self.id_table_offset()
         ca = struct.pack("<CIHHHIHHiI", 1, 0x316, oto, c1, 0, 0xD4, ito, 0, -1, 0)
 
@@ -14,7 +14,7 @@ class ModuleCache():
         The object table is between the block of F's and the
         Utf-16 Guid.
         """
-        return position - 0x8A
+        return position
        
     def _create_cache_header(self, cookie, c1, id_table,
                              c4, c5, c8, c6, c7) -> bytes:
