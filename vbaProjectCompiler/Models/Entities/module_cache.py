@@ -22,7 +22,7 @@ class ModuleCache():
                          0, -1, self.misc[3], 0, self.misc[4], 0,
                          0xB6, -1, 0x0101, 0, -1, 0, -1)
         ca += self.guids1
-        ca += struct.pack("<IIIIiiHIiIB", 10, 3, 5, 7, -1, -1, 0x0101,
+        ca += struct.pack("<IIIIiiHIiIB", 0x10, 3, 5, 7, -1, -1, 0x0101,
                           8, -1, 0x78, self.misc[5])
         ca += self.guids2
         ca += struct.pack("<hIIihIhIhHI", -1, 0, 0x454D, -1, -1, 0, -1,
