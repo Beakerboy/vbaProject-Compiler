@@ -15,7 +15,7 @@ class ModuleCache():
     def to_bytes(self) -> bytes:
         oto = self.object_table_offset() - 0x8A
         ito = self.id_table_offset() - 10
-        ca = struct.pack("BIHHHIHHiIHIHIHHHhHHHHHhHIiIh", 1, 0x316,
+        ca = struct.pack("<BIHHHIHHiIHIHIHHHhHHHHHhHIiIh", 1, 0x316,
                          oto, self.misc[1], 0, 0xD4, ito, 0, -1, 0,
                          self.misc[4], 0, 0, 1, 0x08F3, self.cookie,
                          0, -1, self.misc[5], 0, self.misc[8], 0,
