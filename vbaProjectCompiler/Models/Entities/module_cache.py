@@ -25,6 +25,8 @@ class ModuleCache():
         ca += struct.pack("<IIIIiiHIiIH", 10, 3, 5, 7, -1, -1, 0x0101,
                           8, -1, 0x78, self.misc[6])
         ca += self.guids2
+        ca += struct.pack("<hIIihIhIhHI", -1, 0, 0x454D, -1, -1, 0, -1,
+                          0, -1, 0x0101, 0)
         return ca
 
     def object_table_offset(self) -> int:
@@ -39,7 +41,7 @@ class ModuleCache():
         return 0x020A
 
     def magic_offset(self):
-        return 0x02D9 + 0x3C
+        return self.id_table_offset() + 0x10B
         
     def set_id_table(self, table):
         self.indirect_table = table
