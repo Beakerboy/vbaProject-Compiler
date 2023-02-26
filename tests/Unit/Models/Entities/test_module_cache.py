@@ -4,8 +4,9 @@ from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 def test_module_cache():
     cache = ModuleCache()
     cache.cookie = 0xB81C
-    cache.misc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    cache.misc = [0x0316, 0x02D2, 0, 0, 0, 0, 0, 0, 0]
     cache.guids1 = b'\xff' * 4 + b'\x00' * 54
+    
     cache.indirect_table = 0x0200.to_bytes(2, "little")
     
     cache.object_table = b''
