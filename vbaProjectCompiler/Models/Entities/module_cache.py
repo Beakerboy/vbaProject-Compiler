@@ -19,7 +19,7 @@ class ModuleCache():
         ca = struct.pack("<BIIHHIHHiIHIHIHHHhHHHHHhHIiIh", 1, self.misc[0],
                          oto, self.misc[1], 0, 0xD4, ito, 0, -1, magic_ofs,
                          self.misc[2], 0, 0, 1, 0x08F3, self.cookie,
-                         0, -1, self.misc[3], 0, self.misc[8], 0,
+                         0, -1, self.misc[3], 0, self.misc[4], 0,
                          0xB6, -1, 0x0101, 0, -1, 0, -1)
         ca += self.guids1
         ca += struct.pack("<IIIIiiHIiIH", 10, 3, 5, 7, -1, -1, 0x0101,
