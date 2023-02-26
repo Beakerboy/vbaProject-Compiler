@@ -7,6 +7,7 @@ class ModuleCache():
         self.cookie = 0
         self.misc = []
         self.guids1 = b'\xff' * 4 + b'\x00' * 54
+        self.guids2 = guids2 = "00 " * 32
         self.indirect_table = b''
         self.object_table = b''
         self.pcode = b''
