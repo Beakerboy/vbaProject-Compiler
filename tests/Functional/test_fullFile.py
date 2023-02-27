@@ -91,6 +91,7 @@ def test_fullFile():
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
     module1.add_file(module_path)
+    module1.normalize_file()
     module1.create_cache()
 
     project.addModule(this_workbook)
