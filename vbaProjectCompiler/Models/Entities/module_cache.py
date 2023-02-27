@@ -65,7 +65,7 @@ class ModuleCache():
     def id_table_offset(self) -> int:
         guid_len = 2 if len(self.guid) == 0 else 0x50
         ob_len = len(self.object_table) + 4
-        return 0x018E + ob_len + guid_len
+        return self.object_table_offset() + ob_len + guid_len + 0x14
 
     def magic_offset(self):
         return self.id_table_offset() + 0x10B
