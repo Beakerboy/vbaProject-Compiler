@@ -42,13 +42,19 @@ def test_normalize():
     e = open(path2, "r")
     while line := f.readline():
         assert line == e.readline()
+
+    module.write_file()
     path3 = path1 + ".bin"
     f_stream = open(path3, "rb")
     full_binary = open('tests/blank/vbaProject.bin', 'rb')
-    offset = 0x0B33
-    length = 0x00B4
+    offset = 0x0800
+    length1 = 0x0333
+    length2 = 0x00B4
     full_binary.seek(offset)
-    container = full_binary.read(length)
+    cache = full_binary.read(length1)
+    assert f_stream.read(0x333) == cache
+
+    container = full_binary.read(length2)
     ms_ovba = MsOvba()
     test_data = ms_ovba.decompress(f_stream.read())
     expected_data = ms_ovba.decompress(container)
