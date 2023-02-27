@@ -88,10 +88,7 @@ class VbaProject:
 
     def _create_binary_files(self):
         for module in self.modules:
-            path = module.get_name() + '.bin'
-            f = open(path, "wb")
-            f.write(module.to_file())
-            f.close()
+            module.write_file()
         # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
