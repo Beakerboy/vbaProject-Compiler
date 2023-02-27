@@ -98,7 +98,7 @@ class VbaProject:
     def _build_ole_directory(self):
         # directory = StorageDirectory()
         # directory.set_name("VBA")
-        for module in self.project.modules:
+        for module in self.modules:
             # path = module.get_name() + '.bin'
             # dir = StreamDirectory()
             # dir.set_name(module.get_name())
