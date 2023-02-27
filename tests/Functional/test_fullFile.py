@@ -82,7 +82,7 @@ def test_fullFile():
     guid = uuid.UUID("0002082000000000C000000000000046")
     sheet1.set_guid(guid)
     module_path = "vbaProjectCompiler/blank_files/Sheet1.cls"
-    sheet1.addFile(module_path)
+    sheet1.add_file(module_path)
     sheet1.normalize_file()
     sheet1.create_cache()
 
@@ -90,7 +90,7 @@ def test_fullFile():
     module1.cookie.value = 0xB241
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
-    module1.addFile(module_path)
+    module1.add_file(module_path)
     module1.create_cache()
 
     project.addModule(this_workbook)
