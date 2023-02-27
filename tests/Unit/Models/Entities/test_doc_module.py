@@ -38,11 +38,12 @@ def test_normalize():
     guid = uuid.UUID('0002081900000000C000000000000046')
     module.set_guid(guid)
     module.normalize_file()
-    f = open(path1 + ".new", "r")
+    f = open(path1 + ".new", "rb")
     path2 = "tests/blank/ThisWorkbook"
-    e = open(path2, "r")
-    while line := f.readline():
-        assert line == e.readline()
+    e = open(path2, "rb")
+    assert f.read() == e.read()
+    # while line := f.readline():
+    #     assert line == e.readline()
 
     module.create_cache()
     module.write_file()
