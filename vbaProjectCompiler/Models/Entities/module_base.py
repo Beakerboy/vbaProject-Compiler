@@ -32,7 +32,7 @@ class ModuleBase():
     def get_cache(self):
         return self._cache
 
-    def get_name():
+    def get_name(self):
         return self.modName.value
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
