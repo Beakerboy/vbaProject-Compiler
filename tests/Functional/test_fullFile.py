@@ -72,7 +72,7 @@ def test_fullFile():
     this_workbook.cookie.value = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
     this_workbook.set_guid(guid)
-    module_path = "blank_files/ThisWorkbook.cls"
+    module_path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
     this_workbook.normalize_file()
     this_workbook.create_cache()
@@ -81,7 +81,7 @@ def test_fullFile():
     sheet1.cookie.value = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
     sheet1.set_guid(guid)
-    module_path = "blank_files/Sheet1.cls"
+    module_path = "vbaProjectCompiler/blank_files/Sheet1.cls"
     sheet1.addFile(module_path)
     sheet1.normalize_file()
     sheet1.create_cache()
