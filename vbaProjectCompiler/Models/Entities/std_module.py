@@ -12,6 +12,6 @@ class StdModule(ModuleBase):
         cache = ModuleCache()
         cache.cookie = self.cookie.value
         cache.misc = [0x0316, 0x0222, 0x027D, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
-        cache.indirect_table = struct.pack("<iI", -1, 0x78)
+        cache.indirect_table = bytes.fromhex("FF FF FF FF 78 00 00 00")
 
         self._cache = cache.to_bytes()
