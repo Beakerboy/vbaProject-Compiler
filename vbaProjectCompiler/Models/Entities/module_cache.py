@@ -73,7 +73,7 @@ class ModuleCache():
 
     def set_id_table(self, table):
         self.indirect_table = table
-    
+
     def _create_pcode(self) -> bytes:
         pcode = ("FE CA 01 00 00 00 FF FF FF FF 01",
                  "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
