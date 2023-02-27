@@ -25,8 +25,9 @@ class ModuleCache():
         ca += struct.pack("<IIIIiiHIiIB", 0x10, 3, 5, 7, -1, -1, 0x0101,
                           8, -1, 0x78, self.misc[5])
         ca += self.guids2
-        ca += struct.pack("<hIIihIhIhHIHhI", -1, 0, 0x454D, -1, -1, 0, -1,
-                          0, -1, 0x0101, 0, 0xDF, -1, 0)
+        ca += struct.pack("<hIIihIhIhHIHhIH", -1, 0, 0x454D, -1, -1, 0, -1,
+                          0, -1, 0x0101, 0, 0xDF, -1, 0, self.misc[6]))
+        ca += b'FF' * 0x80
         return ca
 
     def object_table_offset(self) -> int:
