@@ -1,3 +1,4 @@
+import struct
 import uuid
 from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 
