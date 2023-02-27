@@ -43,6 +43,7 @@ def test_normalize():
     while line := f.readline():
         assert line == e.readline()
 
+    module.create_cache()
     module.write_file()
     path3 = path1 + ".bin"
     f_stream = open(path3, "rb")
