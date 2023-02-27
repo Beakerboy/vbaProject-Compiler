@@ -1,3 +1,4 @@
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
