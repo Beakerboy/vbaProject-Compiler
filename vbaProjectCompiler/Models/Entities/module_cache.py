@@ -51,6 +51,7 @@ class ModuleCache():
               "00 " * 16 * 3,
               "00 00 00 00 00")
         ca += bytes.fromhex(" ".join(fo))
+        ca += self._create_pcode()
         return ca
 
     def object_table_offset(self) -> int:
