@@ -34,7 +34,7 @@ def test_normalize():
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     module.add_file(path1)
-    this_workbook.cookie.value = 0xB81C
+    module.cookie.value = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')
     module.set_guid(guid)
     module.normalize_file()
