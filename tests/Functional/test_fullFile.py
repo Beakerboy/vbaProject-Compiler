@@ -71,27 +71,27 @@ def test_fullFile():
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
-    this_workbook.create_cache()
-    thisWorkbook.addVbBase(guid)
+    this_workbook.add_guid(guid)
     module_path = "blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
     this_workbook.normalize_file()
+    this_workbook.create_cache()
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
-    sheet1.create_cache()
-    sheet1.addVbBase(guid)
+    sheet1.add_guid(guid)
     module_path = "blank_files/Sheet1.cls"
     sheet1.addFile(module_path)
     sheet1.normalize_file()
+    sheet1.create_cache()
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
-    module1.create_cache()
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
     module1.addFile(path)
+    module1.create_cache()
 
     project.addModule(this_workbook)
     project.addModule(sheet1)
