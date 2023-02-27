@@ -10,9 +10,15 @@ def test_module_cache():
     cache.guid = bytes("0{" + str(guid) . "}", "utf_16_le")
     cache.guids1 = b'\xff' * 4 + b'\x00' * 54
     
-    cache.indirect_table = 0x0200.to_bytes(2, "little")
-    
-    cache.object_table = b''
+    indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
+                      "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
+                      "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
+                      "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+    cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
+    object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
+                    "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
+                    "02 3C FF FF FF FF 00 00")
+    cache.object_table = bytes.fromhex(" ".join(object_table))
     cache.pcode = b''
 
     f = open('tests/blank/vbaProject.bin', 'rb')
