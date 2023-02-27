@@ -90,7 +90,7 @@ def test_fullFile():
     module1.cookie.value = 0xB241
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
-    module1.addFile(path)
+    module1.addFile(module_path)
     module1.create_cache()
 
     project.addModule(this_workbook)
