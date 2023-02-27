@@ -5,6 +5,7 @@ from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 
 def test_create_cache():
     this_workbook = DocModule("ThisWorkbook")
+    assert this_workbook.get_name() == "ThisWorkbook"
     this_workbook.cookie.value = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')
     this_workbook.set_guid(guid)
