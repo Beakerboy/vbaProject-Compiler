@@ -8,6 +8,13 @@ class StdModule(ModuleBase):
         super(StdModule, self).__init__(name)
         self.type = "Module"
 
+    def normalize_file(self):
+        f = open(self._file_path, "r")
+        new_f = open(self._file_path + ".new", "a+", newline='\r\n')
+        while line := f.readline():
+            new_f.writelines([line])
+        new_f.close()
+
     def create_cache(self) -> bytes:
         cache = ModuleCache()
         cache.cookie = self.cookie.value
