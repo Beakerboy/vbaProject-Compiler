@@ -63,7 +63,8 @@ class ModuleCache():
         return 0x0140 + len(self.guids1)
 
     def id_table_offset(self) -> int:
-        return 0x020A
+        guid = 2 if len(self.guid) == 0 else 0x50
+        return 0x01BA + 
 
     def magic_offset(self):
         return self.id_table_offset() + 0x10B
