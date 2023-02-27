@@ -99,10 +99,11 @@ def test_fullFile():
     project.addModule(module1)
 
     project.write_file()
-
-    assert module_matches_bin("ThisWorkbook.cls.bin", 0x0333,
+    path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin",
+    assert module_matches_bin(path 0x0333,
                               "tests/vbaProject.bin", 0x0800, 0xAB)
-    assert module_matches_bin("Sheet1.cls.bin", 0x0333, "tests/vbaProject.bin",
+    path = "vbaProjectCompiler/blank_files/Sheet1.cls.bin"
+    assert module_matches_bin(path, 0x0333, "tests/vbaProject.bin",
                               0x0C00, 0xAB)
 
     # fileIO = OleFile(project)
