@@ -104,7 +104,7 @@ def test_fullFile():
                               "tests/blank/vbaProject.bin", 0x0800, 0xB5)
     path = "vbaProjectCompiler/blank_files/Sheet1.cls.bin"
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
-                              0x0C00, 0xAB)
+                              0x0C00, 0xAC)
 
     # fileIO = OleFile(project)
     # fileIO.build_file()
