@@ -100,7 +100,7 @@ def test_fullFile():
 
     project.write_file()
     path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin",
-    assert module_matches_bin(path 0x0333,
+    assert module_matches_bin(path, 0x0333,
                               "tests/vbaProject.bin", 0x0800, 0xAB)
     path = "vbaProjectCompiler/blank_files/Sheet1.cls.bin"
     assert module_matches_bin(path, 0x0333, "tests/vbaProject.bin",
