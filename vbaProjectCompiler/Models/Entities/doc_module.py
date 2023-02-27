@@ -53,7 +53,8 @@ class DocModule(ModuleBase):
     def create_cache(self):
         cache = ModuleCache()
         cache.cookie = self.cookie.value
-        cache.misc = [0x0316, 0x02D2, 0x032D, 0x0123, 0x88, 8, 0x18, "00000000", 1]
+        cache.misc = [0x0316, 0x02D2, 0x032D, 0x0123, 0x88, 8, 0x18,
+                      "00000000", 1]
         cache.guid = bytes(("0{" + str(self._guid) + "}").upper(), "utf_16_le")
 
         indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
