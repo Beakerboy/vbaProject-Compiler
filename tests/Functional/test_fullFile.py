@@ -9,6 +9,7 @@ from vbaProjectCompiler.Models.Entities.stdModule import StdModule
 from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
+
 class NotSoRandom():
     _rand = []
 
@@ -99,8 +100,8 @@ def test_fullFile():
 
     project.write_file()
 
-    assert module_matches_bin("ThisWorkbook.bin", 0x0333, "tests/vbaProject.bin",
-                              0x0800, 0xAB)
+    assert module_matches_bin("ThisWorkbook.bin", 0x0333,
+                              "tests/vbaProject.bin", 0x0800, 0xAB)
     assert module_matches_bin("Sheet1.bin", 0x0333, "tests/vbaProject.bin",
                               0x0C00, 0xAB)
     
@@ -179,7 +180,7 @@ def createCache():
         ca += struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
     ca += struct.pack("<17H", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1,
-                      0x0218, 0 , 0x021a, 1, 0x021c, 1, 0x0222)
+                      0x0218, 0, 0x021a, 1, 0x021c, 1, 0x0222)
     ca += b'\xFF' * 6 + b'\x00' * 4 + b'\xFF' * 36
     prefix = [0x0018, 0x000C, 0x000E]
     index = 0x0046
