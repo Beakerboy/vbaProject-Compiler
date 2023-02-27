@@ -121,6 +121,7 @@ def test_fullFile():
     # for chunk in iter(partial(new.read, 512), ''):
     #   assert chunk == expected.read(512)
 
+
 def createCache():
     vbaProject = VbaProject()
     vbaProject.setPerformanceCacheVersion(0x00B5)
@@ -178,7 +179,7 @@ def createCache():
         cache += struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
     ca += struct.pack("<17H", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1,
-                      0x0218, 0 , 0x021a, 1 , 0x021c, 1, 0x0222)
+                      0x0218, 0 , 0x021a, 1, 0x021c, 1, 0x0222)
     ca += b'\xFF' * 6 + b'\x00' * 4 + b'\xFF' * 36
     prefix = [0x0018, 0x000C, 0x000E]
     index = 0x0046
