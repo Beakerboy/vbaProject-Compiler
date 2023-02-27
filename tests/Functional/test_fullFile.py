@@ -71,7 +71,7 @@ def test_fullFile():
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
-    this_workbook.add_guid(guid)
+    this_workbook.set_guid(guid)
     module_path = "blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
     this_workbook.normalize_file()
@@ -80,7 +80,7 @@ def test_fullFile():
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
-    sheet1.add_guid(guid)
+    sheet1.set_guid(guid)
     module_path = "blank_files/Sheet1.cls"
     sheet1.addFile(module_path)
     sheet1.normalize_file()
