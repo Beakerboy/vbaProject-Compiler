@@ -32,7 +32,7 @@ class ModuleCache():
         ca += b'\xFF' * 0x80
         ca += struct.pack("<I", len(self.object_table)) + self.object_table
         if len(self.guid) > 0:
-            ca += pack("<HH", 1, len(self.guid)) + self.guid
+            ca += struct.pack("<HH", 1, len(self.guid)) + self.guid
         else:
             ca += struct.pack("<H", 0)
         ca += struct.pack("<IHiH", 0, 0, -1, 0x0101)
