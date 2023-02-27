@@ -1,5 +1,6 @@
 from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
+from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 
 
 class DocModule(ModuleBase):
@@ -50,29 +51,19 @@ class DocModule(ModuleBase):
         bin_f.close()
 
     def create_cache(self):
-        guid = '0{' + str(self._guid).upper() + '}'
-        guid_bytes = bytes(guid, "utf_16_le")
-        guid_size = len(guid_bytes).to_bytes(2, "little")
-        object_table = ("02 00",
-                        "53 4C FF FF FF FF 00 00 01 00 53 10 FF FF FF FF",
-                        "00 00 01 00 53 94 FF FF FF FF 00 00 00 00 02 3C",
-                        "FF FF FF FF 00 00")
-        object_table = bytes.fromhex(" ".join(object_table))
-        id_table = 0x0200.to_bytes(2, "little")
-        ca = self._create_cache_header(self.cookie, b'\xD2', id_table,
-                                       b'\x2D\x03', b'\x23\x01',
-                                       b'\x88', b'\x08', b'\x18\x00')
-        data1 = [guid_size + guid_bytes]
+        cache = ModuleCache()
+        cache.cookie = self.cookie.value
+        cache.misc = [0x0316, 0x02D2, 0x032D, 0x0123, 0x88, 8, 0x18,
+                      "00000000", 1]
+        cache.guid = bytes(("0{" + str(self._guid) + "}").upper(), "utf_16_le")
+
         indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                           "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
                           "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
                           "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
-        indirect_table = bytes.fromhex(" ".join(indirect_table))
-        middle = self._create_cache_middle(object_table, data1, indirect_table)
-        ca = (ca + middle
-              + b'\x01\x00'
-              + self._create_cache_footer(b'\00'))
-        magic = (len(ca) - 0x3C).to_bytes(2, "little")
-        ca = ca[:0x19] + magic + ca[0x1B:]
-        ca += self._create_pcode()
-        self._cache = ca
+        cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
+        object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
+                        "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
+                        "02 3C FF FF FF FF 00 00")
+        cache.object_table = bytes.fromhex(" ".join(object_table))
+        self._cache = cache.to_bytes()
