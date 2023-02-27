@@ -135,7 +135,6 @@ def createCache():
     libraries = []
     delim = []
     libraries.append(LibidReference(
-        "windows",
         "{000204EF-0000-0000-C000-000000000046}",
         "4.2",
         "9",
@@ -145,7 +144,6 @@ def createCache():
     ))
     delim.append(0x011A)
     libraries.append(LibidReference(
-        "windows",
         "{00020813-0000-0000-C000-000000000046}",
         "1.9",
         "0",
@@ -154,7 +152,6 @@ def createCache():
     ))
     delim.append(0x00BC)
     libraries.append(LibidReference(
-        "windows",
         "{00020430-0000-0000-C000-000000000046}",
         "2.0",
         "0",
@@ -163,7 +160,6 @@ def createCache():
     ))
     delim.append(0x0128)
     libraries.append(LibidReference(
-        "windows",
         "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
         "2.8",
         "0",
