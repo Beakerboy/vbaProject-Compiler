@@ -9,7 +9,7 @@ def test_module_cache():
     guid = uuid.UUID('0002081900000000C000000000000046')
     cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
     cache.guids1 = b'\xff' * 4 + b'\x00' * 54
-    
+
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                       "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
                       "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
