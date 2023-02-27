@@ -71,9 +71,6 @@ class ModuleCache():
         in_len = len(self.indirect_table) + 4
         return self.id_table_offset() + 0xC7 + in_len
 
-    def set_id_table(self, table):
-        self.indirect_table = table
-
     def _create_pcode(self) -> bytes:
         pcode = ("FE CA 01 00 00 00 FF FF FF FF 01",
                  "01 08 00 00 00 FF FF FF FF 78 00 00 00 FF FF FF",
