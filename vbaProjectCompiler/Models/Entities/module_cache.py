@@ -31,6 +31,7 @@ class ModuleCache():
                           0, -1, 0x0101, 0, 0xDF, -1, 0, self.misc[6])
         ca += b'\xFF' * 0x80
         ca += struct.pack("<I", len(self.object_table)) + self.object_table
+        ca += struct.pack("<hHI", -1, 0x0101, 0)
         if len(self.guid) > 0:
             ca += struct.pack("<HH", 1, len(self.guid)) + self.guid
         else:
