@@ -6,6 +6,7 @@ class ModuleCache():
     def __init__(self):
         self.cookie = 0
         self.misc = []
+        # utf-16 encoded guid with opening "0{" and closing bracket.
         self.guid = b''
         self.guids1 = b'\xff' * 4 + b'\x00' * 54
         self.guids2 = guids2 = b'\x00' * 32
@@ -29,7 +30,14 @@ class ModuleCache():
         ca += struct.pack("<hIIihIhIhHIHhIH", -1, 0, 0x454D, -1, -1, 0, -1,
                           0, -1, 0x0101, 0, 0xDF, -1, 0, self.misc[6])
         ca += b'\xFF' * 0x80
-        ca += len(self.object_table).to_bytes(4, "little") + self.object_table
+        ca += struct.pack("<I", len(self.object_table)) + self.object_table
+        if len(guid) > 0:
+            ca += pack("<HH", 1, len(self.guid)) + self.guid
+        else:
+            ca += struct.pack("<H", 0)
+        ca += struct.pack("<IHiH", 0, 0, -1, 0x0101)
+        ca += struct.pack("<I", len(self.indirect_table)) + self.indirect_table
+        ca += struct.pack("<HhH", 0, -1, 0)
         return ca
 
     def object_table_offset(self) -> int:
