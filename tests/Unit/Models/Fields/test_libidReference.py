@@ -16,6 +16,7 @@ def test_str():
     assert str(libidRef) == expected
     assert len(libidRef) == 94
 
+
 def test_posix():
     guid = uuid.UUID('0002043000000000C000000000000046')
     libidRef = LibidReference(
