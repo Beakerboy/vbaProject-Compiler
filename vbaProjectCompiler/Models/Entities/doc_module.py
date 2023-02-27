@@ -41,6 +41,8 @@ class DocModule(ModuleBase):
         new_f.writelines([self._attr("TemplateDerived", "False")])
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
+
+    def write_file(self):
         bin_f = open(self._file_path + ".bin", "wb")
         bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
