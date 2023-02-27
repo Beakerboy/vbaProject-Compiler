@@ -175,8 +175,8 @@ def createCache():
           + b'\x00\x00\x00\x00\x00\x01\x00\x04\x00\x02\x00\x20\x01')
     i = 0
     for lib in libraries:
-        cache += bytearray(str(lib), "utf_16_le")
-        cache += struct.pack("<IIIH", 0, 0, 0, delim[i])
+        ca += bytearray(str(lib), "utf_16_le")
+        ca += struct.pack("<IIIH", 0, 0, 0, delim[i])
         i += 1
     ca += struct.pack("<17H", 2, 2, 1, 6, 0x0212, 0, 0x0214, 1, 0x0216, 1,
                       0x0218, 0 , 0x021a, 1, 0x021c, 1, 0x0222)
