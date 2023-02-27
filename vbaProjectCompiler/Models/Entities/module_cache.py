@@ -39,6 +39,18 @@ class ModuleCache():
         ca += struct.pack("<IHiH", 0, 0, -1, 0x0101)
         ca += struct.pack("<I", len(self.indirect_table)) + self.indirect_table
         ca += struct.pack("<HhH", 0, -1, 0)
+        fo = ("00 00 00 00 00 00 00 00"
+              "FF FF FF FF FF FF FF FF FF FF FF FF", self.misc[6],
+              "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
+              "FF FF FF FF", self.misc[6], "FF FF FF FF FF FF FF FF",
+              "FF FF FF FF FF FF FF FF FF FF FF FF 00 00 00 00",
+              "00 00 00 00 FF FF 00 00 FF FF FF FF FF FF 00 00",
+              "00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF",
+              "FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF",
+              "FF FF 00 00 00 00 00 00 DF 00 00 00 00 00 00 00",
+              "00 " * 16 * 3,
+              "00 00 00 00 00")
+        ca += bytes.fromhex(" ".join(fo))
         return ca
 
     def object_table_offset(self) -> int:
