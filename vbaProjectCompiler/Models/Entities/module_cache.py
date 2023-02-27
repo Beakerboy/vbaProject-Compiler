@@ -9,7 +9,7 @@ class ModuleCache():
         # utf-16 encoded guid with opening "0{" and closing bracket.
         self.guid = b''
         self.guids1 = b'\xff' * 4 + b'\x00' * 54
-        self.guids2 = guids2 = b'\x00' * 32
+        self.guids2 = b'\x00' * 32
         self.indirect_table = b''
         self.object_table = b''
         self.pcode = b''
