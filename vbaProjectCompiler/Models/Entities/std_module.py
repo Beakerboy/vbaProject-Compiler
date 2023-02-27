@@ -10,7 +10,7 @@ class StdModule(ModuleBase):
 
     def create_cache(self) -> bytes:
         cache = ModuleCache()
-        cache.cookie = 0xB241
+        cache.cookie = self.cookie.value
         cache.misc = [0x0316, 0x0222, 0x027D, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
         cache.indirect_table = struct.pack("<iI", -1, 0x78)
 
