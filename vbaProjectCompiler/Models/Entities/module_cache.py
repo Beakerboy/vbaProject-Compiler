@@ -6,6 +6,7 @@ class ModuleCache():
     def __init__(self):
         self.cookie = 0
         self.misc = []
+        self.guid = b''
         self.guids1 = b'\xff' * 4 + b'\x00' * 54
         self.guids2 = guids2 = b'\x00' * 32
         self.indirect_table = b''
