@@ -1,4 +1,3 @@
-import create_cache
 import struct
 import unittest.mock
 import uuid
@@ -140,7 +139,8 @@ def createCache():
         "{000204EF-0000-0000-C000-000000000046}",
         "4.2",
         "9",
-        "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA\\VBA7.1\\VBE7.DLL",
+        "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA"\
+        "\\VBA7.1\\VBE7.DLL",
         "Visual Basic For Applications"
     ))
     delim.append(0x011A)
