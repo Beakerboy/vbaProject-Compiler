@@ -103,7 +103,7 @@ def test_fullFile():
                               "tests/vbaProject.bin", 0x0800, 0xAB)
     assert module_matches_bin("Sheet1.bin", 0x0333, "tests/vbaProject.bin",
                               0x0C00, 0xAB)
-    
+
     # fileIO = OleFile(project)
     # fileIO.build_file()
 
@@ -139,7 +139,7 @@ def createCache():
         "{000204EF-0000-0000-C000-000000000046}",
         "4.2",
         "9",
-        "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA"\
+        "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA"
         "\\VBA7.1\\VBE7.DLL",
         "Visual Basic For Applications"
     ))
@@ -183,7 +183,7 @@ def createCache():
                       0x0218, 0, 0x021a, 1, 0x021c, 1, 0x0222)
     ca += b'\xFF' * 6 + b'\x00' * 4 + b'\xFF' * 36
     prefix = [0x0018, 0x000C, 0x000E]
-    index = 0x0046
+    # index = 0x0046
     i = 0
 
     for module in vbaProject.modules:
