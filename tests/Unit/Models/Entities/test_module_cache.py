@@ -26,6 +26,7 @@ def test_doc_cache():
     file_data = f.read(0x0333)
     assert cache.to_bytes() == file_data
 
+
 def test_module_cache():
     cache = ModuleCache()
     cache.cookie = 0xB241
