@@ -1,5 +1,4 @@
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
-from vbaProjectCompiler.Models.Entities.module_cache import ModuleCache
 
 
 class StdModule(ModuleBase):
