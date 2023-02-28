@@ -103,7 +103,7 @@ def test_fullFile():
     module_path = "vbaProjectCompiler/blank_files/Sheet1.cls"
     sheet1.add_file(module_path)
     sheet1.normalize_file()
-    sheet1.set_cache()
+    sheet1.set_cache(module_cache.to_bytes())
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
