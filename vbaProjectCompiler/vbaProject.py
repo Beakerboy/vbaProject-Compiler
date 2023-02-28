@@ -87,18 +87,15 @@ class VbaProject:
         self.references.append(ref)
 
     def _create_binary_files(self):
-        for module in self.project.modules:
-            path = module.get_name() + '.bin'
-            f = open(path, "wb")
-            f.write(module.to_file())
-            f.close()
+        for module in self.modules:
+            module.write_file()
         # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
     def _build_ole_directory(self):
         # directory = StorageDirectory()
         # directory.set_name("VBA")
-        for module in self.project.modules:
+        for module in self.modules:
             # path = module.get_name() + '.bin'
             # dir = StreamDirectory()
             # dir.set_name(module.get_name())
