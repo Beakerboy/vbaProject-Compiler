@@ -34,7 +34,7 @@ def test_create_cache2():
 def test_normalize():
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
-    os.remove(path + ".new")
+    os.remove(path1 + ".new")
     module.add_file(path1)
     module.cookie.value = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')
