@@ -117,7 +117,7 @@ def test_fullFile():
     module_path = "tests/blank/Module1.bas"
     module1.add_file(module_path)
     module1.normalize_file()
-    module1.create_cache()
+    module1.set_cache(module_cache.to_bytes())
 
     project.addModule(this_workbook)
     project.addModule(sheet1)
