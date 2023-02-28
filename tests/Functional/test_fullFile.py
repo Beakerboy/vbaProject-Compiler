@@ -107,7 +107,7 @@ def test_fullFile():
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
-    cache = ModuleCache()
+    module_cache = ModuleCache()
     module_cache.project_cookie = 0x08F3
     module_cache.misc = [0x0316, 0x027D, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
