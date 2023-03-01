@@ -1,37 +1,29 @@
 import os
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
+from ms_pcode_assembler.module_cache import ModuleCache
 from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 
 
-def test_create_cache():
-    this_workbook = DocModule("ThisWorkbook")
-    assert this_workbook.get_name() == "ThisWorkbook"
-    this_workbook.cookie.value = 0xB81C
-    guid = uuid.UUID('0002081900000000C000000000000046')
-    this_workbook.set_guid(guid)
-    this_workbook.create_cache()
-
-    f = open('tests/blank/vbaProject.bin', 'rb')
-    f.seek(0x0800)
-    file_data = f.read(0x0333)
-    assert this_workbook.get_cache() == file_data
-
-
-def test_create_cache2():
-    module = DocModule("Sheet1")
-    module.cookie.value = 0x9B9A
-    guid = uuid.UUID('0002082000000000C000000000000046')
-    module.set_guid(guid)
-    module.create_cache()
-
-    f = open('tests/blank/vbaProject.bin', 'rb')
-    f.seek(0x0C00)
-    file_data = f.read(0x0333)
-    assert module.get_cache() == file_data
-
-
 def test_normalize():
+
+    cache = ModuleCache(0xB5, 0x08F3)
+    cache.module_cookie = 0xB81C
+    cache.misc = [0x0316, 0x032D, 0x0123, 0x88, 8, 0x18, "00000000", 1]
+    guid = uuid.UUID('0002081900000000C000000000000046')
+    cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+
+    indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
+                      "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
+                      "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
+                      "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+    cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
+    object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
+                    "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
+                    "02 3C FF FF FF FF 00 00")
+    cache.object_table = bytes.fromhex(" ".join(object_table))
+    cache.pcode = b''
+
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     os.remove(path1 + ".new")
@@ -47,7 +39,7 @@ def test_normalize():
     # while line := f.readline():
     #     assert line == e.readline()
 
-    module.create_cache()
+    module.set_cache(cache.to_bytes())
     module.write_file()
     path3 = path1 + ".bin"
     f_stream = open(path3, "rb")
