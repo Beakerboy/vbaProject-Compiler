@@ -19,12 +19,11 @@ class DocModule(ModuleBase):
         return ("Document=" + self.modName.value + "/&H"
                 + self.docTlibVer.to_bytes(4, "big").hex())
 
-    def set_guid(self, guids):
-        """
-        Should probably abstract this to add other attributes to the file
-        during normalization.
-        """
-        self._guid = guids
+    def set_guid(self, guid):
+        if isinstance(guid, list):
+            self._guid = guid
+        else:
+            self._guid = [guid]
 
     def add_guid(self, guid):
         self._guid += guid
