@@ -6,3 +6,8 @@ def test_set_get_cache():
     cache = b'foo'
     module.set_cache(cache)
     assert module.get_cache() == cache
+
+
+def test_get_name():
+    module = StdModule("Module1")
+    assert module.get_name() == "Module1"
