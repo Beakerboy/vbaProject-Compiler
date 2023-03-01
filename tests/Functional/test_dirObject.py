@@ -58,7 +58,8 @@ def test_dirStream():
                     "02 3C FF FF FF FF 00 00")
     module_cache.object_table = bytes.fromhex(" ".join(object_table))
     module_cache.pcode = b''
-    module_cache.misc = [0x0316, 0x02D2, 0x032D, 0x0123, 0x88, 8, 0x18, "00000000", 1]
+    module_cache.misc = [0x0316, 0x02D2, 0x032D, 0x0123, 0x88, 8,
+                         0x18, "00000000", 1]
 
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
