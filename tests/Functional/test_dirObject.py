@@ -81,7 +81,7 @@ def test_dirStream():
     module1.cookie.value = 0xB241
     module_cache.clear_variables()
     module_cache.cookie = module1.cookie.value
-    module_cache.misc = [0x0316, 0x0222, 0x027D, 3, 0, 2,
+    module_cache.misc = [0x0316, 0x027D, 3, 0, 2,
                          0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
     module1.set_cache(module_cache.to_bytes())
