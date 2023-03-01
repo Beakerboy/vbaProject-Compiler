@@ -12,19 +12,22 @@ class DocModule(ModuleBase):
         super(DocModule, self).__init__(name)
         self.type = "Document"
 
-        # GUID
-        self._guid = ""
+        # GUIDs
+        self._guid = []
 
     def toProjectModuleString(self):
         return ("Document=" + self.modName.value + "/&H"
                 + self.docTlibVer.to_bytes(4, "big").hex())
 
-    def set_guid(self, guid):
+    def set_guid(self, guids):
         """
         Should probably abstract this to add other attributes to the file
         during normalization.
         """
-        self._guid = guid
+        self._guid = guids
+
+    def add_guid(self, guid):
+        self._guid += guid
 
     def normalize_file(self):
         f = open(self._file_path, "r")
@@ -33,7 +36,10 @@ class DocModule(ModuleBase):
             line = f.readline()
 
         new_f.write(line)
-        txt = self._attr("Base", '"0{' + str(self._guid).upper() + '}"')
+        guid_string = "0"
+        for guid in self._guid:
+            guid_string += '"{' + str(self._guid).upper() + '}"'
+        txt = self._attr("Base", guid_string)
         new_f.writelines([txt])
         while line := f.readline():
             new_f.writelines([line])
