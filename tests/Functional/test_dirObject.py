@@ -47,23 +47,42 @@ def test_dirStream():
     project.addReference(officeReference)
     project.setProjectCookie(0x08F3)
 
-    thisWorkbook = DocModule("ThisWorkbook")
-    thisWorkbook.cookie.value = 0xB81C
+    indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
+                      "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
+                      "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
+                      "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+    module_cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
+    object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
+                    "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
+                    "02 3C FF FF FF FF 00 00")
+    module_cache.object_table = bytes.fromhex(" ".join(object_table))
+    module_cache.pcode = b''
+
+    this_workbook = DocModule("ThisWorkbook")
+    this_workbook.cookie.value = 0xB81C
+    module_cache.cookie = this_workbook.cookie.value
     guid = uuid.UUID('0002081900000000C000000000000046')
-    thisWorkbook.set_guid(guid)
-    thisWorkbook.create_cache()
+    this_workbook.set_guid(guid)
+    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    this_workbook.set_cache(module_cache.to_bytes())
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
+    module_cache.cookie = sheet1.cookie.value
     guid = uuid.UUID('0002082000000000C000000000000046')
+    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
     sheet1.set_guid(guid)
-    sheet1.create_cache()
+    sheet1.set_cache(module_cache.to_bytes())
 
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
-    module1.create_cache()
+    module_cache.clear_variables()
+    module_cache.cookie = module1.cookie.value
+    module_cache.misc = [0x0316, 0x0222, 0x027D, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
+    module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
+    module1.set_cache(module_cache.to_bytes())
 
-    project.addModule(thisWorkbook)
+    project.addModule(this_workbook)
     project.addModule(sheet1)
     project.addModule(module1)
 
