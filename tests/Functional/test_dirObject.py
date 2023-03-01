@@ -1,5 +1,6 @@
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
+from ms_pcode_assembler.module_cache import ModuleCache
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Views.dirStream import DirStream
 from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
@@ -9,7 +10,7 @@ from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 
 
 def test_dirStream():
-
+    module_cache = ModuleCache(0xB5, 0x08F3)
     # Read the data from the demo file and decompress it.
     f = open('tests/blank/vbaProject.bin', 'rb')
     offset = 0x1EC0
