@@ -69,7 +69,7 @@ def test_fullFile():
     project.setPerformanceCacheVersion(0x00B5)
 
     module_cache = ModuleCache(0xB5, 0x08F3)
-    module_cache.misc = [0x0316, 0x032D, 0x0123, 0x88, 8, 0x18, "00000000", 1]
+    module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                       "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
                       "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
@@ -79,7 +79,6 @@ def test_fullFile():
                     "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
                     "02 3C FF FF FF FF 00 00")
     module_cache.object_table = bytes.fromhex(" ".join(object_table))
-    module_cache.pcode = b''
 
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
@@ -107,7 +106,7 @@ def test_fullFile():
     module1 = StdModule("Module1")
     module1.cookie.value = 0xB241
     module_cache.clear_variables()
-    module_cache.misc = [0x0316, 0x027D, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
+    module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
     module_cache.module_cookie = 0xB241
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
