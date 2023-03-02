@@ -1,8 +1,8 @@
 import unittest.mock
 
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Models.Entities.docModule import DocModule
-from vbaProjectCompiler.Models.Entities.stdModule import StdModule
+from vbaProjectCompiler.Models.Entities.doc_module import DocModule
+from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Views.project import Project
 
 
@@ -48,4 +48,4 @@ def test_blank():
     file.seek(0x2400)
     expected += file.read(0x0152)
 
-    assert project.toBytearray() == expected
+    assert project.to_bytes() == expected

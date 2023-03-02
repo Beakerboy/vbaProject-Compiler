@@ -86,60 +86,32 @@ class VbaProject:
     def addReference(self, ref):
         self.references.append(ref)
 
-    """
+    def _create_binary_files(self):
+        for module in self.modules:
+            module.write_file()
+        # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
+        # Create views and write
+
+    def _build_ole_directory(self):
+        # directory = StorageDirectory()
+        # directory.set_name("VBA")
+        for module in self.modules:
+            # path = module.get_name() + '.bin'
+            # dir = StreamDirectory()
+            # dir.set_name(module.get_name())
+            # dir.add_stream(path)
+            # directory.add_directory(dir)
+            pass
+        # return directory
+
+    def _write_ole_file(self, dir):
+        # ole_file = OleFile()
+        # ole_file.add_directory(dir)
+        # ole_file.build_file()
+        # ole_file.write_file("vbaProject.bin")
+        pass
+
     def write_file(self):
-        ole_file = OleFile()
-        VBADirectory = StorageDirectory()
-        VBADirectory.set_name("VBA")
-        for module in self.project.modules:
-            path = module.get_name() + '.bin'
-            f = open(path, "wb")
-            f.write(module.to_bytes())
-            f.close()
-            dir = StreamDirectory()
-            dir.set_name(module.get_name())
-            dir.add_stream(path)
-            VBADirectory.add_directory(dir)
-        path = "_VBA_PROJECT.bin"
-        view = Vba_Project()
-        f = open(path, "wb")
-        f.write(view.to_bytes())
-        f.close()
-        dir = StreamDirectory()
-        dir.set_name("_VBA_PROJECT")
-        dir.add_stream(path)
-        VBADirectory.add_directory(dir)
-
-        path = "dir.bin"
-        view = DirStream()
-        f = open(path, "wb")
-        f.write(view.to_bytes())
-        f.close()
-        dir = StreamDirectory()
-        dir.set_name("dir")
-        dir.add_stream(path)
-        VBADirectory.add_directory(dir)
-        ole_file.add_directory(VBADirectory)
-
-        path = "projectWm.bin"
-        view = ProjectWm()
-        f = open(path, "wb")
-        f.write(view.to_bytes())
-        f.close()
-        dir = StreamDirectory()
-        dir.set_name("Projectwm")
-        dir.add_stream(path)
-        ole_file.add_directory(dir)
-
-        path = "project.bin"
-        view = Project()
-        f = open(path, "wb")
-        f.write(view.to_bytes())
-        f.close()
-        dir = StreamDirectory()
-        dir.set_name("Project")
-        dir.add_stream(path)
-        ole_file.add_directory(dir)
-        ole_file.build_file()
-        ole_file.write_file("vbaProject.bin")
-    """
+        self._create_binary_files()
+        directory = self._build_ole_directory()
+        self._write_ole_file(directory)

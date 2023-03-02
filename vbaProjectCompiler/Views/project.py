@@ -19,7 +19,7 @@ class Project:
     def addAttribute(self, name, value):
         self.attributes[name] = value
 
-    def toBytearray(self):
+    def to_bytes(self):
         project = self.project
         codePageName = project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.

@@ -6,7 +6,7 @@ from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 
 
-class ModuleRecord():
+class ModuleBase():
     def __init__(self, name):
         """
         Initialize the module record
@@ -19,7 +19,7 @@ class ModuleRecord():
 
         # self.readonly = SimpleRecord(0x001E, 4, helpContext)
         # self.private = SimpleRecord(0x001E, 4, helpContext)
-        self.cache = b''
+        self._cache = b''
         self.workspace = [0, 0, 0, 0, 'C']
         self.type = ''
         self.created = 0
@@ -27,22 +27,14 @@ class ModuleRecord():
         self._fileSize = 0
         self._size = 0
 
-        self._guid = "00020819-0000-0000-C000-000000000046"
+    def set_cache(self, cache):
+        self._cache = cache
 
-    def set_guid(self, guid):
-        """
-        Need to create a custom field type or use an existing
-        python library
-        """
-        self._guid = guid
+    def get_cache(self):
+        return self._cache
 
-    def getSize(self):
-        """ is this method necessary
-        """
-        return len(self.cache)
-
-    def addPerformanceCache(self, cache):
-        self.cache = cache
+    def get_name(self):
+        return self.modName.value
 
     def addWorkspace(self, val1, val2, val3, val4, val5):
         self.workspace = [val1, val2, val3, val4, val5]
@@ -53,7 +45,7 @@ class ModuleRecord():
         """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
         typeId = PackedData("HI", typeIdValue, 0)
-        self.offsetRec = IdSizeField(0x0031, 4, len(self.cache))
+        self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
         output = (self.modName.pack(codePageName, endien)
                   + self.streamName.pack(codePageName, endien)
                   + self.docString.pack(codePageName, endien)
@@ -71,36 +63,9 @@ class ModuleRecord():
     def add_file(self, file_path):
         self._file_path = file_path
 
-    def getData(self):
-        """
-        """
-        # Read the compresses file
-        # Combine it with the performanceCache
-        return self.cache
-
-    def getChunkOfData(self, size, number):
-        """
-        Split the data into chucks of size {size} and
-        return the {number}th chunk
-        """
-        pass
-
-    def normalize_file(self):
-        f = open(self._file_path, "r")
-        new_f = open(self._file_path + ".new", "a+", newline='\r\n')
-        for i in range(5):
-            line = f.readline()
-
-        new_f.write(line)
-        txt = self._attr("Base", '"0{' + self._guid + '}"')
-        new_f.writelines([txt])
-        while line := f.readline():
-            new_f.writelines([line])
-        new_f.writelines([self._attr("TemplateDerived", "False")])
-        new_f.writelines([self._attr("Customizable", "True")])
-        new_f.close()
+    def write_file(self):
         bin_f = open(self._file_path + ".bin", "wb")
-        bin_f.write(self.cache)
+        bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
             contents = new_f.read()
         ms_ovba = MsOvba()
