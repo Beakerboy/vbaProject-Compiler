@@ -79,7 +79,6 @@ def test_fullFile():
                     "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
                     "02 3C FF FF FF FF 00 00")
     module_cache.object_table = bytes.fromhex(" ".join(object_table))
-    module_cache.pcode = b''
 
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
