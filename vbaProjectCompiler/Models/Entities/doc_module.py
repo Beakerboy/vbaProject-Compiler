@@ -35,9 +35,9 @@ class DocModule(ModuleBase):
             line = f.readline()
 
         new_f.write(line)
-        guid_string = "0"
+        guid_string = '"0'
         for guid in self._guid:
-            guid_string += '"{' + str(guid).upper() + '}"'
+            guid_string += '{' + str(guid).upper() + '}"'
         txt = self._attr("Base", guid_string)
         new_f.writelines([txt])
         while line := f.readline():
