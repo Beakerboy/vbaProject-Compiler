@@ -23,6 +23,7 @@ class NotSoRandom():
     def randint(cls, param1, param2):
         return cls._rand.pop(0)
 
+
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code that will run before your test, for example:
@@ -32,6 +33,7 @@ def run_around_tests():
     # Code that will run after your test, for example:
     os.remove("*.new")
     os.remove("*.bin")
+
 
 def module_matches_bin(module_path,
                        cache_size,
