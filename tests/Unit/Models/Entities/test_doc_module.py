@@ -51,9 +51,9 @@ def test_normalize():
     assert f_stream.read(0x333) == cache
 
     expected_compressed = full_binary.read(length2)
-    ms_ovba = MsOvba()
+    # ms_ovba = MsOvba()
     test_compressed = f_stream.read()
     test_data = ms_ovba.decompress(test_compressed)
     expected_data = ms_ovba.decompress(expected_compressed)
-    # assert test_compressed == expected_compressed
-    assert test_data == expected_data
+    assert test_compressed == expected_compressed
+    # assert test_data == expected_data
