@@ -34,7 +34,7 @@ def run_around_tests():
     root = "vbaProjectCompiler/blank_files/"
     root2 = "tests/blank/"
     names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
-             root2 + "Module1.bas"]
+             root2 + "Module1.bas", "dir.bin"]
     remove_module(names)
 
 
