@@ -31,8 +31,14 @@ def run_around_tests():
     # A test function will be run at this point
     yield
     # Code that will run after your test, for example:
-    os.remove("ThisWorkbook.cls.new")
-    os.remove("ThisWorkbook.cls.bin")
+    names = ["ThisWorkbook.cls", "Sheet1.cls", "Module1.bas"]
+    remove_module(names)
+
+
+def remove_module(names):
+    for name in names:
+        os.remove(name + ".new")
+        os.remove(name + ".bin")
 
 
 def module_matches_bin(module_path,
