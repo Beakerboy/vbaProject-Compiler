@@ -1,4 +1,3 @@
-import os
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
