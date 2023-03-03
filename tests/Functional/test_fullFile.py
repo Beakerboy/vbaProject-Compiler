@@ -38,7 +38,6 @@ def run_around_tests():
 
 
 def remove_module(names):
-    
     for name in names:
         os.remove(name + ".new")
         os.remove(name + ".bin")
