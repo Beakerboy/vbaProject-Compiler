@@ -36,7 +36,7 @@ def run_around_tests():
     names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
              root2 + "Module1.bas"]
     remove_module(names)
-    names = ["dir.bin", "projectWm.bin", "project.bin"]
+    names = ["dir.bin", "projectWm.bin", "project.bin", "vba_project.bin"]
     map(os.remove, names)
 
 
