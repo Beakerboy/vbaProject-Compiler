@@ -1,4 +1,5 @@
 import struct
+from ms_ovba_compression import MsOvba
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
@@ -69,3 +70,10 @@ class DirStream():
             output += record.pack(codePageName, endien)
         output += struct.pack(packSymbol + "HI", 16, 0)
         return output
+
+    def write_file(self):
+        bin_f = open("dir.bin", "wb")
+        ms_ovba = MsOvba()
+        compressed = ms_ovba.compress(self.to_bytes())
+        bin_f.write(compressed)
+        bin_f.close()
