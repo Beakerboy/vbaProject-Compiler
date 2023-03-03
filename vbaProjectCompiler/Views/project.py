@@ -61,6 +61,12 @@ class Project:
             result += eol
         return result
 
+    def write_file(self):
+        bin_f = open("project.bin", "wb")
+        ms_ovba = MsOvba()
+        bin_f.write(self.to_bytes())
+        bin_f.close()
+
     def _attr(self, name, value):
         codePageName = self.project.getCodePageName()
         eol = b'\x0D\x0A'
