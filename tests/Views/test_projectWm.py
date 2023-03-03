@@ -19,4 +19,4 @@ def test_projectWm():
                 + b'\x001\x00\x00\x00\x00\x00')
     result = projectWm.toBytes()
     assert len(result) == 86
-    assert projectWm.toBytes() == expected
+    assert projectWm.to_bytes() == expected
