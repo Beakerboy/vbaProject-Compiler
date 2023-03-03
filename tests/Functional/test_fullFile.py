@@ -36,13 +36,18 @@ def run_around_tests():
     names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
              root2 + "Module1.bas", "dir.bin"]
     remove_module(names)
-
+    names = ["dir.bin"]
+    map(os.remove, names)
 
 def remove_module(names):
     for name in names:
         os.remove(name + ".new")
         os.remove(name + ".bin")
 
+def remove_files(names):
+    for name in names:
+        os.remove(name + ".new")
+        os.remove(name + ".bin")
 
 def module_matches_bin(module_path,
                        cache_size,
