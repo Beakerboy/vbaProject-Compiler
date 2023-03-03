@@ -4,8 +4,8 @@
 
 from vbaProjectCompiler.Views.dirStream import DirStream
 # from vbaProjectCompiler.Views.vba_Project import Vba_Project
-# from vbaProjectCompiler.Views.project import Project
-# from vbaProjectCompiler.Views.projectWm import ProjectWm
+from vbaProjectCompiler.Views.project import Project
+from vbaProjectCompiler.Views.projectWm import ProjectWm
 
 
 class VbaProject:
@@ -91,6 +91,10 @@ class VbaProject:
             module.write_file()
         dir = DirStream(self)
         dir.write_file()
+        project = Project(self)
+        project.write_file()
+        projectWm = ProjectWm(self)
+        projectWm.write_file()
         # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
