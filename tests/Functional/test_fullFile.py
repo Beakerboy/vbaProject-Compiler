@@ -1,3 +1,4 @@
+import os
 import struct
 import unittest.mock
 import uuid
