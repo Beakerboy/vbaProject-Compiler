@@ -36,9 +36,10 @@ def run_around_tests():
 
 
 def remove_module(names):
+    root = "vbaProjectCompiler/blank_files/"
     for name in names:
-        os.remove(name + ".new")
-        os.remove(name + ".bin")
+        os.remove(root + name + ".new")
+        os.remove(root + name + ".bin")
 
 
 def module_matches_bin(module_path,
