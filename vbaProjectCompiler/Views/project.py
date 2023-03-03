@@ -63,7 +63,6 @@ class Project:
 
     def write_file(self):
         bin_f = open("project.bin", "wb")
-        ms_ovba = MsOvba()
         bin_f.write(self.to_bytes())
         bin_f.close()
 
