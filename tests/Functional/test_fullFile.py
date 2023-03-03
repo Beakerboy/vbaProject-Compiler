@@ -30,16 +30,18 @@ def run_around_tests():
 
     # A test function will be run at this point
     yield
-    # Code that will run after your test, for example:
-    names = ["ThisWorkbook.cls", "Sheet1.cls", "Module1.bas"]
+    # Code that will run after your test
+    root = "vbaProjectCompiler/blank_files/"
+    root2 = "tests/blank/Module1.bas"
+    names = [root + "ThisWorkbook.cls", root + "Sheet1.cls", root2 + "Module1.bas"]
     remove_module(names)
 
 
 def remove_module(names):
-    root = "vbaProjectCompiler/blank_files/"
+    
     for name in names:
-        os.remove(root + name + ".new")
-        os.remove(root + name + ".bin")
+        os.remove(name + ".new")
+        os.remove(name + ".bin")
 
 
 def module_matches_bin(module_path,
