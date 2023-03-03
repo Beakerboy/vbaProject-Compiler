@@ -55,5 +55,5 @@ def test_normalize():
     test_compressed = f_stream.read()
     test_data = ms_ovba.decompress(test_compressed)
     expected_data = ms_ovba.decompress(expected_compressed)
-    #assert test_compressed == expected_compressed
+    # assert test_compressed == expected_compressed
     assert test_data == expected_data
