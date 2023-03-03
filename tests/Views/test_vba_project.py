@@ -10,4 +10,4 @@ def test_projectWm():
     vbaProject.setPerformanceCache(b'\x00\x01\x02\x03')
     vbaProject.setPerformanceCacheVersion(0x00B5)
     expected = b'\xCC\x61\xB5\x00\x00\x03\x00\x00\x01\x02\x03'
-    assert vba_Project.toBytes() == expected
+    assert vba_Project.to_bytes() == expected
