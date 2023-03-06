@@ -19,15 +19,6 @@ class DocModule(ModuleBase):
         return ("Document=" + self.modName.value + "/&H"
                 + self.docTlibVer.to_bytes(4, "big").hex())
 
-    def set_guid(self, guid):
-        if isinstance(guid, list):
-            self._guid = guid
-        else:
-            self._guid = [guid]
-
-    def add_guid(self, guid):
-        self._guid += guid
-
     def normalize_file(self):
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
