@@ -27,6 +27,18 @@ class ModuleBase():
         self._fileSize = 0
         self._size = 0
 
+        # GUIDs
+        self._guid = []
+
+    def set_guid(self, guid):
+        if isinstance(guid, list):
+            self._guid = guid
+        else:
+            self._guid = [guid]
+
+    def add_guid(self, guid):
+        self._guid += guid
+
     def set_cache(self, cache):
         self._cache = cache
 

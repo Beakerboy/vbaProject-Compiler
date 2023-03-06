@@ -1,4 +1,3 @@
-import os
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
@@ -11,7 +10,7 @@ def test_normalize():
     cache.module_cookie = 0xB81C
     cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
     guid = uuid.UUID('0002081900000000C000000000000046')
-    cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    cache.guid = [guid]
 
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                       "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
@@ -25,7 +24,6 @@ def test_normalize():
 
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
-    os.remove(path1 + ".new")
     module.add_file(path1)
     module.cookie.value = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')

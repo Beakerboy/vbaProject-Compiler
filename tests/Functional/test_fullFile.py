@@ -1,3 +1,5 @@
+import os
+import pytest
 import struct
 import unittest.mock
 import uuid
@@ -20,6 +22,28 @@ class NotSoRandom():
     @classmethod
     def randint(cls, param1, param2):
         return cls._rand.pop(0)
+
+
+@pytest.fixture(autouse=True)
+def run_around_tests():
+    # Code that will run before your test, for example:
+
+    # A test function will be run at this point
+    yield
+    # Code that will run after your test
+    root = "vbaProjectCompiler/blank_files/"
+    root2 = "tests/blank/"
+    names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
+             root2 + "Module1.bas"]
+    remove_module(names)
+    names = ["dir.bin", "projectWm.bin", "project.bin", "vba_project.bin"]
+    map(os.remove, names)
+
+
+def remove_module(names):
+    for name in names:
+        os.remove(name + ".new")
+        os.remove(name + ".bin")
 
 
 def module_matches_bin(module_path,
@@ -85,7 +109,7 @@ def test_fullFile():
     this_workbook.cookie.value = 0xB81C
     module_cache.module_cookie = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
-    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    module_cache.guid = [guid]
     this_workbook.set_guid(guid)
     module_path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
@@ -96,7 +120,7 @@ def test_fullFile():
     sheet1.cookie.value = 0x9B9A
     module_cache.module_cookie = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
-    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    module_cache.guid = [guid]
     sheet1.set_guid(guid)
     module_path = "vbaProjectCompiler/blank_files/Sheet1.cls"
     sheet1.add_file(module_path)

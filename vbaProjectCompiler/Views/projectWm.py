@@ -5,7 +5,7 @@ class ProjectWm:
     def __init__(self, project):
         self.project = project
 
-    def toBytes(self):
+    def to_bytes(self):
         output = b''
         for module in self.project.modules:
             output += (bytes(module.modName.value, 'ascii')
@@ -14,3 +14,8 @@ class ProjectWm:
                        + b'\x00\x00')
         output += b'\x00\x00'
         return output
+
+    def write_file(self):
+        bin_f = open("project.bin", "wb")
+        bin_f.write(self.to_bytes())
+        bin_f.close()
