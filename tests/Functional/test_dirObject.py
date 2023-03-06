@@ -65,14 +65,14 @@ def test_dirStream():
     module_cache.cookie = this_workbook.cookie.value
     guid = uuid.UUID('0002081900000000C000000000000046')
     this_workbook.set_guid(guid)
-    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    module_cache.guid = [guid]
     this_workbook.set_cache(module_cache.to_bytes())
 
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     module_cache.cookie = sheet1.cookie.value
     guid = uuid.UUID('0002082000000000C000000000000046')
-    module_cache.guid = bytes(("0{" + str(guid) + "}").upper(), "utf_16_le")
+    module_cache.guid = [guid]
     sheet1.set_guid(guid)
     sheet1.set_cache(module_cache.to_bytes())
 

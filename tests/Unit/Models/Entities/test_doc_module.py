@@ -1,4 +1,3 @@
-import os
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
@@ -25,7 +24,6 @@ def test_normalize():
 
     module = DocModule("foo")
     path1 = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
-    os.remove(path1 + ".new")
     module.add_file(path1)
     module.cookie.value = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')

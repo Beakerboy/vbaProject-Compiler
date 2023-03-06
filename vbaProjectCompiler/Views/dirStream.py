@@ -1,5 +1,5 @@
 import struct
-from ms_ovba_compression import MsOvba
+from ms_ovba_compression.ms_ovba import MsOvba
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
