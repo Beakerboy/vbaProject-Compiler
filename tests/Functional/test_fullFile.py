@@ -63,7 +63,7 @@ def module_matches_bin(module_path,
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
-def test_fullFile():
+def test_full_file():
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     project = VbaProject()
