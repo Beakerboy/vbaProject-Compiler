@@ -10,7 +10,7 @@ from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
 
 
-def test_dirStream():
+def test_dirstream():
     module_cache = ModuleCache(0xB5, 0x08F3)
     # Read the data from the demo file and decompress it.
     f = open('tests/blank/vbaProject.bin', 'rb')
