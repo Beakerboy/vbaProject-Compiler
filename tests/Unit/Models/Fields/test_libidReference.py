@@ -4,7 +4,7 @@ from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
 
 def test_str():
     guid = uuid.UUID('0002043000000000C000000000000046')
-    libidRef = LibidReference(
+    libid_ref = LibidReference(
         guid,
         "2.0",
         "0",
@@ -28,4 +28,4 @@ def test_posix():
     )
     expected = ("*\\H{00020430-0000-0000-C000-000000000046}"
                 "#2.0#0#//usr/bin/stdole2.tlb#OLE Automation")
-    assert str(libidRef) == expected
+    assert str(libid_ref) == expected
