@@ -7,19 +7,19 @@ class DocModule(ModuleBase):
     A Document Module is a module record that is associated with a worksheet or
     workbook.
     """
-    def __init__(self, name):
-        self.docTlibVer = 0
+    def __init__(self, name) -> None:
+        self.doc_tlib_ver = 0
         super(DocModule, self).__init__(name)
         self.type = "Document"
 
         # GUIDs
         self._guid = []
 
-    def toProjectModuleString(self):
+    def toProjectModuleString(self) -> str:
         return ("Document=" + self.modName.value + "/&H"
-                + self.docTlibVer.to_bytes(4, "big").hex())
+                + self.doc_tlib_ver.to_bytes(4, "big").hex())
 
-    def normalize_file(self):
+    def normalize_file(self) -> None:
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
         for i in range(5):
@@ -37,7 +37,7 @@ class DocModule(ModuleBase):
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
 
-    def write_file(self):
+    def write_file(self) -> None:
         bin_f = open(self._file_path + ".bin", "wb")
         bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
