@@ -170,10 +170,10 @@ def test_full_file() -> None:
 
 
 def createCache() -> bytes:
-    vbaProject = VbaProject()
-    vbaProject.setPerformanceCacheVersion(0x00B5)
-    thisWorkbook = DocModule("ThisWorkbook")
-    thisWorkbook.cookie.value = 0xB81C
+    vba_project = VbaProject()
+    vba_project.setPerformanceCacheVersion(0x00B5)
+    this_workbook = DocModule("ThisWorkbook")
+    this_workbook.cookie.value = 0xB81C
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     module1 = StdModule("Module1")
@@ -229,7 +229,7 @@ def createCache() -> bytes:
     # index = 0x0046
     i = 0
 
-    for module in vbaProject.modules:
+    for module in vba_project.modules:
         name = module.modName.value.encode("utf_16_le")
         ca += struct.pack("<H", prefix[i]) + name
         ca += struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i)
