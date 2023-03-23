@@ -1,7 +1,7 @@
 import struct
 
 
-class Vba_Project:
+class ProjectView:
     """
     The _VBA_PROJECT data view for the vbaProject
     """
