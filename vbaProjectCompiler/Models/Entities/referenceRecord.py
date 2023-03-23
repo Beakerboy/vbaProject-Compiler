@@ -7,7 +7,7 @@ from vbaProjectCompiler.Models.Fields.packedData import PackedData
 class ReferenceRecord():
 
     def __init__(self, codepage_name, name, libidRef):
-        self.codepage_name = codeage_name
+        self.codepage_name = codepage_name
         self.refname = DoubleEncodedString([0x0016, 0x003E], name)
         self.libidRef = libidRef
 
