@@ -7,7 +7,7 @@ from vbaProjectCompiler.Views.projectWm import ProjectWm
 def test_projectWm():
     vba_project = VbaProject()
     project_wm = ProjectWm(vba_project)
-    thisWorkbook = DocModule("ThisWorkbook")
+    this_workbook = DocModule("ThisWorkbook")
     sheet1 = DocModule("Sheet1")
     module1 = StdModule("Module1")
     vbaProject.addModule(this_workbook)
