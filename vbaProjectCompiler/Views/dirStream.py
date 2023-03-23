@@ -12,12 +12,12 @@ class DirStream():
     The dir stream is compressed on write
     """
 
-    def __init__(self, project):
+    def __init__(self, project) -> None:
         self.project = project
         self.codePage = 0x04E4
         # 0=16bit, 1=32bit, 2=mac, 3=64bit
         syskind = IdSizeField(1, 4, 3)
-        compatVersion = IdSizeField(74, 4, 3)
+        compat_version = IdSizeField(74, 4, 3)
         lcid = IdSizeField(2, 4, 0x0409)
         lcidInvoke = IdSizeField(20, 4, 0x0409)
         codePageRecord = IdSizeField(3, 2, self.codePage)
@@ -31,7 +31,7 @@ class DirStream():
         constants = DoubleEncodedString([12, 0x003C], "")
         self.information = [
             syskind,
-            compatVersion,
+            compat_version,
             lcid,
             lcidInvoke,
             codePageRecord,
@@ -47,7 +47,7 @@ class DirStream():
         self.references = []
         self.modules = []
 
-    def to_bytes(self):
+    def to_bytes(self) -> bytes:
         endien = self.project.endien
         codePageName = self.project.getCodePageName()
         packSymbol = '<' if endien == 'little' else '>'
