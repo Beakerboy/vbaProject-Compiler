@@ -16,7 +16,7 @@ class NotSoRandom():
     _rand = []
 
     @classmethod
-    def set_seed(cls, seeds):
+    def set_seed(cls, seeds: list):
         cls._rand = seeds
 
     @classmethod
@@ -63,30 +63,30 @@ def module_matches_bin(module_path,
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
-def test_full_file():
+def test_full_file() -> None:
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     project = VbaProject()
-    codePage = 0x04E4
-    codePageName = "cp" + str(codePage)
-    libidRef = LibidReference(
+    codepage = 0x04E4
+    codepage_name = "cp" + str(codepage)
+    libid_ref = LibidReference(
         uuid.UUID("0002043000000000C000000000000046"),
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
         "OLE Automation"
     )
-    oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
-    libidRef2 = LibidReference(
+    ole_reference = ReferenceRecord(codepage_name, "stdole", libid_ref)
+    libid_ref2 = LibidReference(
         uuid.UUID("2DF8D04C5BFA101BBDE500AA0044DE52"),
         "2.0",
         "0",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
         "Microsoft Office 16.0 Object Library"
     )
-    officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
-    project.addReference(oleReference)
-    project.addReference(officeReference)
+    office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
+    project.addReference(ole_reference)
+    project.addReference(office_reference)
     project.setProjectCookie(0x08F3)
     project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project.setPerformanceCache(createCache())
@@ -169,7 +169,7 @@ def test_full_file():
     #   assert chunk == expected.read(512)
 
 
-def createCache():
+def createCache() -> bytes:
     vbaProject = VbaProject()
     vbaProject.setPerformanceCacheVersion(0x00B5)
     thisWorkbook = DocModule("ThisWorkbook")
