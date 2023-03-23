@@ -27,14 +27,14 @@ def test_dirstream() -> None:
     codepage = 0x04E4
     codepage_name = "cp" + str(codepage)
     guid = uuid.UUID('0002043000000000C000000000000046')
-    libidRef = LibidReference(
+    libid_ref = LibidReference(
         guid,
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
         "OLE Automation"
     )
-    ole_reference = ReferenceRecord(codepage_name, "stdole", libidRef)
+    ole_reference = ReferenceRecord(codepage_name, "stdole", libid_ref)
     guid = uuid.UUID('2DF8D04C5BFA101BBDE500AA0044DE52')
     libid_ref2 = LibidReference(
         guid,
