@@ -4,7 +4,7 @@ from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Views.projectWm import ProjectWm
 
 
-def test_projectWm():
+def test_project_wm() -> None:
     vba_project = VbaProject()
     project_wm = ProjectWm(vba_project)
     this_workbook = DocModule("ThisWorkbook")
