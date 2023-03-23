@@ -89,7 +89,7 @@ def test_full_file() -> None:
     project.addReference(office_reference)
     project.setProjectCookie(0x08F3)
     project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
-    project.setPerformanceCache(createCache())
+    project.setPerformanceCache(create_cache())
     project.setPerformanceCacheVersion(0x00B5)
 
     module_cache = ModuleCache(0xB5, 0x08F3)
@@ -169,7 +169,7 @@ def test_full_file() -> None:
     #   assert chunk == expected.read(512)
 
 
-def createCache() -> bytes:
+def create_cache() -> bytes:
     vba_project = VbaProject()
     vba_project.setPerformanceCacheVersion(0x00B5)
     this_workbook = DocModule("ThisWorkbook")
