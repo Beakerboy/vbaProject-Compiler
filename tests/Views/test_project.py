@@ -22,9 +22,9 @@ class NotSoRandom():
 def test_blank():
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
-    vbaProject = VbaProject()
-    vbaProject.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
-    project = Project(vbaProject)
+    vba_project = VbaProject()
+    vba_project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
+    project = Project(vba_project)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
 
@@ -32,14 +32,14 @@ def test_blank():
                                 + "{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
                                 + "&H00000000")
 
-    thisWorkbook = DocModule("ThisWorkbook")
+    this_workbook = DocModule("ThisWorkbook")
     sheet1 = DocModule("Sheet1")
     module1 = StdModule("Module1")
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
-    vbaProject.addModule(thisWorkbook)
-    vbaProject.addModule(sheet1)
-    vbaProject.addModule(module1)
+    vba_project.addModule(this_workbook)
+    vba_project.addModule(sheet1)
+    vba_project.addModule(module1)
 
     # expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
