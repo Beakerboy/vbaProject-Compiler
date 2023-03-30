@@ -90,7 +90,7 @@ class VbaProject:
     def add_module(self: T, ref) -> None:
         self.modules.append(ref)
 
-    def addReference(self: T, ref) -> None:
+    def add_reference(self: T, ref) -> None:
         self.references.append(ref)
 
     def _create_binary_files(self: T) -> None:
