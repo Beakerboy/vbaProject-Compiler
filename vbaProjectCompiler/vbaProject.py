@@ -87,13 +87,13 @@ class VbaProject:
         return self._project_cookie
 
     # Appenders
-    def addModule(self, ref):
+    def add_module(self: T, ref) -> None:
         self.modules.append(ref)
 
-    def addReference(self, ref):
+    def addReference(self: T, ref) -> None:
         self.references.append(ref)
 
-    def _create_binary_files(self):
+    def _create_binary_files(self: T) -> None:
         for module in self.modules:
             module.write_file()
         dir = DirStream(self)
@@ -105,7 +105,7 @@ class VbaProject:
         # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
         # Create views and write
 
-    def _build_ole_directory(self):
+    def _build_ole_directory(self: T) -> None:
         # directory = StorageDirectory()
         # directory.set_name("VBA")
         for module in self.modules:
@@ -117,14 +117,14 @@ class VbaProject:
             pass
         # return directory
 
-    def _write_ole_file(self, dir):
+    def _write_ole_file(self: T, dir) -> None:
         # ole_file = OleFile()
         # ole_file.add_directory(dir)
         # ole_file.build_file()
         # ole_file.write_file("vbaProject.bin")
         pass
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         self._create_binary_files()
         directory = self._build_ole_directory()
         self._write_ole_file(directory)
