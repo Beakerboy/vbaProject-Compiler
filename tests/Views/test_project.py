@@ -37,9 +37,9 @@ def test_blank():
     module1 = StdModule("Module1")
     module1.addWorkspace(26, 26, 1349, 522, 'Z')
 
-    vba_project.addModule(this_workbook)
-    vba_project.addModule(sheet1)
-    vba_project.addModule(module1)
+    vba_project.add_module(this_workbook)
+    vba_project.add_module(sheet1)
+    vba_project.add_module(module1)
 
     # expected = Path("tests/blank/vbaProject.bin").read_text()
     file = open("tests/blank/vbaProject.bin", "rb")
