@@ -46,7 +46,7 @@ def test_dirstream() -> None:
     office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
     project.addReference(ole_reference)
     project.addReference(office_reference)
-    project.setProjectCookie(0x08F3)
+    project.set_project_cookie(0x08F3)
 
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                       "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
