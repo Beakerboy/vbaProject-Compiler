@@ -52,7 +52,7 @@ class DirStream():
         codepage_name = self.project.getCodePageName()
         pack_symbol = '<' if endien == 'little' else '>'
         # should be 0xFFFF
-        cookie_value = self.project.projectCookie
+        cookie_value = self.project.get_project_cookie()
         self.project_cookie = IdSizeField(19, 2, cookie_value)
         self.references = self.project.references
         self.modules = self.project.modules
