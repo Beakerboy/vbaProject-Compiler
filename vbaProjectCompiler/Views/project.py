@@ -24,7 +24,7 @@ class Project:
         codePageName = project.getCodePageName()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-        project_id = project.getProjectId()
+        project_id = project.get_project_id()
         id = bytearray(project_id, codePageName)
         result = b'ID="' + id + b'"' + eol
         modules = project.modules
