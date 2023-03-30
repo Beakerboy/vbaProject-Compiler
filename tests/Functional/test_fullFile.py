@@ -133,7 +133,7 @@ def test_full_file() -> None:
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
     module_cache.module_cookie = 0xB241
-    module1.addWorkspace(26, 26, 1349, 522, 'Z')
+    module1.add_workspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
     module1.add_file(module_path)
     module1.normalize_file()
