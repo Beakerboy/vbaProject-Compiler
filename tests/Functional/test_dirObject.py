@@ -44,8 +44,8 @@ def test_dirstream() -> None:
         "Microsoft Office 16.0 Object Library"
     )
     office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
-    project.addReference(ole_reference)
-    project.addReference(office_reference)
+    project.add_reference(ole_reference)
+    project.add_reference(office_reference)
     project.set_project_cookie(0x08F3)
 
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
@@ -85,9 +85,9 @@ def test_dirstream() -> None:
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
     module1.set_cache(module_cache.to_bytes())
 
-    project.addModule(this_workbook)
-    project.addModule(sheet1)
-    project.addModule(module1)
+    project.add_module(this_workbook)
+    project.add_module(sheet1)
+    project.add_module(module1)
 
     assert stream.to_bytes() == decompressed_stream
 
