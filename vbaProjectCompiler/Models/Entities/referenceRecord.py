@@ -17,7 +17,7 @@ class ReferenceRecord():
         format = "HII" + str(strlen) + "sIH"
         lib_str = str(self._libid_ref).encode(self._codepage_name)
         ref_registered = PackedData(format, 0x000D, strlen + 10,
-                                   strlen, lib_str, 0, 0)
+                                    strlen, lib_str, 0, 0)
 
         return (self._refname.pack(codepage_name, endien)
                 + ref_registered.pack(codepage_name, endien))
