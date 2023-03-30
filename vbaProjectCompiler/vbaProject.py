@@ -83,7 +83,7 @@ class VbaProject:
     def set_project_cookie(self: T, value: int) -> None:
         self._project_cookie = value
 
-    def set_project_cookie(self: T) -> int:
+    def get_project_cookie(self: T) -> int:
         return self._project_cookie
 
     # Appenders
