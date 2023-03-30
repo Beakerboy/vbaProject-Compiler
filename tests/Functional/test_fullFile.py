@@ -85,8 +85,8 @@ def test_full_file() -> None:
         "Microsoft Office 16.0 Object Library"
     )
     office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
-    project.addReference(ole_reference)
-    project.addReference(office_reference)
+    project.add_reference(ole_reference)
+    project.add_reference(office_reference)
     project.set_project_cookie(0x08F3)
     project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project.set_performance_cache(create_cache())
@@ -139,9 +139,9 @@ def test_full_file() -> None:
     module1.normalize_file()
     module1.set_cache(module_cache.to_bytes())
 
-    project.addModule(this_workbook)
-    project.addModule(sheet1)
-    project.addModule(module1)
+    project.add_module(this_workbook)
+    project.add_module(sheet1)
+    project.add_module(module1)
 
     project.write_file()
     path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin"
