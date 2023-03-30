@@ -69,10 +69,10 @@ class VbaProject:
         self._performance_cache = cache
 
     def get_performance_cache(self: T) -> None:
-        return self._performanceCache
+        return self._performance_cache
 
     def set_performance_cache_version(self: T, version: int) -> None:
-        self._performanceCacheVersion = version
+        self._performance_cache_version = version
 
     def get_performance_cache_version(self: T) -> int:
         return self._performance_cache_version
