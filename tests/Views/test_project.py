@@ -25,8 +25,8 @@ def test_blank():
     vba_project = VbaProject()
     vba_project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project = Project(vba_project)
-    project.addAttribute("HelpContextID", "0")
-    project.addAttribute("VersionCompatible32", "393222000")
+    project.add_attribute("HelpContextID", "0")
+    project.add_attribute("VersionCompatible32", "393222000")
 
     project.hostExtenderInfo = ("&H00000001="
                                 + "{3832D640-CF90-11CF-8E43-00A0C911005A};VBE;"
