@@ -87,10 +87,10 @@ def test_full_file() -> None:
     office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
     project.addReference(ole_reference)
     project.addReference(office_reference)
-    project.setProjectCookie(0x08F3)
-    project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
-    project.setPerformanceCache(create_cache())
-    project.setPerformanceCacheVersion(0x00B5)
+    project.set_project_cookie(0x08F3)
+    project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
+    project.set_performance_cache(create_cache())
+    project.set_performance_cache_version(0x00B5)
 
     module_cache = ModuleCache(0xB5, 0x08F3)
     module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
