@@ -55,22 +55,22 @@ class ModuleBase():
     def add_workspace(self: T, val1, val2, val3, val4, val5) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
 
-    def pack(self: T, codePageName, endien):
+    def pack(self: T, codepage_name, endien):
         """
         Pack the metadata for use in the dir stream.
         """
         typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
         typeId = PackedData("HI", typeIdValue, 0)
         self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
-        output = (self.modName.pack(codePageName, endien)
-                  + self.streamName.pack(codePageName, endien)
-                  + self.docString.pack(codePageName, endien)
-                  + self.offsetRec.pack(codePageName, endien)
-                  + self.helpContext.pack(codePageName, endien)
-                  + self.cookie.pack(codePageName, endien)
-                  + typeId.pack(codePageName, endien))
+        output = (self.modName.pack(codepage_name, endien)
+                  + self.streamName.pack(codepage_name, endien)
+                  + self.docString.pack(codepage_name, endien)
+                  + self.offsetRec.pack(codepage_name, endien)
+                  + self.helpContext.pack(codepage_name, endien)
+                  + self.cookie.pack(codepage_name, endien)
+                  + typeId.pack(codepage_name, endien))
         footer = PackedData("HI", 0x002B, 0)
-        output += footer.pack(codePageName, endien)
+        output += footer.pack(codepage_name, endien)
         return output
 
     def to_project_module_string(self: T):
