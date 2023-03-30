@@ -15,7 +15,7 @@ class DocModule(ModuleBase):
         # GUIDs
         self._guid = []
 
-    def toProjectModuleString(self) -> str:
+    def to_project_module_string(self) -> str:
         return ("Document=" + self.modName.value + "/&H"
                 + self.doc_tlib_ver.to_bytes(4, "big").hex())
 
