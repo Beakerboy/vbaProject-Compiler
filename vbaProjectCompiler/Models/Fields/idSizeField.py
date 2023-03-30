@@ -13,9 +13,9 @@ class IdSizeField():
         self._value = value
 
     def pack(self, codepage_name: str, endien: str) -> bytes:
-        endienSymbol = '<' if endien == 'little' else '>'
-        format = endienSymbol + "HI"
-        if isinstance(self.value, str):
+        endien_symbol = '<' if endien == 'little' else '>'
+        format = endien_symbol + "HI"
+        if isinstance(self._value, str):
             self.stringValue = self._value
             self._value = bytes(self._value, encoding="ascii")
             format += str(self._size) + "s"
