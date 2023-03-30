@@ -4,10 +4,14 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
 )
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ModuleBase')
 
 
 class ModuleBase():
-    def __init__(self, name):
+    def __init__(self: T, name: str) -> None:
         """
         Initialize the module record
         """
@@ -30,28 +34,28 @@ class ModuleBase():
         # GUIDs
         self._guid = []
 
-    def set_guid(self, guid):
+    def set_guid(self: T, guid) -> None:
         if isinstance(guid, list):
             self._guid = guid
         else:
             self._guid = [guid]
 
-    def add_guid(self, guid):
+    def add_guid(self: T, guid) -> None:
         self._guid += guid
 
-    def set_cache(self, cache):
+    def set_cache(self: T, cache: bytes) -> None:
         self._cache = cache
 
-    def get_cache(self):
+    def get_cache(self: T):
         return self._cache
 
-    def get_name(self):
+    def get_name(self: T):
         return self.modName.value
 
-    def addWorkspace(self, val1, val2, val3, val4, val5):
+    def add_workspace(self: T, val1, val2, val3, val4, val5) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
 
-    def pack(self, codePageName, endien):
+    def pack(self: T, codePageName, endien):
         """
         Pack the metadata for use in the dir stream.
         """
@@ -69,13 +73,13 @@ class ModuleBase():
         output += footer.pack(codePageName, endien)
         return output
 
-    def toProjectModuleString(self):
+    def to_project_module_string(self: T):
         return self.type + "=" + self.modName.value
 
-    def add_file(self, file_path):
+    def add_file(self: T, file_path: str) -> None:
         self._file_path = file_path
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         bin_f = open(self._file_path + ".bin", "wb")
         bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
@@ -85,5 +89,5 @@ class ModuleBase():
         bin_f.write(compressed)
         bin_f.close()
 
-    def _attr(self, name, value):
+    def _attr(self: T, name: str, value: str) -> str:
         return 'Attribute VB_' + name + ' = ' + value + '\n'
