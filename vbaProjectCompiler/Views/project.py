@@ -6,7 +6,7 @@ class Project:
     """
     The Project data view for the vbaProject
     """
-    def __init__(self, project):
+    def __init__(self, project) -> None:
         self.project = project
         # Attributes
 
@@ -16,7 +16,7 @@ class Project:
         # The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
-    def addAttribute(self, name, value):
+    def add_attribute(self, name, value) -> None:
         self.attributes[name] = value
 
     def to_bytes(self):
