@@ -13,7 +13,7 @@ class ReferenceRecord():
         self._libid_ref = libid_ref
 
     def pack(self, codepage_name, endien):
-        strlen = len(self.libidRef)
+        strlen = len(self._libid_ref)
         format = "HII" + str(strlen) + "sIH"
         lib_str = str(self._libid_ref).encode(self._codepage_name)
         ref_registered = PackedData(format, 0x000D, strlen + 10,
