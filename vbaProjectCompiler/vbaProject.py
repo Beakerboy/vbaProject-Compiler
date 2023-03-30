@@ -32,7 +32,7 @@ class VbaProject:
         self.references = []
         self.modules = []
 
-        self.projectCookie = 0xFFFF
+        self._project_cookie = 0xFFFF
 
     # Getters and Setters
     def set_project_id(self: T, id: str) -> None:
@@ -80,8 +80,8 @@ class VbaProject:
     def getCodePageName(self: T) -> str:
         return self._codePageName
 
-    def setProjectCookie(self: T, value: int) -> None:
-        self.projectCookie = value
+    def set_project_cookie(self: T, value: int) -> None:
+        self._project_cookie = value
 
     # Appenders
     def addModule(self, ref):
