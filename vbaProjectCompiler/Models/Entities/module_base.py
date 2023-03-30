@@ -59,8 +59,8 @@ class ModuleBase():
         """
         Pack the metadata for use in the dir stream.
         """
-        typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
-        typeId = PackedData("HI", typeIdValue, 0)
+        typeid_value = 0x0022 if self.type == 'Document' else 0x0021
+        type_id = PackedData("HI", typeid_value, 0)
         self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
         output = (self.modName.pack(codepage_name, endien)
                   + self.streamName.pack(codepage_name, endien)
@@ -68,7 +68,7 @@ class ModuleBase():
                   + self.offsetRec.pack(codepage_name, endien)
                   + self.helpContext.pack(codepage_name, endien)
                   + self.cookie.pack(codepage_name, endien)
-                  + typeId.pack(codepage_name, endien))
+                  + type_id.pack(codepage_name, endien))
         footer = PackedData("HI", 0x002B, 0)
         output += footer.pack(codepage_name, endien)
         return output
