@@ -35,7 +35,7 @@ def test_blank():
     this_workbook = DocModule("ThisWorkbook")
     sheet1 = DocModule("Sheet1")
     module1 = StdModule("Module1")
-    module1.addWorkspace(26, 26, 1349, 522, 'Z')
+    module1.add_workspace(26, 26, 1349, 522, 'Z')
 
     vba_project.add_module(this_workbook)
     vba_project.add_module(sheet1)
