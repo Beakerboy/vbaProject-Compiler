@@ -6,17 +6,17 @@ from vbaProjectCompiler.Models.Fields.packedData import PackedData
 
 class ReferenceRecord():
 
-    def __init__(self, codepage_name, name, libidRef):
-        self.codepage_name = codepage_name
-        self.refname = DoubleEncodedString([0x0016, 0x003E], name)
-        self.libidRef = libidRef
+    def __init__(self, codepage_name, name, libid_ref):
+        self._codepage_name = codepage_name
+        self._refname = DoubleEncodedString([0x0016, 0x003E], name)
+        self._libid_ref = libid_ref
 
     def pack(self, codepage_name, endien):
         strlen = len(self.libidRef)
         format = "HII" + str(strlen) + "sIH"
-        lib_str = str(self.libidRef).encode(self.codepage_name)
+        lib_str = str(self._libid_ref).encode(self.codepage_name)
         refRegistered = PackedData(format, 0x000D, strlen + 10,
                                    strlen, lib_str, 0, 0)
 
-        return (self.refname.pack(codepage_name, endien)
+        return (self._refname.pack(codepage_name, endien)
                 + refRegistered.pack(codepage_name, endien))
