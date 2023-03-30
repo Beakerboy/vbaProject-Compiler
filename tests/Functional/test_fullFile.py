@@ -171,7 +171,7 @@ def test_full_file() -> None:
 
 def create_cache() -> bytes:
     vba_project = VbaProject()
-    vba_project.setPerformanceCacheVersion(0x00B5)
+    vba_project.set_performance_cache_version(0x00B5)
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.cookie.value = 0xB81C
     sheet1 = DocModule("Sheet1")
