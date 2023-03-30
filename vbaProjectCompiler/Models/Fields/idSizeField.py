@@ -7,25 +7,25 @@ class IdSizeField():
     int value formatted to the defined size.
     """
 
-    def __init__(self, id, size, value):
-        self.id = id
-        self.size = size
-        self.value = value
+    def __init__(self, id, size: int, value) -> None:
+        self._id = id
+        self._size = size
+        self._value = value
 
-    def pack(self, codePageName, endien):
+    def pack(self, codepage_name: str, endien: str) -> bytes:
         endienSymbol = '<' if endien == 'little' else '>'
         format = endienSymbol + "HI"
         if isinstance(self.value, str):
-            self.stringValue = self.value
-            self.value = bytes(self.value, encoding="ascii")
-            format += str(self.size) + "s"
-        elif isinstance(self.value, bytes):
-            format += str(self.size) + "s"
-        elif self.size == 2:
+            self.stringValue = self._value
+            self._value = bytes(self._value, encoding="ascii")
+            format += str(self._size) + "s"
+        elif isinstance(self._value, bytes):
+            format += str(self._size) + "s"
+        elif self._size == 2:
             format += "H"
-        elif self.size == 4:
+        elif self._size == 4:
             format += "I"
         else:
-            msg = "Received data of type " + type(self.value).__name__
+            msg = "Received data of type " + type(self._value).__name__
             raise Exception(msg)
-        return struct.pack(format, self.id, self.size, self.value)
+        return struct.pack(format, self._id, self._size, self._value)
