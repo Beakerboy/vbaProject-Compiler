@@ -10,11 +10,11 @@ class NotSoRandom():
     _rand = []
 
     @classmethod
-    def set_seed(cls, seeds):
+    def set_seed(cls, seeds) -> None:
         cls._rand = seeds
 
     @classmethod
-    def randint(cls, param1, param2):
+    def randint(cls, param1: int, param2: int) -> int:
         return cls._rand.pop(0)
 
 
@@ -23,7 +23,7 @@ def test_blank():
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     vba_project = VbaProject()
-    vba_project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
+    vba_project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project = Project(vba_project)
     project.addAttribute("HelpContextID", "0")
     project.addAttribute("VersionCompatible32", "393222000")
