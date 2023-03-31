@@ -62,7 +62,7 @@ def test_dirstream() -> None:
 
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.set_cookie(0xB81C)
-    module_cache.cookie = this_workbook.cookie.value
+    module_cache.cookie = 0xB81C
     guid = uuid.UUID('0002081900000000C000000000000046')
     this_workbook.set_guid(guid)
     module_cache.guid = [guid]
@@ -70,7 +70,7 @@ def test_dirstream() -> None:
 
     sheet1 = DocModule("Sheet1")
     sheet1.set_cookie(0x9B9A)
-    module_cache.cookie = sheet1.cookie.value
+    module_cache.cookie = 0x9B9A
     guid = uuid.UUID('0002082000000000C000000000000046')
     module_cache.guid = [guid]
     sheet1.set_guid(guid)
@@ -79,7 +79,7 @@ def test_dirstream() -> None:
     module1 = StdModule("Module1")
     module1.set_cookie(0xB241)
     module_cache.clear_variables()
-    module_cache.cookie = module1.cookie.value
+    module_cache.cookie = 0xB241
     module_cache.misc = [0x0316, 3, 0, 2,
                          0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
