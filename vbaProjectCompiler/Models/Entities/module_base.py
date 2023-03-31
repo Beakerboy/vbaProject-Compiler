@@ -49,6 +49,9 @@ class ModuleBase():
     def get_cache(self: T):
         return self._cache
 
+    def set_cookie(self: T, value: int) -> None:
+        self.cookie = IdSizeField(0x002C, 2, value)
+
     def get_name(self: T):
         return self.modName.value
 
