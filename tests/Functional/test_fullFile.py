@@ -106,7 +106,7 @@ def test_full_file() -> None:
 
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
-    this_workbook.cookie.value = 0xB81C
+    this_workbook.set_cookie(0xB81C)
     module_cache.module_cookie = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
     module_cache.guid = [guid]
@@ -117,7 +117,7 @@ def test_full_file() -> None:
     this_workbook.set_cache(module_cache.to_bytes())
 
     sheet1 = DocModule("Sheet1")
-    sheet1.cookie.value = 0x9B9A
+    sheet1.set_cookie(0x9B9A)
     module_cache.module_cookie = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
     module_cache.guid = [guid]
@@ -128,7 +128,7 @@ def test_full_file() -> None:
     sheet1.set_cache(module_cache.to_bytes())
 
     module1 = StdModule("Module1")
-    module1.cookie.value = 0xB241
+    module1.set_cookie(0xB241)
     module_cache.clear_variables()
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
