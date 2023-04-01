@@ -46,19 +46,19 @@ class ModuleBase():
     def set_cache(self: T, cache: bytes) -> None:
         self._cache = cache
 
-    def get_cache(self: T):
+    def get_cache(self: T) -> bytes:
         return self._cache
 
     def set_cookie(self: T, value: int) -> None:
         self.cookie = IdSizeField(0x002C, 2, value)
 
-    def get_name(self: T):
+    def get_name(self: T) -> str:
         return self.modName.value
 
     def add_workspace(self: T, val1, val2, val3, val4, val5) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
 
-    def pack(self: T, codepage_name, endien):
+    def pack(self: T, codepage_name, endien) -> bytes:
         """
         Pack the metadata for use in the dir stream.
         """
@@ -76,7 +76,7 @@ class ModuleBase():
         output += footer.pack(codepage_name, endien)
         return output
 
-    def to_project_module_string(self: T):
+    def to_project_module_string(self: T) -> str:
         return self.type + "=" + self.modName.value
 
     def add_file(self: T, file_path: str) -> None:
