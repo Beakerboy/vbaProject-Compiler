@@ -4,22 +4,26 @@ from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Views.project import Project
+from typing import Type, TypeVar
+
+
+T = TypeVar('T', bound='NotSoRandom')
 
 
 class NotSoRandom():
     _rand = []
 
     @classmethod
-    def set_seed(cls, seeds) -> None:
+    def set_seed(cls: Type[T], seeds: list) -> None:
         cls._rand = seeds
 
     @classmethod
-    def randint(cls, param1: int, param2: int) -> int:
+    def randint(cls: Type[T], param1: int, param2: int) -> int:
         return cls._rand.pop(0)
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
-def test_blank():
+def test_blank() -> None:
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     vba_project = VbaProject()
