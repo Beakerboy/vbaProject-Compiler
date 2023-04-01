@@ -60,10 +60,10 @@ class VbaProject:
     def get_visibility_state(self: T) -> bytes:
         return self._visibility_state
 
-    def set_password(self: T, value) -> None:
+    def set_password(self: T, value: bytes) -> None:
         self._password = value
 
-    def get_password(self) -> bytes:
+    def get_password(self: T) -> bytes:
         return self._password
 
     def set_performance_cache(self: T, cache: bytes) -> None:
