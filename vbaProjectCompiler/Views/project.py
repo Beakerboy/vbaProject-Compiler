@@ -67,7 +67,7 @@ class Project:
         bin_f.close()
 
     def _attr(self, name, value):
-        codepage_name = self.project.getCodePageName()
+        codepage_name = self.project.get_codepage_name()
         eol = b'\x0D\x0A'
         b_name = bytes(name, codepage_name)
         b_value = bytes(value, codepage_name)
