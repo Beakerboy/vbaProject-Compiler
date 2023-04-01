@@ -1,7 +1,7 @@
 # from ms_cfb import OleFile
 # from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
-
+from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 from vbaProjectCompiler.Views.dirStream import DirStream
 # from vbaProjectCompiler.Views.project_view import ProjectView
 from vbaProjectCompiler.Views.project import Project
@@ -87,8 +87,8 @@ class VbaProject:
         return self._project_cookie
 
     # Appenders
-    def add_module(self: T, ref) -> None:
-        self.modules.append(ref)
+    def add_module(self: T, mod: ModuleBase) -> None:
+        self.modules.append(mod)
 
     def add_reference(self: T, ref) -> None:
         self.references.append(ref)
@@ -117,7 +117,7 @@ class VbaProject:
             pass
         # return directory
 
-    def _write_ole_file(self: T, dir) -> None:
+    def _write_ole_file(self: T, dir: str) -> None:
         # ole_file = OleFile()
         # ole_file.add_directory(dir)
         # ole_file.build_file()
