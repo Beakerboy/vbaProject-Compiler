@@ -49,7 +49,7 @@ class DirStream():
 
     def to_bytes(self) -> bytes:
         endien = self.project.endien
-        codepage_name = self.project.getCodePageName()
+        codepage_name = self.project.get_codepage_name()
         pack_symbol = '<' if endien == 'little' else '>'
         # should be 0xFFFF
         cookie_value = self.project.get_project_cookie()
