@@ -21,7 +21,7 @@ class Project:
 
     def to_bytes(self):
         project = self.project
-        codepage_name = project.getCodePageName()
+        codepage_name = project.get_codepage_name()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
         project_id = project.get_project_id()
