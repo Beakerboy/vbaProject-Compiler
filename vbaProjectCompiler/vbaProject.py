@@ -2,6 +2,7 @@
 # from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
+from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
 from vbaProjectCompiler.Views.dirStream import DirStream
 # from vbaProjectCompiler.Views.project_view import ProjectView
 from vbaProjectCompiler.Views.project import Project
@@ -90,7 +91,7 @@ class VbaProject:
     def add_module(self: T, mod: ModuleBase) -> None:
         self.modules.append(mod)
 
-    def add_reference(self: T, ref) -> None:
+    def add_reference(self: T, ref: ReferenceRecord) -> None:
         self.references.append(ref)
 
     def _create_binary_files(self: T) -> None:
