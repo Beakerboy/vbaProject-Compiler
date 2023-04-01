@@ -5,6 +5,7 @@ from typing import TypeVar
 
 T = TypeVar('T', bound='DocModule')
 
+
 class DocModule(ModuleBase):
     """
     A Document Module is a module record that is associated with a worksheet or
