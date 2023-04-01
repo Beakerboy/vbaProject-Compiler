@@ -4,7 +4,7 @@ from ms_pcode_assembler.module_cache import ModuleCache
 from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 
 
-def test_normalize():
+def test_normalize() -> None:
 
     cache = ModuleCache(0xB5, 0x08F3)
     cache.module_cookie = 0xB81C
