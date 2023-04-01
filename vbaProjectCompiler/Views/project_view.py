@@ -9,8 +9,8 @@ class ProjectView:
         self.project = project
 
     def to_bytes(self) -> bytes:
-        endienSymbol = '<' if self.project.endien == 'little' else '>'
-        format = endienSymbol + "HHBH"
+        endien_symbol = '<' if self.project.endien == 'little' else '>'
+        format = endien_symbol + "HHBH"
         output = b''
         reserved1 = 0x61CC
         reserved2 = 0x00
