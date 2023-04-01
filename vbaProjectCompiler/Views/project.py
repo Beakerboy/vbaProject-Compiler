@@ -29,7 +29,8 @@ class Project:
         result = b'ID="' + id + b'"' + eol
         modules = project.modules
         for module in modules:
-            result += bytes(module.to_project_module_string(), codepage_name) + eol
+            result += bytes(module.to_project_module_string(), codepage_name)
+            result += eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
