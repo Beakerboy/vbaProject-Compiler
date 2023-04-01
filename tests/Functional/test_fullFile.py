@@ -16,7 +16,7 @@ class NotSoRandom():
     _rand = []
 
     @classmethod
-    def set_seed(cls, seeds):
+    def set_seed(cls, seeds: list):
         cls._rand = seeds
 
     @classmethod
@@ -63,34 +63,34 @@ def module_matches_bin(module_path,
 
 
 @unittest.mock.patch('random.randint', NotSoRandom.randint)
-def test_fullFile():
+def test_full_file() -> None:
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     project = VbaProject()
-    codePage = 0x04E4
-    codePageName = "cp" + str(codePage)
-    libidRef = LibidReference(
+    codepage = 0x04E4
+    codepage_name = "cp" + str(codepage)
+    libid_ref = LibidReference(
         uuid.UUID("0002043000000000C000000000000046"),
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
         "OLE Automation"
     )
-    oleReference = ReferenceRecord(codePageName, "stdole", libidRef)
-    libidRef2 = LibidReference(
+    ole_reference = ReferenceRecord(codepage_name, "stdole", libid_ref)
+    libid_ref2 = LibidReference(
         uuid.UUID("2DF8D04C5BFA101BBDE500AA0044DE52"),
         "2.0",
         "0",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
         "Microsoft Office 16.0 Object Library"
     )
-    officeReference = ReferenceRecord(codePageName, "Office", libidRef2)
-    project.addReference(oleReference)
-    project.addReference(officeReference)
-    project.setProjectCookie(0x08F3)
-    project.setProjectId('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
-    project.setPerformanceCache(createCache())
-    project.setPerformanceCacheVersion(0x00B5)
+    office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
+    project.add_reference(ole_reference)
+    project.add_reference(office_reference)
+    project.set_project_cookie(0x08F3)
+    project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
+    project.set_performance_cache(create_cache())
+    project.set_performance_cache_version(0x00B5)
 
     module_cache = ModuleCache(0xB5, 0x08F3)
     module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
@@ -106,7 +106,7 @@ def test_fullFile():
 
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
-    this_workbook.cookie.value = 0xB81C
+    this_workbook.set_cookie(0xB81C)
     module_cache.module_cookie = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
     module_cache.guid = [guid]
@@ -117,7 +117,7 @@ def test_fullFile():
     this_workbook.set_cache(module_cache.to_bytes())
 
     sheet1 = DocModule("Sheet1")
-    sheet1.cookie.value = 0x9B9A
+    sheet1.set_cookie(0x9B9A)
     module_cache.module_cookie = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
     module_cache.guid = [guid]
@@ -128,20 +128,20 @@ def test_fullFile():
     sheet1.set_cache(module_cache.to_bytes())
 
     module1 = StdModule("Module1")
-    module1.cookie.value = 0xB241
+    module1.set_cookie(0xB241)
     module_cache.clear_variables()
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
     module_cache.module_cookie = 0xB241
-    module1.addWorkspace(26, 26, 1349, 522, 'Z')
+    module1.add_workspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
     module1.add_file(module_path)
     module1.normalize_file()
     module1.set_cache(module_cache.to_bytes())
 
-    project.addModule(this_workbook)
-    project.addModule(sheet1)
-    project.addModule(module1)
+    project.add_module(this_workbook)
+    project.add_module(sheet1)
+    project.add_module(module1)
 
     project.write_file()
     path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin"
@@ -169,11 +169,11 @@ def test_fullFile():
     #   assert chunk == expected.read(512)
 
 
-def createCache():
-    vbaProject = VbaProject()
-    vbaProject.setPerformanceCacheVersion(0x00B5)
-    thisWorkbook = DocModule("ThisWorkbook")
-    thisWorkbook.cookie.value = 0xB81C
+def create_cache() -> bytes:
+    vba_project = VbaProject()
+    vba_project.set_performance_cache_version(0x00B5)
+    this_workbook = DocModule("ThisWorkbook")
+    this_workbook.cookie.value = 0xB81C
     sheet1 = DocModule("Sheet1")
     sheet1.cookie.value = 0x9B9A
     module1 = StdModule("Module1")
@@ -229,7 +229,7 @@ def createCache():
     # index = 0x0046
     i = 0
 
-    for module in vbaProject.modules:
+    for module in vba_project.modules:
         name = module.modName.value.encode("utf_16_le")
         ca += struct.pack("<H", prefix[i]) + name
         ca += struct.pack("<HH", 0x0014, 0x0032) + chr(69 + i)

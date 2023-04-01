@@ -3,47 +3,51 @@
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 
 from vbaProjectCompiler.Views.dirStream import DirStream
-# from vbaProjectCompiler.Views.vba_Project import Vba_Project
+# from vbaProjectCompiler.Views.project_view import ProjectView
 from vbaProjectCompiler.Views.project import Project
 from vbaProjectCompiler.Views.projectWm import ProjectWm
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='VbaProject')
 
 
 class VbaProject:
 
-    def __init__(self):
+    def __init__(self: T) -> None:
 
         self.endien = 'little'
 
         # Protected Instance Attributes
-        self._codePageName = 'cp1252'
-        self._projectId = '{}'
+        self._codepage_name = 'cp1252'
+        self._project_id = '{}'
         self._protection_state = b'\x00\x00\x00\x00'
         self._password = b'\x00'
         self._visibility_state = b'\xFF'
-        self._performanceCache = b''
-        self._performanceCacheVersion = 0xFFFF
+        self._performance_cache = b''
+        self._performance_cache_version = 0xFFFF
 
         # A list of directories
         self.directories = []
         self.references = []
         self.modules = []
 
-        self.projectCookie = 0xFFFF
+        self._project_cookie = 0xFFFF
 
     # Getters and Setters
-    def setProjectId(self, id):
-        self._projectId = id
+    def set_project_id(self: T, id: str) -> None:
+        self._project_id = id
 
-    def getProjectId(self):
-        return self._projectId
+    def get_project_id(self: T) -> str:
+        return self._project_id
 
-    def set_protection_state(self, state):
+    def set_protection_state(self: T, state: int) -> None:
         self._protection_state = state
 
-    def get_protection_state(self):
+    def get_protection_state(self: T) -> int:
         return self._protection_state
 
-    def set_visibility_state(self, state):
+    def set_visibility_state(self: T, state) -> None:
         """
         0   = not visible
         255 = visible
@@ -52,53 +56,56 @@ class VbaProject:
             raise Exception("Bad visibility value.")
         self._visibility_state = state
 
-    def get_visibility_state(self):
+    def get_visibility_state(self: T):
         return self._visibility_state
 
-    def set_password(self, value):
+    def set_password(self: T, value) -> None:
         self._password = value
 
     def get_password(self):
         return self._password
 
-    def setPerformanceCache(self, cache):
-        self._performanceCache = cache
+    def set_performance_cache(self: T, cache: bytes) -> None:
+        self._performance_cache = cache
 
-    def getPerformanceCache(self):
-        return self._performanceCache
+    def get_performance_cache(self: T) -> None:
+        return self._performance_cache
 
-    def setPerformanceCacheVersion(self, version):
-        self._performanceCacheVersion = version
+    def set_performance_cache_version(self: T, version: int) -> None:
+        self._performance_cache_version = version
 
-    def getPerformanceCacheVersion(self):
-        return self._performanceCacheVersion
+    def get_performance_cache_version(self: T) -> int:
+        return self._performance_cache_version
 
-    def getCodePageName(self):
-        return self._codePageName
+    def get_codepage_name(self: T) -> str:
+        return self._codepage_name
 
-    def setProjectCookie(self, value):
-        self.projectCookie = value
+    def set_project_cookie(self: T, value: int) -> None:
+        self._project_cookie = value
+
+    def get_project_cookie(self: T) -> int:
+        return self._project_cookie
 
     # Appenders
-    def addModule(self, ref):
+    def add_module(self: T, ref) -> None:
         self.modules.append(ref)
 
-    def addReference(self, ref):
+    def add_reference(self: T, ref) -> None:
         self.references.append(ref)
 
-    def _create_binary_files(self):
+    def _create_binary_files(self: T) -> None:
         for module in self.modules:
             module.write_file()
         dir = DirStream(self)
         dir.write_file()
         project = Project(self)
         project.write_file()
-        projectWm = ProjectWm(self)
-        projectWm.write_file()
-        # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
+        project_wm = ProjectWm(self)
+        project_wm.write_file()
+        # views = ("_VBA_PROJECT", "dir", "project_wm", "Project")
         # Create views and write
 
-    def _build_ole_directory(self):
+    def _build_ole_directory(self: T) -> None:
         # directory = StorageDirectory()
         # directory.set_name("VBA")
         for module in self.modules:
@@ -110,14 +117,14 @@ class VbaProject:
             pass
         # return directory
 
-    def _write_ole_file(self, dir):
+    def _write_ole_file(self: T, dir) -> None:
         # ole_file = OleFile()
         # ole_file.add_directory(dir)
         # ole_file.build_file()
         # ole_file.write_file("vbaProject.bin")
         pass
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         self._create_binary_files()
         directory = self._build_ole_directory()
         self._write_ole_file(directory)

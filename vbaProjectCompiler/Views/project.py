@@ -6,7 +6,7 @@ class Project:
     """
     The Project data view for the vbaProject
     """
-    def __init__(self, project):
+    def __init__(self, project) -> None:
         self.project = project
         # Attributes
 
@@ -16,20 +16,21 @@ class Project:
         # The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
-    def addAttribute(self, name, value):
+    def add_attribute(self, name, value) -> None:
         self.attributes[name] = value
 
     def to_bytes(self):
         project = self.project
-        codePageName = project.getCodePageName()
+        codepage_name = project.get_codepage_name()
         # Use \x0D0A line endings...however python encodes that.
         eol = b'\x0D\x0A'
-        project_id = project.getProjectId()
-        id = bytearray(project_id, codePageName)
+        project_id = project.get_project_id()
+        id = bytearray(project_id, codepage_name)
         result = b'ID="' + id + b'"' + eol
         modules = project.modules
         for module in modules:
-            result += bytes(module.toProjectModuleString(), codePageName) + eol
+            result += bytes(module.to_project_module_string(), codepage_name)
+            result += eol
         result += b'Name="VBAProject"' + eol
         for key in self.attributes:
             result += self._attr(key, self.attributes[key])
@@ -39,25 +40,25 @@ class Project:
                                     )
         dpb = ms_ovba_crypto.encrypt(project_id, project.get_password())
         gc = ms_ovba_crypto.encrypt(project_id, project.get_visibility_state())
-        result += (bytes('CMG="', codePageName)
+        result += (bytes('CMG="', codepage_name)
                    + binascii.hexlify(cmg).upper()
                    + b'\x22\x0D\x0A')
-        result += (bytes('DPB="', codePageName)
+        result += (bytes('DPB="', codepage_name)
                    + binascii.hexlify(dpb).upper()
                    + b'\x22\x0D\x0A')
-        result += (bytes('GC="', codePageName)
+        result += (bytes('GC="', codepage_name)
                    + binascii.hexlify(gc).upper()
                    + b'\x22\x0D\x0A')
         result += eol
         result += b'[Host Extender Info]' + eol
-        result += bytes(self.hostExtenderInfo, codePageName)
+        result += bytes(self.hostExtenderInfo, codepage_name)
         result += eol + eol
         result += b'[Workspace]' + eol
         for module in modules:
             separator = ", "
-            result += bytes(module.modName.value, codePageName) + b'='
+            result += bytes(module.modName.value, codepage_name) + b'='
             joined = separator.join(map(str, module.workspace))
-            result += bytes(joined, codePageName)
+            result += bytes(joined, codepage_name)
             result += eol
         return result
 
@@ -67,8 +68,8 @@ class Project:
         bin_f.close()
 
     def _attr(self, name, value):
-        codePageName = self.project.getCodePageName()
+        codepage_name = self.project.get_codepage_name()
         eol = b'\x0D\x0A'
-        b_name = bytes(name, codePageName)
-        b_value = bytes(value, codePageName)
+        b_name = bytes(name, codepage_name)
+        b_value = bytes(value, codepage_name)
         return b_name + b'="' + b_value + b'"' + eol

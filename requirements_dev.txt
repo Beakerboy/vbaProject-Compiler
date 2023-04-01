@@ -2,3 +2,4 @@ pytest
 pytest-cov
 pytest-mock
 coveralls
+pep8-naming

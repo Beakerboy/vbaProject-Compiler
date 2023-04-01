@@ -4,10 +4,14 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
 )
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ModuleBase')
 
 
 class ModuleBase():
-    def __init__(self, name):
+    def __init__(self: T, name: str) -> None:
         """
         Initialize the module record
         """
@@ -30,52 +34,55 @@ class ModuleBase():
         # GUIDs
         self._guid = []
 
-    def set_guid(self, guid):
+    def set_guid(self: T, guid) -> None:
         if isinstance(guid, list):
             self._guid = guid
         else:
             self._guid = [guid]
 
-    def add_guid(self, guid):
+    def add_guid(self: T, guid) -> None:
         self._guid += guid
 
-    def set_cache(self, cache):
+    def set_cache(self: T, cache: bytes) -> None:
         self._cache = cache
 
-    def get_cache(self):
+    def get_cache(self: T):
         return self._cache
 
-    def get_name(self):
+    def set_cookie(self: T, value: int) -> None:
+        self.cookie = IdSizeField(0x002C, 2, value)
+
+    def get_name(self: T):
         return self.modName.value
 
-    def addWorkspace(self, val1, val2, val3, val4, val5):
+    def add_workspace(self: T, val1, val2, val3, val4, val5) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
 
-    def pack(self, codePageName, endien):
+    def pack(self: T, codepage_name, endien):
         """
         Pack the metadata for use in the dir stream.
         """
-        typeIdValue = 0x0022 if self.type == 'Document' else 0x0021
-        typeId = PackedData("HI", typeIdValue, 0)
+        typeid_value = 0x0022 if self.type == 'Document' else 0x0021
+        type_id = PackedData("HI", typeid_value, 0)
         self.offsetRec = IdSizeField(0x0031, 4, len(self._cache))
-        output = (self.modName.pack(codePageName, endien)
-                  + self.streamName.pack(codePageName, endien)
-                  + self.docString.pack(codePageName, endien)
-                  + self.offsetRec.pack(codePageName, endien)
-                  + self.helpContext.pack(codePageName, endien)
-                  + self.cookie.pack(codePageName, endien)
-                  + typeId.pack(codePageName, endien))
+        output = (self.modName.pack(codepage_name, endien)
+                  + self.streamName.pack(codepage_name, endien)
+                  + self.docString.pack(codepage_name, endien)
+                  + self.offsetRec.pack(codepage_name, endien)
+                  + self.helpContext.pack(codepage_name, endien)
+                  + self.cookie.pack(codepage_name, endien)
+                  + type_id.pack(codepage_name, endien))
         footer = PackedData("HI", 0x002B, 0)
-        output += footer.pack(codePageName, endien)
+        output += footer.pack(codepage_name, endien)
         return output
 
-    def toProjectModuleString(self):
+    def to_project_module_string(self: T):
         return self.type + "=" + self.modName.value
 
-    def add_file(self, file_path):
+    def add_file(self: T, file_path: str) -> None:
         self._file_path = file_path
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         bin_f = open(self._file_path + ".bin", "wb")
         bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
@@ -85,5 +92,5 @@ class ModuleBase():
         bin_f.write(compressed)
         bin_f.close()
 
-    def _attr(self, name, value):
+    def _attr(self: T, name: str, value: str) -> str:
         return 'Attribute VB_' + name + ' = ' + value + '\n'
