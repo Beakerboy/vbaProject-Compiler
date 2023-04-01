@@ -48,7 +48,7 @@ class VbaProject:
     def get_protection_state(self: T) -> int:
         return self._protection_state
 
-    def set_visibility_state(self: T, state) -> None:
+    def set_visibility_state(self: T, state: int) -> None:
         """
         0   = not visible
         255 = visible
