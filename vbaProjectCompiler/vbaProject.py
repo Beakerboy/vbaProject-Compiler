@@ -19,7 +19,7 @@ class VbaProject:
         self.endien = 'little'
 
         # Protected Instance Attributes
-        self._codePageName = 'cp1252'
+        self._codepage_name = 'cp1252'
         self._project_id = '{}'
         self._protection_state = b'\x00\x00\x00\x00'
         self._password = b'\x00'
@@ -77,8 +77,8 @@ class VbaProject:
     def get_performance_cache_version(self: T) -> int:
         return self._performance_cache_version
 
-    def getCodePageName(self: T) -> str:
-        return self._codePageName
+    def get_codepage_name(self: T) -> str:
+        return self._codepage_name
 
     def set_project_cookie(self: T, value: int) -> None:
         self._project_cookie = value
@@ -100,9 +100,9 @@ class VbaProject:
         dir.write_file()
         project = Project(self)
         project.write_file()
-        projectWm = ProjectWm(self)
-        projectWm.write_file()
-        # views = ("_VBA_PROJECT", "dir", "projectWm", "Project")
+        project_wm = ProjectWm(self)
+        project_wm.write_file()
+        # views = ("_VBA_PROJECT", "dir", "project_wm", "Project")
         # Create views and write
 
     def _build_ole_directory(self: T) -> None:
