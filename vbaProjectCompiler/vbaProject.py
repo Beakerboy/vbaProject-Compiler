@@ -57,13 +57,13 @@ class VbaProject:
             raise Exception("Bad visibility value.")
         self._visibility_state = state
 
-    def get_visibility_state(self: T):
+    def get_visibility_state(self: T) -> bytes:
         return self._visibility_state
 
     def set_password(self: T, value) -> None:
         self._password = value
 
-    def get_password(self):
+    def get_password(self) -> bytes:
         return self._password
 
     def set_performance_cache(self: T, cache: bytes) -> None:
