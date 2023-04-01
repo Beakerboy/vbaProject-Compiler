@@ -3,3 +3,4 @@ pytest-cov
 pytest-mock
 coveralls
 pep8-naming
+flake8-annotations
