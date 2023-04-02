@@ -2,17 +2,21 @@ from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
 from vbaProjectCompiler.Models.Fields.packedData import PackedData
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ReferenceRecord')
 
 
 class ReferenceRecord():
 
-    def __init__(self, codepage_name, name, libid_ref):
+    def __init__(self: T, codepage_name, name, libid_ref):
         # is self._codepage_name even needed?
         self._codepage_name = codepage_name
         self._refname = DoubleEncodedString([0x0016, 0x003E], name)
         self._libid_ref = libid_ref
 
-    def pack(self, codepage_name, endien):
+    def pack(self: T, codepage_name, endien):
         strlen = len(self._libid_ref)
         format = "HII" + str(strlen) + "sIH"
         lib_str = str(self._libid_ref).encode(self._codepage_name)
