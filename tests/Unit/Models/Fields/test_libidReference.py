@@ -1,5 +1,5 @@
 import uuid
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
 
 
 def test_str() -> None:
