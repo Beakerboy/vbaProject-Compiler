@@ -9,7 +9,7 @@ from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
 from typing import Type, TypeVar
 
 
