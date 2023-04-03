@@ -29,7 +29,7 @@ class OleFile:
     def _build_ole_directory(self: T) -> None:
         # directory = StorageDirectory()
         # directory.set_name("VBA")
-        for module in self.modules:
+        for module in self._project.get_modules():
             # path = module.get_name() + '.bin'
             # dir = StreamDirectory()
             # dir.set_name(module.get_name())
