@@ -8,24 +8,29 @@ from ms_pcode_assembler.module_cache import ModuleCache
 from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 from vbaProjectCompiler.Models.Entities.std_module import StdModule
-from vbaProjectCompiler.Models.Entities.referenceRecord import ReferenceRecord
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
+from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
+from vbaProjectCompiler.Views.project_ole_file import ProjectOleFile
+from typing import Type, TypeVar
+
+
+T = TypeVar('T', bound='NotSoRandom')
 
 
 class NotSoRandom():
     _rand = []
 
     @classmethod
-    def set_seed(cls, seeds: list):
+    def set_seed(cls: Type[T], seeds: list) -> None:
         cls._rand = seeds
 
     @classmethod
-    def randint(cls, param1, param2):
+    def randint(cls: Type[T], param1: int, param2: int) -> int:
         return cls._rand.pop(0)
 
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_around_tests() -> None:
     # Code that will run before your test, for example:
 
     # A test function will be run at this point
@@ -40,17 +45,17 @@ def run_around_tests():
     map(os.remove, names)
 
 
-def remove_module(names):
+def remove_module(names: str) -> None:
     for name in names:
         os.remove(name + ".new")
         os.remove(name + ".bin")
 
 
-def module_matches_bin(module_path,
-                       cache_size,
-                       bin_path,
-                       bin_offset,
-                       bin_length):
+def module_matches_bin(module_path: str,
+                       cache_size: int,
+                       bin_path: str,
+                       bin_offset: int,
+                       bin_length: int) -> bool:
     m = open(module_path, "rb")
     b = open(bin_path, "rb")
     b.seek(bin_offset)
@@ -143,7 +148,8 @@ def test_full_file() -> None:
     project.add_module(sheet1)
     project.add_module(module1)
 
-    project.write_file()
+    ole_file = ProjectOleFile(project)
+    ole_file.write_file()
     path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin"
     assert module_matches_bin(path, 0x0333,
                               "tests/blank/vbaProject.bin", 0x0800, 0xB5)

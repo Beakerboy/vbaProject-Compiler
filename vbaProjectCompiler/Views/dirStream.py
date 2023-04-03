@@ -1,10 +1,15 @@
 import struct
 from ms_ovba_compression.ms_ovba import MsOvba
+from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
-from vbaProjectCompiler.Models.Fields.packedData import PackedData
+from vbaProjectCompiler.Models.Fields.packed_data import PackedData
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='DirStream')
 
 
 class DirStream():
@@ -12,7 +17,7 @@ class DirStream():
     The dir stream is compressed on write
     """
 
-    def __init__(self, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
         self.codepage = 0x04E4
         # 0=16bit, 1=32bit, 2=mac, 3=64bit
@@ -47,7 +52,7 @@ class DirStream():
         self.references = []
         self.modules = []
 
-    def to_bytes(self) -> bytes:
+    def to_bytes(self: T) -> bytes:
         endien = self.project.endien
         codepage_name = self.project.get_codepage_name()
         pack_symbol = '<' if endien == 'little' else '>'
@@ -71,7 +76,7 @@ class DirStream():
         output += struct.pack(pack_symbol + "HI", 16, 0)
         return output
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         bin_f = open("dir.bin", "wb")
         ms_ovba = MsOvba()
         compressed = ms_ovba.compress(self.to_bytes())

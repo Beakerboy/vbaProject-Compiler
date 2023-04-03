@@ -1,8 +1,8 @@
 import uuid
-from vbaProjectCompiler.Models.Fields.libidReference import LibidReference
+from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
 
 
-def test_str():
+def test_str() -> None:
     guid = uuid.UUID('0002043000000000C000000000000046')
     libid_ref = LibidReference(
         guid,
@@ -17,7 +17,7 @@ def test_str():
     assert len(libid_ref) == 94
 
 
-def test_posix():
+def test_posix() -> None:
     guid = uuid.UUID('0002043000000000C000000000000046')
     libid_ref = LibidReference(
         guid,

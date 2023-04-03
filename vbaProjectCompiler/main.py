@@ -1,2 +1,2 @@
-def main(args):
+def main(args: list) -> None:
     pass

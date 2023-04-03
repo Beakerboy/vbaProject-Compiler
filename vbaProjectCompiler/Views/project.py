@@ -1,12 +1,17 @@
 import binascii
 import ms_ovba_crypto
+from vbaProjectCompiler.vbaProject import VbaProject
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='Project')
 
 
 class Project:
     """
     The Project data view for the vbaProject
     """
-    def __init__(self, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
         # Attributes
 
@@ -16,10 +21,10 @@ class Project:
         # The HostExtenderInfo string
         self.hostExtenderInfo = ""
 
-    def add_attribute(self, name, value) -> None:
+    def add_attribute(self: T, name: str, value: str) -> None:
         self.attributes[name] = value
 
-    def to_bytes(self):
+    def to_bytes(self: T) -> bytes:
         project = self.project
         codepage_name = project.get_codepage_name()
         # Use \x0D0A line endings...however python encodes that.
@@ -62,12 +67,12 @@ class Project:
             result += eol
         return result
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         bin_f = open("project.bin", "wb")
         bin_f.write(self.to_bytes())
         bin_f.close()
 
-    def _attr(self, name, value):
+    def _attr(self: T, name: str, value: str) -> str:
         codepage_name = self.project.get_codepage_name()
         eol = b'\x0D\x0A'
         b_name = bytes(name, codepage_name)

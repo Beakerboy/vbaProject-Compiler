@@ -1,14 +1,19 @@
 import struct
+from vbaProjectCompiler.vbaProject import VbaProject
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='ProjectView')
 
 
 class ProjectView:
     """
     The _VBA_PROJECT data view for the vbaProject
     """
-    def __init__(self, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
 
-    def to_bytes(self) -> bytes:
+    def to_bytes(self: T) -> bytes:
         endien_symbol = '<' if self.project.endien == 'little' else '>'
         format = endien_symbol + "HHBH"
         output = b''
@@ -21,7 +26,7 @@ class ProjectView:
                               reserved2, reserved3)
         return output + self.project.get_performance_cache()
 
-    def write_file(self) -> None:
+    def write_file(self: T) -> None:
         bin_f = open("vba_project.bin", "wb")
         bin_f.write(self.to_bytes())
         bin_f.close()
