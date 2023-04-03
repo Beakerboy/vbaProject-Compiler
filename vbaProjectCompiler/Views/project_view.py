@@ -1,4 +1,5 @@
 import struct
+from vbaProjectCompiler.vbaProject import VbaProject
 from typing import TypeVar
 
 
@@ -9,7 +10,7 @@ class ProjectView:
     """
     The _VBA_PROJECT data view for the vbaProject
     """
-    def __init__(self: T, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
 
     def to_bytes(self) -> bytes:
