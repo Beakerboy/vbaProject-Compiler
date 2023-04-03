@@ -1,4 +1,5 @@
 from vbaProjectCompiler.vbaProject import VbaProject
+from vbaProjectCompiler.Views.dirStream import DirStream
 # from vbaProjectCompiler.Views.project_view import ProjectView
 from vbaProjectCompiler.Views.project import Project
 from vbaProjectCompiler.Views.projectWm import ProjectWm
