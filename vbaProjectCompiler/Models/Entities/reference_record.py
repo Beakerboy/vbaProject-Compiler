@@ -11,7 +11,8 @@ T = TypeVar('T', bound='ReferenceRecord')
 
 class ReferenceRecord():
 
-    def __init__(self: T, codepage_name: str, name: str, libid_ref: LibidReference) -> None:
+    def __init__(self: T, codepage_name: str,
+                 name: str, libid_ref: LibidReference) -> None:
         # is self._codepage_name even needed?
         self._codepage_name = codepage_name
         self._refname = DoubleEncodedString([0x0016, 0x003E], name)
