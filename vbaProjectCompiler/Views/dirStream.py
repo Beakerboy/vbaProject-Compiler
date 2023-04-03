@@ -1,5 +1,6 @@
 import struct
 from ms_ovba_compression.ms_ovba import MsOvba
+from vbaProjectCompiler.vbaProject import VbaProject
 from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
@@ -16,7 +17,7 @@ class DirStream():
     The dir stream is compressed on write
     """
 
-    def __init__(self: T, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
         self.codepage = 0x04E4
         # 0=16bit, 1=32bit, 2=mac, 3=64bit
