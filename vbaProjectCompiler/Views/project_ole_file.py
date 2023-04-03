@@ -6,10 +6,10 @@ from vbaProjectCompiler.Views.projectWm import ProjectWm
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='OleFile')
+T = TypeVar('T', bound='ProjectOleFile')
 
 
-class OleFile:
+class ProjectOleFile:
 
     def __init__(self: T, project: VbaProject) -> None:
         self._project = project
