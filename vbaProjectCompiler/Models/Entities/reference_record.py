@@ -1,7 +1,7 @@
 from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
-from vbaProjectCompiler.Models.Fields.packedData import PackedData
+from vbaProjectCompiler.Models.Fields.packed_data import PackedData
 from typing import TypeVar
 
 
