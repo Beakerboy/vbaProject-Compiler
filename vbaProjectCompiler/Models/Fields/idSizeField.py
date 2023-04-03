@@ -1,4 +1,8 @@
 import struct
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='IdSizeField')
 
 
 class IdSizeField():
@@ -7,12 +11,12 @@ class IdSizeField():
     int value formatted to the defined size.
     """
 
-    def __init__(self, id, size: int, value) -> None:
+    def __init__(self: T, id: int, size: int, value) -> None:
         self._id = id
         self._size = size
         self._value = value
 
-    def pack(self, codepage_name: str, endien: str) -> bytes:
+    def pack(self: T, codepage_name: str, endien: str) -> bytes:
         endien_symbol = '<' if endien == 'little' else '>'
         format = endien_symbol + "HI"
         if isinstance(self._value, str):
