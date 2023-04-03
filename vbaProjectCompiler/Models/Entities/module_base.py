@@ -55,10 +55,10 @@ class ModuleBase():
     def get_name(self: T) -> str:
         return self.modName.value
 
-    def add_workspace(self: T, val1, val2, val3, val4, val5) -> None:
+    def add_workspace(self: T, val1: int, val2: int, val3: int, val4: int, val5: int) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
 
-    def pack(self: T, codepage_name, endien) -> bytes:
+    def pack(self: T, codepage_name: str, endien: str) -> bytes:
         """
         Pack the metadata for use in the dir stream.
         """
