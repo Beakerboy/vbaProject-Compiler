@@ -1,5 +1,6 @@
 import binascii
 import ms_ovba_crypto
+from vbaProjectCompiler.vbaProject import VbaProject
 from typing import TypeVar
 
 
@@ -10,7 +11,7 @@ class Project:
     """
     The Project data view for the vbaProject
     """
-    def __init__(self: T, project) -> None:
+    def __init__(self: T, project: VbaProject) -> None:
         self.project = project
         # Attributes
 
