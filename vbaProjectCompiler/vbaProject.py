@@ -3,7 +3,6 @@
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
-from vbaProjectCompiler.Views.dirStream import DirStream
 from typing import TypeVar
 
 
