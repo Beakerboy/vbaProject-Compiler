@@ -13,7 +13,7 @@ class OleFile:
 
     def __init__(self: T, project: VbaProject) -> None:
         self._project = project
-        
+
     def _create_binary_files(self: T) -> None:
         for module in self._project.get_modules():
             module.write_file()
