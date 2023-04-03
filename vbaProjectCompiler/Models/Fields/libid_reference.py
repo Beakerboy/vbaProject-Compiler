@@ -6,7 +6,7 @@ T = TypeVar('T', bound='LibidReference')
 
 
 class LibidReference():
-    def __init__(self: T, libid_guid; uuid.UUID, version: str,
+    def __init__(self: T, libid_guid: uuid.UUID, version: str,
                  libid_lcid: str, libid_path: str,
                  libid_reg_name: str) -> None:
         self._libid_guid = libid_guid
