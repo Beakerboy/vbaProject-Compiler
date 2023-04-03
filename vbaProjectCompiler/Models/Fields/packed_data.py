@@ -9,7 +9,7 @@ class PackedData():
     """
     Mutivalue field with a packing format
     """
-    def __init__(self:T, format: str, *values) -> None:
+    def __init__(self: T, format: str, *values) -> None:
         self.values = values
         self.format = format
 
