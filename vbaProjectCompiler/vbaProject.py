@@ -84,7 +84,7 @@ class VbaProject:
     def get_project_cookie(self: T) -> int:
         return self._project_cookie
 
-    def get_modules() -> list:
+    def get_modules(self: T) -> list:
         return self.modules
 
     # Appenders
