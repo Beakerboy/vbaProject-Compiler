@@ -34,13 +34,13 @@ class ModuleBase():
         # GUIDs
         self._guid = []
 
-    def set_guid(self: T, guid) -> None:
+    def set_guid(self: T, guid: str) -> None:
         if isinstance(guid, list):
             self._guid = guid
         else:
             self._guid = [guid]
 
-    def add_guid(self: T, guid) -> None:
+    def add_guid(self: T, guid: str) -> None:
         self._guid += guid
 
     def set_cache(self: T, cache: bytes) -> None:
