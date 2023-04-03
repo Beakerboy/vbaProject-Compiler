@@ -14,7 +14,7 @@ class OleFile:
         self._project = project
         
     def _create_binary_files(self: T) -> None:
-        for module in sself._project.get_modules():
+        for module in self._project.get_modules():
             module.write_file()
         dir = DirStream(self._project)
         dir.write_file()
