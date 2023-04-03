@@ -1,5 +1,5 @@
 import struct
-from typing import TypeVar
+from typing import Any, TypeVar
 
 
 T = TypeVar('T', bound='IdSizeField')
@@ -11,7 +11,7 @@ class IdSizeField():
     int value formatted to the defined size.
     """
 
-    def __init__(self: T, id: int, size: int, value) -> None:
+    def __init__(self: T, id: int, size: int, value: Any) -> None:
         self._id = id
         self._size = size
         self._value = value
