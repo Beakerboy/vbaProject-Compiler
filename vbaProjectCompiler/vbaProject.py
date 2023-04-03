@@ -4,9 +4,6 @@
 from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
 from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
 from vbaProjectCompiler.Views.dirStream import DirStream
-# from vbaProjectCompiler.Views.project_view import ProjectView
-from vbaProjectCompiler.Views.project import Project
-from vbaProjectCompiler.Views.projectWm import ProjectWm
 from typing import TypeVar
 
 
@@ -87,45 +84,12 @@ class VbaProject:
     def get_project_cookie(self: T) -> int:
         return self._project_cookie
 
+    def get_modules() -> list:
+        return self.modules
+
     # Appenders
     def add_module(self: T, mod: ModuleBase) -> None:
         self.modules.append(mod)
 
     def add_reference(self: T, ref: ReferenceRecord) -> None:
         self.references.append(ref)
-
-    def _create_binary_files(self: T) -> None:
-        for module in self.modules:
-            module.write_file()
-        dir = DirStream(self)
-        dir.write_file()
-        project = Project(self)
-        project.write_file()
-        project_wm = ProjectWm(self)
-        project_wm.write_file()
-        # views = ("_VBA_PROJECT", "dir", "project_wm", "Project")
-        # Create views and write
-
-    def _build_ole_directory(self: T) -> None:
-        # directory = StorageDirectory()
-        # directory.set_name("VBA")
-        for module in self.modules:
-            # path = module.get_name() + '.bin'
-            # dir = StreamDirectory()
-            # dir.set_name(module.get_name())
-            # dir.add_stream(path)
-            # directory.add_directory(dir)
-            pass
-        # return directory
-
-    def _write_ole_file(self: T, dir: str) -> None:
-        # ole_file = OleFile()
-        # ole_file.add_directory(dir)
-        # ole_file.build_file()
-        # ole_file.write_file("vbaProject.bin")
-        pass
-
-    def write_file(self: T) -> None:
-        self._create_binary_files()
-        directory = self._build_ole_directory()
-        self._write_ole_file(directory)
