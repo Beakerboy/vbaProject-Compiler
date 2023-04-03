@@ -10,7 +10,7 @@ from vbaProjectCompiler.Models.Entities.doc_module import DocModule
 from vbaProjectCompiler.Models.Entities.std_module import StdModule
 from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
 from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
-from vbaProjectCompiler.Views.ole_file import OleFile
+from vbaProjectCompiler.Views.project_ole_file import ProjectOleFile
 from typing import Type, TypeVar
 
 
@@ -148,7 +148,7 @@ def test_full_file() -> None:
     project.add_module(sheet1)
     project.add_module(module1)
 
-    ole_file = OleFile(project)
+    ole_file = ProjectOleFile(project)
     ole_file.write_file()
     path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin"
     assert module_matches_bin(path, 0x0333,
