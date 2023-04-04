@@ -165,10 +165,12 @@ def test_full_file() -> None:
     file_io = OleFile(project)
     storage = StorageDirectory("VBA")
     stream = StreamDirectory("ThisWorkbook",
-                             "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin")
+        "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
+    )
     storage.add_directory(stream)
     stream = StreamDirectory("Sheet1",
-                             "src/vbaproject_compiler/blank_files/Sheet1.cls.bin")
+        "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
+    )
     storage.add_directory(stream)
     stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
     storage.add_directory(stream)
