@@ -1,5 +1,5 @@
 import pytest
-from vbaProjectCompiler.vbaProject import VbaProject
+from vbaproject_compiler.vbaProject import VbaProject
 
 
 def test_set_get_visibility() -> None:
