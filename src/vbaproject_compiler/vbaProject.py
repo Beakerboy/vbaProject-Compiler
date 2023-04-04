@@ -1,5 +1,7 @@
 from vbaproject_compiler.Models.Entities.module_base import ModuleBase
-from vbaproject_compiler.Models.Entities.reference_record import ReferenceRecord
+from vbaproject_compiler.Models.Entities.reference_record import (
+    ReferenceRecord
+)
 from typing import TypeVar
 
 
