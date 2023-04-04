@@ -1,4 +1,4 @@
-from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+from vbaproject_compiler.Models.Fields.idSizeField import IdSizeField
 from typing import TypeVar
 
 

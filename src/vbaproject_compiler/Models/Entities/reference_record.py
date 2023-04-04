@@ -1,8 +1,8 @@
-from vbaProjectCompiler.Models.Fields.doubleEncodedString import (
+from vbaproject_compiler.Models.Fields.doubleEncodedString import (
     DoubleEncodedString
 )
-from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
-from vbaProjectCompiler.Models.Fields.packed_data import PackedData
+from vbaproject_compiler.Models.Fields.libid_reference import LibidReference
+from vbaproject_compiler.Models.Fields.packed_data import PackedData
 from typing import TypeVar
 
 

@@ -1,5 +1,5 @@
 import pytest
-from vbaProjectCompiler.Models.Fields.idSizeField import IdSizeField
+from vbaproject_compiler.Models.Fields.idSizeField import IdSizeField
 
 
 def test_bad_value() -> None:

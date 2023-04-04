@@ -1,8 +1,8 @@
-from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Views.dirStream import DirStream
-# from vbaProjectCompiler.Views.project_view import ProjectView
-from vbaProjectCompiler.Views.project import Project
-from vbaProjectCompiler.Views.projectWm import ProjectWm
+from vbaproject_compiler.vbaProject import VbaProject
+from vbaproject_compiler.Views.dirStream import DirStream
+# from vbaproject_compiler.Views.project_view import ProjectView
+from vbaproject_compiler.Views.project import Project
+from vbaproject_compiler.Views.projectWm import ProjectWm
 from typing import TypeVar
 
 
