@@ -38,7 +38,7 @@ def run_around_tests() -> None:
     # A test function will be run at this point
     yield
     # Code that will run after your test
-    root = "vbaproject_compiler/blank_files/"
+    root = "src/vbaproject_compiler/blank_files/"
     root2 = "tests/blank/"
     names = [root + "ThisWorkbook.cls", root + "Sheet1.cls",
              root2 + "Module1.bas"]
@@ -118,7 +118,7 @@ def test_full_file() -> None:
     guid = uuid.UUID("0002081900000000C000000000000046")
     module_cache.guid = [guid]
     this_workbook.set_guid(guid)
-    module_path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls"
+    module_path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
     this_workbook.normalize_file()
     this_workbook.set_cache(module_cache.to_bytes())
@@ -129,7 +129,7 @@ def test_full_file() -> None:
     guid = uuid.UUID("0002082000000000C000000000000046")
     module_cache.guid = [guid]
     sheet1.set_guid(guid)
-    module_path = "vbaProjectCompiler/blank_files/Sheet1.cls"
+    module_path = "src/vbaproject_compiler/blank_files/Sheet1.cls"
     sheet1.add_file(module_path)
     sheet1.normalize_file()
     sheet1.set_cache(module_cache.to_bytes())
@@ -152,10 +152,10 @@ def test_full_file() -> None:
 
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
-    path = "vbaProjectCompiler/blank_files/ThisWorkbook.cls.bin"
+    path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
     assert module_matches_bin(path, 0x0333,
                               "tests/blank/vbaProject.bin", 0x0800, 0xB5)
-    path = "vbaProjectCompiler/blank_files/Sheet1.cls.bin"
+    path = "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
