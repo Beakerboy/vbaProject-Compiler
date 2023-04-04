@@ -8,7 +8,9 @@ from ms_pcode_assembler.module_cache import ModuleCache
 from vbaproject_compiler.vbaProject import VbaProject
 from vbaproject_compiler.Models.Entities.doc_module import DocModule
 from vbaproject_compiler.Models.Entities.std_module import StdModule
-from vbaproject_compiler.Models.Entities.reference_record import ReferenceRecord
+from vbaproject_compiler.Models.Entities.reference_record import (
+    ReferenceRecord
+)
 from vbaproject_compiler.Models.Fields.libid_reference import LibidReference
 from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 from typing import Type, TypeVar
