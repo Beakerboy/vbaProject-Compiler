@@ -1,5 +1,5 @@
-from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Views.project_view import ProjectView
+from vbaproject_compiler.vbaProject import VbaProject
+from vbaproject_compiler.Views.project_view import ProjectView
 
 
 def test_vba_project() -> None:
