@@ -3,6 +3,9 @@ import pytest
 import struct
 import unittest.mock
 import uuid
+from ms_cfb.ole_file import OleFile
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
 from vbaproject_compiler.vbaProject import VbaProject
@@ -159,7 +162,24 @@ def test_full_file() -> None:
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
-    # fileIO = OleFile(project)
+    fileIO = OleFile(project)
+    storage = StorageDirectory("VBA")
+    stream = StreamDirectory("ThisWorkbook", "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin")
+    storage.add_directory(stream)
+    stream = StreamDirectory("Sheet1", "src/vbaproject_compiler/blank_files/Sheet1.cls.bin")
+    storage.add_directory(stream)
+    stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
+    storage.add_directory(stream)
+    stream = StreamDirectory("dir", "dir.bin")
+    storage.add_directory(stream)
+    stream = StreamDirectory("_VBA_PROJECT", "vba_project.bin")
+    storage.add_directory(stream)
+    fileIO.add_directory_entry(storage)
+    stream = StreamDirectory("PROJECT", "project.bin")
+    fileIO.add_directory_entry(stream)
+    stream = StreamDirectory("PROJECTwm", "projectwm.bin")
+    fileIO.add_directory_entry(stream)
+    
     # fileIO.build_file()
 
     # Alter red-black tree
