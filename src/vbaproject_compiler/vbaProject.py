@@ -1,8 +1,8 @@
 # from ms_cfb import OleFile
 # from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 # from ms_cfb.Models.Directories.stream_directory import StreamDirectory
-from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
-from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
+from vbaproject_compiler.Models.Entities.module_base import ModuleBase
+from vbaproject_compiler.Models.Entities.reference_record import ReferenceRecord
 from typing import TypeVar
 
 
