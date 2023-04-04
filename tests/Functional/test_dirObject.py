@@ -7,7 +7,9 @@ from vbaproject_compiler.Views.dirStream import DirStream
 from vbaproject_compiler.Models.Fields.libid_reference import LibidReference
 from vbaproject_compiler.Models.Entities.doc_module import DocModule
 from vbaproject_compiler.Models.Entities.std_module import StdModule
-from vbaproject_compiler.Models.Entities.reference_record import ReferenceRecord
+from vbaproject_compiler.Models.Entities.reference_record import (
+    ReferenceRecord
+)
 
 
 def test_dirstream() -> None:
