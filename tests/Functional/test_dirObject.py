@@ -2,12 +2,12 @@ import struct
 import uuid
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
-from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Views.dirStream import DirStream
-from vbaProjectCompiler.Models.Fields.libid_reference import LibidReference
-from vbaProjectCompiler.Models.Entities.doc_module import DocModule
-from vbaProjectCompiler.Models.Entities.std_module import StdModule
-from vbaProjectCompiler.Models.Entities.reference_record import ReferenceRecord
+from vbaproject_compiler.vbaProject import VbaProject
+from vbaproject_compiler.Views.dirStream import DirStream
+from vbaproject_compiler.Models.Fields.libid_reference import LibidReference
+from vbaproject_compiler.Models.Entities.doc_module import DocModule
+from vbaproject_compiler.Models.Entities.std_module import StdModule
+from vbaproject_compiler.Models.Entities.reference_record import ReferenceRecord
 
 
 def test_dirstream() -> None:
