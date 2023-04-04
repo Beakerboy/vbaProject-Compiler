@@ -162,11 +162,13 @@ def test_full_file() -> None:
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
-    fileIO = OleFile(project)
+    file_io = OleFile(project)
     storage = StorageDirectory("VBA")
-    stream = StreamDirectory("ThisWorkbook", "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin")
+    stream = StreamDirectory("ThisWorkbook",
+                             "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin")
     storage.add_directory(stream)
-    stream = StreamDirectory("Sheet1", "src/vbaproject_compiler/blank_files/Sheet1.cls.bin")
+    stream = StreamDirectory("Sheet1",
+                             "src/vbaproject_compiler/blank_files/Sheet1.cls.bin")
     storage.add_directory(stream)
     stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
     storage.add_directory(stream)
@@ -174,11 +176,11 @@ def test_full_file() -> None:
     storage.add_directory(stream)
     stream = StreamDirectory("_VBA_PROJECT", "vba_project.bin")
     storage.add_directory(stream)
-    fileIO.add_directory_entry(storage)
+    file_io.add_directory_entry(storage)
     stream = StreamDirectory("PROJECT", "project.bin")
-    fileIO.add_directory_entry(stream)
+    file_io.add_directory_entry(stream)
     stream = StreamDirectory("PROJECTwm", "projectwm.bin")
-    fileIO.add_directory_entry(stream)
+    file_io.add_directory_entry(stream)
     
     # fileIO.build_file()
 
