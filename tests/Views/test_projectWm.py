@@ -1,7 +1,7 @@
-from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.Models.Entities.doc_module import DocModule
-from vbaProjectCompiler.Models.Entities.std_module import StdModule
-from vbaProjectCompiler.Views.projectWm import ProjectWm
+from vbaproject_compiler.vbaProject import VbaProject
+from vbaproject_compiler.Models.Entities.doc_module import DocModule
+from vbaproject_compiler.Models.Entities.std_module import StdModule
+from vbaproject_compiler.Views.projectWm import ProjectWm
 
 
 def test_project_wm() -> None:
