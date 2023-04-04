@@ -23,6 +23,6 @@ class ProjectWm:
         return output
 
     def write_file(self: T) -> None:
-        bin_f = open("project.bin", "wb")
+        bin_f = open("projectwm.bin", "wb")
         bin_f.write(self.to_bytes())
         bin_f.close()
