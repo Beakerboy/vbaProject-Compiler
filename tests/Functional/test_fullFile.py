@@ -188,7 +188,7 @@ def test_full_file() -> None:
 
     file_io.create_file("vbaProject.bin")
 
-    file_size =  os.stat("vbaProject.bin").st_size
+    file_size = os.stat("vbaProject.bin").st_size
     expected_size = os.stat("tests/blank/vbaProject.bin").st_size
     assert file_size == expected_size
     # compare new file to blank file in 512 block chunks
