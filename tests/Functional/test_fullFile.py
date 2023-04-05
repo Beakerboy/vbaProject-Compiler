@@ -4,6 +4,7 @@ import struct
 import unittest.mock
 import uuid
 from ms_cfb.ole_file import OleFile
+from ms_cfb.Models.Directories.root_directory import RootDirectory
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from ms_ovba_compression.ms_ovba import MsOvba
@@ -163,6 +164,9 @@ def test_full_file() -> None:
                               0x0C00, 0xAC)
 
     file_io = OleFile()
+    root = RootDirectory()
+    root.set_modified(Filetime.from_msfiletime(0x01D92433C2D823C0))
+    file_io.set_root_directory(root)
     storage = StorageDirectory("VBA")
     stream = StreamDirectory(
         "ThisWorkbook",
