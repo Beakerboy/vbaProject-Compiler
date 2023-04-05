@@ -172,17 +172,17 @@ def test_full_file() -> None:
     storage = StorageDirectory("VBA")
     storage.set_modified(time)
     storage.set_created(time)
-    stream = StreamDirectory(
-        "ThisWorkbook",
-        "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
-    )
+    stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
     storage.add_directory(stream)
     stream = StreamDirectory(
         "Sheet1",
         "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
     )
     storage.add_directory(stream)
-    stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
+    stream = StreamDirectory(
+        "ThisWorkbook",
+        "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
+    )
     storage.add_directory(stream)
     stream = StreamDirectory("_VBA_PROJECT", "vba_project.bin")
     storage.add_directory(stream)
