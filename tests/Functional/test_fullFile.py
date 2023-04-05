@@ -3,7 +3,6 @@ import pytest
 import struct
 import unittest.mock
 import uuid
-from functools import partial
 from ms_cfb.ole_file import OleFile
 from ms_cfb.Models.Directories.storage_directory import StorageDirectory
 from ms_cfb.Models.Directories.stream_directory import StreamDirectory
