@@ -162,7 +162,7 @@ def test_full_file() -> None:
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
-    file_io = OleFile(project)
+    file_io = OleFile()
     storage = StorageDirectory("VBA")
     stream = StreamDirectory("ThisWorkbook",
         "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
