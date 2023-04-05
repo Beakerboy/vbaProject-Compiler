@@ -195,10 +195,10 @@ def test_full_file() -> None:
     # compare new file to blank file in 512 block chunks
     new = open("./vbaProject.bin", "rb")
     expected = open("tests/blank/vbaProject.bin", "rb")
-    
+
     # Header
     assert new.read(512) == expected.read(512)
-    
+
     # FAT
     new.read(512)
     expected.read(512)
