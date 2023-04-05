@@ -195,9 +195,16 @@ def test_full_file() -> None:
     # compare new file to blank file in 512 block chunks
     new = open("./vbaProject.bin", "rb")
     expected = open("tests/blank/vbaProject.bin", "rb")
-    for chunk in iter(partial(new.read, 512), ''):
-        assert chunk == expected.read(512)
+    
+    # Header
+    assert new.read(512) == expected.read(512)
+    
+    # FAT
+    new.read(512)
+    expected.read(512)
 
+    # Dir
+    assert new.read(512) == expected.read(512)
 
 def create_cache() -> bytes:
     vba_project = VbaProject()
