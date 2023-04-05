@@ -23,8 +23,8 @@ class ProjectOleFile:
         project.write_file()
         project_wm = ProjectWm(self._project)
         project_wm.write_file()
-        # views = ("_VBA_PROJECT", "dir", "project_wm", "Project")
-        # Create views and write
+        project_view = ProjectView(self._project)
+        project_view.write_file()
 
     def _build_ole_directory(self: T) -> None:
         # directory = StorageDirectory()
