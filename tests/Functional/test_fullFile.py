@@ -206,6 +206,7 @@ def test_full_file() -> None:
     # Dir
     assert new.read(512) == expected.read(512)
 
+
 def create_cache() -> bytes:
     vba_project = VbaProject()
     vba_project.set_performance_cache_version(0x00B5)
