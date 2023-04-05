@@ -186,16 +186,9 @@ def test_full_file() -> None:
     stream = StreamDirectory("PROJECTwm", "projectwm.bin")
     file_io.add_directory_entry(stream)
 
-    # fileIO.build_file()
+    ole_file.create_file("vbaProject.bin")
 
-    # Alter red-black tree
-    # fileIO.streams[2].color = 1
-    # fileIO.streams[3].color = 1
-    # fileIO.streams[4].color = 1
-    # fileIO.streams[8].color = 1
-
-    # fileIO.write_file(".")
-    # assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
+    assert os.stat("vbaProject.bin").st_size == os.stat("tests/blank/vbaProject.bin").st_size
     # compare new file to blank file in 512 block chunks
     # new = open("./vbaProject.bin", "rb")
     # expected = open("tests/blank/vbaProject.bin", "rb")
