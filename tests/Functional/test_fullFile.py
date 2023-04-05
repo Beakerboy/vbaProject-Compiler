@@ -166,7 +166,7 @@ def test_full_file() -> None:
 
     file_io = OleFile()
     root = RootDirectory()
-    root.set_modified(Filetime.from_msfiletime(0x01D92433C2D823C0))
+    root.set_modified(Filetime.from_msfiletime(0x01D92433C2B823C0))
     file_io.set_root_directory(root)
     storage = StorageDirectory("VBA")
     stream = StreamDirectory(
