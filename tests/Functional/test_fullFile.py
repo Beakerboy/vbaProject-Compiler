@@ -185,7 +185,7 @@ def test_full_file() -> None:
     file_io.add_directory_entry(stream)
     stream = StreamDirectory("PROJECTwm", "projectwm.bin")
     file_io.add_directory_entry(stream)
-    
+
     # fileIO.build_file()
 
     # Alter red-black tree
