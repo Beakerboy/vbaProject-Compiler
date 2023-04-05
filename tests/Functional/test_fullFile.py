@@ -186,7 +186,7 @@ def test_full_file() -> None:
     stream = StreamDirectory("PROJECTwm", "projectwm.bin")
     file_io.add_directory_entry(stream)
 
-    ole_file.create_file("vbaProject.bin")
+    file_io.create_file("vbaProject.bin")
 
     file_size =  os.stat("vbaProject.bin").st_size
     expected_size = os.stat("tests/blank/vbaProject.bin").st_size
