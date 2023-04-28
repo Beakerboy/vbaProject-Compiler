@@ -27,7 +27,6 @@ The VbaProject class has many layers of customization available. For example a l
 codePage = 0x04E4
 codePageName = "cp" + str(codePage)
 libidRef = LibidReference(
-    "windows",
     "{00020430-0000-0000-C000-000000000046}",
     "2.0",
     "0",
