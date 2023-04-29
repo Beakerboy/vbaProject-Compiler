@@ -193,8 +193,8 @@ def test_full_file() -> None:
 
     # FAT
     assert new.read(512) == expected.read(512)
-    #new.read(512)
-    #expected.read(512)
+    # new.read(512)
+    # expected.read(512)
 
     # Dir
     # Stream sizes will not match due to compression differences
