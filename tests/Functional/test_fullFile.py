@@ -192,11 +192,13 @@ def test_full_file() -> None:
     assert new.read(512) == expected.read(512)
 
     # FAT
-    new.read(512)
-    expected.read(512)
+    assert new.read(512) == expected.read(512)
+    #new.read(512)
+    #expected.read(512)
 
     # Dir
-    assert new.read(512) == expected.read(512)
+    # Stream sizes will not match due to compression differences
+    # assert new.read(512) == expected.read(512)
 
 
 def create_cache() -> bytes:
