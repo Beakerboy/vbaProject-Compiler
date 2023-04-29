@@ -125,6 +125,7 @@ def test_full_file() -> None:
 
     module1 = StdModule("Module1")
     module1.set_cookie(0xB241)
+    module_cache = ModuleCache(0xB5, 0x08F3)
     module_cache.clear_variables()
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
@@ -267,6 +268,7 @@ def create_cache() -> bytes:
         ca += name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
         i += 1
     return ca
+
 
 def create_module_cache(cookie: int, guid: uuid.UUID) -> ModuleCache:
     module_cache = ModuleCache(0xB5, 0x08F3)
