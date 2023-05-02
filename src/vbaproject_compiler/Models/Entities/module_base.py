@@ -55,6 +55,9 @@ class ModuleBase():
     def get_name(self: T) -> str:
         return self.modName.value
 
+    def get_bin_path(self: T) -> str:
+        return self._file_path + ".bin"
+
     def add_workspace(self: T, val1: int, val2: int,
                       val3: int, val4: int, val5: int) -> None:
         self.workspace = [val1, val2, val3, val4, val5]
