@@ -145,7 +145,7 @@ def test_full_file() -> None:
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
-    #time = Filetime.from_msfiletime(0x01D92433C2B823C0)
+    # time = Filetime.from_msfiletime(0x01D92433C2B823C0)
     # root.set_modified(time)
     # storage.set_modified(time)
     # storage.set_created(time)
