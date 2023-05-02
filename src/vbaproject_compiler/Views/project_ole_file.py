@@ -42,7 +42,7 @@ class ProjectOleFile:
 
         module = ProjectView(self._project)
         module.write_file()
-        dir = StreamDirectory("VBA_Project", "vba_project.bin")
+        dir = StreamDirectory("_VBA_PROJECT", "vba_project.bin")
         storage.add_directory(dir)
 
         directory.add_directory(storage)
