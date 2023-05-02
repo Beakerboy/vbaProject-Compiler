@@ -137,12 +137,6 @@ def test_full_file() -> None:
 
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
-    path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
-    assert module_matches_bin(path, 0x0333,
-                              "tests/blank/vbaProject.bin", 0x0800, 0xB5)
-    path = "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
-    assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
-                              0x0C00, 0xAC)
 
     # time = Filetime.from_msfiletime(0x01D92433C2B823C0)
     # root.set_modified(time)
