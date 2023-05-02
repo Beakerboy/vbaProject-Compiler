@@ -46,8 +46,7 @@ class ProjectOleFile:
         directory = RootDirectory()
         storage = StorageDirectory("VBA")
         for module in self._project.get_modules():
-            path = module.get_name() + '.bin'
-            dir = StreamDirectory(module.get_name(), path)
+            dir = StreamDirectory(module.get_name(), module.get_bin_path())
             storage.add_directory(dir)
         directory.add_directory(storage)
         stream = StreamDirectory("PROJECTwm", "projectwm.bin")
