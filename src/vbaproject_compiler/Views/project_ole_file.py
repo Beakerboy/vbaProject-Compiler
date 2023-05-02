@@ -23,7 +23,7 @@ class ProjectOleFile:
             dir
             project
             projectWm
-            vbs_project  
+            vbs_project
         ToDo
             SLP streams
         """
