@@ -46,8 +46,14 @@ class ProjectOleFile:
         storage.add_directory(dir)
 
         directory.add_directory(storage)
+
+        module = ProjectWm(self._project)
+        module.write_file()
         stream = StreamDirectory("PROJECTwm", "projectwm.bin")
         directory.add_directory(stream)
+
+        module = Project(self._project)
+        module.write_file()
         stream = StreamDirectory("PROJECT", "project.bin")
         directory.add_directory(stream)
         return directory
