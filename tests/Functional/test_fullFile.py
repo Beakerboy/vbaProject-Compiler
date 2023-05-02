@@ -149,37 +149,10 @@ def test_full_file() -> None:
     assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
                               0x0C00, 0xAC)
 
-    file_io = OleFile()
-    time = Filetime.from_msfiletime(0x01D92433C2B823C0)
-    root = RootDirectory()
-    root.set_modified(time)
-    file_io.set_root_directory(root)
-    storage = StorageDirectory("VBA")
-    storage.set_modified(time)
-    storage.set_created(time)
-    stream = StreamDirectory(
-        "ThisWorkbook",
-        "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
-    )
-    storage.add_directory(stream)
-    stream = StreamDirectory(
-        "Sheet1",
-        "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
-    )
-    storage.add_directory(stream)
-    stream = StreamDirectory("Module1", "tests/blank/Module1.bas.bin")
-    storage.add_directory(stream)
-    stream = StreamDirectory("_VBA_PROJECT", "vba_project.bin")
-    storage.add_directory(stream)
-    stream = StreamDirectory("dir", "dir.bin")
-    storage.add_directory(stream)
-    file_io.add_directory_entry(storage)
-    stream = StreamDirectory("PROJECTwm", "projectwm.bin")
-    file_io.add_directory_entry(stream)
-    stream = StreamDirectory("PROJECT", "project.bin")
-    file_io.add_directory_entry(stream)
-
-    file_io.create_file("vbaProject.bin")
+    #time = Filetime.from_msfiletime(0x01D92433C2B823C0)
+    # root.set_modified(time)
+    # storage.set_modified(time)
+    # storage.set_created(time)
 
     file_size = os.stat("vbaProject.bin").st_size
     expected_size = os.stat("tests/blank/vbaProject.bin").st_size
