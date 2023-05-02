@@ -99,43 +99,28 @@ def test_full_file() -> None:
     project.set_performance_cache(create_cache())
     project.set_performance_cache_version(0x00B5)
 
-    module_cache = ModuleCache(0xB5, 0x08F3)
-    module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
-    indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
-                      "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
-                      "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
-                      "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
-    module_cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
-    object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
-                    "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
-                    "02 3C FF FF FF FF 00 00")
-    module_cache.object_table = bytes.fromhex(" ".join(object_table))
-
     # Add Modules
     this_workbook = DocModule("ThisWorkbook")
     this_workbook.set_cookie(0xB81C)
-    module_cache.module_cookie = 0xB81C
     guid = uuid.UUID("0002081900000000C000000000000046")
-    module_cache.guid = [guid]
     this_workbook.set_guid(guid)
     module_path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls"
     this_workbook.add_file(module_path)
     this_workbook.normalize_file()
-    this_workbook.set_cache(module_cache.to_bytes())
+    this_workbook.set_cache(create_module_cache(0xB81C, guid).to_bytes())
 
     sheet1 = DocModule("Sheet1")
     sheet1.set_cookie(0x9B9A)
-    module_cache.module_cookie = 0x9B9A
     guid = uuid.UUID("0002082000000000C000000000000046")
-    module_cache.guid = [guid]
     sheet1.set_guid(guid)
     module_path = "src/vbaproject_compiler/blank_files/Sheet1.cls"
     sheet1.add_file(module_path)
     sheet1.normalize_file()
-    sheet1.set_cache(module_cache.to_bytes())
+    sheet1.set_cache(create_module_cache(0x9B9A, guid).to_bytes())
 
     module1 = StdModule("Module1")
     module1.set_cookie(0xB241)
+    module_cache = ModuleCache(0xB5, 0x08F3)
     module_cache.clear_variables()
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
@@ -146,35 +131,36 @@ def test_full_file() -> None:
     module1.normalize_file()
     module1.set_cache(module_cache.to_bytes())
 
-    project.add_module(this_workbook)
-    project.add_module(sheet1)
     project.add_module(module1)
+    project.add_module(sheet1)
+    project.add_module(this_workbook)
 
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
-    path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls.bin"
-    assert module_matches_bin(path, 0x0333,
-                              "tests/blank/vbaProject.bin", 0x0800, 0xB5)
-    path = "src/vbaproject_compiler/blank_files/Sheet1.cls.bin"
-    assert module_matches_bin(path, 0x0333, "tests/blank/vbaProject.bin",
-                              0x0C00, 0xAC)
 
-    # fileIO = OleFile(project)
-    # fileIO.build_file()
+    # time = Filetime.from_msfiletime(0x01D92433C2B823C0)
+    # root.set_modified(time)
+    # storage.set_modified(time)
+    # storage.set_created(time)
 
-    # Alter red-black tree
-    # fileIO.streams[2].color = 1
-    # fileIO.streams[3].color = 1
-    # fileIO.streams[4].color = 1
-    # fileIO.streams[8].color = 1
-
-    # fileIO.write_file(".")
-    # assert size of ./vbaProject.bin == size of tests/blank.vbaProject.bin
+    file_size = os.stat("vbaProject.bin").st_size
+    expected_size = os.stat("tests/blank/vbaProject.bin").st_size
+    assert file_size == expected_size
     # compare new file to blank file in 512 block chunks
-    # new = open("./vbaProject.bin", "rb")
-    # expected = open("tests/blank/vbaProject.bin", "rb")
-    # for chunk in iter(partial(new.read, 512), ''):
-    #   assert chunk == expected.read(512)
+    new = open("./vbaProject.bin", "rb")
+    expected = open("tests/blank/vbaProject.bin", "rb")
+
+    # Header
+    assert new.read(512) == expected.read(512)
+
+    # FAT
+    assert new.read(512) == expected.read(512)
+    # new.read(512)
+    # expected.read(512)
+
+    # Dir
+    # Stream sizes will not match due to compression differences
+    # assert new.read(512) == expected.read(512)
 
 
 def create_cache() -> bytes:
@@ -246,3 +232,20 @@ def create_cache() -> bytes:
         ca += name + struct.pack("<HHHI", 0xFFFF, module.cookie.value, 0, 0)
         i += 1
     return ca
+
+
+def create_module_cache(cookie: int, guid: uuid.UUID) -> ModuleCache:
+    module_cache = ModuleCache(0xB5, 0x08F3)
+    module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
+    indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
+                      "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
+                      "FF FF FF FF FF FF FF FF 00 00 00 00 2E 00 43 00",
+                      "1D 00 00 00 25 00 00 00 FF FF FF FF 40 00 00 00")
+    module_cache.indirect_table = bytes.fromhex(" ".join(indirect_table))
+    object_table = ("02 00 53 4C FF FF FF FF 00 00 01 00 53 10 FF FF",
+                    "FF FF 00 00 01 00 53 94 FF FF FF FF 00 00 00 00",
+                    "02 3C FF FF FF FF 00 00")
+    module_cache.object_table = bytes.fromhex(" ".join(object_table))
+    module_cache.guid = [guid]
+    module_cache.module_cookie = cookie
+    return module_cache

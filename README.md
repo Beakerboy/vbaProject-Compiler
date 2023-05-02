@@ -9,7 +9,7 @@ The vbaProject class contains all the data and metadata that will be used to cre
 
 ```python
 from vbaProjectCompiler.vbaProject import VbaProject
-from vbaProjectCompiler.ole_file import OleFile
+from ms_cfb.ole_file import OleFile
 
 
 project = VbaProject()
@@ -18,16 +18,15 @@ thisWorkbook.addFile(path)
 project.addModule(thisWorkbook)
 
 ole_file = OleFile(project)
-ole_file.writeFile(".")
+ole_file.create_file(".")
 ```
 
-The VbaProject class has many layers of customization available. Forexample a librry referenece can be added to the project.
+The VbaProject class has many layers of customization available. For example a library referenece can be added to the project.
 
 ```python
 codePage = 0x04E4
 codePageName = "cp" + str(codePage)
 libidRef = LibidReference(
-    "windows",
     "{00020430-0000-0000-C000-000000000046}",
     "2.0",
     "0",
