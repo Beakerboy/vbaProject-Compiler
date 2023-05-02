@@ -37,22 +37,12 @@ class ProjectOleFile:
 
         module = DirStream(self._project)
         module.write_file()
-        dir = StreamDirectory(module.get_name(), module.get_bin_path())
-        storage.add_directory(dir)
-
-        module = Project(self._project)
-        module.write_file()
-        dir = StreamDirectory(module.get_name(), module.get_bin_path())
-        storage.add_directory(dir)
-
-        module = ProjectWm(self._project)
-        module.write_file()
-        dir = StreamDirectory(module.get_name(), module.get_bin_path())
+        dir = StreamDirectory("dir", "dir.bin")
         storage.add_directory(dir)
 
         module = ProjectView(self._project)
         module.write_file()
-        dir = StreamDirectory(module.get_name(), module.get_bin_path())
+        dir = StreamDirectory("VBA_Project", "vba_project.bin")
         storage.add_directory(dir)
 
         directory.add_directory(storage)
