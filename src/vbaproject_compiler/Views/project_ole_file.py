@@ -1,3 +1,6 @@
+from ms_cfb.Models.Directories.root_directory import RootDirectory
+from ms_cfb.Models.Directories.storage_directory import StorageDirectory
+from ms_cfb.Models.Directories.stream_directory import StreamDirectory
 from vbaproject_compiler.vbaProject import VbaProject
 from vbaproject_compiler.Views.dirStream import DirStream
 from vbaproject_compiler.Views.project_view import ProjectView
@@ -15,6 +18,15 @@ class ProjectOleFile:
         self._project = project
 
     def _create_binary_files(self: T) -> None:
+        """
+        Create all the custom views for the OLE file:
+            dir
+            project
+            projectWm
+            vbs_project  
+        ToDo
+            SLP streams
+        """
         for module in self._project.get_modules():
             module.write_file()
         dir = DirStream(self._project)
@@ -26,24 +38,27 @@ class ProjectOleFile:
         project_view = ProjectView(self._project)
         project_view.write_file()
 
-    def _build_ole_directory(self: T) -> None:
-        # directory = StorageDirectory()
-        # directory.set_name("VBA")
+    def _build_ole_directory(self: T) -> RootDirectory:
+        """
+        Organize the modules and views into the correct storage directories
+        """
+        directory = RootDirectory()
+        storage = StorageDirectory("VBA")
         for module in self._project.get_modules():
-            # path = module.get_name() + '.bin'
-            # dir = StreamDirectory()
-            # dir.set_name(module.get_name())
-            # dir.add_stream(path)
-            # directory.add_directory(dir)
-            pass
-        # return directory
+            path = module.get_name() + '.bin'
+            dir = StreamDirectory(module.get_name(), path)
+            storage.add_directory(dir)
+        directory.add_directory(storage)
+        stream = StreamDirectory("PROJECTwm", "projectwm.bin")
+        directory.add_directory(stream)
+        stream = StreamDirectory("PROJECT", "project.bin")
+        directory.add_directory(stream)
+        return directory
 
-    def _write_ole_file(self: T, dir: str) -> None:
-        # ole_file = OleFile()
-        # ole_file.add_directory(dir)
-        # ole_file.build_file()
-        # ole_file.write_file("vbaProject.bin")
-        pass
+    def _write_ole_file(self: T, root: str) -> None:
+        ole_file = OleFile()
+        ole_file.set_root_directory(root)
+        file_io.create_file("vbaProject.bin")
 
     def write_file(self: T) -> None:
         self._create_binary_files()
