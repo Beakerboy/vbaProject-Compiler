@@ -59,7 +59,7 @@ class ProjectOleFile:
     def _write_ole_file(self: T, root: str) -> None:
         ole_file = OleFile()
         ole_file.set_root_directory(root)
-        file_io.create_file("vbaProject.bin")
+        ole_file.create_file("vbaProject.bin")
 
     def write_file(self: T) -> None:
         self._create_binary_files()
