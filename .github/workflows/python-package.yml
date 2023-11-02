@@ -30,7 +30,7 @@ jobs:
         if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
         pip install git+https://github.com/Beakerboy/MS-CFB@dev
         pip install git+https://github.com/Beakerboy/MS-Pcode-Assembler@dev
-        pip install -e .
+        pip install -e .[tests]
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
