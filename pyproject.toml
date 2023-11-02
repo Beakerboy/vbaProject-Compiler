@@ -20,6 +20,15 @@ dependencies = [
     'ms_ovba_compression',
     'ms_ovba_crypto'
 ]
+[project.optional-dependencies]
+tests = [
+  'pytest',
+  'pytest-cov'
+  'pytest-mock',
+  'coveralls',
+  'pep8-naming',
+  'flake8-annotations'
+]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/vbaProject-Compiler"
 "Bug Tracker" = "https://github.com/Beakerboy/vbaProject-Compiler/issues"
