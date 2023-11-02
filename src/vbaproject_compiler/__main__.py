@@ -10,15 +10,13 @@ def main(args: list) -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
-    parser.add_argument("-o", "--output",
-                        help="The output file name.")
     args = parser.parse_args()
     # cd args.output
     # build a list of all bas, cls, frm, and frx files
     bas_files = glob.glob('*.bas')
-    cls_files = glob.glob('*.cls')
-    frm_files = glob.glob('*.frm')
-    frx_files = glob.glob('*.frx')
+    #cls_files = glob.glob('*.cls')
+    #frm_files = glob.glob('*.frm')
+    #frx_files = glob.glob('*.frx')
 
     # create a new project object
     project = VbaProject()
