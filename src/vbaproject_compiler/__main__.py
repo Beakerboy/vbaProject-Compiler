@@ -17,7 +17,7 @@ def main(args: list) -> None:
     args = parser.parse_args()
     # cd args.output
     # build a list of all bas, cls, frm, and frx files
-    bas_files = glob.glob(args.directory + '/*.bas')
+    bas_files = glob.glob('/*.bas', root_dir=args.directory)
     # cls_files = glob.glob('*.cls')
     # frm_files = glob.glob('*.frm')
     # frx_files = glob.glob('*.frx')
