@@ -23,7 +23,7 @@ dependencies = [
 [project.optional-dependencies]
 tests = [
   'pytest',
-  'pytest-cov'
+  'pytest-cov',
   'pytest-mock',
   'coveralls',
   'pep8-naming',
