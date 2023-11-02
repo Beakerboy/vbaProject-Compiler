@@ -8,6 +8,7 @@ from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 
 
 def main(args: list) -> None:
+    raise Exception("IN MAIN!")
     print("in Main", flush=True)
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
