@@ -29,7 +29,7 @@ def main(args: list) -> None:
     project.addModule(module)
     
     # add the files
-    foreach bas_files as file:
+    for file in bas_files:
         #name = get name from file
         code = StdModule(name)
         code.addFile(file)
