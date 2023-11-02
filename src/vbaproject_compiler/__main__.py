@@ -46,3 +46,5 @@ def main(args: list) -> None:
     ole_file.write_file()
     file = glob.glob('vbaProject.bin')
     print('HELLO')
+
+main()
