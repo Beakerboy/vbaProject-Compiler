@@ -11,8 +11,6 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
-    parser.add_argument("dest",
-                        help="out.")
     args = parser.parse_args()
     # cd args.output
     # build a list of all bas, cls, frm, and frx files
@@ -43,6 +41,5 @@ def main() -> None:
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
     file = glob.glob('vbaProject.bin')
-    print('HELLO')
 
 main()
