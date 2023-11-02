@@ -9,7 +9,6 @@ from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 
 def main() -> None:
 
-    
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
