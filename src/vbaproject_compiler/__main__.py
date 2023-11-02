@@ -37,7 +37,7 @@ def main(args: list) -> None:
         code = StdModule(file[0])
         code.addFile(file_path)
         project.addModule(code)
-
+    os.mkdir('project')
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
     file = glob.glob('vbaProject.bin')
