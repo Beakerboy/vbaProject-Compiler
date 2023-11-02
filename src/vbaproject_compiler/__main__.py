@@ -1,5 +1,6 @@
 import argparse
 import glob
+import os
 from vbaproject_compiler.vbaProject import VbaProject
 from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 
@@ -29,10 +30,11 @@ def main(args: list) -> None:
     project.addModule(module)
     
     # add the files
-    for file in bas_files:
-        #name = get name from file
-        code = StdModule(name)
-        code.addFile(file)
+    for file_path in bas_files:
+        file_name = os.path.basename(file_path)
+        file = os.path.splitext(file_name)
+        code = StdModule(file[0])
+        code.addFile(file_path)
         project.addModule(code)
     
     ole_file = ProjectOleFile(project)
