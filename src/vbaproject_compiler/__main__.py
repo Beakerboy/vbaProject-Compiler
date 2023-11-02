@@ -24,10 +24,10 @@ def main() -> None:
 
     # add default modules
     module = DocModule('Sheet1')
-    module.addFile('src/vbaproject_compiler/blank_files/Sheet1.cls')
+    module.add_file('src/vbaproject_compiler/blank_files/Sheet1.cls')
     project.addModule(module)
     module = DocModule('ThisWorkbook')
-    module.addFile('src/vbaproject_compiler/blank_files/ThisWorkbook.cls')
+    module.add_file('src/vbaproject_compiler/blank_files/ThisWorkbook.cls')
     project.addModule(module)
 
     # add the files
