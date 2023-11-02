@@ -27,18 +27,18 @@ def main() -> None:
     # add default modules
     module = DocModule('Sheet1')
     module.add_file('src/vbaproject_compiler/blank_files/Sheet1.cls')
-    project.addModule(module)
+    project.add_module(module)
     module = DocModule('ThisWorkbook')
     module.add_file('src/vbaproject_compiler/blank_files/ThisWorkbook.cls')
-    project.addModule(module)
+    project.add_module(module)
 
     # add the files
     for file_path in bas_files:
         file_name = os.path.basename(file_path)
         file = os.path.splitext(file_name)
         code = StdModule(file[0])
-        code.addFile(file_path)
-        project.addModule(code)
+        code.add_file(file_path)
+        project.add_module(code)
     os.mkdir('project')
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
