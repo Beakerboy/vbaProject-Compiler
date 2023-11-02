@@ -16,7 +16,10 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-
+dependencies = [
+    'ms_ovba_compression',
+    'ms_ovba_crypto'
+]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/vbaProject-Compiler"
 "Bug Tracker" = "https://github.com/Beakerboy/vbaProject-Compiler/issues"
