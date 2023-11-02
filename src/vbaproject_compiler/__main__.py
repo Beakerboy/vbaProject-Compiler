@@ -8,9 +8,12 @@ from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 
 
 def main(args: list) -> None:
+    print("in Main")
     parser = argparse.ArgumentParser()
     parser.add_argument("directory",
                         help="The directory that contains your files.")
+    parser.add_argument("dest",
+                        help="out.")
     args = parser.parse_args()
     # cd args.output
     # build a list of all bas, cls, frm, and frx files
