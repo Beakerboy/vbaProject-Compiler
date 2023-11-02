@@ -7,7 +7,7 @@ from vbaproject_compiler.Models.Entities.std_module import StdModule
 from vbaproject_compiler.Views.project_ole_file import ProjectOleFile
 
 
-def main(args: list) -> None:
+def main() -> None:
     raise Exception("IN MAIN!")
     print("in Main", flush=True)
     parser = argparse.ArgumentParser()
