@@ -15,9 +15,9 @@ def main(args: list) -> None:
     # cd args.output
     # build a list of all bas, cls, frm, and frx files
     bas_files = glob.glob(args.directory + '/*.bas')
-    #cls_files = glob.glob('*.cls')
-    #frm_files = glob.glob('*.frm')
-    #frx_files = glob.glob('*.frx')
+    # cls_files = glob.glob('*.cls')
+    # frm_files = glob.glob('*.frm')
+    # frx_files = glob.glob('*.frx')
 
     # create a new project object
     project = VbaProject()
@@ -29,7 +29,7 @@ def main(args: list) -> None:
     module = DocModule('ThisWorkbook')
     module.addFile('src/vbaproject_compiler/blank_files/ThisWorkbook.cls')
     project.addModule(module)
-    
+
     # add the files
     for file_path in bas_files:
         file_name = os.path.basename(file_path)
@@ -37,7 +37,6 @@ def main(args: list) -> None:
         code = StdModule(file[0])
         code.addFile(file_path)
         project.addModule(code)
-    
+
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
-    
