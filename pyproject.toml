@@ -38,3 +38,5 @@ pythonpath = "src"
 testpaths = [
     "tests",
 ]
+[tool.setuptools.package-data]
+"*" = ["*.cls"]
