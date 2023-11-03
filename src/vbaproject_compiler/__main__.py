@@ -33,7 +33,7 @@ def main() -> None:
     module.add_file(base_path + '/blank_files/ThisWorkbook.cls')
     module.normalize_file()
     project.add_module(module)
-
+    project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     # add the files
     for file_path in bas_files:
         file_name = os.path.basename(file_path)
