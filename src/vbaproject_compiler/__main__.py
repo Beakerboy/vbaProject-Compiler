@@ -27,9 +27,11 @@ def main() -> None:
     module = DocModule('Sheet1')
     base_path = os.path.dirname(__file__)
     module.add_file(base_path + '/blank_files/Sheet1.cls')
+    module.normalize_file()
     project.add_module(module)
     module = DocModule('ThisWorkbook')
     module.add_file(base_path + '/blank_files/ThisWorkbook.cls')
+    module.normalize_file()
     project.add_module(module)
 
     # add the files
