@@ -25,7 +25,7 @@ def main() -> None:
 
     # add default modules
     module = DocModule('Sheet1')
-    base_path = os.path.basename(__file__)
+    base_path = os.path.dirname(__file__)
     module.add_file(base_path + '/blank_files/Sheet1.cls')
     project.add_module(module)
     module = DocModule('ThisWorkbook')
