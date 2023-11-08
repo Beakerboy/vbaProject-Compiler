@@ -1,6 +1,7 @@
 import argparse
 import glob
 import os
+import uuid
 from vbaproject_compiler.vbaProject import VbaProject
 from vbaproject_compiler.Models.Entities.doc_module import DocModule
 from vbaproject_compiler.Models.Entities.std_module import StdModule
