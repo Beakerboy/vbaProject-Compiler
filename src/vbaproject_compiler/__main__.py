@@ -42,8 +42,26 @@ def main() -> None:
         code.add_file(file_path)
         code.normalize_file()
         project.add_module(code)
-        print('Added ' + file_path)
-    os.mkdir('project')
+    codepage = 0x04E4
+    codepage_name = "cp" + str(codepage)
+    libid_ref = LibidReference(
+        uuid.UUID("0002043000000000C000000000000046"),
+        "2.0",
+        "0",
+        "C:\\Windows\\System32\\stdole2.tlb",
+        "OLE Automation"
+    )
+    ole_reference = ReferenceRecord(codepage_name, "stdole", libid_ref)
+    libid_ref2 = LibidReference(
+        uuid.UUID("2DF8D04C5BFA101BBDE500AA0044DE52"),
+        "2.0",
+        "0",
+        "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
+        "Microsoft Office 16.0 Object Library"
+    )
+    office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
+    project.add_reference(ole_reference)
+    project.add_reference(office_reference)
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
     file = glob.glob('vbaProject.bin')
