@@ -40,6 +40,7 @@ def main() -> None:
         file = os.path.splitext(file_name)
         code = StdModule(file[0])
         code.add_file(file_path)
+        code.normalize_file()
         project.add_module(code)
         print('Added ' + file_path)
     os.mkdir('project')
