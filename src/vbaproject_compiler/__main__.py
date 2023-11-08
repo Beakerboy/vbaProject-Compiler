@@ -34,7 +34,7 @@ def main() -> None:
     module.add_file(base_path + '/blank_files/Sheet1.cls')
     module.normalize_file()
     guid = uuid.UUID("0002082000000000C000000000000046")
-    sheet1.set_guid(guid)
+    smodule.set_guid(guid)
     project.add_module(module)
     module = DocModule('ThisWorkbook')
     module.add_file(base_path + '/blank_files/ThisWorkbook.cls')
