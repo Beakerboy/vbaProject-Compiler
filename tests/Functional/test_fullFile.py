@@ -3,6 +3,7 @@ import pytest
 import struct
 import unittest.mock
 import uuid
+from ms_cfb.ole_file import OleFile
 from ms_ovba_compression.ms_ovba import MsOvba
 from ms_pcode_assembler.module_cache import ModuleCache
 from vbaproject_compiler.vbaProject import VbaProject
@@ -159,6 +160,9 @@ def test_full_file() -> None:
     # expected.read(512)
 
     # Dir
+    ole_standard = OleFile.create_from_file("tests/blank/vbaProject.bin")
+    ole_new = OleFile.create_from_file("./vbaProject.bin")
+    assert len(ole_standard.dirlist) == len(ole_new.dirlist)
     # Stream sizes will not match due to compression differences
     # assert new.read(512) == expected.read(512)
 
