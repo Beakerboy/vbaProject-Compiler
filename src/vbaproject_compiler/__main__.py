@@ -41,6 +41,7 @@ def main() -> None:
         code = StdModule(file[0])
         code.add_file(file_path)
         project.add_module(code)
+        print('Added ' + file_path)
     os.mkdir('project')
     ole_file = ProjectOleFile(project)
     ole_file.write_file()
