@@ -34,9 +34,10 @@ class DirStream():
         version = IdSizeField(9, 4, 0x65BE0257)
         minor_version = PackedData("H", 17)
         constants = DoubleEncodedString([12, 0x003C], "")
-        self.information = [
-            syskind,
-            compat_version,
+        self.information = [syskind]
+        if self._include_compat:
+            self.information.append[compat_version]
+        self.information.extend([
             lcid,
             lcid_invoke,
             codepage_record,
@@ -48,9 +49,10 @@ class DirStream():
             version,
             minor_version,
             constants
-        ]
+        ])
         self.references = []
         self.modules = []
+        self._include_compat = False
 
     def to_bytes(self: T) -> bytes:
         endien = self.project.endien
@@ -75,6 +77,9 @@ class DirStream():
             output += record.pack(codepage_name, endien)
         output += struct.pack(pack_symbol + "HI", 16, 0)
         return output
+
+    def include_compat(self: T) -> None:
+        self._include_compat = True
 
     def write_file(self: T) -> None:
         bin_f = open("dir.bin", "wb")
