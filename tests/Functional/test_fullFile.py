@@ -164,7 +164,7 @@ def test_full_file() -> None:
     ole_new = OleFile.create_from_file("./vbaProject.bin")
     assert len(ole_standard.dirlist) == len(ole_new.dirlist)
     
-    #assert new.read(512) == expected.read(512)
+    # assert new.read(512) == expected.read(512)
     new.read(512)
     expected.read(512)
 
