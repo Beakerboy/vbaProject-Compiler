@@ -78,7 +78,7 @@ class DirStream():
 
         self.information = [syskind]
         if self._include_compat:
-            self.information.append[compat_version]
+            self.information.append(compat_version)
         self.information.extend([
             lcid,
             lcid_invoke,
