@@ -26,6 +26,7 @@ def test_dirstream() -> None:
     # Create a project with the same attributes
     project = VbaProject()
     stream = DirStream(project)
+    stream.include_compat()
     codepage = 0x04E4
     codepage_name = "cp" + str(codepage)
     guid = uuid.UUID('0002043000000000C000000000000046')
