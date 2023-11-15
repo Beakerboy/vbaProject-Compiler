@@ -238,7 +238,8 @@ def create_cache() -> bytes:
     return ca
 
 
-def create_doc_module(project: VbaProject, name: str, cookie: int, guid_s: str, path: str) -> DocModule:
+def create_doc_module(project: VbaProject, name: str,
+                      cookie: int, guid_s: str, path: str) -> DocModule:
     mod = DocModule(name)
     mod.set_cookie(cookie)
     guid = uuid.UUID(guid_s)
