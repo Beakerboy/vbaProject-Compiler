@@ -101,14 +101,15 @@ def test_full_file() -> None:
     project.set_performance_cache(create_cache())
     project.set_performance_cache_version(0x00B5)
 
+    base_path = ""src/vbaproject_compiler/blank_files/"
     # Add Modules
     this_workbook = create_doc_module(project, "ThisWorkbook", 0xB81C,
                                       "0002081900000000C000000000000046",
-                                      "src/vbaproject_compiler/blank_files/ThisWorkbook.cls")
+                                      base_path + "ThisWorkbook.cls")
 
     sheet1 = create_doc_module(project, "Sheet1", 0x9B9A,
-                                      "0002082000000000C000000000000046",
-                                      "src/vbaproject_compiler/blank_files/Sheet1.cls")
+                               "0002082000000000C000000000000046",
+                               base_path + "Sheet1.cls")
 
     module1 = StdModule("Module1")
     cookie = 0xB241
