@@ -53,7 +53,7 @@ class ModuleBase():
         self_cookie = value
         self.cookie = IdSizeField(0x002C, 2, value)
 
-    def get_cookie(seff: T) -> int:
+    def get_cookie(self: T) -> int:
         return self._cookie
 
     def get_name(self: T) -> str:
