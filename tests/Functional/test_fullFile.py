@@ -101,23 +101,13 @@ def test_full_file() -> None:
     project.set_performance_cache_version(0x00B5)
 
     # Add Modules
-    this_workbook = DocModule("ThisWorkbook")
-    this_workbook.set_cookie(0xB81C)
-    guid = uuid.UUID("0002081900000000C000000000000046")
-    this_workbook.set_guid(guid)
-    module_path = "src/vbaproject_compiler/blank_files/ThisWorkbook.cls"
-    this_workbook.add_file(module_path)
-    this_workbook.normalize_file()
-    this_workbook.set_cache(create_module_cache(0xB81C, guid).to_bytes())
+    this_workbook = create_doc_module("ThisWorkbook", 0xB81C,
+                                      "0002081900000000C000000000000046",
+                                      "src/vbaproject_compiler/blank_files/ThisWorkbook.cls")
 
-    sheet1 = DocModule("Sheet1")
-    sheet1.set_cookie(0x9B9A)
-    guid = uuid.UUID("0002082000000000C000000000000046")
-    sheet1.set_guid(guid)
-    module_path = "src/vbaproject_compiler/blank_files/Sheet1.cls"
-    sheet1.add_file(module_path)
-    sheet1.normalize_file()
-    sheet1.set_cache(create_module_cache(0x9B9A, guid).to_bytes())
+    sheet1 = create_doc_module("Sheet1", 0x9B9A,
+                                      "0002082000000000C000000000000046",
+                                      "src/vbaproject_compiler/blank_files/Sheet1.cls")
 
     module1 = StdModule("Module1")
     module1.set_cookie(0xB241)
@@ -260,3 +250,15 @@ def create_module_cache(cookie: int, guid: uuid.UUID) -> ModuleCache:
     module_cache.guid = [guid]
     module_cache.module_cookie = cookie
     return module_cache
+
+
+def create_doc_module(name: str, cookie: int, guid_s: str, path: str) -> DocModule:
+    mod = DocModule(name)
+    mod.set_cookie(cookie)
+    guid = uuid.UUID(guid_s)
+    mod.set_guid(guid)
+    module_path = path
+    mod.add_file(module_path)
+    mod.normalize_file()
+    mod.set_cache(create_module_cache(cookie, guid).to_bytes())
+    return mod
