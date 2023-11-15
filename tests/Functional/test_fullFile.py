@@ -95,7 +95,8 @@ def test_full_file() -> None:
     office_reference = ReferenceRecord(codepage_name, "Office", libid_ref2)
     project.add_reference(ole_reference)
     project.add_reference(office_reference)
-    project.set_project_cookie(0x08F3)
+    proj_cookie = 0x08F3
+    project.set_project_cookie(proj_cookie)
     project.set_project_id('{9E394C0B-697E-4AEE-9FA6-446F51FB30DC}')
     project.set_performance_cache(create_cache())
     project.set_performance_cache_version(0x00B5)
@@ -110,12 +111,13 @@ def test_full_file() -> None:
                                       "src/vbaproject_compiler/blank_files/Sheet1.cls")
 
     module1 = StdModule("Module1")
-    module1.set_cookie(0xB241)
-    module_cache = ModuleCache(0xB5, 0x08F3)
+    cookie = 0xB241
+    module1.set_cookie(cookie)
+    module_cache = ModuleCache(0xB5, proj_cookie)
     module_cache.clear_variables()
     module_cache.misc = [0x0316, 3, 0, 2, 0xFFFF, "FFFFFFFF", 0]
     module_cache.indirect_table = struct.pack("<iI", -1, 0x78)
-    module_cache.module_cookie = 0xB241
+    module_cache.module_cookie = cookie
     module1.add_workspace(26, 26, 1349, 522, 'Z')
     module_path = "tests/blank/Module1.bas"
     module1.add_file(module_path)
