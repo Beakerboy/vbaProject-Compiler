@@ -50,7 +50,11 @@ class ModuleBase():
         return self._cache
 
     def set_cookie(self: T, value: int) -> None:
+        self_cookie = value
         self.cookie = IdSizeField(0x002C, 2, value)
+
+    def get_cookie(seff: T) -> int:
+        return self._cookie
 
     def get_name(self: T) -> str:
         return self.modName.value
