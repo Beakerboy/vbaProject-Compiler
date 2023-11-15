@@ -101,7 +101,7 @@ def test_full_file() -> None:
     project.set_performance_cache(create_cache())
     project.set_performance_cache_version(0x00B5)
 
-    base_path = ""src/vbaproject_compiler/blank_files/"
+    base_path = "src/vbaproject_compiler/blank_files/"
     # Add Modules
     this_workbook = create_doc_module(project, "ThisWorkbook", 0xB81C,
                                       "0002081900000000C000000000000046",
