@@ -102,11 +102,11 @@ def test_full_file() -> None:
     project.set_performance_cache_version(0x00B5)
 
     # Add Modules
-    this_workbook = create_doc_module("ThisWorkbook", 0xB81C,
+    this_workbook = create_doc_module(project, "ThisWorkbook", 0xB81C,
                                       "0002081900000000C000000000000046",
                                       "src/vbaproject_compiler/blank_files/ThisWorkbook.cls")
 
-    sheet1 = create_doc_module("Sheet1", 0x9B9A,
+    sheet1 = create_doc_module(project, "Sheet1", 0x9B9A,
                                       "0002082000000000C000000000000046",
                                       "src/vbaproject_compiler/blank_files/Sheet1.cls")
 
@@ -237,8 +237,18 @@ def create_cache() -> bytes:
     return ca
 
 
-def create_module_cache(cookie: int, guid: uuid.UUID) -> ModuleCache:
-    module_cache = ModuleCache(0xB5, 0x08F3)
+def create_doc_module(project: VbaProject, name: str, cookie: int, guid_s: str, path: str) -> DocModule:
+    mod = DocModule(name)
+    mod.set_cookie(cookie)
+    guid = uuid.UUID(guid_s)
+    mod.set_guid(guid)
+    module_path = path
+    mod.add_file(module_path)
+    mod.normalize_file()
+
+    cache_ver = project.get_performance_cache_version()
+    proj_cookie = project.get_project_cookie()
+    module_cache = ModuleCache(cache_ver, proj_cookie)
     module_cache.misc = [0x0316, 0x0123, 0x88, 8, 0x18, "00000000", 1]
     indirect_table = ("02 80 FE FF FF FF FF FF 20 00 00 00 FF FF FF FF",
                       "30 00 00 00 02 01 FF FF 00 00 00 00 00 00 00 00",
@@ -251,16 +261,6 @@ def create_module_cache(cookie: int, guid: uuid.UUID) -> ModuleCache:
     module_cache.object_table = bytes.fromhex(" ".join(object_table))
     module_cache.guid = [guid]
     module_cache.module_cookie = cookie
-    return module_cache
 
-
-def create_doc_module(name: str, cookie: int, guid_s: str, path: str) -> DocModule:
-    mod = DocModule(name)
-    mod.set_cookie(cookie)
-    guid = uuid.UUID(guid_s)
-    mod.set_guid(guid)
-    module_path = path
-    mod.add_file(module_path)
-    mod.normalize_file()
-    mod.set_cache(create_module_cache(cookie, guid).to_bytes())
+    mod.set_cache(module_cache.to_bytes())
     return mod
