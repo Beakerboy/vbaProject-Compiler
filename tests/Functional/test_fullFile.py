@@ -180,7 +180,7 @@ def create_cache() -> bytes:
     libraries = []
     delim = []
     libraries.append(LibidReference(
-        "{000204EF-0000-0000-C000-000000000046}",
+        uuid.UUID("000204EF-0000-0000-C000-000000000046"),
         "4.2",
         "9",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\VBA"
@@ -189,7 +189,7 @@ def create_cache() -> bytes:
     ))
     delim.append(0x011A)
     libraries.append(LibidReference(
-        "{00020813-0000-0000-C000-000000000046}",
+        uuid.UUID("00020813-0000-0000-C000-000000000046"),
         "1.9",
         "0",
         "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
@@ -197,7 +197,7 @@ def create_cache() -> bytes:
     ))
     delim.append(0x00BC)
     libraries.append(LibidReference(
-        "{00020430-0000-0000-C000-000000000046}",
+        uuid.UUID("00020430-0000-0000-C000-000000000046"),
         "2.0",
         "0",
         "C:\\Windows\\System32\\stdole2.tlb",
@@ -205,7 +205,7 @@ def create_cache() -> bytes:
     ))
     delim.append(0x0128)
     libraries.append(LibidReference(
-        "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+        uuid.UUID("2DF8D04C-5BFA-101B-BDE5-00AA0044DE52"),
         "2.8",
         "0",
         "C:\\Program Files\\Common Files\\Microsoft Shared\\OFFICE16\\MSO.DLL",
