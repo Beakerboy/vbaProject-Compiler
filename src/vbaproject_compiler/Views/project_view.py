@@ -12,6 +12,10 @@ class ProjectView:
     """
     def __init__(self: T, project: VbaProject) -> None:
         self.project = project
+        self._reserved3 = 0x0003
+
+    def set_reserved3(self: T, value: int) -> None:
+        self._reserved3 = value
 
     def to_bytes(self: T) -> bytes:
         endien_symbol = '<' if self.project.endien == 'little' else '>'
@@ -19,11 +23,10 @@ class ProjectView:
         output = b''
         reserved1 = 0x61CC
         reserved2 = 0x00
-        reserved3 = 0x0003
         cache_version = self.project.get_performance_cache_version()
 
         output += struct.pack(format, reserved1, cache_version,
-                              reserved2, reserved3)
+                              reserved2, self._reserved3)
         return output + self.project.get_performance_cache()
 
     def write_file(self: T) -> None:
