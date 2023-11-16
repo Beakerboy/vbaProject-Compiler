@@ -20,7 +20,7 @@ class Project:
 
         # The HostExtenderInfo string
         guid = "{3832D640-CF90-11CF-8E43-00A0C911005A}"
-        self.hostExtenderInfo = "&H00000001=" + guid +";"VBE;&H00000000"
+        self.hostExtenderInfo = "&H00000001=" + guid + ";VBE;&H00000000"
 
     def add_attribute(self: T, name: str, value: str) -> None:
         self.attributes[name] = value
