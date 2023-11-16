@@ -92,7 +92,7 @@ class VbaProject:
 
     def get_include_projectwm(self: T) -> bool:
         return self._project_wm
-    
+
     # Appenders
     def add_module(self: T, mod: ModuleBase) -> None:
         self.modules.append(mod)
