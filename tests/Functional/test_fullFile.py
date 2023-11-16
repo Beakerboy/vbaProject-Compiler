@@ -75,6 +75,7 @@ def test_full_file() -> None:
     rand = [0x41, 0xBC, 0x7B, 0x7B, 0x37, 0x7B, 0x7B, 0x7B]
     NotSoRandom.set_seed(rand)
     project = VbaProject()
+    project.set_include_projectwm(True)
     codepage = 0x04E4
     codepage_name = "cp" + str(codepage)
     libid_ref = LibidReference(

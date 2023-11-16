@@ -30,6 +30,8 @@ class VbaProject:
 
         self._project_cookie = 0xFFFF
 
+        self._project_wm = False
+
     # Getters and Setters
     def set_project_id(self: T, id: str) -> None:
         self._project_id = id
@@ -84,6 +86,12 @@ class VbaProject:
 
     def get_modules(self: T) -> list:
         return self.modules
+
+    def set_include_projectwm(self: T, value: bool) -> None:
+        self._project_wm = value
+
+    def get_include_projectwm(self: T) -> bool:
+        return self._project_wm
 
     # Appenders
     def add_module(self: T, mod: ModuleBase) -> None:

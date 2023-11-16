@@ -47,10 +47,11 @@ class ProjectOleFile:
 
         directory.add_directory(storage)
 
-        module = ProjectWm(self._project)
-        module.write_file()
-        stream = StreamDirectory("PROJECTwm", "projectwm.bin")
-        directory.add_directory(stream)
+        if self._project.get_include_projectwm():
+            module = ProjectWm(self._project)
+            module.write_file()
+            stream = StreamDirectory("PROJECTwm", "projectwm.bin")
+            directory.add_directory(stream)
 
         module = Project(self._project)
         module.write_file()
