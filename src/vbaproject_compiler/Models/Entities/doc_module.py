@@ -1,5 +1,9 @@
 from ms_ovba_compression.ms_ovba import MsOvba
-from vbaProjectCompiler.Models.Entities.module_base import ModuleBase
+from vbaproject_compiler.Models.Entities.module_base import ModuleBase
+from typing import TypeVar
+
+
+T = TypeVar('T', bound='DocModule')
 
 
 class DocModule(ModuleBase):
@@ -7,28 +11,19 @@ class DocModule(ModuleBase):
     A Document Module is a module record that is associated with a worksheet or
     workbook.
     """
-    def __init__(self, name):
-        self.docTlibVer = 0
+    def __init__(self: T, name: str) -> None:
+        self.doc_tlib_ver = 0
         super(DocModule, self).__init__(name)
         self.type = "Document"
 
         # GUIDs
         self._guid = []
 
-    def toProjectModuleString(self):
+    def to_project_module_string(self: T) -> str:
         return ("Document=" + self.modName.value + "/&H"
-                + self.docTlibVer.to_bytes(4, "big").hex())
+                + self.doc_tlib_ver.to_bytes(4, "big").hex())
 
-    def set_guid(self, guid):
-        if isinstance(guid, list):
-            self._guid = guid
-        else:
-            self._guid = [guid]
-
-    def add_guid(self, guid):
-        self._guid += guid
-
-    def normalize_file(self):
+    def normalize_file(self: T) -> None:
         f = open(self._file_path, "r")
         new_f = open(self._file_path + ".new", "a+", newline='\r\n')
         for i in range(5):
@@ -46,7 +41,7 @@ class DocModule(ModuleBase):
         new_f.writelines([self._attr("Customizable", "True")])
         new_f.close()
 
-    def write_file(self):
+    def write_file(self: T) -> None:
         bin_f = open(self._file_path + ".bin", "wb")
         bin_f.write(self._cache)
         with open(self._file_path + ".new", mode="rb") as new_f:
