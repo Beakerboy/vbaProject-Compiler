@@ -29,6 +29,7 @@ def main() -> None:
     if args.create:
         main_create(args)
 
+
 def main_create(args: argparse.Namespace) -> None:
     # build a list of all bas, cls, frm, and frx files
     bas_files = glob.glob(args.directory + '/**/*.bas', recursive=True)
