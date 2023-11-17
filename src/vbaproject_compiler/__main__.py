@@ -76,4 +76,5 @@ def main() -> None:
     file = glob.glob('vbaProject.bin')
 
 
-main()
+if __name__ == '__main__':
+    main()
